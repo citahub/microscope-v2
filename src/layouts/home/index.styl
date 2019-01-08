@@ -34,6 +34,17 @@
       top 84px
       left 132px
       font-size 16px
+  .generalInfoItemIcon
+    text-align right
+  .generalInfoItemName
+    font-size 18px
+    height 25px
+    color #4a5563
+  .generalInfoItemLabel
+    margin-top 5px
+    font-size 14px
+    height 20px
+    color #979a9e
 
   .blockItem
     height 179px
@@ -41,26 +52,70 @@
     margin-top 20px
     background-color white
     border-radius 4px 4px
-
+    box-shadow 0 4px 16px 0 rgba(86, 129, 204, 0.1)
+    padding 34px 0 34px 0
+    font-size 14px
     &:nth-child(1)
       margin-top 10px
-    >div:nth-child(1)
-      padding-left 39px
-      padding-top 37px
-      width 100%
-      height 100%
-      >div
-        display inline-block
-        vertical-align top
-      >div:nth-child(1)
-        width 96px
-        height 105px
-        background-color blue
-        border-radius 5px 5px
-      >div:nth-child(2)
-        margin-left 15px
-        font-size 14px
-        width 346px
+    .blockItemNumber
+      text-align right
+      margin-left 27px
+      margin-right 15px
+      margin-top 3px
+      width 96px
+      height 105px
+      font-size 16px
+      color white
+      line-height 24px
+      text-align center
+    .blockItemHashLabel
+      color #47484a
+      height 20px
+    .blockItemHash
+      color #5b8ee6
+      height 18px
+      overflow hidden
+      text-overflow ellipsis
+      white-space nowrap
+    .blockItemTranscation
+      margin-top 9px
+      color #47484a
+      height 20px
+      overflow hidden
+      text-overflow ellipsis
+      white-space nowrap
+    .blockItemFrom
+      color #979a9e
+      margin-top 3px
+      height 20px
+      overflow hidden
+      text-overflow ellipsis
+      white-space nowrap
+    .blockItemReward
+      color #979a9e
+      height 20px
+    .blockItemTime
+      font-size 12px
+      color #979a9e
+      overflow hidden
+      text-overflow ellipsis
+      white-space nowrap
+    // >div:nth-child(1)
+    //   padding-left 39px
+    //   padding-top 37px
+    //   width 100%
+    //   height 100%
+    //   >div
+    //     display inline-block
+    //     vertical-align top
+    //   >div:nth-child(1)
+    //     width 96px
+    //     height 105px
+    //     border-radius 5px 5px
+    //   >div:nth-child(2)
+    //     margin-left 15px
+    //     font-size 14px
+    //     width 346px
 
   .transactionItem
     height 179px
@@ -68,5 +123,74 @@
     margin-top 20px
     background-color white
     border-radius 4px 4px
+    box-shadow 0 0 10px 0 rgba(170, 170, 170, 0.2)
+    background-color #ffffff
+    // position relative
+    padding 34px 0 46px 0
+    font-size 14px
+    // &:nth-child(1)
+    //   margin-top 10px
     &:nth-child(1)
       margin-top 10px
+    .transactionItemIcon
+      width 88px
+      text-align right
+      padding-top 5px
+      padding-right 14px
+    .transactionItemDuration
+      width 53px
+
+    .transactionItemTxLabel
+      height 20px
+      color #47484a
+
+
+    .transactionItemTxHash
+      height 18px
+      color #5b8ee6
+      overflow hidden
+      text-overflow ellipsis
+      white-space nowrap
+      // font-family SourceCodePro
+      // font-weight 600
+
+    .transactionItemFromLabel
+      height 20px
+      color #47484a
+
+    .transactionItemToLabel
+      height 20px
+      color #47484a
+
+    .transactionItemFrom
+      height 18px
+      color #5b8ee6
+      overflow hidden
+      text-overflow ellipsis
+      white-space nowrap
+      // font-family SourceCodePro
+      // font-weight 600
+
+
+    .transactionItemTo
+      height 18px
+      color #5b8ee6
+      overflow hidden
+      text-overflow ellipsis
+      white-space nowrap
+      // font-family SourceCodePro
+      // font-weight 600
+
+    .transactionItemValue
+      height 20px
+      color #979a9e
+      overflow hidden
+      text-overflow ellipsis
+      white-space nowrap
+
+    .transactionItemTime
+      font-size 12px
+      color #979a9e
+      overflow hidden
+      text-overflow ellipsis
+      white-space nowrap

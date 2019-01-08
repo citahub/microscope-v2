@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="96" height="105" viewBox="0 0 96 105">
+    <defs>
+        <linearGradient id="b" x1="115.939%" x2="-2.811%" y1="50%" y2="50%">
+            <stop offset="0%" stop-color="#4EADF1"/>
+            <stop offset="100%" stop-color="#5D87DD"/>
+        </linearGradient>
+        <rect id="a" width="96" height="105" rx="6"/>
+    </defs>
+    <use fill="url(#b)" fill-rule="evenodd" opacity=".801" xlink:href="#a"/>
+</svg>

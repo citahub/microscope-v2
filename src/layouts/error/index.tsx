@@ -6,14 +6,14 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as appAction from '../../redux/actions/appAction'
 import { hashHistory } from 'react-router';
-class NotFoundPage  extends React.Component {
-  constructor(props) {
+class NotFoundPage  extends React.Component<any,any> {
+  constructor(props:any) {
     super(props);
   }
   componentDidMount(){
   }
   render() {
-    var self = this;
+    // var self = this;
     return (
       <Layout className='error' bgColor='white'>
         <Content>

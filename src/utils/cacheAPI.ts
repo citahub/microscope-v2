@@ -15,7 +15,7 @@ export function transactionList() {
   return request
     .get(config.queryServer + config.api.transactionList, params, {})
     .then(data => {
-      return data
+      return data && data.result
     })
     .catch(error => {
       throw error

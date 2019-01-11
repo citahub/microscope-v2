@@ -24,3 +24,9 @@ export function getFilterChanges(filterId:any){
 export function getBlockByHash(hash:any){
   return appchain.base.getBlockByHash(hash)
 }
+export function getBlock(key:number|string){
+  return appchain.base.getBlock(key)
+}
+export function getTransaction(hash:string){
+  return appchain.base.getTransaction(hash)
+}

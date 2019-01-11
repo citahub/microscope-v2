@@ -24,8 +24,8 @@ class BlockList  extends React.Component<any,any> {
     var self = this;
     cacheAPI.blockList().then((d:any)=>{
       self.setState({
-        data: d.result.blocks,
-        count: d.result.count
+        data: d.blocks,
+        count: d.count
       })
     })
   }
@@ -59,9 +59,9 @@ class BlockList  extends React.Component<any,any> {
                   self.state.data && self.state.data.map(function(d:any, i:number){
                     return (
                       <tr key={i}>
-                        <td className='blockNumberTd'>{d.header.number}</td>
+                        <td className='blockNumberTd'  onClick={()=>{hashHistory.push("/block/id/" + d.header.number)}}>{d.header.number}</td>
                         <td>
-                          <div className='blockHashTd'>{d.hash}</div>
+                          <div className='blockHashTd' onClick={()=>{hashHistory.push("/block/hash/" + d.hash)}}>{d.hash}</div>
                         </td>
                         <td className='blockTimestampTd'>{d.header.timestamp}</td>
                         <td className='blockTransactionCountTd'>{d.transactionsCount}</td>

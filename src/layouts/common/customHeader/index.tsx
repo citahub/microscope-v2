@@ -28,7 +28,7 @@ class CustomHeader  extends React.Component {
           <div onClick={(e)=>{hashHistory.push('/')}}><img src='images/headLogo_Microscope.png'/></div>
           <div>
               <span className='menu' onClick={()=>{hashHistory.push('/block/list')}}>Block</span>
-              <span className='menu'  onClick={()=>{hashHistory.push('/transition/list')}}>Transition</span>
+              <span className='menu' onClick={()=>{hashHistory.push('/transaction/list')}}>Transition</span>
               <span className='menu'>Static</span>
               <span className='menu'>Setting</span>
           </div>

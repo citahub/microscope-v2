@@ -1,5 +1,17 @@
 import * as request from './request'
 import * as config from './config'
+
+
+export function topTransactions() {
+  return request
+    .get(config.queryServer + config.api.transactionList, {}, {})
+    .then((data:any) => {
+      return data && data.result.transactions
+    })
+    .catch((error:object) => {
+      throw error
+    })
+}
 export function transactionList() {
   var params = {
     // "account":  "the addr transactions related to (from or to)", # hash string
@@ -14,10 +26,21 @@ export function transactionList() {
   }
   return request
     .get(config.queryServer + config.api.transactionList, params, {})
-    .then(data => {
+    .then((data:any) => {
       return data && data.result
     })
-    .catch(error => {
+    .catch((error:object) => {
+      throw error
+    })
+}
+
+export function topBlocks() {
+  return request
+    .get(config.queryServer + config.api.blockList, {}, {})
+    .then((data:any) => {
+      return data && data.result.blocks
+    })
+    .catch((error:object) => {
       throw error
     })
 }
@@ -35,10 +58,10 @@ export function blockList() {
   }
   return request
     .get(config.queryServer + config.api.blockList, params, {})
-    .then(data => {
-      return data
+    .then((data:any) => {
+      return data && data.result
     })
-    .catch(error => {
+    .catch((error:object) => {
       throw error
     })
 }

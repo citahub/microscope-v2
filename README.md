@@ -27,4 +27,5 @@ this is repository of microscope.
 ```
 
 # 3rd libaray
-  2. [rc-menu](https://github.com/react-component/menu)
+  1. [rc-menu](https://github.com/react-component/menu)
+  2. [rc-pagination](https://github.com/react-component/pagination)

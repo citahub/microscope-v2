@@ -64,7 +64,7 @@ class TransitionList  extends React.Component<any,any> {
                       <tr key={i}>
                         <td className='transactionTypeTd'>{d.type}</td>
                         <td>
-                          <div className='transactionHashTd'>{d.hash}</div>
+                          <div className='transactionHashTd' onClick={()=>{hashHistory.push("/transaction/hash/"+d.hash)}}>{d.hash}</div>
                         </td>
                         <td>
                           <div className='transactionFromTd'>{d.from}</div>

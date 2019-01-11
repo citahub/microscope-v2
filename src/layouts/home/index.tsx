@@ -97,7 +97,7 @@ class Home extends React.Component<any,any>{
         metaData: metaData
       })
     })
-    cacheAPI.transactionList().then((data:Array<any>)=>{
+    cacheAPI.topTransactions().then((data:Array<any>)=>{
       // console.log(data,"wuyuy")
       self.setState({
         top10Transactions: data || []

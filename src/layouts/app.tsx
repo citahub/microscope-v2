@@ -11,7 +11,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators, Dispatch } from 'redux'
 
 import * as appAction from '../redux/actions/appAction'
-import { RESIZE_APP, AppAction } from '../redux/actions/appAction'
+import {  AppAction } from '../redux/actions/appAction'
 import { IRootState } from '../redux/states'
 import { AppState } from '../redux/states/appState'
 import { IntlProvider, addLocaleData } from 'react-intl';
@@ -40,7 +40,7 @@ function chooseLocale(language:string){
   return obj;
 }
 
-class App extends React.Component <{app:AppState,appAction:{resize: (width: number,height: number)=>RESIZE_APP}}>{
+class App extends React.Component <any, any>{
   unlisten: ()=>void;
   componentDidMount() {
     var self = this;
@@ -68,7 +68,7 @@ class App extends React.Component <{app:AppState,appAction:{resize: (width: numb
 
 
   }
-  componentDidCatch(error:object, info:object) {
+  componentDidCatch(error:any, info:any) {
     console.log(error,"componentDidCatch");
     console.log(info,"componentDidCatch");
   }

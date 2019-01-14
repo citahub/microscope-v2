@@ -5,16 +5,12 @@ import Content from '../../components/content'
 import CustomHeader from '../common/customHeader'
 import CustomFooter from '../common/customFooter'
 
-
-
-// import { hashHistory } from 'react-router';
-
+import { hashHistory } from 'react-router';
 // import { FormattedMessage } from 'react-intl';
+// import * as citaAPI from '../../utils/citaAPI';
+// import * as cacheAPI from '../../utils/cacheAPI';
 
-import * as citaAPI from '../../utils/citaAPI';
-import * as cacheAPI from '../../utils/cacheAPI';
-
-class Home extends React.Component<any,any>{
+class Home extends React.Component<any, any>{
   constructor(props:any) {
     super(props);
     this.state = {
@@ -25,54 +21,20 @@ class Home extends React.Component<any,any>{
 
   }
   componentDidMount(){
-    // citaAPI.base.getBlockNumber().then((d)=>{
-    //   var blockId = d;
-    //   // console.log(blockId);
-    //   citaAPI.base.getBlock(blockId).then(function(block){
-    //     console.log(block);
-    //
-    //   })
-    //
-    // })
-    var self = this;
-    console.log(citaAPI);
-    citaAPI.newBlockFilter().then((filterId:string)=>{
-      console.log(filterId);
-      var newBlock = function(){
-        citaAPI.getFilterChanges(filterId).then((newBlocks: Array<any>)=>{
-          console.log(newBlocks,new Date());
-          newBlocks.forEach(function(newBlock: any){
-            citaAPI.getBlockByHash(newBlock).then(function(block: any){
-              var newTop10Blocks = self.state.top10Blocks.concat([block]);
-              newTop10Blocks.sort((b1:any,b2:any)=>{
-                if(b1.header.timestamp<=b2.header.timestamp) {
-                  return 1;
-                }else{
-                  return -1;
-                }
-              });
-              newTop10Blocks = newTop10Blocks.slice(0,10);
-              console.log(newTop10Blocks);
-              self.setState({
-                top10Blocks: newTop10Blocks
-              })
-            })
-          })
-          setTimeout(()=>{newBlock()},3000);
-        })
-      }
-      newBlock();
-    })
 
-    // citaAPI.base.newBlockFilter().then((filterId)=>{
+    var self = this;
+    self.props.networkAction.getMetaData();
+    self.props.blockAction.topBlocks();
+    self.props.transactionAction.topTransactions();
+    // citaAPI.newBlockFilter().then((filterId:string)=>{
     //   console.log(filterId);
     //   var newBlock = function(){
-    //     citaAPI.base.getFilterChanges(filterId).then((newBlocks)=>{
+    //     citaAPI.getFilterChanges(filterId).then((newBlocks: Array<any>)=>{
     //       console.log(newBlocks,new Date());
-    //       newBlocks.forEach(function(newBlock){
-    //         citaAPI.base.getBlockByHash(newBlock,true).then(function(block){
+    //       newBlocks.forEach(function(newBlock: any){
+    //         citaAPI.getBlockByHash(newBlock).then(function(block: any){
     //           var newTop10Blocks = self.state.top10Blocks.concat([block]);
-    //           newTop10Blocks.sort((b1,b2)=>{
+    //           newTop10Blocks.sort((b1:any,b2:any)=>{
     //             if(b1.header.timestamp<=b2.header.timestamp) {
     //               return 1;
     //             }else{
@@ -91,29 +53,18 @@ class Home extends React.Component<any,any>{
     //   }
     //   newBlock();
     // })
-    citaAPI.getMetaData().then((metaData:object)=>{
-      console.log(metaData,"werwerewrewr");
-      self.setState({
-        metaData: metaData
-      })
-    })
-    cacheAPI.topTransactions().then((data:Array<any>)=>{
-      // console.log(data,"wuyuy")
-      self.setState({
-        top10Transactions: data || []
-      })
-    })
-    // citaAPI.base.newMessageFilter().then((filterId)=>{
-    //   console.log(filterId,"newFilter");
-    //   var newChange = function(){
-    //     citaAPI.base.getFilterChanges(filterId).then((d2)=>{
-    //       console.log(d2,"newFilter");
-    //       setTimeout(()=>{newChange()},3000);
-    //     })
-    //   }
-    //   newChange();
-    //
+    // citaAPI.getMetaData().then((metaData:object)=>{
+    //   console.log(metaData,"werwerewrewr");
+    //   self.setState({
+    //     metaData: metaData
+    //   })
     // })
+    // cacheAPI.topTransactions().then((data:Array<any>)=>{
+    //   self.setState({
+    //     top10Transactions: data || []
+    //   })
+    // })
+
   }
 
   // onScrollHander(event){
@@ -124,7 +75,9 @@ class Home extends React.Component<any,any>{
   render() {
     var self = this;
     // var bgWidth = self.props.app.appWidth;
-    var metaData = self.state.metaData;
+    var metaData = self.props.network.metaData;
+    var topBlocks = self.props.block.topList;
+    var topTransactions = self.props.transaction.topList;
     return (
       <Layout className='home' bgColor="rgba(249, 249, 249, 0.56)">
         <Content style={{ width: '100%', height: '100%' }}>
@@ -238,7 +191,7 @@ class Home extends React.Component<any,any>{
                   </div>
                   <div>
                     {
-                      self.state.top10Blocks.map(function(block:any,i:number){
+                      topBlocks && topBlocks.map(function(block:any,i:number){
                         return (
                           <div key={i} className='blockItem withRow'>
                             <div style={{ width: 138 }}>
@@ -249,7 +202,7 @@ class Home extends React.Component<any,any>{
                             <div className='withRowLeftAuto'>
                               <div className='blockItemHashLabel'>Hash:</div>
                               <div className='blockItemHash'>{block.hash}</div>
-                              <div className='blockItemTranscation'>包含 {block.body.transactions.length} 笔交易</div>
+                              <div className='blockItemTranscation'>包含 {block.transactionsCount} 笔交易</div>
                               <div className='blockItemFrom'>提案来自…{block.header.proposer}…</div>
                               <div className='blockItemReward'>Block Reward 3.00539 Ether</div>
 
@@ -270,7 +223,7 @@ class Home extends React.Component<any,any>{
                   </div>
                   <div>
                     {
-                      self.state.top10Transactions && self.state.top10Transactions.map(function(d:any,i:number){
+                      topTransactions && topTransactions.map(function(d:any,i:number){
                         return (
                           <div key={i} className='transactionItem withRow'>
                             <div style={{ width: 88 }}>
@@ -288,7 +241,7 @@ class Home extends React.Component<any,any>{
                                   <div className='transactionItemFromLabel'>
                                     From：
                                   </div>
-                                  <div className='transactionItemFrom'>
+                                  <div className='transactionItemFrom' onClick={()=>{hashHistory.push("/account/" + d.from)}}>
                                     {d.from}
                                   </div>
                                 </div>
@@ -296,7 +249,7 @@ class Home extends React.Component<any,any>{
                                   <div className='transactionItemToLabel'>
                                     To：
                                   </div>
-                                  <div className='transactionItemTo'>
+                                  <div className='transactionItemTo' onClick={()=>{hashHistory.push("/account/" + d.to)}}>
                                     {d.to}
                                   </div>
                                 </div>
@@ -325,9 +278,18 @@ class Home extends React.Component<any,any>{
 import {injectIntl} from 'react-intl';
 import { bindActionCreators } from 'redux'
 import * as appAction from '../../redux/actions/appAction'
+import * as networkAction from '../../redux/actions/network'
+import * as blockAction from '../../redux/actions/block'
+import * as transactionAction from '../../redux/actions/transaction'
+
+// import { NetworkAction } from '../../redux/actions/network'
+
 import { IRootState } from '../../redux/states'
 import { connect } from 'react-redux'
 
-export default connect( (state:IRootState)=> ({app: state.app}), dispatch => ({
-  appAction: bindActionCreators(appAction, dispatch)
+export default connect( (state:IRootState)=> ({app: state.app,network: state.network,block:state.block,transaction: state.transaction}), (dispatch) => ({
+  appAction: bindActionCreators(appAction, dispatch),
+  networkAction: bindActionCreators(networkAction, dispatch),
+  blockAction: bindActionCreators(blockAction, dispatch),
+  transactionAction: bindActionCreators(transactionAction, dispatch),
 }))(injectIntl(Home))

@@ -7,30 +7,24 @@ import CustomFooter from '../common/customFooter'
 
 import { hashHistory } from 'react-router';
 
-import * as cacheAPI from '../../utils/cacheAPI';
 
 import Pagination from 'rc-pagination'
 import 'rc-pagination/assets/index.css';
 
 class TransitionList  extends React.Component<any,any> {
-  constructor(props:any) {
-    super(props);
-    this.state={
-      data: [],
-      count: 0
-    }
-  }
   componentDidMount(){
     var self = this;
-    cacheAPI.transactionList().then((d:any)=>{
-      self.setState({
-        data: d.transactions,
-        count: d.count
-      })
-    })
+    // cacheAPI.transactionList(1,10).then((d:any)=>{
+    //   self.setState({
+    //     data: d.transactions,
+    //     count: d.count
+    //   })
+    // })
+    self.props.transactionAction.getTransactionList(1,10);
   }
   render() {
     var self = this;
+    var data = self.props.transaction.list;
     return (
       <Layout className='transactionList' bgColor='white'>
         <Content style={{ width: '100%', height: '100%' }}>
@@ -59,7 +53,7 @@ class TransitionList  extends React.Component<any,any> {
                   </thead>
                   <tbody>
                   {
-                  self.state.data && self.state.data.map(function(d:any, i:number){
+                  data.list && data.list.map(function(d:any, i:number){
                     return (
                       <tr key={i}>
                         <td className='transactionTypeTd'>{d.type}</td>
@@ -85,7 +79,7 @@ class TransitionList  extends React.Component<any,any> {
                   </tbody>
                 </table>
                 <div style={{ float: 'right'}}>
-                  <Pagination onChange={()=>{}} current={1} total={ Math.ceil(self.state.count /10) } />
+                  <Pagination onChange={()=>{}} current={1} total={ Math.ceil(data.total /10) } />
                 </div>
               </div>
             </div>
@@ -100,9 +94,12 @@ class TransitionList  extends React.Component<any,any> {
 import {injectIntl} from 'react-intl';
 import { bindActionCreators } from 'redux'
 import * as appAction from '../../redux/actions/appAction'
+import * as transactionAction from '../../redux/actions/transaction'
+
 import { IRootState } from '../../redux/states'
 import { connect } from 'react-redux'
 
-export default connect( (state:IRootState)=> ({app: state.app}), dispatch => ({
-  appAction: bindActionCreators(appAction, dispatch)
+export default connect( (state:IRootState)=> ({app: state.app, transaction: state.transaction}), dispatch => ({
+  appAction: bindActionCreators(appAction, dispatch),
+  transactionAction: bindActionCreators(transactionAction, dispatch),
 }))(injectIntl(TransitionList))

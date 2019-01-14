@@ -12,7 +12,7 @@ export function topTransactions() {
       throw error
     })
 }
-export function transactionList() {
+export function transactionList(pageNum:number,pageSize:number) {
   var params = {
     // "account":  "the addr transactions related to (from or to)", # hash string
     // "from":  "the addr transactions from", # hash string
@@ -44,7 +44,7 @@ export function topBlocks() {
       throw error
     })
 }
-export function blockList() {
+export function blockList(pageNum:number,pageSize:number) {
   var params = {
     // "account":  "the addr transactions related to (from or to)", # hash string
     // "from":  "the addr transactions from", # hash string

@@ -8,6 +8,7 @@ import BlockList from '../layouts/block/list'
 import BlockDetail from '../layouts/block/detail'
 import TransactionList from '../layouts/transaction/list'
 import TransactionDetail from '../layouts/transaction/detail'
+import AccountDetail from '../layouts/account/detail'
 
 import NotFoundPage from '../layouts/error/index'
 export default function() {
@@ -20,6 +21,7 @@ export default function() {
         <Route path='/block/id/:id' component={BlockDetail} />
         <Route path='/transaction/list' component={TransactionList} />
         <Route path='/transaction/hash/:hash' component={TransactionDetail} />
+        <Route path='/account/:address' component={AccountDetail} />
         <Route path='/404' component={NotFoundPage} />
         <Redirect from="*" to="/404" />
       </Route>

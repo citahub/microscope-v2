@@ -7,7 +7,6 @@ import CustomFooter from '../common/customFooter'
 
 import { hashHistory } from 'react-router';
 
-import * as citaAPI from '../../utils/citaAPI';
 
 
 class BlockDetail  extends React.Component<any,any> {
@@ -27,16 +26,17 @@ class BlockDetail  extends React.Component<any,any> {
     // }else if(params && params.id){
     //
     // }
-    citaAPI.getBlock(params.hash || params.id).then((block: any)=>{
-      console.log(block);
-      self.setState({
-        data: block
-      })
-    })
+    // citaAPI.getBlock(params.hash || params.id).then((block: any)=>{
+    //   console.log(block);
+    //   self.setState({
+    //     data: block
+    //   })
+    // })
+    self.props.blockAction.getBlock(params.hash || params.id);
   }
   render() {
     var self = this;
-    var data = self.state.data;
+    var data = self.props.block.item;
     return (
       <Layout className='blockDetail' bgColor='#fbfbfb'>
         <Content style={{ width: '100%', height: '100%' }}>
@@ -106,9 +106,13 @@ class BlockDetail  extends React.Component<any,any> {
 import {injectIntl} from 'react-intl';
 import { bindActionCreators } from 'redux'
 import * as appAction from '../../redux/actions/appAction'
+import * as blockAction from '../../redux/actions/block'
+
 import { IRootState } from '../../redux/states'
 import { connect } from 'react-redux'
 
-export default connect( (state:IRootState)=> ({app: state.app}), dispatch => ({
-  appAction: bindActionCreators(appAction, dispatch)
+export default connect( (state:IRootState)=> ({app: state.app,block:state.block}), dispatch => ({
+  appAction: bindActionCreators(appAction, dispatch),
+  blockAction: bindActionCreators(blockAction, dispatch)
+
 }))(injectIntl(BlockDetail))

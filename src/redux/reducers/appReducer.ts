@@ -1,5 +1,5 @@
 import * as constants from '../actionTypes'
-
+import { AppAction } from '../actions/appAction'
 import { AppState } from '../states/appState'
 
 const initialState: AppState = {
@@ -23,15 +23,13 @@ const initialState: AppState = {
   appLanguage: navigator.language || 'en'
 }
 
-export default function(state:AppState = initialState, action: any) {
-  const { payload } = action
+export default function(state:AppState = initialState, action: AppAction) {
   switch (action.type) {
     case constants.TOAST:
       return {
         ...state,
         toast: {
           ...state.toast,
-          ...payload
         }
       }
     case constants.SHOW_LOADING:

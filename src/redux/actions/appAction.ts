@@ -1,34 +1,36 @@
 import { createAction } from 'redux-actions'
 import * as constants from '../actionTypes'
+import { Modal,ToastMessage } from '../states/appState'
 
-export interface SWITCH_LANGUAGE {
+interface SWITCH_LANGUAGE {
     type: constants.SWITCH_LANGUAGE;
     data: object | string;
 }
-export interface RESIZE_APP {
+interface RESIZE_APP {
     type: constants.RESIZE_APP;
-    data: object;
+    data: {
+      appWidth: number,
+      appHeight: number
+    };
 }
-export interface TOAST {
+interface TOAST {
     type: constants.TOAST;
-    data: object;
+    data: ToastMessage;
 }
-export interface SHOW_LOADING {
+interface SHOW_LOADING {
     type: constants.SHOW_LOADING;
     maskTopPoz: number;
     maskColor: string;
 }
-export interface HIDE_LOADING{
+interface HIDE_LOADING{
   type: constants.HIDE_LOADING;
 
 }
-export interface SHOW_MODAL{
+interface SHOW_MODAL{
   type: constants.SHOW_MODAL;
-  data: {
-
-  };
+  data: Modal;
 }
-export interface HIDE_MODAL{
+interface HIDE_MODAL{
   type: constants.HIDE_MODAL;
 }
 export type AppAction = SWITCH_LANGUAGE | RESIZE_APP | TOAST | SHOW_MODAL | HIDE_MODAL | SHOW_LOADING | HIDE_LOADING;
@@ -73,13 +75,10 @@ export function hideLoading():HIDE_LOADING {
   }
 }
 
-export function showModal(ui:any, uiProps:object):SHOW_MODAL {
+export function showModal(modal:Modal):SHOW_MODAL {
   return {
     type: constants.SHOW_MODAL,
-    data: {
-      ui: ui,
-      uiProps: uiProps
-    }
+    data: modal
   }
 }
 export function hideModal():HIDE_MODAL {

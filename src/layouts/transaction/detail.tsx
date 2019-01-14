@@ -7,16 +7,9 @@ import CustomFooter from '../common/customFooter'
 
 import { hashHistory } from 'react-router';
 
-import * as citaAPI from '../../utils/citaAPI';
 
 
 class TransactionDetail  extends React.Component<any,any> {
-  constructor(props:any) {
-    super(props);
-    this.state={
-      data: null,
-    }
-  }
   componentDidMount(){
     var self = this;
     console.log(self.props.location);
@@ -27,16 +20,17 @@ class TransactionDetail  extends React.Component<any,any> {
     // }else if(params && params.id){
     //
     // }
-    citaAPI.getTransaction(params.hash).then((transaction: any)=>{
-      console.log(transaction);
-      self.setState({
-        data: transaction
-      })
-    })
+    // citaAPI.getTransaction(params.hash).then((transaction: any)=>{
+    //   console.log(transaction);
+    //   self.setState({
+    //     data: transaction
+    //   })
+    // })
+    self.props.transactionAction.getTransaction(params.hash);
   }
   render() {
     var self = this;
-    var data = self.state.data;
+    var data = self.props.transaction.item;
     return (
       <Layout className='transactionDetail' bgColor='#fbfbfb'>
         <Content style={{ width: '100%', height: '100%' }}>
@@ -113,9 +107,12 @@ class TransactionDetail  extends React.Component<any,any> {
 import {injectIntl} from 'react-intl';
 import { bindActionCreators } from 'redux'
 import * as appAction from '../../redux/actions/appAction'
+import * as transactionAction from '../../redux/actions/transaction'
+
 import { IRootState } from '../../redux/states'
 import { connect } from 'react-redux'
 
-export default connect( (state:IRootState)=> ({app: state.app}), dispatch => ({
-  appAction: bindActionCreators(appAction, dispatch)
+export default connect( (state:IRootState)=> ({app: state.app,transaction: state.transaction}), dispatch => ({
+  appAction: bindActionCreators(appAction, dispatch),
+  transactionAction: bindActionCreators(transactionAction, dispatch),
 }))(injectIntl(TransactionDetail))

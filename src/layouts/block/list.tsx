@@ -7,7 +7,7 @@ import CustomFooter from '../common/customFooter'
 
 import { hashHistory } from 'react-router';
 
-import * as cacheAPI from '../../utils/cacheAPI';
+// import * as cacheAPI from '../../utils/cacheAPI';
 
 import Pagination from 'rc-pagination'
 import 'rc-pagination/assets/index.css';
@@ -15,22 +15,25 @@ import 'rc-pagination/assets/index.css';
 class BlockList  extends React.Component<any,any> {
   constructor(props:any) {
     super(props);
-    this.state={
-      data: [],
-      count: 0
-    }
+    // this.state={
+    //   data: [],
+    //   count: 0
+    // }
   }
   componentDidMount(){
     var self = this;
-    cacheAPI.blockList().then((d:any)=>{
-      self.setState({
-        data: d.blocks,
-        count: d.count
-      })
-    })
+    // cacheAPI.blockList(1,10).then((d:any)=>{
+    //   self.setState({
+    //     data: d.blocks,
+    //     count: d.count
+    //   })
+    // })
+    self.props.blockAction.getBlockList(1,10);
+
   }
   render() {
     var self = this;
+    var data = self.props.block.list;
     return (
       <Layout className='blockList' bgColor='white'>
         <Content style={{ width: '100%', height: '100%' }}>
@@ -56,7 +59,7 @@ class BlockList  extends React.Component<any,any> {
                   </thead>
                   <tbody>
                   {
-                  self.state.data && self.state.data.map(function(d:any, i:number){
+                  data.list && data.list.map(function(d:any, i:number){
                     return (
                       <tr key={i}>
                         <td className='blockNumberTd'  onClick={()=>{hashHistory.push("/block/id/" + d.header.number)}}>{d.header.number}</td>
@@ -73,7 +76,7 @@ class BlockList  extends React.Component<any,any> {
                   </tbody>
                 </table>
                 <div style={{ float: 'right'}}>
-                  <Pagination onChange={()=>{}} current={1} total={ Math.ceil(self.state.count /10) } />
+                  <Pagination onChange={()=>{}} current={1} total={ Math.ceil(data.total /10) } />
                 </div>
               </div>
             </div>
@@ -88,9 +91,11 @@ class BlockList  extends React.Component<any,any> {
 import {injectIntl} from 'react-intl';
 import { bindActionCreators } from 'redux'
 import * as appAction from '../../redux/actions/appAction'
+import * as blockAction from '../../redux/actions/block'
 import { IRootState } from '../../redux/states'
 import { connect } from 'react-redux'
 
-export default connect( (state:IRootState)=> ({app: state.app}), dispatch => ({
-  appAction: bindActionCreators(appAction, dispatch)
+export default connect( (state:IRootState)=> ({app: state.app,block:state.block}), dispatch => ({
+  appAction: bindActionCreators(appAction, dispatch),
+  blockAction: bindActionCreators(blockAction, dispatch),
 }))(injectIntl(BlockList))

@@ -9,11 +9,8 @@ export default function utilsMiddleware({ dispatch }) {
       return next(action);
     }
     if (type.indexOf('FAIL') > -1) {
-      if (typeof action.error === 'object') {
-        dispatch(toast(action.error.message));
-      }
+      dispatch(toast(action.error.message));
     }
-
     next(action);
   }
 }

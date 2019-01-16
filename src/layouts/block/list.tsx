@@ -12,20 +12,24 @@ import { timePassed } from '../../utils/time'
 
 import Pagination from 'rc-pagination'
 import 'rc-pagination/assets/index.css';
+import Select from 'rc-select';
+import 'rc-select/assets/index.css';
 
 class BlockList  extends React.Component<any,any> {
   componentDidMount(){
     var self = this;
     var params = self.props.location.query;
-    var pageNum = params.pageNum ? parseInt(params.pageNum): 1
-    self.props.blockAction.getBlockList(pageNum,10);
+    var pageNum = params.pageNum ? parseInt(params.pageNum): 1;
+    var pageSize = params.pageSize ? parseInt(params.pageSize): 10;
+    self.props.blockAction.getBlockList(pageNum,pageSize);
   }
   componentWillReceiveProps(nextProps:any){
     var self = this;
     if(JSON.stringify(nextProps.location.query) !== JSON.stringify(this.props.location.query)){
       var params = nextProps.location.query;
       var pageNum = params.pageNum ? parseInt(params.pageNum): 1;
-      self.props.blockAction.getBlockList(pageNum,10);
+      var pageSize = params.pageSize ? parseInt(params.pageSize): 10;
+      self.props.blockAction.getBlockList(pageNum,pageSize);
     }
   }
   render() {
@@ -75,9 +79,20 @@ class BlockList  extends React.Component<any,any> {
                   </tbody>
                 </table>
                 <div style={{ float: 'right'}}>
-                  <Pagination onChange={(page:number)=>{
-                    hashHistory.push('/block/list?pageNum=' + page)
-                  }} current={data.pageNum} total={ data.total } />
+                  <Pagination
+                    selectComponentClass={Select}
+                    current={data.pageNum}
+                    total={ data.total }
+                    showQuickJumper={{ goButton: <button>确定</button> }}
+                    defaultPageSize={data.pageSize}
+                    showSizeChanger={true}
+                    onShowSizeChange={(current:number, pageSize:number)=>{
+                      hashHistory.push('/block/list?pageNum=' + current+'&pageSize=' + pageSize)
+                    }}
+                    onChange={(current:number, pageSize:number)=>{
+                      hashHistory.push('/block/list?pageNum=' + current+'&pageSize=' + pageSize)
+                    }}
+                  />
                 </div>
               </div>
             </div>

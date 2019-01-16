@@ -45,6 +45,7 @@
     "key-mirror": "^1.0.1",
     "rc-menu": "^7.4.20",
     "rc-pagination": "^1.17.8",
+    "rc-select": "^8.7.0",
     "react": "16.2.0",
     "react-dom": "16.2.0",
     "react-id-swiper": "^1.6.8",

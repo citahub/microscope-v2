@@ -15,7 +15,7 @@ interface RESIZE_APP {
 }
 interface TOAST {
     type: constants.TOAST;
-    data: ToastMessage;
+    payload: ToastMessage;
 }
 interface SHOW_LOADING {
     type: constants.SHOW_LOADING;

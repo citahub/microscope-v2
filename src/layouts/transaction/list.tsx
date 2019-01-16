@@ -15,15 +15,17 @@ class TransitionList  extends React.Component<any,any> {
   componentDidMount(){
     var self = this;
     var params = self.props.location.query;
-    var pageNum = params.pageNum ? parseInt(params.pageNum): 1
-    self.props.transactionAction.getTransactionList(pageNum,10);
+    var pageNum = params.pageNum ? parseInt(params.pageNum): 1;
+    var pageSize = params.pageSize ? parseInt(params.pageSize): 10;
+    self.props.transactionAction.getTransactionList(pageNum,pageSize);
   }
   componentWillReceiveProps(nextProps:any){
     var self = this;
     if(JSON.stringify(nextProps.location.query) !== JSON.stringify(this.props.location.query)){
       var params = nextProps.location.query;
       var pageNum = params.pageNum ? parseInt(params.pageNum): 1;
-      self.props.transactionAction.getTransactionList(pageNum,10);
+      var pageSize = params.pageSize ? parseInt(params.pageSize): 10;
+      self.props.transactionAction.getTransactionList(pageNum,pageSize);
     }
   }
   render() {
@@ -44,7 +46,7 @@ class TransitionList  extends React.Component<any,any> {
                   高级选择器
                 </div>
               </div>
-              <TransactionTable data={data} globalTickTime={globalTickTime} onChange={(page:number)=>{  hashHistory.push('/transaction/list?pageNum=' + page)}}/>
+              <TransactionTable data={data} globalTickTime={globalTickTime} onChange={(page:number, pageSize:number)=>{  hashHistory.push('/transaction/list?pageNum=' + page + '&pageSize=' + pageSize)}}/>
             </div>
           </div>
 

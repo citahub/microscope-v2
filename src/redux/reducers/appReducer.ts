@@ -30,7 +30,7 @@ export default function(state:AppState = initialState, action: AppAction) {
       return {
         ...state,
         toast: {
-          ...state.toast,
+          ...action.payload,
         }
       }
     case constants.SHOW_LOADING:

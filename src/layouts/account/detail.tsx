@@ -16,13 +16,16 @@ class AccountDetail  extends React.Component<any,any> {
     var self = this;
     var address = self.props.params.address;
     var params = self.props.location.query;
-    var pageNum = params.pageNum ? parseInt(params.pageNum): 1
-    self.props.accountAction.getTransactionListByAccount(address,pageNum,10)
+    var pageNum = params.pageNum ? parseInt(params.pageNum): 1;
+    var pageSize = params.pageSize ? parseInt(params.pageSize): 10
+    self.props.accountAction.getTransactionListByAccount(address,pageNum,pageSize)
   }
   componentWillReceiveProps(nextProps:any){
     var self = this;
     var address = self.props.params.address;
     var pageNum = parseInt(self.props.location.query.pageNum) || 1;
+    var pageSize = parseInt(self.props.location.query.pageSize) || 10
+
     var fetchData = false;
     if(nextProps.params.address !== self.props.params.address){
       address = nextProps.params.address;
@@ -31,10 +34,11 @@ class AccountDetail  extends React.Component<any,any> {
     if(JSON.stringify(nextProps.location.query) !== JSON.stringify(this.props.location.query)){
       var params = nextProps.location.query;
       pageNum = params.pageNum ? parseInt(params.pageNum): 1;
+      pageSize = params.pageSize ? parseInt(params.pageSize): 1;
       fetchData = true
     }
     if(fetchData){
-      self.props.accountAction.getTransactionListByAccount(address,pageNum,10)
+      self.props.accountAction.getTransactionListByAccount(address,pageNum,pageSize)
     }
   }
   render() {
@@ -58,7 +62,7 @@ class AccountDetail  extends React.Component<any,any> {
 
               </div>
               <div  className='accountBody'>
-                <TransactionTable data={data} globalTickTime={globalTickTime} onChange={(page:number)=>{  hashHistory.push('/account/'+ account+ '?pageNum=' + page)}}/>
+                <TransactionTable data={data} globalTickTime={globalTickTime} onChange={(pageNum:number, pageSize:number)=>{  hashHistory.push('/account/'+ account+ '?pageNum=' + pageNum +'&pageSize=' + pageSize)}}/>
               </div>
             </div>
           </div>

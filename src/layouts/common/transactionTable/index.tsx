@@ -2,6 +2,8 @@ import * as React from 'react'
 import './index.styl'
 import Pagination from 'rc-pagination'
 import 'rc-pagination/assets/index.css';
+import Select from 'rc-select';
+import 'rc-select/assets/index.css';
 
 import { timePassed } from '../../../utils/time'
 import { hashHistory } from 'react-router';
@@ -55,9 +57,20 @@ class TransactionTable  extends React.Component<any,any> {
           </tbody>
         </table>
         <div style={{ float: 'right'}}>
-          <Pagination onChange={(page:number)=>{
-            self.props.onChange(page);
-          }} current={data.pageNum} total={ data.total } />
+          <Pagination
+            selectComponentClass={Select}
+            current={data.pageNum}
+            total={ data.total }
+            showQuickJumper={{ goButton: <button>确定</button> }}
+            defaultPageSize={data.pageSize}
+            showSizeChanger={true}
+            onShowSizeChange={(current:number, pageSize:number)=>{
+              self.props.onChange(current,pageSize);
+            }}
+            onChange={(current:number, pageSize:number)=>{
+              self.props.onChange(current,pageSize);
+            }}
+          />
         </div>
       </div>
     );

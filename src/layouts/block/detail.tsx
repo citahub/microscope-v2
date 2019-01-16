@@ -10,28 +10,9 @@ import { hashHistory } from 'react-router';
 
 
 class BlockDetail  extends React.Component<any,any> {
-  constructor(props:any) {
-    super(props);
-    this.state={
-      data: null,
-    }
-  }
   componentDidMount(){
     var self = this;
-    console.log(self.props.location);
-    console.log(self.props.params);
     var params = self.props.params;
-    // if(params && params.hash){
-    //
-    // }else if(params && params.id){
-    //
-    // }
-    // citaAPI.getBlock(params.hash || params.id).then((block: any)=>{
-    //   console.log(block);
-    //   self.setState({
-    //     data: block
-    //   })
-    // })
     self.props.blockAction.getBlock(params.hash || params.id);
   }
   render() {
@@ -45,8 +26,10 @@ class BlockDetail  extends React.Component<any,any> {
             <div className='container'>
               <div className='blockNav'>
                 <div className='withRow blockBodyRow'>
-                  <div style={{ color: '#47484a', fontSize: 16 }}>Block: #</div>
-                  <div className='withRowLeftAuto'></div>
+                  <div style={{ color: '#47484a', fontSize: 16 }}>Block: # {data && parseInt(data.header.number)}</div>
+                  <div className='withRowLeftAuto'>
+                    
+                  </div>
                 </div>
               </div>
               <div  className='blockBody'>

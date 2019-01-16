@@ -8,18 +8,21 @@ export function topTransactions() {
   return cacheAPI.topTransactions()
 }
 export function getTransaction(key:string) {
-  return citaAPI.getTransaction(key)
+  return cacheAPI.getTransaction(key)
 }
 export function getTransactionList(pageNum:number,pageSize:number) {
-  return cacheAPI.transactionList(pageNum,pageSize)
+  return cacheAPI.transactionList(pageNum,pageSize,null)
 }
 
+export function getTransactionListByAccount(account:string, pageNum:number,pageSize:number) {
+  return cacheAPI.transactionList(pageNum,pageSize,account)
+}
 
 export function topBlocks() {
   return cacheAPI.topBlocks()
 }
 export function getBlock(key:number|string) {
-  return citaAPI.getBlock(key)
+  return cacheAPI.getBlock(key)
 }
 export function getBlockList(pageNum:number,pageSize:number) {
   return cacheAPI.blockList(pageNum, pageSize)
@@ -27,5 +30,9 @@ export function getBlockList(pageNum:number,pageSize:number) {
 
 
 export function getMetaData(){
-  return citaAPI.getMetaData()
+  return cacheAPI.getMetaData()
+}
+
+export function getLatestBlock(){
+  return cacheAPI.getLatestBlock();
 }

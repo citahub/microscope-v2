@@ -36,3 +36,20 @@ export function getMetaData() {
     })
   }
 }
+
+// export function getLatestBlock() {
+//   return (dispatch:any) => {
+//     return dataAPI.getLatestBlock().then((data:any) => {
+//       console.log(data,"getLatestBlock");
+//       // dispatch({
+//       //   type: constants.GET_NETWORK_METADATA,
+//       //   data: data
+//       // });
+//     }).catch((error:any) => {
+//       dispatch({
+//         type: constants.OPERATION_FAIL,
+//         error: error
+//       });
+//     })
+//   }
+// }

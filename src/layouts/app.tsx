@@ -42,6 +42,7 @@ function chooseLocale(language:string){
 
 class App extends React.Component <any, any>{
   unlisten: ()=>void;
+  tick:any;
   componentDidMount() {
     var self = this;
     self.props.appAction.resize(window.innerWidth,window.innerHeight);
@@ -55,6 +56,10 @@ class App extends React.Component <any, any>{
         lastLocation = location.pathname;
       }
     });
+
+    this.tick = setInterval(function(){
+      self.props.appAction.tickTime();
+    },3000)
 
     // ethereumAPI.paused().then(function(d){
     //   alert(d);
@@ -71,6 +76,7 @@ class App extends React.Component <any, any>{
   componentDidCatch(error:any, info:any) {
     console.log(error,"componentDidCatch");
     console.log(info,"componentDidCatch");
+    if(this.tick)window.clearInterval(this.tick)
   }
   render() {
     var modalUI = null;

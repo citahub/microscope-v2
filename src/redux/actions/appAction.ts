@@ -33,7 +33,13 @@ interface SHOW_MODAL{
 interface HIDE_MODAL{
   type: constants.HIDE_MODAL;
 }
-export type AppAction = SWITCH_LANGUAGE | RESIZE_APP | TOAST | SHOW_MODAL | HIDE_MODAL | SHOW_LOADING | HIDE_LOADING;
+
+interface GLOBAL_TICKTIME{
+  type: constants.GLOBAL_TICKTIME;
+  data: number | null
+}
+
+export type AppAction = SWITCH_LANGUAGE | RESIZE_APP | TOAST | SHOW_MODAL | HIDE_MODAL | SHOW_LOADING | HIDE_LOADING | GLOBAL_TICKTIME;
 
 export function switchLanguage(language:string):SWITCH_LANGUAGE {
   return {
@@ -84,5 +90,11 @@ export function showModal(modal:Modal):SHOW_MODAL {
 export function hideModal():HIDE_MODAL {
   return {
     type: constants.HIDE_MODAL
+  }
+}
+export function tickTime():GLOBAL_TICKTIME {
+  return {
+    type: constants.GLOBAL_TICKTIME,
+    data: new Date().getTime()
   }
 }

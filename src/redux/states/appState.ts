@@ -23,4 +23,7 @@ export interface AppState {
   appWidth: number;
   appHeight: number;
   appLanguage: string;
+
+  // global
+  globalTickTime: number | null;
 }

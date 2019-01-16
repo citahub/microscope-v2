@@ -17,10 +17,11 @@ const initialState: AppState = {
   },
 
   drawerOpen: false,
-
   appWidth: 1024,
   appHeight: 800,
-  appLanguage: navigator.language || 'en'
+  appLanguage: navigator.language || 'en',
+
+  globalTickTime: new Date().getTime()
 }
 
 export default function(state:AppState = initialState, action: AppAction) {
@@ -75,6 +76,11 @@ export default function(state:AppState = initialState, action: AppAction) {
         appLanguage: action.data
       }
 
+    case constants.GLOBAL_TICKTIME:
+      return {
+        ...state,
+        globalTickTime: action.data
+      }
     default:
       return state
   }

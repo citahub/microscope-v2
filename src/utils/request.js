@@ -105,9 +105,9 @@ export function commonGet(
   credentials = 'omit'
 ) {
   let _url = apiUrl(url)
-  // if (params) {
-  //   _url += `?${queryString.stringify(params)}`
-  // }
+  if (params) {
+    _url += `?${queryString.stringify(params)}`
+  }
   // delete headers.host;
   // delete headers.referer;
   var result = _fetch(

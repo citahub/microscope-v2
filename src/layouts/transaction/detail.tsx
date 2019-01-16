@@ -55,7 +55,7 @@ class TransactionDetail  extends React.Component<any,any> {
                 </div>
                 <div className='withRow transactionBodyRow'>
                   <div className='transactionDetailKey'>Block Height:</div>
-                  <div className='transactionDetailValue withRowLeftAuto'>{data && data.blockNumber}</div>
+                  <div className='transactionDetailValue withRowLeftAuto' onClick={()=>{ data && hashHistory.push('/block/id/'+ parseInt(data.blockNumber))}}>{data && parseInt(data.blockNumber)}</div>
                 </div>
                 <div className='withRow transactionBodyRow'>
                   <div className='transactionDetailKey'>Nonce:</div>

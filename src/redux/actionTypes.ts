@@ -24,6 +24,8 @@ export type RESIZE_APP = typeof RESIZE_APP;
 export const SWITCH_LANGUAGE = 'SWITCH_LANGUAGE';
 export type SWITCH_LANGUAGE = typeof SWITCH_LANGUAGE;
 
+export const GLOBAL_TICKTIME = 'GLOBAL_TICKTIME';
+export type GLOBAL_TICKTIME = typeof GLOBAL_TICKTIME;
 
 
 // Network
@@ -55,3 +57,7 @@ export type GET_TRANSACTION_LIST = typeof GET_TRANSACTION_LIST;
 
 export const GET_TOP_TRANSACTIONS = 'GET_TOP_TRANSACTIONS'
 export type GET_TOP_TRANSACTIONS = typeof GET_TOP_TRANSACTIONS;
+
+// account
+export const GET_ACCOUNT_TR_LIST = 'GET_ACCOUNT_TR_LIST'
+export type GET_ACCOUNT_TR_LIST = typeof GET_ACCOUNT_TR_LIST;

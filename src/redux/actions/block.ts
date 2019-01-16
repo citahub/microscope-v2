@@ -22,15 +22,15 @@ export type BlockAction = GET_BLOCK_ITEM | GET_BLOCK_LIST | GET_TOP_BLOCKS ;
 
 export function topBlocks() {
   return (dispatch:any) => {
-    dispatch(showLoading())
+    // dispatch(showLoading())
     return dataAPI.topBlocks().then((data:Array<BlockItem>) => {
-      dispatch(hideLoading())
+      // dispatch(hideLoading())
       dispatch({
         type: constants.GET_TOP_BLOCKS,
         data: data
       });
     }).catch((error:any) => {
-      dispatch(hideLoading())
+      // dispatch(hideLoading())
       dispatch({
         type: constants.OPERATION_FAIL,
         error: error

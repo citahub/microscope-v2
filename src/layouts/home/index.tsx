@@ -4,28 +4,35 @@ import Layout from '../../components/layout'
 import Content from '../../components/content'
 import CustomHeader from '../common/customHeader'
 import CustomFooter from '../common/customFooter'
+import { CSSTransitionGroup } from 'react-transition-group' // ES6
 
 import { hashHistory } from 'react-router';
 // import { FormattedMessage } from 'react-intl';
 // import * as citaAPI from '../../utils/citaAPI';
 // import * as cacheAPI from '../../utils/cacheAPI';
 
-class Home extends React.Component<any, any>{
-  constructor(props:any) {
-    super(props);
-    this.state = {
-      top10Blocks: [],
-      top10Transactions: [],
-      metaData: null
-    }
+import { timePassed } from '../../utils/time'
 
-  }
+import { valueFormat } from '../../utils/hex'
+
+// import * as Web3Utils from 'web3-utils';
+class Home extends React.Component<any, any>{
+  topBlocksTimer: any;
+  topTransactionsTimer: any;
   componentDidMount(){
 
     var self = this;
     self.props.networkAction.getMetaData();
     self.props.blockAction.topBlocks();
     self.props.transactionAction.topTransactions();
+    // self.topBlocksTimer = setInterval(()=>{
+    //   self.props.blockAction.topBlocks();
+    // },3000)
+    // self.topTransactionsTimer = setInterval(()=>{
+    //   self.props.transactionAction.topTransactions();
+    // },3000)
+
+    // self.props.networkAction.getLatestBlock();
     // citaAPI.newBlockFilter().then((filterId:string)=>{
     //   console.log(filterId);
     //   var newBlock = function(){
@@ -78,6 +85,7 @@ class Home extends React.Component<any, any>{
     var metaData = self.props.network.metaData;
     var topBlocks = self.props.block.topList;
     var topTransactions = self.props.transaction.topList;
+    var globalTickTime = self.props.app.globalTickTime;
     return (
       <Layout className='home' bgColor="rgba(249, 249, 249, 0.56)">
         <Content style={{ width: '100%', height: '100%' }}>
@@ -90,7 +98,7 @@ class Home extends React.Component<any, any>{
                     <div className='generalItemIcon'>
                       <img src="./images/content1_high.png"/>
                     </div>
-                    <div className='generalItem1Label'>{self.state.top10Blocks && self.state.top10Blocks[0]? self.state.top10Blocks[0].header.number:"?"}</div>
+                    <div className='generalItem1Label'>{topBlocks && topBlocks[0]? parseInt(topBlocks[0].header.number):"?"}</div>
                     <div className='generalItem2Label'>区块高度</div>
                   </div>
                 </div>
@@ -113,7 +121,7 @@ class Home extends React.Component<any, any>{
                   </div>
                 </div>
               </div>
-              <div className="row" style={{ marginLeft: 0, marginRight: 0, marginTop: 30, paddingTop: 8, paddingBottom: 8, minHeight: 150, backgroundColor: "white" }}>
+              <div className="row" style={{ marginLeft: 0, marginRight: 0, marginTop: 30, paddingTop: 8, paddingBottom: 8, minHeight: 150, backgroundColor: "white", borderRadius: 6, boxShadow: "0 4px 16px 0 rgba(86, 129, 204, 0.1)" }}>
                 <div className='col-xs-12 col-sm-6 col-md-6 col-lg-4' style={{ marginTop: 12 }}>
                   <div className='withRow'>
                     <div className='generalInfoItemIcon' style={{ width: 80 }}>
@@ -187,82 +195,85 @@ class Home extends React.Component<any, any>{
                 <div className='col-xs-12 col-sm-9 col-md-6 col-lg-6' style={{  marginTop:30 }}>
                   <div className='row' style={{ height: 25 }}>
                     <div className='col-6' style={{ textAlign: "left", fontSize: 18, lineHeight: "18px", color: "#47484a"}}>最近10个块</div>
-                    <div className='col-6' style={{ textAlign: "right", fontSize: 14,lineHeight: "14px", color: "#979a9e"}}>查看更多 &gt;</div>
+                    <div className='col-6 operationItem' style={{ textAlign: "right", fontSize: 14,lineHeight: "14px", color: "#979a9e"}} onClick={()=>{hashHistory.push('/block/list')}}>查看更多 &gt;</div>
                   </div>
-                  <div>
-                    {
-                      topBlocks && topBlocks.map(function(block:any,i:number){
-                        return (
-                          <div key={i} className='blockItem withRow'>
-                            <div style={{ width: 138 }}>
-                              <div className="blockItemNumber vhCenter" style={{ backgroundImage: 'url("./images/block_header.svg")'}}>
-                                块<br/>#{block.header.number}
-                              </div>
-                            </div>
-                            <div className='withRowLeftAuto'>
-                              <div className='blockItemHashLabel'>Hash:</div>
-                              <div className='blockItemHash'>{block.hash}</div>
-                              <div className='blockItemTranscation'>包含 {block.transactionsCount} 笔交易</div>
-                              <div className='blockItemFrom'>提案来自…{block.header.proposer}…</div>
-                              <div className='blockItemReward'>Block Reward 3.00539 Ether</div>
+                  <div style={{ overflow: 'hidden'}}>
 
-                            </div>
-                            <div className='blockItemTime' style={{ width: 53 }}>
-                              3秒前
-                            </div>
-                          </div>
-                        )
-                      })
-                    }
+                        {
+                          topBlocks && topBlocks.map(function(block:any,i:number){
+                            var blockNumber = parseInt(block.header.number);
+                            return (
+                              <div key={block.hash} className='blockItem withRow'>
+                                <div style={{ width: 138 }}>
+                                  <div className="blockItemNumber vhCenter operationItem" style={{ backgroundImage: 'url("./images/block_header.svg")'}} onClick={()=>{hashHistory.push("/block/id/" + blockNumber)}}>
+                                    块<br/>#{blockNumber}
+                                  </div>
+                                </div>
+                                <div className='withRowLeftAuto'>
+                                  <div className='blockItemHashLabel'>Hash:</div>
+                                  <div className='blockItemHash operationItem'  onClick={()=>{hashHistory.push("/block/hash/" + block.hash)}}>{block.hash}</div>
+                                  <div className='blockItemTranscation'>包含 {block.transactionsCount} 笔交易</div>
+                                  <div className='blockItemFrom'>提案来自…{block.header.proposer}…</div>
+                                  <div className='blockItemReward'>Block Reward ??? Ether</div>
+
+                                </div>
+                                <div className='blockItemTime' style={{ width: 53 }}>
+                                  {timePassed( globalTickTime - block.header.timestamp )}
+                                </div>
+                              </div>
+                            )
+                          })
+                        }
                   </div>
                 </div>
                 <div className='col-xs-12 col-sm-9 col-md-6 col-lg-6' style={{  marginTop: 30 }}>
                   <div className='row' style={{ height: 25 }}>
                     <div className='col-6' style={{ textAlign: "left", fontSize: 18, lineHeight: "18px",color: "#47484a"}}>最近10笔交易</div>
-                    <div className='col-6' style={{ textAlign: "right", fontSize: 14, lineHeight: "14px",color: "#979a9e"}}>查看更多 &gt;</div>
+                    <div className='col-6 operationItem' style={{ textAlign: "right", fontSize: 14, lineHeight: "14px",color: "#979a9e"}}  onClick={()=>{hashHistory.push('/transaction/list')}}>查看更多 &gt;</div>
                   </div>
                   <div>
-                    {
-                      topTransactions && topTransactions.map(function(d:any,i:number){
-                        return (
-                          <div key={i} className='transactionItem withRow'>
-                            <div style={{ width: 88 }}>
-                              <div className='transactionItemIcon'>
-                                <img src='images/content2_contract.png'/>
-                              </div>
-                            </div>
-                            <div className='withRowLeftAuto'>
-                              <div className='transactionItemTxLabel'>
-                                TX#：
-                              </div>
-                              <div className='transactionItemTxHash'>{d.hash}</div>
-                              <div className='row' style={{ margin: 0, marginTop: 4 }}>
-                                <div className='col-6' style={{ padding: 0 , paddingRight: 6}}>
-                                  <div className='transactionItemFromLabel'>
-                                    From：
-                                  </div>
-                                  <div className='transactionItemFrom' onClick={()=>{hashHistory.push("/account/" + d.from)}}>
-                                    {d.from}
-                                  </div>
-                                </div>
-                                <div className='col-6' style={{ padding: 0, paddingLeft: 6 }}>
-                                  <div className='transactionItemToLabel'>
-                                    To：
-                                  </div>
-                                  <div className='transactionItemTo' onClick={()=>{hashHistory.push("/account/" + d.to)}}>
-                                    {d.to}
-                                  </div>
+
+                      {
+                        topTransactions && topTransactions.map(function(d:any,i:number){
+                          return (
+                            <div key={i} className='transactionItem withRow'>
+                              <div style={{ width: 88 }}>
+                                <div className='transactionItemIcon'>
+                                  <img src='images/content2_contract.png'/>
                                 </div>
                               </div>
-                              <div className='transactionItemValue' style={{ marginTop: 4 }}>value: {d.value}</div>
+                              <div className='withRowLeftAuto'>
+                                <div className='transactionItemTxLabel'>
+                                  TX#：
+                                </div>
+                                <div className='transactionItemTxHash operationItem'  onClick={()=>{hashHistory.push("/transaction/hash/" + d.hash)}}>{d.hash}</div>
+                                <div className='row' style={{ margin: 0, marginTop: 4 }}>
+                                  <div className='col-6' style={{ padding: 0 , paddingRight: 6}}>
+                                    <div className='transactionItemFromLabel'>
+                                      From：
+                                    </div>
+                                    <div className='transactionItemFrom operationItem' onClick={()=>{hashHistory.push("/account/" + d.from)}}>
+                                      {d.from}
+                                    </div>
+                                  </div>
+                                  <div className='col-6' style={{ padding: 0, paddingLeft: 6 }}>
+                                    <div className='transactionItemToLabel'>
+                                      To：
+                                    </div>
+                                    <div className='transactionItemTo operationItem' onClick={()=>{hashHistory.push("/account/" + d.to)}}>
+                                      {d.to}
+                                    </div>
+                                  </div>
+                                </div>
+                                <div className='transactionItemValue' style={{ marginTop: 4 }}>value: {metaData? valueFormat(d.value,metaData.tokenSymbol):valueFormat(d.value)}</div>
+                              </div>
+                              <div className='transactionItemTime' style={{ width: 53 }}>
+                                {timePassed( globalTickTime - d.timestamp )}
+                              </div>
                             </div>
-                            <div className='transactionItemTime' style={{ width: 53 }}>
-                              3秒前
-                            </div>
-                          </div>
-                        )
-                      })
-                    }
+                          )
+                        })
+                      }
                   </div>
                 </div>
               </div>
@@ -281,8 +292,6 @@ import * as appAction from '../../redux/actions/appAction'
 import * as networkAction from '../../redux/actions/network'
 import * as blockAction from '../../redux/actions/block'
 import * as transactionAction from '../../redux/actions/transaction'
-
-// import { NetworkAction } from '../../redux/actions/network'
 
 import { IRootState } from '../../redux/states'
 import { connect } from 'react-redux'

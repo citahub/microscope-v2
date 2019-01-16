@@ -23,15 +23,15 @@ export type TransactionAction = GET_TRANSACTION_ITEM | GET_TRANSACTION_LIST | GE
 export function topTransactions() {
   // return dataAPI.topTransactions();
   return (dispatch:any) => {
-    dispatch(showLoading())
+    // dispatch(showLoading())
     return dataAPI.topTransactions().then((data:Array<TransactionItem>) => {
-      dispatch(hideLoading())
+      // dispatch(hideLoading())
       dispatch({
         type: constants.GET_TOP_TRANSACTIONS,
         data: data
       });
     }).catch((error:any) => {
-      dispatch(hideLoading())
+      // dispatch(hideLoading())
       dispatch({
         type: constants.OPERATION_FAIL,
         error: error

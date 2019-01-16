@@ -1,14 +1,17 @@
 module.exports = {
-  nodeServer: 'https://node.cryptape.com',
-  queryServer: 'https://microscope.cryptape.com:8888',
+  // nodeServer: 'https://node.cryptape.com',
+  // queryServer: 'https://microscope.cryptape.com:8888',
   api: {
-    // appWeb3AllPrivders: [
-    //
-    // ],
+    serverList: [
+      'https://microscope.cryptape.com:8888',
+      'https://rebirth.cryptape.com'
+    ],
     jsonRpc: '/',
-    status: '/api/status',
+    status: '/api/info/url',
     blockList: '/api/blocks',
-    transactionList: '/api/transactions'
+    blockItem: 'api/block/',
+    transactionList: '/api/transactions',
+    transactionItem: '/api/transactions/'
   },
   apiTimeout: 15000,
   apiTimeoutMsg: 'api timeout，try it later',

@@ -6,6 +6,7 @@ import CustomHeader from '../common/customHeader'
 import CustomFooter from '../common/customFooter'
 
 import { hashHistory } from 'react-router';
+import { timePassed } from '../../utils/time'
 
 // import * as cacheAPI from '../../utils/cacheAPI';
 
@@ -13,27 +14,25 @@ import Pagination from 'rc-pagination'
 import 'rc-pagination/assets/index.css';
 
 class BlockList  extends React.Component<any,any> {
-  constructor(props:any) {
-    super(props);
-    // this.state={
-    //   data: [],
-    //   count: 0
-    // }
-  }
   componentDidMount(){
     var self = this;
-    // cacheAPI.blockList(1,10).then((d:any)=>{
-    //   self.setState({
-    //     data: d.blocks,
-    //     count: d.count
-    //   })
-    // })
-    self.props.blockAction.getBlockList(1,10);
-
+    var params = self.props.location.query;
+    var pageNum = params.pageNum ? parseInt(params.pageNum): 1
+    self.props.blockAction.getBlockList(pageNum,10);
+  }
+  componentWillReceiveProps(nextProps:any){
+    var self = this;
+    if(JSON.stringify(nextProps.location.query) !== JSON.stringify(this.props.location.query)){
+      var params = nextProps.location.query;
+      var pageNum = params.pageNum ? parseInt(params.pageNum): 1;
+      self.props.blockAction.getBlockList(pageNum,10);
+    }
   }
   render() {
     var self = this;
     var data = self.props.block.list;
+    var globalTickTime = self.props.app.globalTickTime;
+
     return (
       <Layout className='blockList' bgColor='white'>
         <Content style={{ width: '100%', height: '100%' }}>
@@ -42,7 +41,7 @@ class BlockList  extends React.Component<any,any> {
             <div className="container blockListBody" style={{ minHeight: 690, paddingTop: 47 }}>
               <div className='withRow' style={{ height: 36, paddingLeft: 24, paddingRight: 20 }}>
                 <div className='withRowLeftAuto' style={{ color: '#868b92', fontSize: 14 }}>
-                  当前搜索参数: 2456
+                  当前搜索参数: ??
                 </div>
                 <div className='queryButton'>
                   高级选择器
@@ -62,11 +61,11 @@ class BlockList  extends React.Component<any,any> {
                   data.list && data.list.map(function(d:any, i:number){
                     return (
                       <tr key={i}>
-                        <td className='blockNumberTd'  onClick={()=>{hashHistory.push("/block/id/" + d.header.number)}}>{d.header.number}</td>
+                        <td className='blockNumberTd operationItem'  onClick={()=>{hashHistory.push("/block/id/" + parseInt(d.header.number))}}>{parseInt(d.header.number)}</td>
                         <td>
-                          <div className='blockHashTd' onClick={()=>{hashHistory.push("/block/hash/" + d.hash)}}>{d.hash}</div>
+                          <div className='blockHashTd operationItem' onClick={()=>{hashHistory.push("/block/hash/" + d.hash)}}>{d.hash}</div>
                         </td>
-                        <td className='blockTimestampTd'>{d.header.timestamp}</td>
+                        <td className='blockTimestampTd'>{timePassed( globalTickTime - d.header.timestamp )}</td>
                         <td className='blockTransactionCountTd'>{d.transactionsCount}</td>
                         <td className='blockQuotaUsedTd'>{d.header.quotaUsed}</td>
                       </tr>
@@ -76,7 +75,9 @@ class BlockList  extends React.Component<any,any> {
                   </tbody>
                 </table>
                 <div style={{ float: 'right'}}>
-                  <Pagination onChange={()=>{}} current={1} total={ Math.ceil(data.total /10) } />
+                  <Pagination onChange={(page:number)=>{
+                    hashHistory.push('/block/list?pageNum=' + page)
+                  }} current={data.pageNum} total={ data.total } />
                 </div>
               </div>
             </div>

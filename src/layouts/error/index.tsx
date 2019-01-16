@@ -2,9 +2,6 @@ import * as React from 'react'
 import './index.styl'
 import Layout from '../../components/layout'
 import Content from '../../components/content'
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
-import * as appAction from '../../redux/actions/appAction'
 import { hashHistory } from 'react-router';
 class NotFoundPage  extends React.Component<any,any> {
   constructor(props:any) {
@@ -36,7 +33,11 @@ class NotFoundPage  extends React.Component<any,any> {
   }
 }
 import {injectIntl} from 'react-intl';
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import * as appAction from '../../redux/actions/appAction'
+import { IRootState } from '../../redux/states'
 
-export default connect(state => ({}), dispatch => ({
+export default connect( (state:IRootState) => ({app: state.app}), dispatch => ({
   appAction: bindActionCreators(appAction, dispatch)
 }))(injectIntl(NotFoundPage))

@@ -18,6 +18,11 @@ export function getTransactionListByAccount(account:string, pageNum:number,pageS
   return cacheAPI.transactionList(pageNum,pageSize,account)
 }
 
+export function getERC20TransactionListByAccount(account:string, pageNum:number,pageSize:number) {
+  return cacheAPI.erc20TransactionList(pageNum,pageSize,account)
+}
+
+
 export function topBlocks() {
   return cacheAPI.topBlocks()
 }
@@ -31,6 +36,10 @@ export function getBlockList(pageNum:number,pageSize:number) {
 
 export function getMetaData(){
   return cacheAPI.getMetaData()
+}
+
+export function getBalance(address:string){
+  return cacheAPI.getBalance(address)
 }
 
 export function getLatestBlock(){

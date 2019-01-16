@@ -197,7 +197,7 @@ class Home extends React.Component<any, any>{
                     <div className='col-6' style={{ textAlign: "left", fontSize: 18, lineHeight: "18px", color: "#47484a"}}>最近10个块</div>
                     <div className='col-6 operationItem' style={{ textAlign: "right", fontSize: 14,lineHeight: "14px", color: "#979a9e"}} onClick={()=>{hashHistory.push('/block/list')}}>查看更多 &gt;</div>
                   </div>
-                  <div style={{ overflow: 'hidden'}}>
+                  <div>
 
                         {
                           topBlocks && topBlocks.map(function(block:any,i:number){

@@ -61,3 +61,18 @@ export type GET_TOP_TRANSACTIONS = typeof GET_TOP_TRANSACTIONS;
 // account
 export const GET_ACCOUNT_TR_LIST = 'GET_ACCOUNT_TR_LIST'
 export type GET_ACCOUNT_TR_LIST = typeof GET_ACCOUNT_TR_LIST;
+
+export const GET_ACCOUNT_ERC20_LIST = 'GET_ACCOUNT_ERC20_LIST'
+export type GET_ACCOUNT_ERC20_LIST = typeof GET_ACCOUNT_ERC20_LIST;
+
+export const GET_ACCOUNT_BALANCE = 'GET_ACCOUNT_BALANCE'
+export type GET_ACCOUNT_BALANCE = typeof GET_ACCOUNT_BALANCE;
+
+
+// const commands = ["GET_ACCOUNT_TR_LIST","GET_ACCOUNT_ERC20_LIST"]
+//
+// commands.forEach(function(command:string){
+//   export const command = command;
+//   export type command = typeof command
+
+// })

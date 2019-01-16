@@ -7,11 +7,11 @@ module.exports = {
       'https://rebirth.cryptape.com'
     ],
     jsonRpc: '/',
-    status: '/api/info/url',
+    url: '/api/info/url',
+    status: '/api/status',
     blockList: '/api/blocks',
-    blockItem: 'api/block/',
     transactionList: '/api/transactions',
-    transactionItem: '/api/transactions/'
+    ercTransactionList: '/api/erc20/transfers'
   },
   apiTimeout: 15000,
   apiTimeoutMsg: 'api timeout，try it later',

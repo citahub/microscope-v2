@@ -35,7 +35,27 @@ export function transactionList(pageNum:number,pageSize:number,account:string | 
       throw error
     })
 }
+export function erc20TransactionList(pageNum:number,pageSize:number,account:string | null){
+  var params = {
+    "address": account, //# hash
+     // "from": "from address", //# hash
+     // "to": "to address", //# hash
+     "page": pageNum, //# default 1
+     "perPage": pageSize, //# default 10
 
+     //# offset and limit has lower priority than page and perPage
+     // "offset": 1, //# default 0
+     // "limit": 10 //# default 10
+  }
+  return request
+    .get(queryServer + config.api.ercTransactionList, params, {})
+    .then((data:any) => {
+      return data && data.result
+    })
+    .catch((error:object) => {
+      throw error
+    })
+}
 export function topBlocks() {
   return request
     .get(queryServer + config.api.blockList, {}, {})
@@ -74,6 +94,10 @@ export function getMetaData(){
   return appchain.base.getMetaData()
 }
 
+export function getBalance(address:string){
+  return appchain.base.getBalance(address)
+}
+
 export function getBlockByHash(hash:any){
   return appchain.base.getBlockByHash(hash)
 }
@@ -86,7 +110,7 @@ export function getTransaction(hash:string){
 }
 
 export function getLatestBlock(){
-  return request.get(queryServer + config.api.status, {}, {})
+  return request.get(queryServer + config.api.url, {}, {})
           .then((data:any) => {
             // alert(data);
             var appchain2 = AppChain(data.result.ws_url || data.result.http_url);

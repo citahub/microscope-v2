@@ -23,8 +23,8 @@ addLocaleData(enLocaleData);
 addLocaleData(zhLocaleData);
 
 
-import * as zh_CN from '../locale/zh_CN.js';
-import * as en_US from '../locale/en_US.js';
+import * as zh_CN from '../locale/zh_CN';
+import * as en_US from '../locale/en_US';
 
 // import "babel-polyfill";
 

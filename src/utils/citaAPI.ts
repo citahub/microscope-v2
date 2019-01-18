@@ -1,9 +1,11 @@
 import AppChain from '@appchain/base'
 import { getSelectNetwork } from './storage'
-import * as request from './request'
+// import * as request from './request'
 
+import { ServerNode } from './config'
 
-const appchain = AppChain(getSelectNetwork())
+const serverNode:ServerNode = getSelectNetwork()
+const appchain = AppChain(serverNode.url)
 
 // appchain.base.peerCount().then(d => {
 //   console.log(d)

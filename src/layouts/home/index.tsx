@@ -4,7 +4,7 @@ import Layout from '../../components/layout'
 import Content from '../../components/content'
 import CustomHeader from '../common/customHeader'
 import CustomFooter from '../common/customFooter'
-import { CSSTransitionGroup } from 'react-transition-group' // ES6
+// import { CSSTransitionGroup } from 'react-transition-group' // ES6
 
 import { hashHistory } from 'react-router';
 // import { FormattedMessage } from 'react-intl';
@@ -200,7 +200,7 @@ class Home extends React.Component<any, any>{
                   <div>
 
                         {
-                          topBlocks && topBlocks.map(function(block:any,i:number){
+                          topBlocks && topBlocks.map(function(block:any){
                             var blockNumber = parseInt(block.header.number);
                             return (
                               <div key={block.hash} className='blockItem withRow'>

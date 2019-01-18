@@ -1,12 +1,14 @@
 import * as request from './request'
 import * as config from './config'
+import { ServerNode } from './config'
 import { getSelectNetwork } from './storage'
 import AppChain from '@appchain/base'
 
-var queryServer = getSelectNetwork()
-export function topTransactions() {
+var serverNode:ServerNode = getSelectNetwork()
+
+export function topTransactions():any{
   return request
-    .get(queryServer + config.api.transactionList, {}, {})
+    .get(serverNode.url + config.api.transactionList, {})
     .then((data:any) => {
       return data && data.result.transactions
     })
@@ -14,7 +16,7 @@ export function topTransactions() {
       throw error
     })
 }
-export function transactionList(pageNum:number,pageSize:number,account:string | null) {
+export function transactionList(pageNum:number,pageSize:number,account:string | null):any {
   var params = {
     "account":  account,  //# hash string
     // "from":  "the addr transactions from", # hash string
@@ -27,7 +29,7 @@ export function transactionList(pageNum:number,pageSize:number,account:string | 
     // "limit":  "10", //# integer, default to 10
   }
   return request
-    .get(queryServer + config.api.transactionList, params, {})
+    .get(serverNode.url + config.api.transactionList, params)
     .then((data:any) => {
       return data && data.result
     })
@@ -35,7 +37,7 @@ export function transactionList(pageNum:number,pageSize:number,account:string | 
       throw error
     })
 }
-export function erc20TransactionList(pageNum:number,pageSize:number,account:string | null){
+export function erc20TransactionList(pageNum:number,pageSize:number,account:string | null):any{
   var params = {
     "address": account, //# hash
      // "from": "from address", //# hash
@@ -48,7 +50,7 @@ export function erc20TransactionList(pageNum:number,pageSize:number,account:stri
      // "limit": 10 //# default 10
   }
   return request
-    .get(queryServer + config.api.ercTransactionList, params, {})
+    .get(serverNode.url + config.api.ercTransactionList, params)
     .then((data:any) => {
       return data && data.result
     })
@@ -56,9 +58,9 @@ export function erc20TransactionList(pageNum:number,pageSize:number,account:stri
       throw error
     })
 }
-export function topBlocks() {
+export function topBlocks():any{
   return request
-    .get(queryServer + config.api.blockList, {}, {})
+    .get(serverNode.url + config.api.blockList, {})
     .then((data:any) => {
       return data && data.result.blocks
     })
@@ -66,7 +68,7 @@ export function topBlocks() {
       throw error
     })
 }
-export function blockList(pageNum:number,pageSize:number) {
+export function blockList(pageNum:number,pageSize:number):any{
   var params = {
     // "account":  "the addr transactions related to (from or to)", # hash string
     // "from":  "the addr transactions from", # hash string
@@ -79,7 +81,7 @@ export function blockList(pageNum:number,pageSize:number) {
     // "limit":  "10", //# integer, default to 10
   }
   return request
-    .get(queryServer + config.api.blockList, params, {})
+    .get(serverNode.url + config.api.blockList, params)
     .then((data:any) => {
       return data && data.result
     })
@@ -88,7 +90,7 @@ export function blockList(pageNum:number,pageSize:number) {
     })
 }
 
-const appchain = AppChain(queryServer)
+const appchain = AppChain(serverNode.url)
 
 export function getMetaData(){
   return appchain.base.getMetaData()
@@ -109,8 +111,8 @@ export function getTransaction(hash:string){
   return appchain.base.getTransaction(hash)
 }
 
-export function getLatestBlock(){
-  return request.get(queryServer + config.api.url, {}, {})
+export function getLatestBlock():any{
+  return request.get(serverNode.url + config.api.url, {})
           .then((data:any) => {
             // alert(data);
             var appchain2 = AppChain(data.result.ws_url || data.result.http_url);

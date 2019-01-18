@@ -12,8 +12,8 @@ import { hashHistory } from 'react-router';
 class TransactionDetail  extends React.Component<any,any> {
   componentDidMount(){
     var self = this;
-    console.log(self.props.location);
-    console.log(self.props.params);
+    // console.log(self.props.location);
+    // console.log(self.props.params);
     var params = self.props.params;
     // if(params && params.hash){
     //
@@ -27,6 +27,12 @@ class TransactionDetail  extends React.Component<any,any> {
     //   })
     // })
     self.props.transactionAction.getTransaction(params.hash);
+  }
+  componentWillReceiveProps(nextProps:any){
+    var self = this;
+    if(JSON.stringify(nextProps.params) !== JSON.stringify(self.props.params)){
+      self.props.transactionAction.getTransaction(nextProps.params.hash);
+    }
   }
   render() {
     var self = this;

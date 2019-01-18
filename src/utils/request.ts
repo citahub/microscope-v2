@@ -1,25 +1,26 @@
-import queryString from 'query-string'
+const queryString = require('query-string')
 require('es6-promise').polyfill()
 require('isomorphic-fetch')
 import config from './config'
 
-function filterStatus(res) {
+
+function filterStatus(res:any) {
   if (res.status >= 0xc8 && res.status < 0x12c) {
     return res
   }
   const error = new Error(
-    typeof global.window === 'undefined' ? res.statusText : config.apiErrorMsg
+    typeof window === 'undefined' ? res.statusText : config.apiErrorMsg
   )
   error.name = config.apiErrorMsg
-  error.res = res
-  error.type = 'http'
+  // error.res = res
+  // error.type = 'http'
   throw error
 }
 
-function filterJSON(res) {
+function filterJSON(res:any) {
   // return res.json();
   var r = res.text()
-  r = r.then(function(text) {
+  r = r.then(function(text:string) {
     var result = {
       // code: -1
     }
@@ -53,9 +54,9 @@ function filterJSON(res) {
 //   }
 // }
 
-function _fetch(fetchPromise, timeout) {
+function _fetch(fetchPromise:any, timeout:number) {
   var abortFn = null
-  var abortPromise = new Promise(function(resolve, reject) {
+  var abortPromise = new Promise(function(resolve:any, reject:any) {
     abortFn = function() {
       reject(config.apiTimeoutMsg || 'abort promise')
     }
@@ -64,7 +65,7 @@ function _fetch(fetchPromise, timeout) {
   var abortablePromise = Promise.race([fetchPromise, abortPromise]).catch(
     function(e) {
       const error = new Error(
-        typeof global.window === 'undefined' ? e : config.apiErrorMsg
+        typeof window === 'undefined' ? e : config.apiErrorMsg
       )
       error.name = config.apiErrorMsg
       throw error
@@ -78,7 +79,7 @@ function _fetch(fetchPromise, timeout) {
   return abortablePromise
 }
 
-function apiUrl(url) {
+function apiUrl(url:string) {
   if (url) {
     if (url.startsWith) {
       if (url.startsWith('http:') || url.startsWith('https:')) {
@@ -90,19 +91,19 @@ function apiUrl(url) {
       return url
     }
   }
-  if (typeof global.window !== 'undefined') {
-    return global.location.protocol + url
+  if (typeof window !== 'undefined') {
+    return window.location.protocol + url
   }
   return 'http:' + url
 }
 
 export function commonGet(
-  url,
-  params,
+  url:string,
+  params:any,
   headers = {},
   filterStatusFlag = true,
   filterJSONFlag = true,
-  credentials = 'omit'
+  credentials:any = 'omit'
 ) {
   let _url = apiUrl(url)
   if (params) {
@@ -124,7 +125,7 @@ export function commonGet(
 
   return result
 }
-export function get(url, params) {
+export function get(url:string, params:any) {
   return commonGet(url, params, {}, true, true)
 }
 //
@@ -133,11 +134,11 @@ export function get(url, params) {
 // }
 
 export function putAndPost(
-  url,
-  method,
+  url:string,
+  method:string,
   params = {},
-  headers,
-  credentials = 'omit'
+  headers:any,
+  credentials:any = 'omit'
 ) {
   var defHeader = {
     Accept: 'application/json',
@@ -178,7 +179,7 @@ export function putAndPost(
   // });
 }
 
-export function post(url, params, headers, credentials) {
+export function post(url:string, params:string, headers:any, credentials:string) {
   return putAndPost(url, 'POST', params, headers, credentials)
 }
 

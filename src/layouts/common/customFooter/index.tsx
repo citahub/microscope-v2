@@ -1,13 +1,13 @@
 import * as React from 'react'
 import './index.styl'
-class CustomFooter  extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-  componentDidMount(){
-  }
+class CustomFooter  extends React.Component<any,any> {
+  // constructor(props) {
+  //   super(props);
+  // }
+  // componentDidMount(){
+  // }
   render() {
-    var self = this;
+    // var self = this;
     return (
       <div className='customFooter' style={{ color: "white"}}>
         <div className='container'>

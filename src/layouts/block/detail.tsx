@@ -5,7 +5,7 @@ import Content from '../../components/content'
 import CustomHeader from '../common/customHeader'
 import CustomFooter from '../common/customFooter'
 
-import { hashHistory } from 'react-router';
+// import { hashHistory } from 'react-router';
 
 
 
@@ -14,6 +14,12 @@ class BlockDetail  extends React.Component<any,any> {
     var self = this;
     var params = self.props.params;
     self.props.blockAction.getBlock(params.hash || params.id);
+  }
+  componentWillReceiveProps(nextProps:any){
+    var self = this;
+    if(JSON.stringify(nextProps.params) !== JSON.stringify(self.props.params)){
+      self.props.blockAction.getBlock(nextProps.params.hash || nextProps.params.id);
+    }
   }
   render() {
     var self = this;
@@ -28,7 +34,7 @@ class BlockDetail  extends React.Component<any,any> {
                 <div className='withRow blockBodyRow'>
                   <div style={{ color: '#47484a', fontSize: 16 }}>Block: # {data && parseInt(data.header.number)}</div>
                   <div className='withRowLeftAuto'>
-                    
+
                   </div>
                 </div>
               </div>

@@ -136,13 +136,14 @@ export function get(url:string, params:any) {
 export function putAndPost(
   url:string,
   method:string,
-  params = {},
+  params:any,
   headers:any,
   credentials:any = 'omit'
 ) {
   var defHeader = {
-    Accept: 'application/json',
-    'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+    // Accept: 'application/json',
+    // 'Content-Type': 'text/plain;charset=UTF-8'
+    'Content-Type': 'application/json; charset=utf-8',
   }
 
   if (headers && Object.assign) {
@@ -151,23 +152,23 @@ export function putAndPost(
       ...headers
     }
   }
-  var _body = ''
-  if (params) {
-    var _bodyArr = []
-    for (var key in params) {
-      if (key !== 'timeout') {
-        _bodyArr.push(key + '=' + params[key])
-      }
-    }
-    _body = _bodyArr.join('&')
-  }
+  // var _body = ''
+  // if (params) {
+  //   var _bodyArr = []
+  //   for (var key in params) {
+  //     if (key !== 'timeout') {
+  //       _bodyArr.push(key + '=' + params[key])
+  //     }
+  //   }
+  //   _body = _bodyArr.join('&')
+  // }
   return (
     _fetch(
       fetch(apiUrl(url), {
         method: method,
         headers: defHeader,
         credentials: credentials,
-        body: _body
+        body: JSON.stringify(params)
       }),
       params['timeout'] || config.apiTimeout
     )
@@ -179,7 +180,7 @@ export function putAndPost(
   // });
 }
 
-export function post(url:string, params:string, headers:any, credentials:string) {
+export function post(url:string, params:any, headers:any, credentials:string) {
   return putAndPost(url, 'POST', params, headers, credentials)
 }
 

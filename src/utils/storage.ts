@@ -2,6 +2,7 @@ import  { api, ServerNode  } from './config'
 
 export function clearAll() {
   window.localStorage.removeItem('selectNetwork')
+  window.localStorage.removeItem('networks')
 }
 
 export function getSelectNetwork():ServerNode {
@@ -18,6 +19,60 @@ export function getSelectNetwork():ServerNode {
     result = defaultNetwork
   }
   return result
+}
+
+
+export function getNetworks():Array<ServerNode>{
+  var result = []
+  var networks = window.localStorage.getItem('networks')
+  if (networks) {
+    try {
+      result = JSON.parse(networks)
+    } catch (e) {
+      console.log(e)
+      window.localStorage.removeItem('networks')
+    } finally {
+      return result
+    }
+  } else {
+    return result
+  }
+}
+
+export function addNetwork(network:ServerNode){
+  var result = []
+  var networks = window.localStorage.getItem('networks')
+  if (networks) {
+    try {
+      result = JSON.parse(networks)
+    } catch (e) {
+      console.log(e)
+      window.localStorage.removeItem('networks')
+    } finally {
+      result.push(network)
+    }
+  } else {
+    result.push(network)
+  }
+  window.localStorage.setItem('networks', JSON.stringify(result))
+}
+
+export function removeNetwork(network:ServerNode){
+  var result = []
+  var networks = window.localStorage.getItem('networks')
+  if (networks) {
+    try {
+      result = JSON.parse(networks)
+    } catch (e) {
+      console.log(e)
+      window.localStorage.removeItem('networks')
+    } finally {
+      result.push(network)
+    }
+  } else {
+    result.push(network)
+  }
+  window.localStorage.setItem('networks', JSON.stringify(result))
 }
 
 export function setSelectNetwork(network:ServerNode) {

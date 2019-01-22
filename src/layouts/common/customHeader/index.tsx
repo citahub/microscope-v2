@@ -1,13 +1,14 @@
 import * as React from 'react'
 import './index.styl'
 
-const Menu = require('rc-menu')
-const { SubMenu, MenuItem } = Menu
+// const Menu = require('rc-menu')
+// const { SubMenu, MenuItem } = Menu
 
+import  Menu from 'rc-menu';
+import { SubMenu, MenuItem } from 'rc-menu';
 import 'rc-menu/assets/index.css';
 
 import { hashHistory } from 'react-router';
-
 import { api } from '../../../utils/config'
 import { getSelectNetwork,setSelectNetwork } from '../../../utils/storage'
 
@@ -32,19 +33,11 @@ class NetWork extends React.Component<any,any>{
     var selectNetwork = self.props.selectNetwork;
 
     return (
-      <div style={{ position: 'relative' }}>
+      <div className='network' style={{ position: 'relative' }}>
         <div className=' withRow' style={{ width: 100, paddingTop: 10 }} onClick={()=>{self.setState({open: !self.state.open})}}>
           <div className='operationItem networkName withRowLeftAuto'>{selectNetwork.name}</div>
-          <div className='operationItem' style={{ width: 16, paddingLeft: 5 }}>
-            <div style={{
-              width: 0,
-              height: 0,
-              borderWidth: 6 ,
-              borderStyle: 'solid',
-              marginTop: self.state.open?  -6: 'none',
-              borderColor: self.state.open? ' transparent transparent black transparent': 'black transparent transparent transparent'
-            }}
-            ></div>
+          <div className='operationItem vhCenter' style={{ width: 16, height: 20, paddingLeft: 5, position: 'relative' }}>
+            <div className={self.state.open? 'topArrow':'bottomArrow'}></div>
           </div>
 
         </div>
@@ -58,9 +51,13 @@ class NetWork extends React.Component<any,any>{
                       onFocus={()=>{
                         self.keyDownListener=(event:any)=>{
                           if(event.keyCode == 13){
+                            var u = self.refs.search.value;
+                            if(!u.startsWith("http://") || !u.startsWith("https://") ){
+                              u = "http://" + u;
+                            }
                             setSelectNetwork({
                                 name: 'customer',
-                                url: "https://" + self.refs.search.value.replace("http://","").replace("https://","")
+                                url: u
                               })
                               window.location.reload();
                   　　　　 }
@@ -73,9 +70,13 @@ class NetWork extends React.Component<any,any>{
                       style={{ height: '100%', padding: "7px 15px 7px 15px", fontSize: 14, color: '#cacdd2' }}/>
                   </div>
                   <div className='networkSwitchButton vhCenter operationItem' onClick={()=>{
+                    var u = self.refs.search.value;
+                    if(!u.startsWith("http://") || !u.startsWith("https://") ){
+                      u = "http://" + u;
+                    }
                     setSelectNetwork({
                       name: 'customer',
-                      url: "https://" + self.refs.search.value.replace("http://","").replace("https://","")
+                      url: u
                     })
                     window.location.reload();
                   }}>
@@ -109,6 +110,64 @@ class NetWork extends React.Component<any,any>{
     )
   }
 }
+
+class MoreMenu extends React.Component<any,any>{
+  refs:{
+    parentMenu: any
+  }
+  constructor(props:any){
+    super(props);
+    this.state={
+      open: false
+    }
+  }
+  render(){
+    var self = this;
+    var more = [{
+        label: 'api-rpc',
+        path: '/api/'
+    },{
+        label: 'api-rebirth',
+        path: '/api-rebirth/'
+    },{
+        label: '统计',
+        path: '/static/'
+    }]
+    return (
+      <div className='menu operationItem' style={{ position: 'relative'}}>
+        <div  className='withRow' onMouseOver={()=>{
+          self.setState({open: true})
+
+        }}>
+          <div className='operationItem'>更多</div>
+          <div className='operationItem vhCenter' style={{ width: 16, height: 20, paddingLeft: 5, position: 'relative' }}>
+            <div className={self.state.open? 'topArrow':'bottomArrow'} style={{ borderWidth:3 }}></div>
+          </div>
+        </div>
+        {
+        self.state.open?
+          <div ref='parentMenu' className='menuOpen' onMouseLeave={()=>{
+            self.setState({open: false})
+          }}>
+                {
+                  more.map(function(item:any){
+                    return (
+                      <div className='menuItem' onClick={()=>{
+                        hashHistory.push(item.path);
+                      }}>
+                        {item.label}
+                      </div>
+                    )
+                  })
+                }
+          </div>
+          : null
+      }
+      </div>
+    )
+  }
+}
+
 
 class CustomHeader  extends React.Component<any,any> {
   refs: {
@@ -144,17 +203,16 @@ class CustomHeader  extends React.Component<any,any> {
     var networks = api.serverList;
     var languages = ["Chinese","English"];
     var selectNetwork = getSelectNetwork();
+
+
     return (
       <div className='customHeader' style={{ paddingTop: 20 }}>
         <div className='withRow container' style={{ height: 41  }}>
           <div className='operationItem' onClick={()=>{hashHistory.push('/')}}><img src='images/headLogo_Microscope.png'/></div>
-          <div className='withRowLeftAuto' style={{ fontSize: 16, color: "#47484a", lineHeight: "41px"}}>
+          <div className='withRowLeftAuto' style={{ fontSize: 16, color: "#47484a", marginTop: 10, height: 20, lineHeight: '20px' }}>
               <span className='menu operationItem' onClick={()=>{hashHistory.push('/block/list')}}>区块</span>
               <span className='menu operationItem' onClick={()=>{hashHistory.push('/transaction/list')}}>交易</span>
-              {
-                // <span className='menu operationItem'>统计</span>
-                // <span className='menu operationItem'>设置</span>
-              }
+              <MoreMenu/>
           </div>
           <div style={{ width: 360, marginTop: 3, marginBottom: 4, height: 34  }}>
             <div className="input-group">

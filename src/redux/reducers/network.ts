@@ -4,6 +4,10 @@ import { NetworkState } from '../states/network'
 
 const initialState: NetworkState = {
   metaData:  null,
+  rpcData: {
+    input: null,
+    output: null
+  }
 }
 
 export default function(state:NetworkState = initialState, action: NetworkAction) {
@@ -12,6 +16,11 @@ export default function(state:NetworkState = initialState, action: NetworkAction
       return {
         ...state,
         metaData: action.data
+      }
+    case constants.GET_NETWORK_RPC:
+      return {
+        ...state,
+        rpcData: action.data
       }
     default:
       return state

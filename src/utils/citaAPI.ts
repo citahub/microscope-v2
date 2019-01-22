@@ -26,6 +26,19 @@ export function getFilterChanges(filterId:any){
   return appchain.base.getFilterChanges(filterId)
 }
 
+export function rpc(method:string,params:any|null){
+  try{
+    console.log(params);
+    if(params){
+      return appchain.base[method](params);
+    }
+    return appchain.base[method]();
+  }catch(e){
+    throw e
+  }
+
+}
+
 // export function getBlockByHash(hash:any){
 //   return appchain.base.getBlockByHash(hash)
 // }

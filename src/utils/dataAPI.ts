@@ -45,3 +45,10 @@ export function getBalance(address:string){
 export function getLatestBlock(){
   return cacheAPI.getLatestBlock();
 }
+//
+// export function rpc(method:string,params:any){
+//   return citaAPI.rpc(method,params)
+// }
+export function rpc(json){
+  return cacheAPI.rpc(json)
+}

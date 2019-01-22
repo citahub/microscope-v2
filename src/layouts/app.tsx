@@ -57,9 +57,9 @@ class App extends React.Component <any, any>{
       }
     });
 
-    this.tick = setInterval(function(){
-      self.props.appAction.tickTime();
-    },3000)
+    // this.tick = setInterval(function(){
+    //   self.props.appAction.tickTime();
+    // },3000)
 
     // ethereumAPI.paused().then(function(d){
     //   alert(d);

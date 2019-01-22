@@ -33,6 +33,9 @@ export type GLOBAL_TICKTIME = typeof GLOBAL_TICKTIME;
 export const GET_NETWORK_METADATA = 'GET_NETWORK_METADATA'
 export type GET_NETWORK_METADATA = typeof GET_NETWORK_METADATA;
 
+export const GET_NETWORK_RPC = 'GET_NETWORK_RPC'
+export type GET_NETWORK_RPC = typeof GET_NETWORK_RPC;
+
 
 
 // block

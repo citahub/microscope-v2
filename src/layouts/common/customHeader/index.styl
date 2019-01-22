@@ -6,6 +6,26 @@
   position sticky
   top 0
   z-index 888
+
+
+  .topArrow,.bottomArrow
+    width 0px
+    height 0px
+    display inline-block
+    position absolute
+  .topArrow
+    border-width 6px
+    border-style solid
+    border-color  transparent transparent black transparent
+    // top -3px
+  .bottomArrow
+    border-width 6px
+    border-style solid
+    border-color  black transparent transparent transparent
+    // top 3px
+
+  .network .topArrow
+    top -3px
   .networkName
     overflow hidden
     text-overflow ellipsis
@@ -34,6 +54,27 @@
       height 100%
       border-radius 4px
       background-image linear-gradient(to left, #4eadf1, #6a96f0)
+  .menuOpen
+    width 100px
+    min-height 50px
+    box-shadow 0 2px 6px 1px rgba(188, 193, 199, 0.71)
+    background-color #ffffff
+    border-radius 5px 5px
+
+    position absolute
+    top 25px
+    right 0
+    padding 10px 0
+
+    .menuItem
+      height 30px
+      line-height 30px
+      font-size 15px
+      text-align left
+      padding-left 10px
+      padding-right 10px
+      &:hover
+        background-color #5b8ee6
   .menu
     font-family PingFangSC-Regular
     font-size 16px
@@ -42,21 +83,22 @@
     text-align center
     margin-left 40px
     display inline-block
-  .rc-menu
-    z-index 900
-    padding 0px
-    width 100%
-    border none
-    box-shadow none
-  .rc-menu-submenu
-    box-shadow none
-  .rc-menu-submenu-title
-    padding 0px !important
-    color white
-    height 34px
-    text-align center
-    color #332b2b
-    width 100px
-    background-color white
-  .rc-menu-submenu-arrow
-    padding-top 5px
+    vertical-align top
+  // .rc-menu
+  //   z-index 900
+  //   padding 0px
+  //   width 100%
+  //   border none
+  //   box-shadow none
+  // .rc-menu-submenu
+  //   box-shadow none
+  // .rc-menu-submenu-title
+  //   padding 0px !important
+  //   color white
+  //   height 34px
+  //   text-align center
+  //   color #332b2b
+  //   width 100px
+  //   background-color white
+  // .rc-menu-submenu-arrow
+  //   padding-top 5px

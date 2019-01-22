@@ -132,3 +132,14 @@ export function getLatestBlock():any{
 
 
 }
+
+export function rpc(json:any){
+  return request
+    .post(serverNode.url + config.api.jsonRpc, json,{},'omit')
+    .then((data:any) => {
+      return data
+    })
+    .catch((error:object) => {
+      throw error
+    })
+}

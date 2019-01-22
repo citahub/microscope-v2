@@ -124,14 +124,11 @@ class MoreMenu extends React.Component<any,any>{
   render(){
     var self = this;
     var more = [{
-        label: 'api-rpc',
-        path: '/api/'
+        label: 'JsonRPC',
+        path: '/api/rpc'
     },{
-        label: 'api-rebirth',
-        path: '/api-rebirth/'
-    },{
-        label: '统计',
-        path: '/static/'
+        label: 'Re-birth',
+        path: '/api/rebirth'
     }]
     return (
       <div className='menu operationItem' style={{ position: 'relative'}}>
@@ -139,7 +136,7 @@ class MoreMenu extends React.Component<any,any>{
           self.setState({open: true})
 
         }}>
-          <div className='operationItem'>更多</div>
+          <div className='operationItem'>API</div>
           <div className='operationItem vhCenter' style={{ width: 16, height: 20, paddingLeft: 5, position: 'relative' }}>
             <div className={self.state.open? 'topArrow':'bottomArrow'} style={{ borderWidth:3 }}></div>
           </div>
@@ -213,6 +210,10 @@ class CustomHeader  extends React.Component<any,any> {
               <span className='menu operationItem' onClick={()=>{hashHistory.push('/block/list')}}>区块</span>
               <span className='menu operationItem' onClick={()=>{hashHistory.push('/transaction/list')}}>交易</span>
               <MoreMenu/>
+              {
+                // <span className='menu operationItem' onClick={()=>{hashHistory.push('/static')}}>统计</span>
+
+              }
           </div>
           <div style={{ width: 360, marginTop: 3, marginBottom: 4, height: 34  }}>
             <div className="input-group">

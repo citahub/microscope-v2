@@ -11,4 +11,8 @@ export interface NetworkState {
     input: RPCData | null,
     output: RPCData | null
   };
+  rebirthData:{
+    input: any;
+    output: any;
+  }
 }

@@ -7,6 +7,10 @@ const initialState: NetworkState = {
   rpcData: {
     input: null,
     output: null
+  },
+  rebirthData: {
+    input: null,
+    output: null
   }
 }
 
@@ -21,6 +25,11 @@ export default function(state:NetworkState = initialState, action: NetworkAction
       return {
         ...state,
         rpcData: action.data
+      }
+    case constants.GET_NETWORK_REBIRTH:
+      return {
+        ...state,
+        rebirthData: action.data
       }
     default:
       return state

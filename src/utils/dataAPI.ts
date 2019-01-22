@@ -42,8 +42,11 @@ export function getBalance(address:string){
   return cacheAPI.getBalance(address)
 }
 
-export function getLatestBlock(){
-  return cacheAPI.getLatestBlock();
+export function getBlockNumber(){
+  return cacheAPI.getBlockNumber();
+}
+export function listenBlock(){
+  return cacheAPI.listenBlock();
 }
 //
 // export function rpc(method:string,params:any){
@@ -51,4 +54,8 @@ export function getLatestBlock(){
 // }
 export function rpc(json){
   return cacheAPI.rpc(json)
+}
+
+export function rebirth(url,params){
+  return cacheAPI.rebirth(url,params)
 }

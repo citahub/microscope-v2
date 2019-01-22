@@ -1,10 +1,11 @@
 import * as React from 'react'
-import './index.styl'
+import './rpc.styl'
 import Layout from '../../components/layout'
 import Content from '../../components/content'
 import { hashHistory } from 'react-router';
 import CustomHeader from '../common/customHeader'
 import CustomFooter from '../common/customFooter'
+import ReactJson from 'react-json-view'
 
 const jsonRpc =[
   {
@@ -105,10 +106,9 @@ const jsonRpc =[
 import { getSelectNetwork } from '../../utils/storage'
 
 
-class APIPage  extends React.Component<any,any> {
-  refs:{
-    input:HTMLTextAreaElement;
-  }
+class APIRpc  extends React.Component<any,any> {
+  input:string;
+  output:string;
   constructor(props:any) {
     super(props);
   }
@@ -118,7 +118,7 @@ class APIPage  extends React.Component<any,any> {
     var method = params.method;
     if(!method){
       method = jsonRpc[0].name;
-      hashHistory.replace('/api?method=' + jsonRpc[0].name);
+      hashHistory.replace('/api/rpc?method=' + jsonRpc[0].name);
     }
     var item = jsonRpc.find((d)=>{return d.name==method});
     try{
@@ -134,7 +134,7 @@ class APIPage  extends React.Component<any,any> {
       var method = nextProps.location.query.method;
       if(!method){
         method = jsonRpc[0].name;
-        hashHistory.replace('/api?method=' + jsonRpc[0].name);
+        hashHistory.replace('/api/rpc?method=' + jsonRpc[0].name);
       }
       var item = jsonRpc.find((d)=>{return d.name==method});
       try{
@@ -162,7 +162,7 @@ class APIPage  extends React.Component<any,any> {
 
     // var item = jsonRpc.find((d)=>{return d.name==method});
     return (
-      <Layout className='api' bgColor='white'>
+      <Layout className='apiRpc' bgColor='white'>
         <Content style={{ width: '100%', height: '100%' }}>
           <CustomHeader/>
           <div className='container withRow' style={{ minHeight: self.props.app.appHeight- 338, marginTop: 30, marginBottom: 30, position: 'relative' }}>
@@ -174,7 +174,7 @@ class APIPage  extends React.Component<any,any> {
                      className +=' rpcActiveItem'
                   }
                   return <div className={className} onClick={()=>{
-                    hashHistory.push('/api?method=' + item.name);
+                    hashHistory.push('/api/rpc?method=' + item.name);
                   }}>{item.name}</div>
                 })
               }
@@ -182,7 +182,7 @@ class APIPage  extends React.Component<any,any> {
             <div className='withRowLeftAuto' style={{ marginLeft: 10, height: '100%', position: 'sticky', top: 0 }}>
               <nav aria-label="breadcrumb">
                 <ol className="breadcrumb">
-                  <li className="breadcrumb-item"><a href="#">  {selectNetwork.url}</a></li>
+                  <li className="breadcrumb-item">{selectNetwork.url}</li>
                   <li className="breadcrumb-item active" aria-current="page">{ method }</li>
                 </ol>
               </nav>
@@ -192,11 +192,17 @@ class APIPage  extends React.Component<any,any> {
                       Input
                     </div>
                    <div className="card-body">
-                   <div ref='input' style={{ width: '100%',  minHeight: 100}} contentEditable>{JSON.stringify(self.props.network.rpcData.input||{})}</div>
+                   {
+                       // <div ref='input' style={{ width: '100%',  minHeight: 100}} contentEditable>{JSON.stringify(self.props.network.rpcData.input||{})}</div>
+                   }
+                    <ReactJson src={self.props.network.rpcData.input ||{} } onEdit={(v)=>{
+                      var newValue = v.updated_src;
+                      self.input = JSON.stringify(newValue);
+                    }}/>
                    </div>
                    <div className="card-footer" style={{ textAlign: 'right'}}>
                      <button className="btn btn-danger" onClick={()=>{
-                       var input = self.refs.input.innerHTML;
+                       var input = self.input;
                        console.log(input);
                        try{
                          self.props.networkAction.rpc(JSON.parse(input||"{}"));
@@ -212,9 +218,7 @@ class APIPage  extends React.Component<any,any> {
                     Output
                   </div>
                    <div className="card-body">
-                     <div ref='output' style={{ width: '100%', minHeight: 200}}>
-                        {JSON.stringify(self.props.network.rpcData.output||{})}}
-                     </div>
+                     <ReactJson src={self.props.network.rpcData.output ||{} } />
                    </div>
                    <div className="card-footer">
                      <small className="text-muted"></small>
@@ -239,4 +243,4 @@ import { IRootState } from '../../redux/states'
 export default connect( (state:IRootState) => ({app: state.app,network: state.network}), dispatch => ({
   appAction: bindActionCreators(appAction, dispatch),
   networkAction: bindActionCreators(networkAction, dispatch),
-}))(injectIntl(APIPage))
+}))(injectIntl(APIRpc))

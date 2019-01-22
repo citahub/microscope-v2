@@ -10,7 +10,8 @@ import TransactionList from '../layouts/transaction/list'
 import TransactionDetail from '../layouts/transaction/detail'
 import AccountDetail from '../layouts/account/detail'
 
-import APIPage from '../layouts/api/index'
+import APIRpc from '../layouts/api/rpc'
+import APIRebirth from '../layouts/api/rebirth'
 import NotFoundPage from '../layouts/error/index'
 export default function() {
   return (
@@ -23,7 +24,8 @@ export default function() {
         <Route path='/transaction/list' component={TransactionList} />
         <Route path='/transaction/hash/:hash' component={TransactionDetail} />
         <Route path='/account/:address' component={AccountDetail} />
-        <Route path='/api' component={APIPage} />
+        <Route path='/api/rpc' component={APIRpc} />
+        <Route path='/api/rebirth' component={APIRebirth} />
         <Route path='/404' component={NotFoundPage} />
         <Redirect from="*" to="/404" />
       </Route>

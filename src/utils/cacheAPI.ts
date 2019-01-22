@@ -111,31 +111,61 @@ export function getTransaction(hash:string){
   return appchain.base.getTransaction(hash)
 }
 
-export function getLatestBlock():any{
-  return request.get(serverNode.url + config.api.url, {})
-          .then((data:any) => {
-            // alert(data);
-            var appchain2 = AppChain(data.result.ws_url || data.result.http_url);
-            return appchain2.base.newBlockFilter().then((filterId:string)=>{
-              var newBlock = function(){
-                appchain2.base.getFilterChanges(filterId).then((newBlocks: Array<any>)=>{
-                  console.log(newBlocks,new Date());
-                  setTimeout(()=>{newBlock()},3000);
-                })
-              }
-              return newBlock();
-            })
-          })
-          .catch((error:Error) => {
-            throw error;
-          })
+// export function getLatestBlock():any{
+//   return request.get(serverNode.url + config.api.url, {})
+//           .then((data:any) => {
+//             // alert(data);
+//             var appchain2 = AppChain(data.result.ws_url || data.result.http_url);
+//             return appchain2.base.newBlockFilter().then((filterId:string)=>{
+//               var newBlock = function(){
+//                 appchain2.base.getFilterChanges(filterId).then((newBlocks: Array<any>)=>{
+//                   console.log(newBlocks,new Date());
+//                   setTimeout(()=>{newBlock()},3000);
+//                 })
+//               }
+//               return newBlock();
+//             })
+//           })
+//           .catch((error:Error) => {
+//             throw error;
+//           })
+//
+//
+// }
+export function getBlockNumber():any{
+  return appchain.base.getBlockNumber()
+}
 
-
+export function listenBlock(){
+  return appchain.base.newBlockFilter().then((filterId:any)=>{
+        var tick = function(){
+          return appchain.base.getFilterChanges(filterId).then((newBlocks: Array<any>)=>{
+            console.log(newBlocks,new Date());
+            return newBlocks;
+            // setTimeout(()=>{newBlock()},3000);
+          })
+        }
+        return tick
+  }).catch((e:Error)=>{
+    console.log(e);
+    throw e;
+  })
 }
 
 export function rpc(json:any){
   return request
     .post(serverNode.url + config.api.jsonRpc, json,{},'omit')
+    .then((data:any) => {
+      return data
+    })
+    .catch((error:object) => {
+      throw error
+    })
+}
+
+export function rebirth(url:string,params:object){
+  return request
+    .get(url,params)
     .then((data:any) => {
       return data
     })

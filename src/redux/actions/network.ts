@@ -16,9 +16,19 @@ interface GET_NETWORK_RPC {
       output: RPCData
     };
 }
+
+interface GET_NETWORK_REBIRTH {
+    type: constants.GET_NETWORK_REBIRTH;
+    data: {
+      input: string,
+      output: string
+    };
+}
+
+
 //
 //
-export type NetworkAction = GET_NETWORK_METADATA | GET_NETWORK_RPC;
+export type NetworkAction = GET_NETWORK_METADATA | GET_NETWORK_RPC | GET_NETWORK_REBIRTH;
 
 //
 // export function getMetaData() {
@@ -67,19 +77,89 @@ export function rpc(jsonRpc) {
   }
 }
 
-// export function getLatestBlock() {
-//   return (dispatch:any) => {
-//     return dataAPI.getLatestBlock().then((data:any) => {
-//       console.log(data,"getLatestBlock");
-//       // dispatch({
-//       //   type: constants.GET_NETWORK_METADATA,
-//       //   data: data
-//       // });
-//     }).catch((error:any) => {
-//       dispatch({
-//         type: constants.OPERATION_FAIL,
-//         error: error
-//       });
-//     })
-//   }
-// }
+export function rebirth(url,params) {
+  // var url = method ;
+  return (dispatch:any) => {
+    dispatch(showLoading())
+    return dataAPI.rebirth(url,params).then((data:any) => {
+      dispatch(hideLoading())
+      dispatch({
+        type: constants.GET_NETWORK_REBIRTH,
+        data: {
+          input: params,
+          output: data
+        }
+      });
+    }).catch((error:any) => {
+      dispatch(hideLoading())
+      dispatch({
+        type: constants.OPERATION_FAIL,
+        error: error
+      });
+    })
+  }
+}
+
+export function getBlockNumber() {
+  //
+  return (dispatch:any) => {
+    return dataAPI.getBlockNumber().then((data:any) => {
+      // console.log(data,"getLatestBlock");
+      // setInterval(function(){
+      //   getBlock().then(function(d){
+      //     console.log(d);
+      //   })
+      // },3000);
+      console.log(data);
+
+
+      // dispatch({
+      //   type: constants.GET_NETWORK_METADATA,
+      //   data: data
+      // });
+    }).catch((error:any) => {
+      alert(error);
+      dispatch({
+        type: constants.OPERATION_FAIL,
+        error: error
+      });
+    })
+  }
+}
+
+// bad practice
+export function listenBlock() {
+  //
+  return (dispatch:any) => {
+    return dataAPI.listenBlock().then((tick:any) => {
+      // console.log(data,"getLatestBlock");
+      // setInterval(function(){
+      //   getBlock().then(function(d){
+      //     console.log(d);
+      //   })
+      // },3000);
+      // console.log(tick);
+
+      setInterval(()=>{
+        tick().then((hashes:Array<string>)=>{
+          console.log(hashes);
+          hashes.forEach((hash)=>{
+            console.log(hash);
+          })
+        })
+      },3000)
+
+
+      // dispatch({
+      //   type: constants.GET_NETWORK_METADATA,
+      //   data: data
+      // });
+    }).catch((error:any) => {
+      alert(error);
+      dispatch({
+        type: constants.OPERATION_FAIL,
+        error: error
+      });
+    })
+  }
+}

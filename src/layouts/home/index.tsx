@@ -25,14 +25,16 @@ class Home extends React.Component<any, any>{
     self.props.networkAction.getMetaData();
     self.props.blockAction.topBlocks();
     self.props.transactionAction.topTransactions();
-    // self.topBlocksTimer = setInterval(()=>{
-    //   self.props.blockAction.topBlocks();
-    // },3000)
-    // self.topTransactionsTimer = setInterval(()=>{
-    //   self.props.transactionAction.topTransactions();
-    // },3000)
 
-    // self.props.networkAction.getLatestBlock();
+    // currently no websocket
+    self.topBlocksTimer = setInterval(()=>{
+      self.props.blockAction.topBlocks();
+    },3000)
+    self.topTransactionsTimer = setInterval(()=>{
+      self.props.transactionAction.topTransactions();
+    },3000)
+
+    // self.props.networkAction.listenBlock();
     // citaAPI.newBlockFilter().then((filterId:string)=>{
     //   console.log(filterId);
     //   var newBlock = function(){
@@ -73,7 +75,12 @@ class Home extends React.Component<any, any>{
     // })
 
   }
+  componentWillUnmount(){
+    var self = this;
+    clearInterval(self.topBlocksTimer);
+    clearInterval(self.topTransactionsTimer)
 
+  }
   // onScrollHander(event){
   //   var scrollTop = event.target.scrollTop;
   // }
@@ -198,7 +205,12 @@ class Home extends React.Component<any, any>{
                     <div className='col-6 operationItem' style={{ textAlign: "right", fontSize: 14,lineHeight: "14px", color: "#979a9e"}} onClick={()=>{hashHistory.push('/block/list')}}>查看更多 &gt;</div>
                   </div>
                   <div>
-
+                    {
+                      // <CSSTransitionGroup
+                      //   transitionName="latestBlock"
+                      //   transitionEnterTimeout={300}
+                      //   transitionLeaveTimeout={300}>
+                    }
                         {
                           topBlocks && topBlocks.map(function(block:any){
                             var blockNumber = parseInt(block.header.number);
@@ -224,7 +236,11 @@ class Home extends React.Component<any, any>{
                             )
                           })
                         }
+                      {
+                          // </CSSTransitionGroup>
+                      }
                   </div>
+
                 </div>
                 <div className='col-xs-12 col-sm-9 col-md-6 col-lg-6' style={{  marginTop: 30 }}>
                   <div className='row' style={{ height: 25 }}>

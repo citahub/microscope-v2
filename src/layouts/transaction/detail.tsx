@@ -53,11 +53,11 @@ class TransactionDetail  extends React.Component<any,any> {
                 </div>
                 <div className='withRow transactionBodyRow'>
                   <div className='transactionDetailKey'>From:</div>
-                  <div className='transactionDetailValue withRowLeftAuto'>{data && data.unsignedTransaction.sender.address}</div>
+                  <div className='transactionDetailValue withRowLeftAuto'>{data &&  data.unsignedTransaction && data.unsignedTransaction.sender.address}</div>
                 </div>
                 <div className='withRow transactionBodyRow'>
                   <div className='transactionDetailKey'>To/Contract</div>
-                  <div className='transactionDetailValue withRowLeftAuto'>{data && data.unsignedTransaction.transaction.to}</div>
+                  <div className='transactionDetailValue withRowLeftAuto'>{data &&  data.unsignedTransaction && data.unsignedTransaction.transaction.to}</div>
                 </div>
                 <div className='withRow transactionBodyRow'>
                   <div className='transactionDetailKey'>Block Height:</div>
@@ -65,19 +65,19 @@ class TransactionDetail  extends React.Component<any,any> {
                 </div>
                 <div className='withRow transactionBodyRow'>
                   <div className='transactionDetailKey'>Nonce:</div>
-                  <div className='transactionDetailValue withRowLeftAuto'>{data && data.unsignedTransaction.transaction.nonce}</div>
+                  <div className='transactionDetailValue withRowLeftAuto'>{data  &&  data.unsignedTransaction && data.unsignedTransaction.transaction.nonce}</div>
                 </div>
                 <div className='withRow transactionBodyRow'>
                   <div className='transactionDetailKey'>ValidUnitBlock:</div>
-                  <div className='transactionDetailValue withRowLeftAuto'>{data && data.unsignedTransaction.transaction.validUntilBlock}</div>
+                  <div className='transactionDetailValue withRowLeftAuto'>{data &&  data.unsignedTransaction && data.unsignedTransaction.transaction.validUntilBlock}</div>
                 </div>
                 <div className='withRow transactionBodyRow'>
                   <div className='transactionDetailKey'>Value:</div>
-                  <div className='transactionDetailValue withRowLeftAuto'>{data && data.unsignedTransaction.transaction.value}</div>
+                  <div className='transactionDetailValue withRowLeftAuto'>{data &&  data.unsignedTransaction && data.unsignedTransaction.transaction.value}</div>
                 </div>
                 <div className='withRow transactionBodyRow'>
                   <div className='transactionDetailKey'>Quota Limit:</div>
-                  <div className='transactionDetailValue withRowLeftAuto'>{data && data.unsignedTransaction.transaction.quota}</div>
+                  <div className='transactionDetailValue withRowLeftAuto'>{data &&  data.unsignedTransaction && data.unsignedTransaction.transaction.quota}</div>
                 </div>
                 <div className='withRow transactionBodyRow'>
                   <div className='transactionDetailKey'>Quota Price:</div>
@@ -95,7 +95,7 @@ class TransactionDetail  extends React.Component<any,any> {
                   <div className='transactionDetailKey'>Data:</div>
                   <div className='transactionDetailValue withRowLeftAuto'>
 
-                    <textarea value=  {data && data.unsignedTransaction.transaction.data}>
+                    <textarea value=  {data &&  data.content}>
 
                     </textarea>
 

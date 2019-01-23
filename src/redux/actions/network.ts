@@ -128,38 +128,38 @@ export function getBlockNumber() {
 }
 
 // bad practice
-export function listenBlock() {
-  //
-  return (dispatch:any) => {
-    return dataAPI.listenBlock().then((tick:any) => {
-      // console.log(data,"getLatestBlock");
-      // setInterval(function(){
-      //   getBlock().then(function(d){
-      //     console.log(d);
-      //   })
-      // },3000);
-      // console.log(tick);
-
-      setInterval(()=>{
-        tick().then((hashes:Array<string>)=>{
-          console.log(hashes);
-          hashes.forEach((hash)=>{
-            console.log(hash);
-          })
-        })
-      },3000)
-
-
-      // dispatch({
-      //   type: constants.GET_NETWORK_METADATA,
-      //   data: data
-      // });
-    }).catch((error:any) => {
-      alert(error);
-      dispatch({
-        type: constants.OPERATION_FAIL,
-        error: error
-      });
-    })
-  }
-}
+// export function listenBlock() {
+//   //
+//   return (dispatch:any) => {
+//     return dataAPI.listenBlock().then((tick:any) => {
+//       // console.log(data,"getLatestBlock");
+//       // setInterval(function(){
+//       //   getBlock().then(function(d){
+//       //     console.log(d);
+//       //   })
+//       // },3000);
+//       // console.log(tick);
+//
+//       setInterval(()=>{
+//         tick().then((hashes:Array<string>)=>{
+//           console.log(hashes);
+//           hashes.forEach((hash)=>{
+//             console.log(hash);
+//           })
+//         })
+//       },3000)
+//
+//
+//       // dispatch({
+//       //   type: constants.GET_NETWORK_METADATA,
+//       //   data: data
+//       // });
+//     }).catch((error:any) => {
+//       alert(error);
+//       dispatch({
+//         type: constants.OPERATION_FAIL,
+//         error: error
+//       });
+//     })
+//   }
+// }

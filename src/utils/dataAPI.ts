@@ -45,9 +45,9 @@ export function getBalance(address:string){
 export function getBlockNumber(){
   return cacheAPI.getBlockNumber();
 }
-export function listenBlock(){
-  return cacheAPI.listenBlock();
-}
+// export function listenBlock(){
+//   return cacheAPI.listenBlock();
+// }
 //
 // export function rpc(method:string,params:any){
 //   return citaAPI.rpc(method,params)

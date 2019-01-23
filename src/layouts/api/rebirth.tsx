@@ -22,7 +22,7 @@ const jsonRpc =[
   },
   {
     name: '/api/transactions/:hash',
-    inputSample: '{"account":"0x46f8bf24c777fee056d447f3869ee5f71b37d0e3","from":"0x46f8bf24c777fee056d447f3869ee5f71b37d0e3","to":"0xffffffffffffffffffffffffffffffffff010001","valueFormat":"decimal"}'
+    inputSample: ''
   },
   {
     name: '/api/statistics',

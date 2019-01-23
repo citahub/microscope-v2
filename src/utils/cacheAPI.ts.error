@@ -2,8 +2,7 @@ import * as request from './request'
 import * as config from './config'
 import { ServerNode } from './config'
 import { getSelectNetwork } from './storage'
-// import AppChain from '@appchain/base'
-// const { unsigner } = require('@appchain/signer')
+import AppChain from '@appchain/base'
 
 var serverNode:ServerNode = getSelectNetwork()
 
@@ -94,66 +93,24 @@ export function blockList(pageNum:number,pageSize:number):any{
 // const appchain = AppChain(serverNode.url)
 
 export function getMetaData(){
-  return rpc({"jsonrpc":"2.0","id":1,"method":"getMetaData","params":["latest"]}).then((data:any) => {
-    return data && data.result
-  })
-  .catch((error:object) => {
-    throw error
-  })
+  return new Promise((resolve,reject)=>{reject(new Error())})
 }
 
 export function getBalance(address:string){
-  return rpc({"jsonrpc":"2.0","method":"getBalance","params":[address, "latest"],"id":1}).then((data:any) => {
-    return data && data.result
-  })
-  .catch((error:object) => {
-    throw error
-  })
+  return new Promise((resolve,reject)=>{reject(new Error())})
 }
 
 export function getBlockByHash(hash:any){
-  return rpc({"jsonrpc":"2.0","method":"getBlockByHash","params":[hash, true],"id":1}).then((data:any) => {
-    return data && data.result
-  })
-  .catch((error:object) => {
-    throw error
-  })
+  return new Promise((resolve,reject)=>{reject(new Error())})
 }
 export function getBlock(key:number|string){
-  if(typeof key === 'string'){
-    return getBlockByHash(key)
-  }
-  return rpc({"jsonrpc":"2.0","method":"getBlockByNumber","params":[key, true],"id":1}).then((data:any) => {
-    return data && data.result
-  })
-  .catch((error:object) => {
-    throw error
-  })
-
+  return new Promise((resolve,reject)=>{reject(new Error())})
 }
 
-// export function getTransaction(hash:string){
-//   return rpc({"jsonrpc":"2.0","method":"getTransaction","params":[hash],"id":1}).then((data:any) => {
-//     var content = data && data.result && data.result.content;
-//     return {
-//       ...data.result,
-//       unsignedTransaction: unsigner(content)
-//     }
-//   })
-//   .catch((error:object) => {
-//     throw error
-//   })
-// }
 export function getTransaction(hash:string){
-  return request
-    .get(serverNode.url + config.api.transactionList+"/"+hash, {})
-    .then((data:any) => {
-      return data && data.result && data.result.transaction
-    })
-    .catch((error:object) => {
-      throw error
-    })
+  return new Promise((resolve,reject)=>{reject(new Error())})
 }
+
 // export function getLatestBlock():any{
 //   return request.get(serverNode.url + config.api.url, {})
 //           .then((data:any) => {
@@ -176,12 +133,7 @@ export function getTransaction(hash:string){
 //
 // }
 export function getBlockNumber():any{
-  return rpc({"jsonrpc":"2.0","method":"blockNumber","params":[],"id":83}).then((data:any) => {
-    return data && data.result
-  })
-  .catch((error:object) => {
-    throw error
-  })
+  return new Promise((resolve,reject)=>{reject(new Error())})
 }
 
 // export function listenBlock(){

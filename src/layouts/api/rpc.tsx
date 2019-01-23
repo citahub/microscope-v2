@@ -58,7 +58,7 @@ const jsonRpc =[
   },
   {
     name: 'getBalance',
-    inputSample: '{"jsonrpc":"2.0","method":"getBalance","params":["0xea4f6bc98b456ef085da5c424db710489848cab5", "0x1f"],"id":1}'
+    inputSample: '{"jsonrpc":"2.0","method":"getBalance","params":["0xea4f6bc98b456ef085da5c424db710489848cab5", "latest"],"id":1}'
   },
   {
     name: 'newFilter',
@@ -86,7 +86,7 @@ const jsonRpc =[
   },
   {
     name: 'getMetaData',
-    inputSample: '{"jsonrpc":"2.0","method":"getMetaData","params":["0xff"],"id":1}'
+    inputSample: '{"jsonrpc":"2.0","id":1,"method":"getMetaData","params":["latest"]}'
   },
   {
     name: 'getBlockHeader',

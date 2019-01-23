@@ -2,6 +2,8 @@ const merge = require('webpack-merge')
 const common = require('./webpack.common.js')
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
+  .BundleAnalyzerPlugin
 
 module.exports = merge(common, {
   mode: 'production',
@@ -14,6 +16,7 @@ module.exports = merge(common, {
       minify: true,
       hash: true,
       filename: 'index.html'
-    })
+    }),
+    new BundleAnalyzerPlugin()
   ]
 })

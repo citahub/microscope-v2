@@ -3,7 +3,7 @@ import * as config from './config'
 import { ServerNode } from './config'
 import { getSelectNetwork } from './storage'
 // import AppChain from '@appchain/base'
-// const { unsigner } = require('@appchain/signer')
+const { unsigner } = require('@appchain/signer')
 
 var serverNode:ServerNode = getSelectNetwork()
 
@@ -132,28 +132,28 @@ export function getBlock(key:number|string){
 
 }
 
-// export function getTransaction(hash:string){
-//   return rpc({"jsonrpc":"2.0","method":"getTransaction","params":[hash],"id":1}).then((data:any) => {
-//     var content = data && data.result && data.result.content;
-//     return {
-//       ...data.result,
-//       unsignedTransaction: unsigner(content)
-//     }
-//   })
-//   .catch((error:object) => {
-//     throw error
-//   })
-// }
 export function getTransaction(hash:string){
-  return request
-    .get(serverNode.url + config.api.transactionList+"/"+hash, {})
-    .then((data:any) => {
-      return data && data.result && data.result.transaction
-    })
-    .catch((error:object) => {
-      throw error
-    })
+  return rpc({"jsonrpc":"2.0","method":"getTransaction","params":[hash],"id":1}).then((data:any) => {
+    var content = data && data.result && data.result.content;
+    return {
+      ...data.result,
+      unsignedTransaction: unsigner(content)
+    }
+  })
+  .catch((error:object) => {
+    throw error
+  })
 }
+// export function getTransaction(hash:string){
+//   return request
+//     .get(serverNode.url + config.api.transactionList+"/"+hash, {})
+//     .then((data:any) => {
+//       return data && data.result
+//     })
+//     .catch((error:object) => {
+//       throw error
+//     })
+// }
 // export function getLatestBlock():any{
 //   return request.get(serverNode.url + config.api.url, {})
 //           .then((data:any) => {

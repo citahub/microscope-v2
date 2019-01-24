@@ -4,9 +4,9 @@ import './index.styl'
 // const Menu = require('rc-menu')
 // const { SubMenu, MenuItem } = Menu
 
-import  Menu from 'rc-menu';
-import { SubMenu, MenuItem } from 'rc-menu';
-import 'rc-menu/assets/index.css';
+// import  Menu from 'rc-menu';
+// import { SubMenu, MenuItem } from 'rc-menu';
+// import 'rc-menu/assets/index.css';
 
 import { hashHistory } from 'react-router';
 import { api } from '../../../utils/config'
@@ -43,11 +43,13 @@ class NetWork extends React.Component<any,any>{
         </div>
         {
           self.state.open?
-            <div className='networkOpen'>
+            <div className='networkOpen' onMouseLeave={()=>{
+              self.setState({open:false})
+            }} >
                 <div>Switch Chain</div>
                 <div className='withRow' style={{ marginTop: 14, height: 34 }}>
                   <div className='withRowLeftAuto'>
-                    <input placeholder="Please input rebirth service address" type="text" ref='search' className='form-control'
+                    <input autoFocus placeholder="Please input rebirth service address" type="text" ref='search' className='form-control'
                       onFocus={()=>{
                         self.keyDownListener=(event:any)=>{
                           if(event.keyCode == 13){
@@ -198,7 +200,7 @@ class CustomHeader  extends React.Component<any,any> {
   render() {
     var self = this;
     var networks = api.serverList;
-    var languages = ["Chinese","English"];
+    // var languages = ["Chinese","English"];
     var selectNetwork = getSelectNetwork();
 
 

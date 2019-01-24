@@ -157,7 +157,7 @@ class Home extends React.Component<any, any>{
                       <img src="images/general_info_mode.png"/>
                     </div>
                     <div className='withRowLeftAuto' style={{ paddingLeft: 20 }}>
-                      <div className='generalInfoItemName'>{metaData?metaData.economicalModel:"?"}</div>
+                      <div className='generalInfoItemName'>{metaData?(metaData.economicalModel ===0 ? "Quota Modal":"Charge Modal"):"?"}</div>
                       <div className='generalInfoItemLabel'>经济模型</div>
                     </div>
                   </div>
@@ -225,7 +225,7 @@ class Home extends React.Component<any, any>{
                                   <div className='blockItemHashLabel'>Hash:</div>
                                   <div className='blockItemHash operationItem'  onClick={()=>{hashHistory.push("/block/hash/" + block.hash)}}>{block.hash}</div>
                                   <div className='blockItemTranscation'>包含 {block.transactionsCount} 笔交易</div>
-                                  <div className='blockItemFrom'>提案来自…{block.header.proposer}…</div>
+                                  <div className='blockItemFrom'>提案来自{block.header.proposer}</div>
                                   <div className='blockItemReward'>Block Reward ??? Ether</div>
 
                                 </div>

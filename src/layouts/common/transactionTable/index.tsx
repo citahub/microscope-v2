@@ -34,7 +34,7 @@ class TransactionTable  extends React.Component<any,any> {
           data.list && data.list.map(function(d:any, i:number){
             return (
               <tr key={i}>
-                <td className='transactionTypeTd'>{d.type}</td>
+                <td className='transactionTypeTd'>{d.type}??</td>
                 <td>
                   <div className='transactionHashTd operationItem' onClick={()=>{hashHistory.push("/transaction/hash/"+d.hash)}}>{d.hash}</div>
                 </td>

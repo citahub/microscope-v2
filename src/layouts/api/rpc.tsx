@@ -138,7 +138,9 @@ class APIRpc  extends React.Component<any,any> {
       }
       var item = jsonRpc.find((d)=>{return d.name==method});
       try{
-        self.props.networkAction.rpc(JSON.parse(item.inputSample||"{}"));
+        self.input = item.inputSample||"{}"
+
+        self.props.networkAction.rpc(JSON.parse(self.input));
       }catch(e){
         console.log(e);
       }
@@ -156,7 +158,6 @@ class APIRpc  extends React.Component<any,any> {
     if(!method){
       method = jsonRpc[0].name;
     }
-
     // var networks = api.serverList;
     var selectNetwork = getSelectNetwork();
 
@@ -195,10 +196,17 @@ class APIRpc  extends React.Component<any,any> {
                    {
                        // <div ref='input' style={{ width: '100%',  minHeight: 100}} contentEditable>{JSON.stringify(self.props.network.rpcData.input||{})}</div>
                    }
-                    <ReactJson src={self.props.network.rpcData.input ||{} } onEdit={(v)=>{
-                      var newValue = v.updated_src;
-                      self.input = JSON.stringify(newValue);
-                    }}/>
+                    <ReactJson src={self.props.network.rpcData.input ||{} }
+                      onEdit={(v)=>{
+                        var newValue = v.updated_src;
+                        self.input = JSON.stringify(newValue);
+                      }}
+                      onDelete={(v)=>{
+                       var newValue = v.updated_src;
+                       console.log(newValue);
+                       self.input = JSON.stringify(newValue);
+                     }}
+                    />
                    </div>
                    <div className="card-footer" style={{ textAlign: 'right'}}>
                      <button className="btn btn-danger" onClick={()=>{

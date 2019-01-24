@@ -2,6 +2,9 @@ import * as request from './request'
 import * as config from './config'
 import { ServerNode } from './config'
 import { getSelectNetwork } from './storage'
+
+import { isBlockHeight, toHex } from './hex'
+
 // import AppChain from '@appchain/base'
 // const { unsigner } = require('@appchain/signer')
 
@@ -119,16 +122,17 @@ export function getBlockByHash(hash:any){
     throw error
   })
 }
-export function getBlock(key:number|string){
-  if(typeof key === 'string'){
-    return getBlockByHash(key)
+export function getBlock(key:string){
+
+  if(isBlockHeight(key)){
+    return rpc({"jsonrpc":"2.0","method":"getBlockByNumber","params":[toHex(key), true],"id":1}).then((data:any) => {
+      return data && data.result
+    })
+    .catch((error:object) => {
+      throw error
+    })
   }
-  return rpc({"jsonrpc":"2.0","method":"getBlockByNumber","params":[key, true],"id":1}).then((data:any) => {
-    return data && data.result
-  })
-  .catch((error:object) => {
-    throw error
-  })
+  return getBlockByHash(key)
 
 }
 

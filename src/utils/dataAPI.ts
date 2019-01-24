@@ -26,7 +26,7 @@ export function getERC20TransactionListByAccount(account:string, pageNum:number,
 export function topBlocks() {
   return cacheAPI.topBlocks()
 }
-export function getBlock(key:number|string) {
+export function getBlock(key:string) {
   return cacheAPI.getBlock(key)
 }
 export function getBlockList(pageNum:number,pageSize:number) {

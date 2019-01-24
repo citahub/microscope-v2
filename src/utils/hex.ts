@@ -10,6 +10,10 @@ export function valueFormat(value: number | string, symbol?: string):string{
 // import  * as web3Utils from 'web3-utils'
 const web3Utils = require('web3-utils')
 
+export const toHex = function(n:string|number) :string{
+  return web3Utils.toHex(n);
+}
+
 export const format0x = function(str:string) :string{
   var result:string = str;
   if (!result) {

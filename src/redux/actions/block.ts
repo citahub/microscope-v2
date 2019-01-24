@@ -39,7 +39,7 @@ export function topBlocks() {
   }
 }
 
-export function getBlock(key:number|string) {
+export function getBlock(key:string) {
   return (dispatch:any) => {
     dispatch(showLoading())
     return dataAPI.getBlock(key).then((data:BlockItem) => {

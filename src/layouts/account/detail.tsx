@@ -3,7 +3,6 @@ import './detail.styl'
 import Layout from '../../components/layout'
 import Content from '../../components/content'
 import Tabs, { Tab } from '../../components/tab'
-
 import CustomHeader from '../common/customHeader'
 import CustomFooter from '../common/customFooter'
 import TransactionTable from '../common/transactionTable'

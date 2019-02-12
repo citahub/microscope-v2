@@ -2,12 +2,9 @@ import * as request from './request'
 import * as config from './config'
 import { ServerNode } from './config'
 import { getSelectNetwork } from './storage'
-
-import { isBlockHeight, toHex } from './hex'
-
-// import AppChain from '@appchain/base'
-// const { unsigner } = require('@appchain/signer')
-
+// import AppChain from '@cryptape/cita-sdk'
+const { unsigner } = require('@appchain/signer')
+import {isBlockHeight } from './hex'
 var serverNode:ServerNode = getSelectNetwork()
 
 export function topTransactions():any{
@@ -122,10 +119,9 @@ export function getBlockByHash(hash:any){
     throw error
   })
 }
-export function getBlock(key:string){
-
-  if(isBlockHeight(key)){
-    return rpc({"jsonrpc":"2.0","method":"getBlockByNumber","params":[toHex(key), true],"id":1}).then((data:any) => {
+export function getBlock(key:number|string){
+  if(isBlockHeight(key+"")){
+    return rpc({"jsonrpc":"2.0","method":"getBlockByNumber","params":[key, true],"id":1}).then((data:any) => {
       return data && data.result
     })
     .catch((error:object) => {
@@ -133,31 +129,30 @@ export function getBlock(key:string){
     })
   }
   return getBlockByHash(key)
-
 }
 
-// export function getTransaction(hash:string){
-//   return rpc({"jsonrpc":"2.0","method":"getTransaction","params":[hash],"id":1}).then((data:any) => {
-//     var content = data && data.result && data.result.content;
-//     return {
-//       ...data.result,
-//       unsignedTransaction: unsigner(content)
-//     }
-//   })
-//   .catch((error:object) => {
-//     throw error
-//   })
-// }
 export function getTransaction(hash:string){
-  return request
-    .get(serverNode.url + config.api.transactionList+"/"+hash, {})
-    .then((data:any) => {
-      return data && data.result && data.result.transaction
-    })
-    .catch((error:object) => {
-      throw error
-    })
+  return rpc({"jsonrpc":"2.0","method":"getTransaction","params":[hash],"id":1}).then((data:any) => {
+    var content = data && data.result && data.result.content;
+    return {
+      ...data.result,
+      unsignedTransaction: unsigner(content)
+    }
+  })
+  .catch((error:object) => {
+    throw error
+  })
 }
+// export function getTransaction(hash:string){
+//   return request
+//     .get(serverNode.url + config.api.transactionList+"/"+hash, {})
+//     .then((data:any) => {
+//       return data && data.result
+//     })
+//     .catch((error:object) => {
+//       throw error
+//     })
+// }
 // export function getLatestBlock():any{
 //   return request.get(serverNode.url + config.api.url, {})
 //           .then((data:any) => {

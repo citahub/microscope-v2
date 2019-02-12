@@ -1,3 +1,4 @@
+import * as moment from 'moment'
 export function timePassed(secondsDuration: number):string{
 
   var left = secondsDuration;
@@ -34,4 +35,8 @@ export function timePassed(secondsDuration: number):string{
 
   return '0 s ago'
 
+}
+
+export function format(timestamp:number,format:string):string{
+  return moment(timestamp).format(format);
 }

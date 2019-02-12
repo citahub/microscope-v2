@@ -225,8 +225,8 @@ class Home extends React.Component<any, any>{
                                   <div className='blockItemHashLabel'>Hash:</div>
                                   <div className='blockItemHash operationItem'  onClick={()=>{hashHistory.push("/block/hash/" + block.hash)}}>{block.hash}</div>
                                   <div className='blockItemTranscation'>包含 {block.transactionsCount} 笔交易</div>
-                                  <div className='blockItemFrom'>提案来自{block.header.proposer}</div>
-                                  <div className='blockItemReward'>Block Reward ??? Ether</div>
+                                  <div className='blockItemFrom'>Proposed By {block.header.proposer}</div>
+                                  <div className='blockItemReward'>quotaUsed: {metaData? valueFormat(block.header.quotaUsed,metaData.tokenSymbol):valueFormat(block.header.quotaUsed)}</div>
 
                                 </div>
                                 <div className='blockItemTime' style={{ width: 53 }}>

@@ -5,8 +5,9 @@ import Content from '../../components/content'
 import CustomHeader from '../common/customHeader'
 import CustomFooter from '../common/customFooter'
 
-// import { hashHistory } from 'react-router';
+import { hashHistory } from 'react-router';
 
+import { format } from '../../utils/time'
 
 
 class BlockDetail  extends React.Component<any,any> {
@@ -32,56 +33,67 @@ class BlockDetail  extends React.Component<any,any> {
             <div className='container'>
               <div className='blockNav'>
                 <div className='withRow blockBodyRow'>
-                  <div style={{ color: '#47484a', fontSize: 16 }}>Block: # {data && parseInt(data.header.number)}</div>
-                  <div className='withRowLeftAuto'>
+                  <div className='blockDetailKey' style={{ color: '#47484a', fontSize: 16 }}>Block: # {data && parseInt(data.header.number)}</div>
+                  <div className='blockDetailValue withRowLeftAuto'>
+                    <div className="preButton vhCenter operationItem" onClick={()=>{
+
+                      var id = self.props.params.id || data && data.header.number;
+                      if(id && parseInt(id)-1>=0)hashHistory.push("/block/id/" + (parseInt(id)-1))
+                    }}>&lt;</div>
+                    <div className="nextButton vhCenter operationItem"  onClick={()=>{
+                      var id = self.props.params.id || data && data.header.number;
+                      if(id && parseInt(id)+1>=0)hashHistory.push("/block/id/" + (parseInt(id)+1))
+                    }}>&gt;</div>
 
                   </div>
                 </div>
               </div>
               <div  className='blockBody'>
                 <div className='withRow blockBodyRow'>
-                  <div className='blockDetailKey'>Block Hash:</div>
-                  <div className='blockDetailValue withRowLeftAuto'>{data && data.hash}</div>
+                  <div className='blockDetailKey'>区块哈希:</div>
+                  <div className='blockDetailValue withRowLeftAuto' style={{ fontSize: 16 }}>{data && data.hash}</div>
                 </div>
                 <div className='withRow blockBodyRow'>
-                  <div className='blockDetailKey'>TimeStamp:</div>
-                  <div className='blockDetailValue withRowLeftAuto'>{data && data.header.timestamp}</div>
+                  <div className='blockDetailKey'>时间戳:</div>
+                  <div className='blockDetailValue withRowLeftAuto'  style={{ fontSize:16 }}>{data && data.header.timestamp? format(data.header.timestamp,"YYYY/MM/DD HH:mm:ss"):""}</div>
                 </div>
                 <div className='withRow blockBodyRow'>
-                  <div className='blockDetailKey'>Transactions</div>
+                  <div className='blockDetailKey'>交易:</div>
                   <div className='blockDetailValue withRowLeftAuto'>{data && data.body.transactions.length}</div>
                 </div>
                 <div className='withRow blockBodyRow'>
-                  <div className='blockDetailKey'>Proposer:</div>
-                  <div className='blockDetailValue withRowLeftAuto'>{data && data.header.proposer}</div>
+                  <div className='blockDetailKey'>节点:</div>
+                  <div className='blockDetailValue withRowLeftAuto' style={{ fontSize:16 }}>{data && data.header.proposer}</div>
                 </div>
                 <div className='withRow blockBodyRow'>
-                  <div className='blockDetailKey'>Quota Used:</div>
+                  <div className='blockDetailKey'>消耗的 Quota:</div>
                   <div className='blockDetailValue withRowLeftAuto'>{data && data.header.quotaUsed}</div>
                 </div>
                 <div className='withRow blockBodyRow'>
-                  <div className='blockDetailKey'>Quota price:</div>
+                  <div className='blockDetailKey'>Quota 价格:</div>
                   <div className='blockDetailValue withRowLeftAuto'>{data && data.header.quotaUsed}</div>
                 </div>
                 <div className='withRow blockBodyRow'>
                   <div className='blockDetailKey'>Total handling fee:</div>
-                  <div className='blockDetailValue withRowLeftAuto'>{data && data.hash}</div>
+                  <div className='blockDetailValue withRowLeftAuto'>{data && data.header.quotaUsed}</div>
                 </div>
                 <div className='withRow blockBodyRow'>
-                  <div className='blockDetailKey'>Parent Hash:</div>
-                  <div className='blockDetailValue withRowLeftAuto'>{data && data.header.prevHash}</div>
+                  <div className='blockDetailKey'>上一块哈希:</div>
+                  <div className='blockDetailValue withRowLeftAuto operationItem'  style={{ fontSize:16, color: "#5b8ee6"}} onClick={()=>{
+                    if(data && data.header.prevHash)hashHistory.push("/block/hash/" + data.header.prevHash)
+                  }}>{data && data.header.prevHash}</div>
                 </div>
                 <div className='withRow blockBodyRow'>
                   <div className='blockDetailKey'>Receipts Root:</div>
-                  <div className='blockDetailValue withRowLeftAuto'>{data && data.header.receiptsRoot}</div>
+                  <div className='blockDetailValue withRowLeftAuto'  style={{ fontSize:16 }}>{data && data.header.receiptsRoot}</div>
                 </div>
                 <div className='withRow blockBodyRow'>
                   <div className='blockDetailKey'>State Root:</div>
-                  <div className='blockDetailValue withRowLeftAuto'>{data && data.header.stateRoot}</div>
+                  <div className='blockDetailValue withRowLeftAuto'  style={{ fontSize:16 }}>{data && data.header.stateRoot}</div>
                 </div>
                 <div className='withRow blockBodyRow'>
                   <div className='blockDetailKey'>Transactions Root:</div>
-                  <div className='blockDetailValue withRowLeftAuto'>{data && data.header.transactionsRoot}</div>
+                  <div className='blockDetailValue withRowLeftAuto'  style={{ fontSize:16 }}>{data && data.header.transactionsRoot}</div>
                 </div>
               </div>
             </div>

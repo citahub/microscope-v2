@@ -7,6 +7,7 @@ import CustomFooter from '../common/customFooter'
 
 import { hashHistory } from 'react-router';
 import { timePassed } from '../../utils/time'
+import { valueFormat } from '../../utils/hex'
 
 // import * as cacheAPI from '../../utils/cacheAPI';
 
@@ -54,24 +55,24 @@ class BlockList  extends React.Component<any,any> {
               <div style={{ padding: "14px 23px 0 23px" }}>
                 <table className="table table-hover" style={{ tableLayout: 'fixed'}} >
                   <thead style={{ backgroundColor: "#fafbff" }}>
-                      <th style={{ width: 232/1154 * 100 +"%"}} scope="col">高度</th>
-                      <th style={{ width: (591-232)/1154 * 100 +"%"}} scope="col">哈希</th>
-                      <th style={{ width: (815-591)/1154 * 100 +"%"}} scope="col">出块时间</th>
-                      <th style={{ width: (995-815)/1154 * 100 +"%"}} scope="col">交易数</th>
-                      <th scope="col">Quota消耗</th>
+                      <th className="text-center" style={{ width: 232/1154 * 100 +"%"}} scope="col">高度</th>
+                      <th className="text-center" style={{ width: (591-232)/1154 * 100 +"%"}} scope="col">哈希</th>
+                      <th className="text-center" style={{ width: (815-591)/1154 * 100 +"%"}} scope="col">出块时间</th>
+                      <th className="text-center" style={{ width: (995-815)/1154 * 100 +"%"}} scope="col">交易数</th>
+                      <th className="text-center" scope="col">Quota消耗</th>
                   </thead>
                   <tbody>
                   {
                   data.list && data.list.map(function(d:any, i:number){
                     return (
                       <tr key={i}>
-                        <td className='blockNumberTd operationItem'  onClick={()=>{hashHistory.push("/block/id/" + parseInt(d.header.number))}}>{parseInt(d.header.number)}</td>
+                        <td className='text-center blockNumberTd operationItem'  onClick={()=>{hashHistory.push("/block/id/" + parseInt(d.header.number))}}>{parseInt(d.header.number)}</td>
                         <td>
-                          <div className='blockHashTd operationItem' onClick={()=>{hashHistory.push("/block/hash/" + d.hash)}}>{d.hash}</div>
+                          <div className='text-center blockHashTd operationItem' onClick={()=>{hashHistory.push("/block/hash/" + d.hash)}}>{d.hash}</div>
                         </td>
-                        <td className='blockTimestampTd'>{timePassed( globalTickTime - d.header.timestamp )}</td>
-                        <td className='blockTransactionCountTd'>{d.transactionsCount}</td>
-                        <td className='blockQuotaUsedTd'>{d.header.quotaUsed}</td>
+                        <td className='text-center blockTimestampTd'>{timePassed( globalTickTime - d.header.timestamp )}</td>
+                        <td className='text-center blockTransactionCountTd'>{d.transactionsCount}</td>
+                        <td className='text-center blockQuotaUsedTd'>{valueFormat(d.header.quotaUsed)}</td>
                       </tr>
                     )
                   })

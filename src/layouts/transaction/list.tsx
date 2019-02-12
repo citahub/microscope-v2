@@ -46,7 +46,9 @@ class TransitionList  extends React.Component<any,any> {
                   高级选择器??
                 </div>
               </div>
-              <TransactionTable data={data} globalTickTime={globalTickTime} onChange={(page:number, pageSize:number)=>{  hashHistory.push('/transaction/list?pageNum=' + page + '&pageSize=' + pageSize)}}/>
+              <div  style={{ padding: "14px 23px 0 23px" }}>
+                <TransactionTable data={data} globalTickTime={globalTickTime} onChange={(page:number, pageSize:number)=>{  hashHistory.push('/transaction/list?pageNum=' + page + '&pageSize=' + pageSize)}}/>
+              </div>
             </div>
           </div>
 

@@ -2,7 +2,7 @@ import * as request from './request'
 import * as config from './config'
 import { ServerNode } from './config'
 import { getSelectNetwork } from './storage'
-import AppChain from '@appchain/base'
+import AppChain from '@cryptape/cita-sdk'
 
 var serverNode:ServerNode = getSelectNetwork()
 

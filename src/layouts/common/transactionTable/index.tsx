@@ -6,6 +6,7 @@ import Select from 'rc-select';
 import 'rc-select/assets/index.css';
 
 import { timePassed } from '../../../utils/time'
+import { valueFormat } from '../../../utils/hex'
 import { hashHistory } from 'react-router';
 
 class TransactionTable  extends React.Component<any,any> {
@@ -17,39 +18,39 @@ class TransactionTable  extends React.Component<any,any> {
     var data = self.props.data;
     var globalTickTime = self.props.globalTickTime;
     return (
-      <div className='transactionTable' style={{ padding: "14px 23px 0 23px" }}>
+      <div className='transactionTable'>
         <table className="table table-hover" style={{ tableLayout: 'fixed'}} >
           <thead style={{ backgroundColor: "#fafbff" }}>
-              <th style={{ width: 157/1154 * 100 +"%"}} scope="col">交易类型</th>
-              <th style={{ width: (312-157)/1154 * 100 +"%"}} scope="col">哈希</th>
-              <th style={{ width: (476-312)/1154 * 100 +"%"}} scope="col">从</th>
-              <th style={{ width: (623-476)/1154 * 100 +"%"}} scope="col">至</th>
-              <th style={{ width: (789-623)/1154 * 100 +"%"}} scope="col">代币值</th>
-              <th style={{ width: (897-789)/1154 * 100 +"%"}} scope="col">高度</th>
-              <th style={{ width: (981-815)/1154 * 100 +"%"}} scope="col">使用的配额</th>
-              <th scope="col">时间</th>
+              <th className="text-center" style={{ width: 157/1154 * 100 +"%"}} scope="col">交易类型</th>
+              <th className="text-center" style={{ width: (312-157)/1154 * 100 +"%"}} scope="col">哈希</th>
+              <th className="text-center" style={{ width: (476-312)/1154 * 100 +"%"}} scope="col">从</th>
+              <th className="text-center" style={{ width: (623-476)/1154 * 100 +"%"}} scope="col">至</th>
+              <th className="text-center" style={{ width: (789-623)/1154 * 100 +"%"}} scope="col">价值</th>
+              <th className="text-center" style={{ width: (897-789)/1154 * 100 +"%"}} scope="col">高度</th>
+              <th className="text-center" style={{ width: (981-815)/1154 * 100 +"%"}} scope="col">消耗的 Quota</th>
+              <th className="text-center" scope="col">时间</th>
           </thead>
           <tbody>
           {
           data.list && data.list.map(function(d:any, i:number){
             return (
               <tr key={i}>
-                <td className='transactionTypeTd'>{d.type}??</td>
+                <td className='text-center transactionTypeTd'>{d.type}??</td>
                 <td>
-                  <div className='transactionHashTd operationItem' onClick={()=>{hashHistory.push("/transaction/hash/"+d.hash)}}>{d.hash}</div>
+                  <div className='text-center transactionHashTd operationItem' onClick={()=>{hashHistory.push("/transaction/hash/"+d.hash)}}>{d.hash}</div>
                 </td>
                 <td>
-                  <div className='transactionFromTd operationItem'  onClick={()=>{hashHistory.push("/account/"+d.from)}}>{d.from}</div>
+                  <div className='text-center transactionFromTd operationItem'  onClick={()=>{hashHistory.push("/account/"+d.from)}}>{d.from}</div>
                 </td>
                 <td>
-                  <div className='transactionToTd operationItem'  onClick={()=>{hashHistory.push("/account/"+d.to)}}>{d.to}</div>
+                  <div className='text-center transactionToTd operationItem'  onClick={()=>{hashHistory.push("/account/"+d.to)}}>{d.to}</div>
                 </td>
-                <td className='transactionValueTd'>{parseInt(d.gasUsed)}</td>
+                <td className='text-center transactionValueTd'>{valueFormat(d.value)}</td>
                 <td>
-                  <div className='transactionBlockNumberTd'>{parseInt(d.blockNumber)}</div>
+                  <div className='text-center transactionBlockNumberTd'>{parseInt(d.blockNumber)}</div>
                 </td>
-                <td className='transactionQuotaUsedTd'>{parseInt(d.quotaUsed)}</td>
-                <td className='transactionTimestampTd'>{timePassed( globalTickTime - d.timestamp )}</td>
+                <td className='text-center transactionQuotaUsedTd'>{parseInt(d.quotaUsed)}</td>
+                <td className='text-center transactionTimestampTd'>{timePassed( globalTickTime - d.timestamp )}</td>
               </tr>
             )
           })

@@ -1,5 +1,5 @@
 const RATIO = 1e18
-const DECIMAL = 9
+const DECIMAL = 18
 
 export function valueFormat(value: number | string, symbol?: string):string{
   return +(+value / RATIO).toFixed(DECIMAL).toLocaleString() +
@@ -36,4 +36,18 @@ export function isBlockHeight(str:string):boolean{
 export function isHash(str:string):boolean{
   const value:string = format0x(str).toString()
   return value.length === 66 && web3Utils.isHexStrict(value)
+}
+
+export function hex2Utf8(hex:string):string{
+  console.log(web3Utils);
+  try{
+    let result = web3Utils.hexToString(hex);
+    console.log(result);
+    return result
+  }catch(e){
+    console.log(e);
+    console.log(hex);
+    return ""
+  }
+
 }

@@ -1,4 +1,4 @@
-import * as React from 'react'
+import  React from 'react'
 import './rebirth.styl'
 import Layout from '../../components/layout'
 import Content from '../../components/content'
@@ -52,8 +52,8 @@ import { getSelectNetwork } from '../../utils/storage'
 
 
 class APIRebirth  extends React.Component<any,any> {
-  input:string;
-  output:string;
+  input:string="";
+  output:string="";
   constructor(props:any) {
     super(props);
   }
@@ -65,7 +65,7 @@ class APIRebirth  extends React.Component<any,any> {
       method = jsonRpc[0].name;
       hashHistory.replace('/api/rebirth?method=' + jsonRpc[0].name);
     }
-    var item = jsonRpc.find((d)=>{return d.name==method});
+    var item:any = jsonRpc.find((d)=>{return d.name==method});
     try{
       self.input = JSON.parse(item.inputSample||"{}")
       self.props.networkAction.rebirth(getSelectNetwork().url + method,self.input);
@@ -82,7 +82,7 @@ class APIRebirth  extends React.Component<any,any> {
         method = jsonRpc[0].name;
         hashHistory.replace('/api/rebirth?method=' + jsonRpc[0].name);
       }
-      var item = jsonRpc.find((d)=>{return d.name==method});
+      var item:any = jsonRpc.find((d)=>{return d.name==method});
       try{
         self.props.networkAction.rebirth(getSelectNetwork().url + method,JSON.parse(item.inputSample||"{}"));
       }catch(e){

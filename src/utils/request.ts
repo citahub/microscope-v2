@@ -55,11 +55,12 @@ function filterJSON(res:any) {
 // }
 
 function _fetch(fetchPromise:any, timeout:number) {
-  var abortFn = null
+  // var abortFn:any = null
   var abortPromise = new Promise(function(resolve:any, reject:any) {
-    abortFn = function() {
+    console.log(resolve)
+    setTimeout(function() {
       reject(config.apiTimeoutMsg || 'abort promise')
-    }
+    }, timeout)
   })
 
   var abortablePromise = Promise.race([fetchPromise, abortPromise]).catch(
@@ -72,9 +73,7 @@ function _fetch(fetchPromise:any, timeout:number) {
     }
   )
 
-  setTimeout(function() {
-    abortFn()
-  }, timeout)
+  
 
   return abortablePromise
 }

@@ -19,11 +19,6 @@ module.exports = {
       },
       {
         exclude: /node_modules/,
-        test: /\.jsx$/,
-        use: ['babel-loader']
-      },
-      {
-        exclude: /node_modules/,
         test: /\.js$/,
         use: ['babel-loader']
       },
@@ -46,17 +41,13 @@ module.exports = {
     ]
   },
   resolve: {
-    extensions: ['.ts', '.tsx', '.js', '.jsx'],
-    modules: ['ui', 'node_modules']
+    extensions: ['.ts', '.tsx', '.js'],
+    modules: ['node_modules']
   },
   plugins: [
     new ExtractTextPlugin({
       filename: 'bundle.css',
       allChunks: true
     })
-  ],
-  output: {
-    path: path.join(path.resolve(__dirname), './portal/'),
-    filename: '[name].js'
-  }
+  ]
 }

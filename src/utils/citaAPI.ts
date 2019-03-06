@@ -1,4 +1,4 @@
-import AppChain from '@appchain/base'
+import { default as CITASDK } from '@cryptape/cita-sdk'
 import { getSelectNetwork } from './storage'
 import * as request from './request'
 
@@ -6,7 +6,7 @@ import * as config from './config'
 import { ServerNode } from './config'
 
 // const serverNode:ServerNode = getSelectNetwork()
-// const appchain = AppChain(serverNode.url)
+// const appchain = CITASDK(serverNode.url)
 
 // appchain.base.peerCount().then(d => {
 //   console.log(d)
@@ -29,10 +29,10 @@ import { ServerNode } from './config'
 
 export function listenBlock(){
   const serverNode:ServerNode = getSelectNetwork()
-  // const appchain = AppChain(serverNode.url)
+  // const appchain = CITASDK(serverNode.url)
   return request.get(serverNode.url + config.api.url, {})
     .then((data:any) => {
-      var appchain2 = AppChain(data.result.ws_url || data.result.http_url);
+      var appchain2 = CITASDK(data.result.ws_url || data.result.http_url);
       console.log(appchain2);
       console.log(appchain2.base.newBlockFilter);
       return appchain2.base.newBlockFilter().then((filterId:any)=>{
@@ -44,7 +44,7 @@ export function listenBlock(){
               })
             }
             return newBlock;
-      }).catch(e=>{
+      }).catch((e:any)=>{
         console.log(e);
         throw e;
       })

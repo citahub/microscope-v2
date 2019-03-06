@@ -1,11 +1,11 @@
-import * as React from 'react'
+import  React from 'react'
 import './index.styl'
 
 interface Props {
   style: object;
 }
 
-export default class Footer extends React.Component<Props, object> {
+export default class Footer extends React.Component<any, any> {
   constructor(props:Props) {
     super(props);
   }

@@ -19,8 +19,8 @@ interface TOAST {
 }
 interface SHOW_LOADING {
     type: constants.SHOW_LOADING;
-    maskTopPoz: number;
-    maskColor: string;
+    maskTopPoz: number|null;
+    maskColor: string|null;
 }
 interface HIDE_LOADING{
   type: constants.HIDE_LOADING;
@@ -67,7 +67,7 @@ export const toast = createAction(constants.TOAST, (text:string, timeout:number 
   }
 })
 
-export function showLoading(maskTopPoz:number = null, maskColor:string = null):SHOW_LOADING {
+export function showLoading(maskTopPoz:number|null = null, maskColor:string|null = null):SHOW_LOADING {
   return {
     type: constants.SHOW_LOADING,
     maskTopPoz: maskTopPoz,

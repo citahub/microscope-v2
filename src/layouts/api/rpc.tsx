@@ -1,4 +1,4 @@
-import * as React from 'react'
+import  React from 'react'
 import './rpc.styl'
 import Layout from '../../components/layout'
 import Content from '../../components/content'
@@ -107,8 +107,8 @@ import { getSelectNetwork } from '../../utils/storage'
 
 
 class APIRpc  extends React.Component<any,any> {
-  input:string;
-  output:string;
+  input:string="";
+  output:string="";
   constructor(props:any) {
     super(props);
   }
@@ -120,7 +120,7 @@ class APIRpc  extends React.Component<any,any> {
       method = jsonRpc[0].name;
       hashHistory.replace('/api/rpc?method=' + jsonRpc[0].name);
     }
-    var item = jsonRpc.find((d)=>{return d.name==method});
+    var item:any = jsonRpc.find((d)=>{return d.name==method});
     try{
       self.props.networkAction.rpc(JSON.parse(item.inputSample||"{}"));
     }catch(e){
@@ -136,7 +136,7 @@ class APIRpc  extends React.Component<any,any> {
         method = jsonRpc[0].name;
         hashHistory.replace('/api/rpc?method=' + jsonRpc[0].name);
       }
-      var item = jsonRpc.find((d)=>{return d.name==method});
+      var item:any = jsonRpc.find((d)=>{return d.name==method});
       try{
         self.input = item.inputSample||"{}"
 

@@ -55,7 +55,7 @@ export function getMetaData() {
   }
 }
 
-export function rpc(jsonRpc) {
+export function rpc(jsonRpc:string) {
   return (dispatch:any) => {
     dispatch(showLoading())
     return dataAPI.rpc(jsonRpc).then((data:RPCData) => {
@@ -77,7 +77,7 @@ export function rpc(jsonRpc) {
   }
 }
 
-export function rebirth(url,params) {
+export function rebirth(url:string,params:any) {
   // var url = method ;
   return (dispatch:any) => {
     dispatch(showLoading())

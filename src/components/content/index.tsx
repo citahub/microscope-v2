@@ -1,4 +1,4 @@
-import * as React from 'react'
+import  React from 'react'
 import { UIEvent } from 'react'
 import  './index.styl'
 
@@ -7,12 +7,13 @@ interface Props {
   onScroll?: (e: UIEvent)=> void | null;
   onScrollEnd?: (e: UIEvent)=> void | null;
 }
-class Content extends React.Component<Props, object> {
+class Content extends React.Component<any, any> {
   constructor(props:Props) {
     super(props);
   }
-  static scrollLatency = 300
-  static scrollEndTimer = null
+  
+  static scrollLatency:number = 300
+  static scrollEndTimer:any = null
   static defaultProps = {
     style:{},
     onScroll: null,
@@ -22,7 +23,7 @@ class Content extends React.Component<Props, object> {
     var self = this;
     var nativeEvent = event.nativeEvent;
     // response on scroll
-    if (self.props.onScroll !== null) {
+    if (self.props.onScroll) {
       self.props.onScroll(nativeEvent);
     }
     // response on scrollEnd
@@ -32,7 +33,7 @@ class Content extends React.Component<Props, object> {
       }
       Content.scrollEndTimer = setTimeout(function() {
         Content.scrollEndTimer = null;
-        self.props.onScrollEnd(nativeEvent);
+        self.props.onScrollEnd && self.props.onScrollEnd(nativeEvent);
       }, Content.scrollLatency);
     }
   }

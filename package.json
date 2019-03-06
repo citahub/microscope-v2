@@ -6,14 +6,14 @@
     "node": ">= 10.14.2"
   },
   "scripts": {
-    "dev": "webpack-dev-server --open --config webpack.dev.js",
+    "start": "webpack-dev-server --open --config webpack.dev.js",
     "build": "webpack --config webpack.prod.js",
-    "light-server": "light-server -s portal -p 7000"
+    "light-server": "light-server -s build -p 7000"
   },
   "keywords": [],
   "author": "wuyuyue@cryptape.com",
   "dependencies": {
-    "@appchain/base": "^0.20.3",
+    "@cryptape/cita-sdk": "^0.21.1",
     "@types/react": "^16.7.18",
     "@types/react-dom": "^16.0.11",
     "@types/react-intl": "^2.3.14",
@@ -37,7 +37,7 @@
     "babel-preset-react": "6.24.1",
     "babel-register": "^6.26.0",
     "bootstrap": "^4.1.3",
-    "copy-webpack-plugin": "^4.5.1",
+    "copy-webpack-plugin": "^4.6.0",
     "css-loader": "^0.28.11",
     "dayjs": "^1.8.0",
     "es6-promise": "^4.2.4",
@@ -73,6 +73,7 @@
     "webpack-merge": "^4.1.4"
   },
   "devDependencies": {
+    "@cryptape/sdk-ts-config": "0.0.1",
     "babel-eslint": "^10.0.1",
     "eslint": "^5.11.1",
     "eslint-config-airbnb-base": "^13.1.0",

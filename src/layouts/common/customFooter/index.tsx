@@ -1,4 +1,4 @@
-import * as React from 'react'
+import  React from 'react'
 import './index.styl'
 class CustomFooter  extends React.Component<any,any> {
   // constructor(props) {

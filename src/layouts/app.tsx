@@ -1,4 +1,4 @@
-import * as React from 'react';
+import  React from 'react';
 import 'bootstrap/dist/css/bootstrap.css'
 import './app.styl'
 import Loading from '../components/loading'
@@ -28,8 +28,6 @@ import * as en_US from '../locale/en_US';
 
 // import "babel-polyfill";
 
-// import {renderToString} from 'react-dom/server'
-
 function chooseLocale(language:string){
   var obj = en_US;
   if(language.indexOf('zh')>-1){
@@ -41,7 +39,7 @@ function chooseLocale(language:string){
 }
 
 class App extends React.Component <any, any>{
-  unlisten: ()=>void;
+  unlisten: any=null;
   tick:any;
   componentDidMount() {
     var self = this;

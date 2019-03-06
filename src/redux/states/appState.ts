@@ -7,10 +7,10 @@ export interface ToastMessage{
 export interface Modal{
   ui: any;
   uiProps: {
-    maskTopPoz: number;
-    maskColor: string;
-    style: object;
-  };
+    maskTopPoz: number|null;
+    maskColor: string|null;
+    style: object|null;
+  } | null;
 }
 
 export interface AppState {

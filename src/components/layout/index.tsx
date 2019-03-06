@@ -1,4 +1,4 @@
-import * as React from 'react'
+import  React from 'react'
 import { ReactElement } from 'react'
 import './index.styl'
 
@@ -63,7 +63,7 @@ export default class Layout extends React.Component<Props,State> {
   }
   componentWillReceiveProps(nextProps:Props){
     if(this.props.drawerOpen !== nextProps.drawerOpen){
-      this.setState({ drawerOpen: nextProps.drawerOpen });
+      this.setState({ drawerOpen: nextProps.drawerOpen || false });
     }
   }
   render() {
@@ -81,7 +81,7 @@ export default class Layout extends React.Component<Props,State> {
         }
         layoutHasDrawerStyle = {
           ...outTransition,
-          transform: 'translateX(' + this.props.drawerStyle.width + ')',
+          transform: 'translateX(' + (this.props.drawerStyle?this.props.drawerStyle.width: '80%') + ')',
         };
         style = {
           ...outTransition,

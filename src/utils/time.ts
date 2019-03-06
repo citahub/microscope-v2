@@ -1,4 +1,4 @@
-import * as moment from 'moment'
+let moment = require('moment');
 export function timePassed(secondsDuration: number):string{
 
   var left = secondsDuration;

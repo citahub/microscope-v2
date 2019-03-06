@@ -1,4 +1,4 @@
-import * as React from 'react'
+import  React from 'react'
 import './index.styl'
 
 // const Menu = require('rc-menu')
@@ -17,7 +17,9 @@ import { isAddress, isBlockHeight, isHash, format0x } from '../../../utils/hex'
 
 class NetWork extends React.Component<any,any>{
   refs: {
-    search: HTMLInputElement;
+    search: any;
+  } = {
+    search: null
   };
   keyDownListener:any;
   constructor(props:any){
@@ -116,6 +118,8 @@ class NetWork extends React.Component<any,any>{
 class MoreMenu extends React.Component<any,any>{
   refs:{
     parentMenu: any
+  } = {
+    parentMenu:null
   }
   constructor(props:any){
     super(props);
@@ -170,7 +174,9 @@ class MoreMenu extends React.Component<any,any>{
 
 class CustomHeader  extends React.Component<any,any> {
   refs: {
-    search: HTMLInputElement;
+    search: any;
+  }={
+    search: null
   }
   keyDownListener:any;
   componentDidMount(){

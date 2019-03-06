@@ -1,7 +1,7 @@
 /*
  the main api for this application in fluture which currenlty based on citaAPI and cacheAPI
 */
-import * as citaAPI from './citaAPI'
+// import * as citaAPI from './citaAPI'
 import * as cacheAPI from './cacheAPI'
 
 export function topTransactions() {
@@ -52,10 +52,10 @@ export function getBlockNumber(){
 // export function rpc(method:string,params:any){
 //   return citaAPI.rpc(method,params)
 // }
-export function rpc(json){
+export function rpc(json:string){
   return cacheAPI.rpc(json)
 }
 
-export function rebirth(url,params){
+export function rebirth(url:string,params:any){
   return cacheAPI.rebirth(url,params)
 }

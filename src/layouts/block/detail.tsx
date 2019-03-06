@@ -1,4 +1,4 @@
-import * as React from 'react'
+import  React from 'react'
 import './detail.styl'
 import Layout from '../../components/layout'
 import Content from '../../components/content'

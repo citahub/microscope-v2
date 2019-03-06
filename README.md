@@ -1,14 +1,5 @@
 # introduction
-this is repository of microscope.
-
-1. use websocket to improve comunication with cita and rebirth cache server
-
-2. package the cita communication to citaAPI, rebirth communication to cacheAPI.
-
-3. use typescript/eslint to improve the code standards
-
-4. switch the internation part label to locale json file
-
+this is repository of microscope MVP
 
 
 # dev/run instruction
@@ -20,9 +11,9 @@ this is repository of microscope.
 
     npm i
 
-    npm run dev // for development
+    npm run start // for development
 
-    npm run build // for build which output to portal directory
+    npm run build // for build which output to build directory
 
 ```
 

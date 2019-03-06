@@ -3,7 +3,8 @@ import * as config from './config'
 import { ServerNode } from './config'
 import { getSelectNetwork } from './storage'
 // import AppChain from '@cryptape/cita-sdk'
-const { unsigner } = require('@appchain/signer')
+import { default as unsigner } from '@cryptape/cita-signer'
+
 import {isBlockHeight } from './hex'
 var serverNode:ServerNode = getSelectNetwork()
 

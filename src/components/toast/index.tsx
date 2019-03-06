@@ -1,4 +1,4 @@
-import * as React from 'react'
+import  React from 'react'
 import './index.styl'
 
 
@@ -23,8 +23,8 @@ class ToastItem extends React.Component<ToastItemProps, ToastItemState> {
     this.state = {
       opacity: 1
     }
-    this["_animationFun"] = null;
   }
+  _animationFun: any = null;
   static defaultProps = {
     disappearDuration: 2000,
     data: {},
@@ -35,7 +35,7 @@ class ToastItem extends React.Component<ToastItemProps, ToastItemState> {
   }
   componentDidMount() {
     var self = this;
-    var requestAnimationFrame = window["requestAnimationFrame"] || window["mozRequestAnimationFrame"] || window["webkitRequestAnimationFrame"]
+    var requestAnimationFrame = window["requestAnimationFrame"] || window["webkitRequestAnimationFrame"]
     setTimeout(function() {
       var maxFrame = self.props.disappearDuration / 1000 * 40; // suppose fps = 40
       var count = 0;
@@ -56,7 +56,7 @@ class ToastItem extends React.Component<ToastItemProps, ToastItemState> {
   }
   componentWillUnmount() {
     if (this["_animationFun"]) {
-      var cancelAnimationFrame = window["cancelAnimationFrame"] || window["mozCancelAnimationFrame"] || window["webkitCancelAnimationFrame"]
+      var cancelAnimationFrame = window["cancelAnimationFrame"] || window["webkitCancelAnimationFrame"]
       cancelAnimationFrame(this["_animationFun"]);
     }
   }

@@ -23,7 +23,7 @@ export function getSelectNetwork():ServerNode {
 
 
 export function getNetworks():Array<ServerNode>{
-  var result = []
+  var result:any[] = []
   var networks = window.localStorage.getItem('networks')
   if (networks) {
     try {

@@ -8,12 +8,12 @@ module.exports = merge(common, {
   devtool: 'inline-source-map',
   plugins: [
     new HtmlWebpackPlugin({
-      template: 'portal/lib/index.html',
+      template: 'public/index.html',
       filename: 'index.html'
     })
   ],
   devServer: {
-    contentBase: path.join(__dirname, './portal'),
+    contentBase: path.join(__dirname, './public'),
     port: 3000,
     inline: true
   }

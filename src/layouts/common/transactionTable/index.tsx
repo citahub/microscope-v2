@@ -1,4 +1,4 @@
-import * as React from 'react'
+import  React from 'react'
 import './index.styl'
 import Pagination from 'rc-pagination'
 import 'rc-pagination/assets/index.css';

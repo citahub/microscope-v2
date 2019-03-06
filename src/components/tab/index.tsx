@@ -1,4 +1,4 @@
-import * as React from 'react'
+import  React from 'react'
 import './index.styl'
 import './index.styl'
 
@@ -107,8 +107,8 @@ class Tabs extends React.Component<any,any> {
     }
   }
   render() {
-    var tabHeader = []
-    var tabContent = []
+    var tabHeader:any[] = []
+    var tabContent:any[] = []
     var self = this
     var children = React.Children.toArray(self.props.children || [])
 

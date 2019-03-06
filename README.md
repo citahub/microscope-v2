@@ -18,6 +18,6 @@ this is repository of microscope MVP
 ```
 
 # 3rd libaray
-  1. [rc-menu](https://github.com/react-component/menu)
+  1. [react-json-view](https://github.com/mac-s-g/react-json-view)
   2. [rc-pagination](https://github.com/react-component/pagination)
   3. [rc-select](https://github.com/react-component/select)

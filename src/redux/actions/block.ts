@@ -60,9 +60,9 @@ export function getBlock(key:string) {
 
 export function getBlockList(pageNum:number,pageSize:number) {
   return (dispatch:any) => {
-    dispatch(showLoading())
+    // dispatch(showLoading())
     return dataAPI.getBlockList(pageNum,pageSize).then((data:any) => {
-      dispatch(hideLoading())
+      // dispatch(hideLoading())
       dispatch({
         type: constants.GET_BLOCK_LIST,
         data: {
@@ -73,7 +73,7 @@ export function getBlockList(pageNum:number,pageSize:number) {
         }
       });
     }).catch((error:any) => {
-      dispatch(hideLoading())
+      // dispatch(hideLoading())
       dispatch({
         type: constants.OPERATION_FAIL,
         error: error

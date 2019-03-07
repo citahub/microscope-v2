@@ -38,7 +38,7 @@ class TransactionDetail  extends React.Component<any,any> {
   render() {
     var self = this;
     var data = self.props.transaction.item;
-    // console.log(data);
+    console.log(data);
     return (
       <Layout className='transactionDetail' bgColor='#fbfbfb'>
         <Content style={{ width: '100%', height: '100%' }}>
@@ -56,16 +56,16 @@ class TransactionDetail  extends React.Component<any,any> {
                 <div className='withRow transactionBodyRow'>
                   <div className='transactionDetailKey'>From:</div>
                   <div className='transactionDetailValue withRowLeftAuto operationItem' style={{ fontSize: 16, color: "#5b8ee6"}} onClick={()=>{
-                    if(data &&  data.unsignedTransaction && data.unsignedTransaction.sender.address)
+                    if(data &&  data.unsignedTransaction && data.unsignedTransaction.sender && data.unsignedTransaction.sender.address)
                     hashHistory.push("/account/"+data.unsignedTransaction.sender.address)
-                  }}>{data &&  data.unsignedTransaction && data.unsignedTransaction.sender.address}</div>
+                  }}>{data &&  data.unsignedTransaction && data.unsignedTransaction.sender && data.unsignedTransaction.sender.address}</div>
                 </div>
                 <div className='withRow transactionBodyRow'>
                   <div className='transactionDetailKey'>To/Contract</div>
                   <div className='transactionDetailValue withRowLeftAuto operationItem'  style={{ fontSize: 16, color: "#5b8ee6"}} onClick={()=>{
-                    if(data &&  data.unsignedTransaction && data.unsignedTransaction.transaction.to)
+                    if(data &&  data.unsignedTransaction && data.unsignedTransaction.transaction && data.unsignedTransaction.transaction.to)
                     hashHistory.push("/account/"+data.unsignedTransaction.transaction.to)
-                  }}>{data &&  data.unsignedTransaction && data.unsignedTransaction.transaction.to}</div>
+                  }}>{data &&  data.unsignedTransaction && data.unsignedTransaction.transaction && data.unsignedTransaction.transaction.to}</div>
                 </div>
                 <div className='withRow transactionBodyRow'>
                   <div className='transactionDetailKey'>Block Height:</div>
@@ -73,19 +73,19 @@ class TransactionDetail  extends React.Component<any,any> {
                 </div>
                 <div className='withRow transactionBodyRow'>
                   <div className='transactionDetailKey'>Nonce:</div>
-                  <div className='transactionDetailValue withRowLeftAuto'>{data  &&  data.unsignedTransaction && data.unsignedTransaction.transaction.nonce}</div>
+                  <div className='transactionDetailValue withRowLeftAuto'>{data  &&  data.unsignedTransaction && data.unsignedTransaction.transaction && data.unsignedTransaction.transaction.nonce}</div>
                 </div>
                 <div className='withRow transactionBodyRow'>
                   <div className='transactionDetailKey'>ValidUnitBlock:</div>
-                  <div className='transactionDetailValue withRowLeftAuto'>{data &&  data.unsignedTransaction && data.unsignedTransaction.transaction.validUntilBlock}</div>
+                  <div className='transactionDetailValue withRowLeftAuto'>{data &&  data.unsignedTransaction && data.unsignedTransaction.transaction && data.unsignedTransaction.transaction.validUntilBlock}</div>
                 </div>
                 <div className='withRow transactionBodyRow'>
                   <div className='transactionDetailKey'>Value:</div>
-                  <div className='transactionDetailValue withRowLeftAuto'>{data &&  data.unsignedTransaction && data.unsignedTransaction.transaction.value}</div>
+                  <div className='transactionDetailValue withRowLeftAuto'>{data &&  data.unsignedTransaction && data.unsignedTransaction.transaction && data.unsignedTransaction.transaction.value}</div>
                 </div>
                 <div className='withRow transactionBodyRow'>
                   <div className='transactionDetailKey'>Quota Limit:</div>
-                  <div className='transactionDetailValue withRowLeftAuto'>{data &&  data.unsignedTransaction && data.unsignedTransaction.transaction.quota}</div>
+                  <div className='transactionDetailValue withRowLeftAuto'>{data &&  data.unsignedTransaction && data.unsignedTransaction.transaction && data.unsignedTransaction.transaction.quota}</div>
                 </div>
                 <div className='withRow transactionBodyRow'>
                   <div className='transactionDetailKey'>Quota Price:</div>
@@ -104,11 +104,11 @@ class TransactionDetail  extends React.Component<any,any> {
                   <div className='transactionDetailValue withRowLeftAuto'>
                     <Tabs headerWidthUnit="fixed"  initIndex={0}>
                       <Tab title="HEX">
-                        <textarea value=  {data &&  data.unsignedTransaction && data.unsignedTransaction.transaction.data} style={{ padding: 10, borderRadius: '5px 5px', width: '100%', height: 85}}>
+                        <textarea value=  {data &&  data.unsignedTransaction && data.unsignedTransaction.transaction && data.unsignedTransaction.transaction.data} style={{ padding: 10, borderRadius: '5px 5px', width: '100%', height: 85}}>
                         </textarea>
                       </Tab>
                       <Tab title="UTF8">
-                        <textarea value=  {data &&  data.unsignedTransaction && hex2Utf8(data.unsignedTransaction.transaction.data)} style={{ padding: 10, borderRadius: '5px 5px', width: '100%', height: 85}}>
+                        <textarea value=  {data &&  data.unsignedTransaction && data.unsignedTransaction.transaction && hex2Utf8(data.unsignedTransaction.transaction.data)} style={{ padding: 10, borderRadius: '5px 5px', width: '100%', height: 85}}>
                         </textarea>
                       </Tab>
                     </Tabs>

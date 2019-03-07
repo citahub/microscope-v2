@@ -93,9 +93,12 @@ class App extends React.Component <any, any>{
       modalUIShow = true;
       modalUIStyle = this.props.app.modal.uiProps.style;
     }
-
+    var language = this.props.app.appLanguage;
+    if(language.indexOf("-") > -1){
+      language = language.split("-")[0];
+    }
     return (
-      <IntlProvider locale={this.props.app.appLanguage} messages={chooseLocale(this.props.app.appLanguage)}>
+      <IntlProvider locale={language} messages={chooseLocale(this.props.app.appLanguage)}>
         <div className='root'>
           {this.props.children}
           <Modal style={modalUIStyle} show={modalUIShow} maskTopPoz={maskTopPoz} maskColor={maskColor} hasClose={false}>

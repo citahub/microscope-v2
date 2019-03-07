@@ -24,11 +24,11 @@ const api:API = {
   serverList: [
     {
       name: "TestNet1",
-      url: "https://rebirth.cryptape.com"
+      url: "https://microscope.cryptape.com:8888"
     },
     {
       name: "TestNet2",
-      url: "https://microscope.citahub.com:8888"
+      url: "https://rebirth.cryptape.com"
     }
   ],
   jsonRpc: '/',

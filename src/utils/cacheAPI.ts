@@ -2,10 +2,8 @@ import * as request from './request'
 import * as config from './config'
 import { ServerNode } from './config'
 import { getSelectNetwork } from './storage'
-// import AppChain from '@cryptape/cita-sdk'
-import { default as unsigner } from '@cryptape/cita-signer'
+import AppChain from '@cryptape/cita-sdk'
 
-import {isBlockHeight } from './hex'
 var serverNode:ServerNode = getSelectNetwork()
 
 export function topTransactions():any{
@@ -92,68 +90,27 @@ export function blockList(pageNum:number,pageSize:number):any{
     })
 }
 
-// const appchain = AppChain(serverNode.url)
+const appchain = AppChain(serverNode.url)
 
 export function getMetaData(){
-  return rpc({"jsonrpc":"2.0","id":1,"method":"getMetaData","params":["latest"]}).then((data:any) => {
-    return data && data.result
-  })
-  .catch((error:object) => {
-    throw error
-  })
+  return appchain.base.getMetaData()
 }
 
 export function getBalance(address:string){
-  return rpc({"jsonrpc":"2.0","method":"getBalance","params":[address, "latest"],"id":1}).then((data:any) => {
-    return data && data.result
-  })
-  .catch((error:object) => {
-    throw error
-  })
+  return appchain.base.getBalance(address)
 }
 
 export function getBlockByHash(hash:any){
-  return rpc({"jsonrpc":"2.0","method":"getBlockByHash","params":[hash, true],"id":1}).then((data:any) => {
-    return data && data.result
-  })
-  .catch((error:object) => {
-    throw error
-  })
+  return appchain.base.getBlockByHash(hash)
 }
 export function getBlock(key:number|string){
-  if(isBlockHeight(key+"")){
-    return rpc({"jsonrpc":"2.0","method":"getBlockByNumber","params":[key, true],"id":1}).then((data:any) => {
-      return data && data.result
-    })
-    .catch((error:object) => {
-      throw error
-    })
-  }
-  return getBlockByHash(key)
+  return appchain.base.getBlock(key)
 }
 
 export function getTransaction(hash:string){
-  return rpc({"jsonrpc":"2.0","method":"getTransaction","params":[hash],"id":1}).then((data:any) => {
-    var content = data && data.result && data.result.content;
-    return {
-      ...data.result,
-      unsignedTransaction: unsigner(content)
-    }
-  })
-  .catch((error:object) => {
-    throw error
-  })
+  return appchain.base.getTransaction(hash)
 }
-// export function getTransaction(hash:string){
-//   return request
-//     .get(serverNode.url + config.api.transactionList+"/"+hash, {})
-//     .then((data:any) => {
-//       return data && data.result
-//     })
-//     .catch((error:object) => {
-//       throw error
-//     })
-// }
+
 // export function getLatestBlock():any{
 //   return request.get(serverNode.url + config.api.url, {})
 //           .then((data:any) => {
@@ -176,29 +133,24 @@ export function getTransaction(hash:string){
 //
 // }
 export function getBlockNumber():any{
-  return rpc({"jsonrpc":"2.0","method":"blockNumber","params":[],"id":83}).then((data:any) => {
-    return data && data.result
-  })
-  .catch((error:object) => {
-    throw error
-  })
+  return appchain.base.getBlockNumber()
 }
 
-// export function listenBlock(){
-//   return appchain.base.newBlockFilter().then((filterId:any)=>{
-//         var tick = function(){
-//           return appchain.base.getFilterChanges(filterId).then((newBlocks: Array<any>)=>{
-//             console.log(newBlocks,new Date());
-//             return newBlocks;
-//             // setTimeout(()=>{newBlock()},3000);
-//           })
-//         }
-//         return tick
-//   }).catch((e:Error)=>{
-//     console.log(e);
-//     throw e;
-//   })
-// }
+export function listenBlock(){
+  return appchain.base.newBlockFilter().then((filterId:any)=>{
+        var tick = function(){
+          return appchain.base.getFilterChanges(filterId).then((newBlocks: Array<any>)=>{
+            console.log(newBlocks,new Date());
+            return newBlocks;
+            // setTimeout(()=>{newBlock()},3000);
+          })
+        }
+        return tick
+  }).catch((e:Error)=>{
+    console.log(e);
+    throw e;
+  })
+}
 
 export function rpc(json:any){
   return request

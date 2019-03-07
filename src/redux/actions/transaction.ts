@@ -61,9 +61,9 @@ export function getTransaction(key:string) {
 
 export function getTransactionList(pageNum:number,pageSize:number) {
   return (dispatch:any) => {
-    dispatch(showLoading())
+    // dispatch(showLoading())
     return dataAPI.getTransactionList(pageNum,pageSize).then((data:any) => {
-      dispatch(hideLoading())
+      // dispatch(hideLoading())
       dispatch({
         type: constants.GET_TRANSACTION_LIST,
         data: {
@@ -74,7 +74,7 @@ export function getTransactionList(pageNum:number,pageSize:number) {
         }
       });
     }).catch((error:any) => {
-      dispatch(hideLoading())
+      // dispatch(hideLoading())
       dispatch({
         type: constants.OPERATION_FAIL,
         error: error

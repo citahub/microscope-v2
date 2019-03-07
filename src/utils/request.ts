@@ -12,55 +12,35 @@ function filterStatus(res:any) {
     typeof window === 'undefined' ? res.statusText : config.apiErrorMsg
   )
   error.name = config.apiErrorMsg
-  // error.res = res
-  // error.type = 'http'
   throw error
 }
 
 function filterJSON(res:any) {
-  // return res.json();
   var r = res.text()
   r = r.then(function(text:string) {
     var result = {
-      // code: -1
     }
     try {
       result = JSON.parse(text)
     } catch (e) {
-      // result.retMsg = e.message;
       try {
         result = global.eval('(' + text + ')')
       } catch (e2) {
-        // result.retMsg = e2.message;
       }
     }
     return result
   })
   return r
 }
-//
-// function filterCode(json) {
-//   if (json && json.code === 0) {
-//     return json.data === undefined ? {} : json.data;
-//   }
-//   if (json.code === 10) {
-//     const error = new Error(typeof global.window === 'undefined' ? json.retMsg : config.apiUnAuthMsg);
-//     error.name = config.apiUnAuthMsg;
-//     throw error;
-//   } else {
-//     const error = new Error(json.error);
-//     error.name = config.apiErrorMsg;
-//     throw error;
-//   }
-// }
+
 
 function _fetch(fetchPromise:any, timeout:number) {
-  // var abortFn:any = null
-  var abortPromise = new Promise(function(resolve:any, reject:any) {
+  var abortFn:any = null
+  var abortPromise = new Promise(function(resolve, reject) {
     console.log(resolve)
-    setTimeout(function() {
+    abortFn = function() {
       reject(config.apiTimeoutMsg || 'abort promise')
-    }, timeout)
+    }
   })
 
   var abortablePromise = Promise.race([fetchPromise, abortPromise]).catch(
@@ -73,8 +53,10 @@ function _fetch(fetchPromise:any, timeout:number) {
     }
   )
 
+  setTimeout(function() {
+    abortFn()
+  }, timeout)
   
-
   return abortablePromise
 }
 
@@ -127,10 +109,6 @@ export function commonGet(
 export function get(url:string, params:any) {
   return commonGet(url, params, {}, true, true)
 }
-//
-// export function furtherGet(url, params) {
-//   return get(url, params).then(filterCode);
-// }
 
 export function putAndPost(
   url:string,
@@ -171,53 +149,11 @@ export function putAndPost(
       }),
       params['timeout'] || config.apiTimeout
     )
-      // .then(filterStatus)
       .then(filterJSON)
   )
-  // .then(function(json) {
-  //   return jsonReplaceByUrl(url, json);
-  // });
+
 }
 
 export function post(url:string, params:any, headers:any, credentials:string) {
   return putAndPost(url, 'POST', params, headers, credentials)
 }
-
-// export function put(url, params, headers) {
-//   return putAndPost(url, 'PUT', params, headers);
-// }
-//
-// export function furtherPost(url, params, headers, credentials) {
-//   return post(url, params, headers, credentials)
-//     .then(filterCode)
-//     .catch(error => {
-//       throw error;
-//     })
-// }
-//
-// export function postFile(url, body, headers, filterStatusFlag = true, filterJSONFlag = true, filterCodeFlag = false, credentials = 'include') {
-//   var defHeader = {
-//     'Accept': 'application/json'
-//   }
-//
-//   if (headers && Object.assign) {
-//     defHeader={
-//       ...defHeader,
-//       ...headers
-//     }
-//   }
-//   var result = _fetch(fetch(apiUrl(url), { method: 'POST', headers: headers, body: body, credentials: credentials }), config.apiTimeout * 4);
-//   if (filterStatusFlag === true) {
-//     result = result.then(filterStatus);
-//     if (filterJSONFlag === true) {
-//       result = result.then(filterJSON)
-//                      .then(function(json) {
-//                        return jsonReplaceByUrl(apiUrl(url), json);
-//                      });
-//     }
-//     if (filterCodeFlag === true) {
-//       return result.then(filterCode).catch(error => { throw error; });
-//     }
-//   }
-//   return result;
-// }

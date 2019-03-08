@@ -110,6 +110,9 @@ export function getBlock(key:number|string){
 export function getTransaction(hash:string){
   return appchain.base.getTransaction(hash)
 }
+export function getTransactionReceipt(hash:string){
+  return appchain.base.getTransactionReceipt(hash)
+}
 
 
 // export function getLatestBlock():any{

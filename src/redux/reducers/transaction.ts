@@ -15,6 +15,7 @@ const initialState: TransactionState = {
   topList: null,
   latest: null,
   item:  null,
+  itemReceipt: null,
   list: {
     pageNum:  1,
     pageSize:  10,
@@ -35,6 +36,11 @@ export default function(state:TransactionState = initialState, action: Transacti
         ...state,
         item: action.data
       }
+    case constants.GET_TRANSACTION_RECEIPT_ITEM:
+      return {
+      ...state,
+      itemReceipt: action.data
+    }
     case constants.GET_TRANSACTION_LIST:
       return {
         ...state,

@@ -1,5 +1,5 @@
 import * as constants from '../actionTypes'
-import { TransactionItem, TransactionList } from '../states/transaction'
+import { TransactionItem,TransactionReceiptItem, TransactionList } from '../states/transaction'
 import {showLoading, hideLoading} from './appAction'
 
 import * as dataAPI from '../../utils/dataAPI';
@@ -7,6 +7,10 @@ import * as dataAPI from '../../utils/dataAPI';
 interface GET_TRANSACTION_ITEM {
     type: constants.GET_TRANSACTION_ITEM;
     data: TransactionItem;
+}
+interface GET_TRANSACTION_RECEIPT_ITEM {
+  type: constants.GET_TRANSACTION_RECEIPT_ITEM;
+  data: TransactionReceiptItem;
 }
 
 interface GET_TRANSACTION_LIST {
@@ -22,7 +26,7 @@ interface APPEND_LATEST_TRANSACTION{
   data: TransactionItem;
 }
 
-export type TransactionAction = GET_TRANSACTION_ITEM | GET_TRANSACTION_LIST | GET_TOP_TRANSACTIONS | APPEND_LATEST_TRANSACTION;
+export type TransactionAction = GET_TRANSACTION_ITEM | GET_TRANSACTION_RECEIPT_ITEM | GET_TRANSACTION_LIST | GET_TOP_TRANSACTIONS | APPEND_LATEST_TRANSACTION;
 
 export function topTransactions() {
   // return dataAPI.topTransactions();
@@ -62,7 +66,24 @@ export function getTransaction(key:string) {
     })
   }
 }
-
+export function getTransactionReceipt(key:string) {
+  return (dispatch:any) => {
+    dispatch(showLoading())
+    return dataAPI.getTransactionReceipt(key).then((data:any) => {
+      dispatch(hideLoading())
+      dispatch({
+        type: constants.GET_TRANSACTION_RECEIPT_ITEM,
+        data: data
+      });
+    }).catch((error:any) => {
+      dispatch(hideLoading())
+      dispatch({
+        type: constants.OPERATION_FAIL,
+        error: error
+      });
+    })
+  }
+}
 export function getTransactionList(pageNum:number,pageSize:number) {
   return (dispatch:any) => {
     // dispatch(showLoading())

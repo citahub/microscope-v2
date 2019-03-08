@@ -12,4 +12,4 @@ var app =
               { createRoutes() }
             </Provider>
 // console.log(renderToString(app));
-ReactDOM.render(app, document.getElementById('app') as HTMLElement);
+setTimeout(()=>{ReactDOM.render(app, document.getElementById('app') as HTMLElement);}, 1000)

@@ -68,4 +68,86 @@ html,body,#app,.root
   .rc-pagination-item
     &:hover
       border-color #6a96f0!important
-    
+      
+div.enterScreen {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    color: #202214;
+    background: #202214;
+    text-align: center;
+    z-index: 999;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    letter-spacing: 4px;
+    font-family: 'Press Start 2P', cursive;
+    text-transform: capitalize;
+    text-rendering: optimizeSpeed;
+  }
+
+
+  div.enterScreen span {
+    color: #202214;
+    /* color: #FFF; */
+    animation: blur 2s infinite;
+    font-family: inherit;
+    filter: blur(50px);
+  }
+
+  @keyframes blur {
+    50%,
+    80% {
+      color: #FFF;
+      filter: blur(0px);
+    }
+  }
+
+  div.enterScreen span:nth-of-type(1) {
+    animation-delay: 0s;
+  }
+
+  div.enterScreen span:nth-of-type(2) {
+    animation-delay: 0.04s;
+  }
+
+  div.enterScreen span:nth-of-type(3) {
+    animation-delay: 0.08s;
+  }
+
+  div.enterScreen span:nth-of-type(4) {
+    animation-delay: 0.12s;
+  }
+
+  div.enterScreen span:nth-of-type(5) {
+    animation-delay: 0.2s;
+  }
+
+  div.enterScreen span:nth-of-type(6) {
+    animation-delay: 0.24s;
+  }
+
+  div.enterScreen span:nth-of-type(7) {
+    animation-delay: 0.28s;
+  }
+
+  div.enterScreen span:nth-of-type(8) {
+    animation-delay: 0.32s;
+  }
+
+  div.enterScreen span:nth-of-type(9) {
+    animation-delay: 0.36s;
+  }
+
+  div.enterScreen span:nth-of-type(10) {
+    animation-delay: 0.4s;
+  }
+
+  @media (max-width: 375px) {
+    div.enterScreen {
+      font-size: 1.4rem;
+    }
+  }

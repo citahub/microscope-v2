@@ -28,17 +28,26 @@ class TransactionDetail  extends React.Component<any,any> {
     //   })
     // })
     self.props.transactionAction.getTransaction(params.hash);
+    self.props.transactionAction.getTransactionReceipt(params.hash);
   }
   componentWillReceiveProps(nextProps:any){
     var self = this;
     if(JSON.stringify(nextProps.params) !== JSON.stringify(self.props.params)){
       self.props.transactionAction.getTransaction(nextProps.params.hash);
+      self.props.transactionAction.getTransactionReceipt(nextProps.params.hash);
     }
   }
   render() {
     var self = this;
     var data = self.props.transaction.item;
+    var dataReceipt = self.props.transaction.itemReceipt;
     console.log(data);
+    var from = data && data.from || data && data.unsignedTransaction && data.unsignedTransaction.sender && data.unsignedTransaction.sender.address;
+    var to = data && data.to ||  data && data.unsignedTransaction && data.unsignedTransaction.transaction && data.unsignedTransaction.transaction.to
+    var subData = data &&  data.unsignedTransaction && data.unsignedTransaction.transaction && data.unsignedTransaction.transaction.data
+    // alert(to)
+    var errorMessage = dataReceipt && dataReceipt.errorMessage;
+    
     return (
       <Layout className='transactionDetail' bgColor='#fbfbfb'>
         <Content style={{ width: '100%', height: '100%' }}>
@@ -51,21 +60,44 @@ class TransactionDetail  extends React.Component<any,any> {
               <div  className='transactionBody'>
                 <div className='withRow transactionBodyRow'>
                   <div className='transactionDetailKey'>Status:</div>
-                  <div className='transactionDetailValue withRowLeftAuto'>{data && data.index}</div>
+                  <div className='transactionDetailValue withRowLeftAuto'>
+                    {
+                      !data
+                        ?""
+                        : errorMessage
+                          ?<span style={{ color: '#ff8181'}}>Failure({errorMessage})</span>
+                          :<span style={{ color: '#3dd895'}}>Success</span>
+                    }
+                  </div>
                 </div>
+
+                <div className='withRow transactionBodyRow'>
+                  <div className='transactionDetailKey'>Type:</div>
+                  <div className='transactionDetailValue withRowLeftAuto'>
+                    {
+                      !data
+                        ? ""
+                        : !to
+                          ?"Contract Creation"
+                          : subData && subData.replace(/^0x/, '')
+                            ?"CONTRACT_CALL"
+                            :"EXCHANGE"
+                    }
+                  </div>
+                </div>
+
                 <div className='withRow transactionBodyRow'>
                   <div className='transactionDetailKey'>From:</div>
                   <div className='transactionDetailValue withRowLeftAuto operationItem' style={{ fontSize: 16, color: "#5b8ee6"}} onClick={()=>{
-                    if(data &&  data.unsignedTransaction && data.unsignedTransaction.sender && data.unsignedTransaction.sender.address)
-                    hashHistory.push("/account/"+data.unsignedTransaction.sender.address)
-                  }}>{data &&  data.unsignedTransaction && data.unsignedTransaction.sender && data.unsignedTransaction.sender.address}</div>
+                    if(from)hashHistory.push("/account/"+from)
+                  }}>{from}</div>
                 </div>
                 <div className='withRow transactionBodyRow'>
                   <div className='transactionDetailKey'>To/Contract</div>
                   <div className='transactionDetailValue withRowLeftAuto operationItem'  style={{ fontSize: 16, color: "#5b8ee6"}} onClick={()=>{
-                    if(data &&  data.unsignedTransaction && data.unsignedTransaction.transaction && data.unsignedTransaction.transaction.to)
-                    hashHistory.push("/account/"+data.unsignedTransaction.transaction.to)
-                  }}>{data &&  data.unsignedTransaction && data.unsignedTransaction.transaction && data.unsignedTransaction.transaction.to}</div>
+                    if(to)
+                    hashHistory.push("/account/"+to)
+                  }}>{to}</div>
                 </div>
                 <div className='withRow transactionBodyRow'>
                   <div className='transactionDetailKey'>Block Height:</div>
@@ -104,11 +136,11 @@ class TransactionDetail  extends React.Component<any,any> {
                   <div className='transactionDetailValue withRowLeftAuto'>
                     <Tabs headerWidthUnit="fixed"  initIndex={0}>
                       <Tab title="HEX">
-                        <textarea value=  {data &&  data.unsignedTransaction && data.unsignedTransaction.transaction && data.unsignedTransaction.transaction.data} style={{ padding: 10, borderRadius: '5px 5px', width: '100%', height: 85}}>
+                        <textarea value=  {subData} style={{ padding: 10, borderRadius: '5px 5px', width: '100%', height: 85}}>
                         </textarea>
                       </Tab>
                       <Tab title="UTF8">
-                        <textarea value=  {data &&  data.unsignedTransaction && data.unsignedTransaction.transaction && hex2Utf8(data.unsignedTransaction.transaction.data)} style={{ padding: 10, borderRadius: '5px 5px', width: '100%', height: 85}}>
+                        <textarea value=  {subData && hex2Utf8(subData)} style={{ padding: 10, borderRadius: '5px 5px', width: '100%', height: 85}}>
                         </textarea>
                       </Tab>
                     </Tabs>

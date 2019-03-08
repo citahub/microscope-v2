@@ -10,6 +10,11 @@ export function topTransactions() {
 export function getTransaction(key:string) {
   return cacheAPI.getTransaction(key)
 }
+export function getTransactionReceipt(key:string) {
+  return cacheAPI.getTransactionReceipt(key)
+}
+
+
 export function getTransactionList(pageNum:number,pageSize:number) {
   return cacheAPI.transactionList(pageNum,pageSize,null)
 }

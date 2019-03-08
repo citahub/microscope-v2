@@ -17,8 +17,12 @@ interface GET_TOP_TRANSACTIONS {
     type: constants.GET_TOP_TRANSACTIONS;
     data: Array<TransactionItem>;
 }
+interface APPEND_LATEST_TRANSACTION{
+  type: constants.APPEND_LATEST_TRANSACTION;
+  data: TransactionItem;
+}
 
-export type TransactionAction = GET_TRANSACTION_ITEM | GET_TRANSACTION_LIST | GET_TOP_TRANSACTIONS;
+export type TransactionAction = GET_TRANSACTION_ITEM | GET_TRANSACTION_LIST | GET_TOP_TRANSACTIONS | APPEND_LATEST_TRANSACTION;
 
 export function topTransactions() {
   // return dataAPI.topTransactions();

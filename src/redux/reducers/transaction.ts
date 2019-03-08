@@ -2,8 +2,18 @@ import * as constants from '../actionTypes'
 import { TransactionAction } from '../actions/transaction'
 import { TransactionState } from '../states/transaction'
 
+function insertAndRemove(list:any,element:any){
+  var result = list || []
+  result.unshift(element);
+  if(result.length>10){
+    result.pop();
+  }
+  return result
+}
+
 const initialState: TransactionState = {
   topList: null,
+  latest: null,
   item:  null,
   list: {
     pageNum:  1,
@@ -29,6 +39,11 @@ export default function(state:TransactionState = initialState, action: Transacti
       return {
         ...state,
         list: action.data
+      }
+    case constants.APPEND_LATEST_TRANSACTION:
+      return {
+        ...state,
+        topList: insertAndRemove(state.topList,action.data)
       }
     default:
       return state

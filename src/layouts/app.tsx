@@ -16,12 +16,11 @@ import { IRootState } from '../redux/states'
 import { AppState } from '../redux/states/appState'
 import { IntlProvider, addLocaleData } from 'react-intl';
 
-import * as enLocaleData from 'react-intl/locale-data/en';
-import * as zhLocaleData from 'react-intl/locale-data/zh';
+import enLocaleData from 'react-intl/locale-data/en';
+import zhLocaleData from 'react-intl/locale-data/zh';
 
 addLocaleData(enLocaleData);
 addLocaleData(zhLocaleData);
-
 
 import * as zh_CN from '../locale/zh_CN';
 import * as en_US from '../locale/en_US';
@@ -94,11 +93,9 @@ class App extends React.Component <any, any>{
       modalUIStyle = this.props.app.modal.uiProps.style;
     }
     var language = this.props.app.appLanguage;
-    if(language.indexOf("-") > -1){
-      language = language.split("-")[0];
-    }
+
     return (
-      <IntlProvider locale={language} messages={chooseLocale(this.props.app.appLanguage)}>
+      <IntlProvider locale={language} messages={chooseLocale(language)}>
         <div className='root'>
           {this.props.children}
           <Modal style={modalUIStyle} show={modalUIShow} maskTopPoz={maskTopPoz} maskColor={maskColor} hasClose={false}>

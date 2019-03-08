@@ -24,7 +24,7 @@ const api:API = {
   serverList: [
     {
       name: "TestNet1",
-      url: "https://microscope.cryptape.com:8888"
+      url: "https://node.cryptape.com"
     },
     {
       name: "TestNet2",
@@ -45,7 +45,7 @@ const config: Config = {
   api: api,
   apiTimeout: 15000,
   apiTimeoutMsg: 'api timeout，try it later',
-  apiErrorMsg: 'network timeout,try it later！'
+  apiErrorMsg: 'network error！'
 }
 
 export { api };

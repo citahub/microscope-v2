@@ -45,6 +45,7 @@ export function getBalance(address:string){
 export function getBlockNumber(){
   return cacheAPI.getBlockNumber();
 }
+
 // export function listenBlock(){
 //   return cacheAPI.listenBlock();
 // }

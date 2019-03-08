@@ -27,12 +27,28 @@ class Home extends React.Component<any, any>{
     self.props.transactionAction.topTransactions();
 
     // currently no websocket
+    // self.topBlocksTimer = setInterval(()=>{
+    //   self.props.blockAction.topBlocks();
+    // },3000)
+    // self.topTransactionsTimer = setInterval(()=>{
+    //   self.props.transactionAction.topTransactions();
+    // },3000)
+
+      // self.props.blockAction.getBlockNumber();
     self.topBlocksTimer = setInterval(()=>{
-      self.props.blockAction.topBlocks();
+      if(self.props.block.latest){
+        var nextBlockId = null;
+        try {
+          nextBlockId = parseInt(self.props.block.latest.header.number) + 1;
+        }catch(e){}
+        self.props.blockAction.updateNextBlock(nextBlockId)
+      } else{
+        self.props.blockAction.updateNextBlock(null)
+      }
+      // self.props.blockAction.get(nextBlockId)
+      // self.props.blockAction.topBlocks();
     },3000)
-    self.topTransactionsTimer = setInterval(()=>{
-      self.props.transactionAction.topTransactions();
-    },3000)
+
 
     // self.props.networkAction.listenBlock();
     // citaAPI.newBlockFilter().then((filterId:string)=>{
@@ -78,8 +94,7 @@ class Home extends React.Component<any, any>{
   componentWillUnmount(){
     var self = this;
     clearInterval(self.topBlocksTimer);
-    clearInterval(self.topTransactionsTimer)
-
+    // clearInterval(self.topTransactionsTimer)
   }
   // onScrollHander(event){
   //   var scrollTop = event.target.scrollTop;
@@ -199,7 +214,7 @@ class Home extends React.Component<any, any>{
             </div>
             <div style={{ marginBottom: 179, marginTop: 30 }}>
               <div className="row" style={{ backgroundColor: "transparent", marginLeft: -15, marginRight: -15 }}>
-                <div className='col-xs-12 col-sm-9 col-md-6 col-lg-6' style={{  marginTop:30 }}>
+                <div className='col-xs-12 col-sm-9 col-md-6 col-lg-6' style={{ margin: '0 auto', marginTop:30 }}>
                   <div className='row' style={{ height: 25 }}>
                     <div className='col-6' style={{ textAlign: "left", fontSize: 18, lineHeight: "18px", color: "#47484a"}}>最近10个块</div>
                     <div className='col-6 operationItem' style={{ textAlign: "right", fontSize: 14,lineHeight: "14px", color: "#979a9e"}} onClick={()=>{hashHistory.push('/block/list')}}>查看更多 &gt;</div>
@@ -242,7 +257,7 @@ class Home extends React.Component<any, any>{
                   </div>
 
                 </div>
-                <div className='col-xs-12 col-sm-9 col-md-6 col-lg-6' style={{  marginTop: 30 }}>
+                <div className='col-xs-12 col-sm-9 col-md-6 col-lg-6' style={{ margin: '0 auto', marginTop: 30 }}>
                   <div className='row' style={{ height: 25 }}>
                     <div className='col-6' style={{ textAlign: "left", fontSize: 18, lineHeight: "18px",color: "#47484a"}}>最近10笔交易</div>
                     <div className='col-6 operationItem' style={{ textAlign: "right", fontSize: 14, lineHeight: "14px",color: "#979a9e"}}  onClick={()=>{hashHistory.push('/transaction/list')}}>查看更多 &gt;</div>
@@ -250,9 +265,13 @@ class Home extends React.Component<any, any>{
                   <div>
 
                       {
-                        topTransactions && topTransactions.map(function(d:any,i:number){
+                        topTransactions && topTransactions.map(function(d:any){
+                          console.log(d);// sdk and rebirth have tiny different decrypt on the format of content...can not get timestamp currently
+                          var from = d.from || d.unsignedTransaction && d.unsignedTransaction.sender && d.unsignedTransaction.sender.address;
+                          var to = d.to || d.unsignedTransaction && d.unsignedTransaction.transaction && d.unsignedTransaction.transaction.to;
+                          var value = d.value || d.unsignedTransaction && d.unsignedTransaction.transaction && d.unsignedTransaction.transaction.value;
                           return (
-                            <div key={i} className='transactionItem withRow'>
+                            <div key={d.hash} className='transactionItem withRow'>
                               <div style={{ width: 88 }}>
                                 <div className='transactionItemIcon'>
                                   <img src='images/content2_contract.png'/>
@@ -269,7 +288,7 @@ class Home extends React.Component<any, any>{
                                       From：
                                     </div>
                                     <div className='transactionItemFrom operationItem' onClick={()=>{hashHistory.push("/account/" + d.from)}}>
-                                      {d.from}
+                                      {from}
                                     </div>
                                   </div>
                                   <div className='col-6' style={{ padding: 0, paddingLeft: 6 }}>
@@ -277,11 +296,11 @@ class Home extends React.Component<any, any>{
                                       To：
                                     </div>
                                     <div className='transactionItemTo operationItem' onClick={()=>{hashHistory.push("/account/" + d.to)}}>
-                                      {d.to}
+                                      {to}
                                     </div>
                                   </div>
                                 </div>
-                                <div className='transactionItemValue' style={{ marginTop: 4 }}>value: {metaData? valueFormat(d.value,metaData.tokenSymbol):valueFormat(d.value)}</div>
+                                <div className='transactionItemValue' style={{ marginTop: 4 }}>value: {metaData? valueFormat(value,metaData.tokenSymbol):valueFormat(value)}</div>
                               </div>
                               <div className='transactionItemTime' style={{ width: 53 }}>
                                 {timePassed( globalTickTime - d.timestamp )}

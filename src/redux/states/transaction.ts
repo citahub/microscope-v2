@@ -12,6 +12,7 @@ export interface TransactionList{
 
 export interface TransactionState {
   topList: Array<TransactionItem> | null;
+  latest: TransactionItem | null;
   item: TransactionItem | null;
   list: TransactionList | null;
 }

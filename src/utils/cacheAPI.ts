@@ -111,6 +111,7 @@ export function getTransaction(hash:string){
   return appchain.base.getTransaction(hash)
 }
 
+
 // export function getLatestBlock():any{
 //   return request.get(serverNode.url + config.api.url, {})
 //           .then((data:any) => {

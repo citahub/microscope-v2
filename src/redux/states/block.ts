@@ -12,6 +12,7 @@ export interface BlockList{
 
 export interface BlockState {
   topList: Array<BlockItem> | null;
+  latest: BlockItem | null;
   item: BlockItem | null;
   list: BlockList | null;
 }

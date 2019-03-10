@@ -52,8 +52,8 @@ export type GET_BLOCK_LIST = typeof GET_BLOCK_LIST;
 export const GET_TOP_BLOCKS = 'GET_TOP_BLOCKS'
 export type GET_TOP_BLOCKS = typeof GET_TOP_BLOCKS;
 
-export const GET_LATEST_BLOCK = 'GET_LATEST_BLOCK'
-export type GET_LATEST_BLOCK = typeof GET_LATEST_BLOCK;
+// export const GET_LATEST_BLOCK = 'GET_LATEST_BLOCK'
+// export type GET_LATEST_BLOCK = typeof GET_LATEST_BLOCK;
 
 export const APPEND_LATEST_BLOCK = 'APPEND_LATEST_BLOCK'
 export type APPEND_LATEST_BLOCK = typeof APPEND_LATEST_BLOCK;

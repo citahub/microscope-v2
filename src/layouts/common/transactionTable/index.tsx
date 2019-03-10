@@ -45,6 +45,10 @@ class TransactionTable  extends React.Component<any,any> {
                         ?"Contract Call"
                         :"Exchange"
                   }
+                  {
+                    d.errorMessage
+                    ?<span style={{ color: '#ff8181'}}>✖</span>:""
+                  }
                 </td>
                 <td>
                   <div className='text-center transactionHashTd operationItem' onClick={()=>{hashHistory.push("/transaction/hash/"+d.hash)}}>{d.hash}</div>

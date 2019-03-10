@@ -18,10 +18,10 @@ interface GET_TOP_BLOCKS {
     data: Array<BlockItem>;
 }
 
-interface GET_LATEST_BLOCK {
-  type: constants.GET_LATEST_BLOCK;
-  data: BlockItem;
-}
+// interface GET_LATEST_BLOCK {
+//   type: constants.GET_LATEST_BLOCK;
+//   data: BlockItem;
+// }
 
 interface APPEND_LATEST_BLOCK{
   type: constants.APPEND_LATEST_BLOCK;
@@ -30,7 +30,7 @@ interface APPEND_LATEST_BLOCK{
 
 
 
-export type BlockAction = GET_BLOCK_ITEM | GET_BLOCK_LIST | GET_TOP_BLOCKS | GET_LATEST_BLOCK | APPEND_LATEST_BLOCK  ;
+export type BlockAction = GET_BLOCK_ITEM | GET_BLOCK_LIST | GET_TOP_BLOCKS  | APPEND_LATEST_BLOCK  ;
 
 export function topBlocks() {
   return (dispatch:any) => {
@@ -41,12 +41,12 @@ export function topBlocks() {
         type: constants.GET_TOP_BLOCKS,
         data: data
       });
-      if(data && data.length>0){
-        dispatch({
-          type: constants.GET_LATEST_BLOCK,
-          data: data[0]
-        });
-      }
+      // if(data && data.length>0){
+      //   dispatch({
+      //     type: constants.GET_LATEST_BLOCK,
+      //     data: data[0]
+      //   });
+      // }
       
       
     }).catch((error:any) => {
@@ -109,10 +109,10 @@ export function updateNextBlock(blockId:any) {
       console.log(data)
       // dispatch(hideLoading())
       if(data){
-        dispatch({
-          type: constants.GET_LATEST_BLOCK,
-          data: data
-        });
+        // dispatch({
+        //   type: constants.GET_LATEST_BLOCK,
+        //   data: data
+        // });
 
         dispatch({
           type: constants.APPEND_LATEST_BLOCK,
@@ -121,8 +121,6 @@ export function updateNextBlock(blockId:any) {
         var transactions = data.body.transactions;
         transactions.forEach((t:string) => {
           dataAPI.getTransaction(t).then((d:any)=>{
-            console.log(d,"hiwerewrewr")
-
             dispatch({
               type: constants.APPEND_LATEST_TRANSACTION,
               data: d

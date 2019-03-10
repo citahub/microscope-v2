@@ -40,11 +40,11 @@ export default function(state:BlockState = initialState, action: BlockAction) {
         ...state,
         list: action.data
       }
-    case constants.GET_LATEST_BLOCK:
-      return {
-        ...state,
-        latest: action.data
-      }
+    // case constants.GET_LATEST_BLOCK:
+    //   return {
+    //     ...state,
+    //     latest: action.data,
+    //   }
     case constants.APPEND_LATEST_BLOCK:
       return {
         ...state,

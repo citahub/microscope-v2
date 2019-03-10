@@ -230,7 +230,7 @@ class Home extends React.Component<any, any>{
                           topBlocks && topBlocks.map(function(block:any){
                             var blockNumber = parseInt(block.header.number);
                             return (
-                              <div key={block.header.number} className='blockItem withRow'>
+                              <div key={blockNumber} className='blockItem withRow'>
                                 <div style={{ width: 138 }}>
                                   <div className="blockItemNumber vhCenter operationItem" style={{ backgroundImage: 'url("./images/block_header.svg")'}} onClick={()=>{hashHistory.push("/block/id/" + blockNumber)}}>
                                     块<br/>#{blockNumber}

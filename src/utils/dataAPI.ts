@@ -50,7 +50,9 @@ export function getBalance(address:string){
 export function getBlockNumber(){
   return cacheAPI.getBlockNumber();
 }
-
+export function getAbi(contractAddress:string){
+  return cacheAPI.getAbi(contractAddress)
+}
 // export function listenBlock(){
 //   return cacheAPI.listenBlock();
 // }

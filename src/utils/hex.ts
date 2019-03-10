@@ -39,7 +39,7 @@ export function isHash(str:string):boolean{
 }
 
 export function hex2Utf8(hex:string):string{
-  console.log(web3Utils);
+  // console.log(web3Utils);
   try{
     let result = web3Utils.hexToString(hex);
     console.log(result);
@@ -50,4 +50,34 @@ export function hex2Utf8(hex:string):string{
     return ""
   }
 
+}
+import { getAbi } from './dataAPI'
+import { AbiCoder } from 'web3-eth-abi';
+
+const abiCoder = new AbiCoder();
+
+export function getContractData(contractAddress:string,data:any,cb:Function){
+  getAbi(contractAddress).then((abis:any)=>{
+    const fnHash = data.slice(0, 10)
+    abis.forEach((_abi:any) => {
+      if (_abi.signature === fnHash) {
+        const parameters:any = {}
+        try{
+          const p = abiCoder.decodeParameters(_abi.inputs, "0x"+data.slice(10))
+          // alert(JSON.stringify(p))
+          Object.keys(p).forEach(key => {
+            parameters[key] = p[key]
+          })
+          Object.defineProperty(parameters, '__length__', {
+            enumerable: false,
+          })
+          // alert(JSON.stringify(parameters, null, 2))
+          cb(null,JSON.stringify(parameters, null, 2))
+        }catch(e){
+          console.log(JSON.stringify(e))
+          cb(e)
+        }
+      }
+    })
+  })
 }

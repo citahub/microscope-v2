@@ -123,7 +123,9 @@ export function getTransaction(hash:string){
 export function getTransactionReceipt(hash:string){
   return appchain.base.getTransactionReceipt(hash)
 }
-
+export function getAbi(contractAddress:string){
+  return appchain.base.getAbi(contractAddress,"pending")
+}
 
 // export function getLatestBlock():any{
 //   return request.get(serverNode.url + config.api.url, {})

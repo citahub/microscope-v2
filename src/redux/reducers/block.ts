@@ -16,11 +16,11 @@ const initialState: BlockState = {
 
 function insertAndRemove(list:any,element:any){
   var result = list || []
-  result.unshift(element);
-  if(result.length>10){
-    result.pop();
-  }
-  return result
+  result=[element].concat(result)
+  // while(result.length>10){
+  //   result.pop();
+  // }
+  return result.slice(0,10)
 }
 
 export default function(state:BlockState = initialState, action: BlockAction) {
@@ -28,7 +28,8 @@ export default function(state:BlockState = initialState, action: BlockAction) {
     case constants.GET_TOP_BLOCKS:
       return {
         ...state,
-        topList: action.data
+        topList: action.data,
+        latest: action.data?action.data[0]:null
       }
     case constants.GET_BLOCK_ITEM:
       return {
@@ -48,6 +49,7 @@ export default function(state:BlockState = initialState, action: BlockAction) {
     case constants.APPEND_LATEST_BLOCK:
       return {
         ...state,
+        latest: action.data,
         topList: insertAndRemove(state.topList,action.data)
       }
     default:

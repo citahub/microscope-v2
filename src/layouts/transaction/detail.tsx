@@ -8,7 +8,7 @@ import CustomFooter from '../common/customFooter'
 import { hashHistory } from 'react-router';
 import Tabs, { Tab } from '../../components/tab'
 
-import { hex2Utf8 } from '../../utils/hex'
+import { getContractData } from '../../utils/hex'
 
 class TransactionDetail  extends React.Component<any,any> {
   componentDidMount(){
@@ -134,15 +134,33 @@ class TransactionDetail  extends React.Component<any,any> {
                 <div className='withRow transactionBodyRow' style={{ marginBottom: 80, height: 160 }}>
                   <div className='transactionDetailKey'>Data:</div>
                   <div className='transactionDetailValue withRowLeftAuto'>
-                    <Tabs headerWidthUnit="fixed"  initIndex={0}>
+                    <Tabs headerWidthUnit="fixed" style={{ minHeight: 500 }} initIndex={0} onTabSwitchCallBack={(tabIndex:number)=>{
+                        if(tabIndex==1){
+                          if( to && subData.replace(/^0x/, '')){
+                            getContractData(to,subData,(error:any,data:any)=>{
+                              if(error)console.log(error)
+                              else{
+                                // alert(data)
+                                // src.innerHTML= data;
+                                var dataUtf8:HTMLTextAreaElement = document.getElementById("dataUtf8") as HTMLTextAreaElement
+                                if(dataUtf8)dataUtf8.value=data;
+                              }
+                            })
+                          }
+                        }
+                      }}>                      
                       <Tab title="HEX">
-                        <textarea value=  {subData} style={{ padding: 10, borderRadius: '5px 5px', width: '100%', height: 85}}>
+                        <textarea value=  {subData} style={{ padding: 10, borderRadius: '5px 5px', width: '100%' }}>
                         </textarea>
                       </Tab>
-                      <Tab title="UTF8">
-                        <textarea value=  {subData && hex2Utf8(subData)} style={{ padding: 10, borderRadius: '5px 5px', width: '100%', height: 85}}>
-                        </textarea>
-                      </Tab>
+                      {
+                        to && subData.replace(/^0x/, '')
+                          ? <Tab title="UTF8">
+                              <textarea id="dataUtf8" ref="dataUtf8" style={{ padding: 10, borderRadius: '5px 5px', width: '100%' }}>
+                              </textarea>
+                            </Tab>:null
+                      }
+                     
                     </Tabs>
                   </div>
                 </div>

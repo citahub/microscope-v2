@@ -80,8 +80,8 @@ class TransactionDetail  extends React.Component<any,any> {
                         : !to
                           ?"Contract Creation"
                           : subData && subData.replace(/^0x/, '')
-                            ?"CONTRACT_CALL"
-                            :"EXCHANGE"
+                            ?"Contract Call"
+                            :"Exchange"
                     }
                   </div>
                 </div>

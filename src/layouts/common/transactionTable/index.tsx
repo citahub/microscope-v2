@@ -33,9 +33,19 @@ class TransactionTable  extends React.Component<any,any> {
           <tbody>
           {
           data.list && data.list.map(function(d:any, i:number){
+            var subData = d &&  d.unsignedTransaction && d.unsignedTransaction.transaction && d.unsignedTransaction.transaction.data||""
+            console.log(subData)
             return (
               <tr key={i}>
-                <td className='text-center transactionTypeTd'>{d.type}??</td>
+                <td className='text-center transactionTypeTd'>
+                  {
+                    !d.to
+                      ?"Contract Creation"
+                      : subData && subData.replace(/^0x/, '')
+                        ?"Contract Call"
+                        :"Exchange"
+                  }
+                </td>
                 <td>
                   <div className='text-center transactionHashTd operationItem' onClick={()=>{hashHistory.push("/transaction/hash/"+d.hash)}}>{d.hash}</div>
                 </td>

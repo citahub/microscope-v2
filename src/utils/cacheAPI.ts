@@ -31,7 +31,17 @@ export function transactionList(pageNum:number,pageSize:number,account:string | 
   return request
     .get(serverNode.url + config.api.transactionList, params)
     .then((data:any) => {
-      return data && data.result
+      var list = data && data.result
+      console.log(list)
+      list.transactions.forEach((d:any)=>{
+        // d = {
+        //   ...d,
+        //   unsignedTransaction: unsigner(d.content)
+        // }
+        d.unsignedTransaction = appchain.base.unsigner(d.content)
+      })
+      console.log(list)
+      return list
     })
     .catch((error:object) => {
       throw error

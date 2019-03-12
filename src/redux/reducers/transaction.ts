@@ -19,6 +19,8 @@ const initialState: TransactionState = {
   list: {
     pageNum: 1,
     pageSize: 10,
+    addressFrom: '',
+    addressTo: '',
     total: 0,
     list: null
   }

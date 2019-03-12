@@ -5,20 +5,17 @@ export interface ToastMessage {
 }
 
 export interface Modal {
-  ui: any
-  uiProps: {
-    maskTopPoz: number | null
-    maskColor: string | null
-    style: object | null
-  } | null
+  ui: any,
+  uiProps?: any
 }
-
+export interface Loading{
+  
+}
 export interface AppState {
-  toast: ToastMessage
-  showLoading: boolean
-  maskTopPoz: number | null
-  maskColor: string | null
-  modal: Modal
+  toast: ToastMessage | null
+  loading: Loading | null
+  modal: Modal | null
+
   drawerOpen: boolean
   appWidth: number
   appHeight: number

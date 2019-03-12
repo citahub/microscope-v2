@@ -19,12 +19,14 @@ export function topTransactions(): any {
 export function transactionList(
   pageNum: number,
   pageSize: number,
-  account: string | null
+  account: string ,
+  addressFrom: string,
+  addressTo: string
 ): any {
   var params = {
     account: account, //# hash string
-    // "from":  "the addr transactions from", # hash string
-    // "to":  "the addr transactions to", # hash string
+    from:  addressFrom, //"the addr transactions from", # hash string
+    to:  addressTo, //"the addr transactions to", # hash string
     // "valueFormat": "decimal", # set value to decimal number, default hex number
     page: pageNum, //# integer, default 1
     perPage: pageSize //# integer, default 10

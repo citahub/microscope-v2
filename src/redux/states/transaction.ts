@@ -3,6 +3,8 @@ export interface TransactionReceiptItem {}
 export interface TransactionList {
   pageNum: Number | 1
   pageSize: Number | 10
+  addressFrom: string
+  addressTo: string
   total: Number | 0
   list: Array<TransactionItem> | null
 }

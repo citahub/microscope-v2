@@ -14,8 +14,10 @@ export function getTransactionReceipt(key: string) {
   return cacheAPI.getTransactionReceipt(key)
 }
 
-export function getTransactionList(pageNum: number, pageSize: number) {
-  return cacheAPI.transactionList(pageNum, pageSize, null)
+export function getTransactionList(pageNum: number, pageSize: number,addressFrom:string, addressTo:string) {
+  // alert(addressFrom)
+  // alert(addressTo)
+  return cacheAPI.transactionList(pageNum, pageSize, '', addressFrom, addressTo)
 }
 
 export function getTransactionListByAccount(
@@ -23,7 +25,7 @@ export function getTransactionListByAccount(
   pageNum: number,
   pageSize: number
 ) {
-  return cacheAPI.transactionList(pageNum, pageSize, account)
+  return cacheAPI.transactionList(pageNum, pageSize, account,'','')
 }
 
 export function getERC20TransactionListByAccount(

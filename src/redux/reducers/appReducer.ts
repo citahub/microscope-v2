@@ -3,18 +3,9 @@ import { AppAction } from '../actions/appAction'
 import { AppState } from '../states/appState'
 
 const initialState: AppState = {
-  toast: {
-    text: null,
-    timeout: 2000,
-    id: null
-  },
-  showLoading: false,
-  maskTopPoz: null,
-  maskColor: null,
-  modal: {
-    ui: null,
-    uiProps: null
-  },
+  toast: null,
+  loading: null,
+  modal: null,
 
   drawerOpen: false,
   appWidth: 1024,
@@ -36,32 +27,22 @@ export default function(state: AppState = initialState, action: AppAction) {
     case constants.SHOW_LOADING:
       return {
         ...state,
-        showLoading: true,
-        maskTopPoz: action.maskTopPoz,
-        maskColor: action.maskColor
+        loading: action.data
       }
     case constants.HIDE_LOADING:
       return {
         ...state,
-        showLoading: false,
-        maskTopPoz: null,
-        maskColor: null
+        loading: null
       }
     case constants.SHOW_MODAL:
       return {
         ...state,
-        modal: {
-          ui: action.data.ui,
-          uiProps: action.data.uiProps
-        }
+        modal: action.data
       }
     case constants.HIDE_MODAL:
       return {
         ...state,
-        modal: {
-          ui: null,
-          uiProps: null
-        }
+        modal: null
       }
 
     case constants.RESIZE_APP:

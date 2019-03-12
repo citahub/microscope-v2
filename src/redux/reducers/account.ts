@@ -6,12 +6,16 @@ const initialState: AccountState = {
   trList: {
     pageNum: 1,
     pageSize: 10,
+    addressFrom: '',
+    addressTo: '',
     total: 0,
     list: null
   },
   erc20List: {
     pageNum: 1,
     pageSize: 10,
+    addressFrom: '',
+    addressTo: '',
     total: 0,
     list: null
   },

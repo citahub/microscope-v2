@@ -102,18 +102,21 @@ export function getTransactionReceipt(key: string) {
       })
   }
 }
-export function getTransactionList(pageNum: number, pageSize: number) {
+export function getTransactionList(pageNum: number, pageSize: number, addressFrom: string, addressTo: string) {
   return (dispatch: any) => {
     // dispatch(showLoading())
     return dataAPI
-      .getTransactionList(pageNum, pageSize)
+      .getTransactionList(pageNum, pageSize, addressFrom, addressTo)
       .then((data: any) => {
         // dispatch(hideLoading())
+        // alert(pageNum + pageSize + addressFrom + addressTo)
         dispatch({
           type: constants.GET_TRANSACTION_LIST,
           data: {
             pageNum: pageNum,
             pageSize: pageSize,
+            addressFrom: addressFrom || '',
+            addressTo: addressTo || '',
             list: data.transactions,
             total: data.count
           }

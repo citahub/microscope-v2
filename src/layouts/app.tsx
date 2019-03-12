@@ -60,17 +60,9 @@ class App extends React.Component<any, any> {
 
     this.tick = setInterval(function() {
       self.props.appAction.tickTime()
-    }, 3000)
+    }, 30000000)
 
-    // ethereumAPI.paused().then(function(d){
-    //   alert(d);
-    //   console.log(JSON.stringify(d));
-    // })
-    // ethereumAPI.appToOwner(0).then(function(d){
-    //   console.log(d,"appToOwner");
-    // }).catch(function(e){
-    //   console.log(e,"appToOwner");
-    // })
+   
   }
   componentDidCatch(error: any, info: any) {
     console.log(error, 'componentDidCatch')
@@ -78,49 +70,15 @@ class App extends React.Component<any, any> {
     if (this.tick) window.clearInterval(this.tick)
   }
   render() {
-    var modalUI = null
-    var modalUIShow = false
-    var modalUIStyle = {}
-    var maskTopPoz = 0
-    var maskColor = 'rgba(0,0,0,0.7)'
-    if (this.props.app.modal.ui !== null) {
-      if (
-        this.props.app.modal.uiProps &&
-        this.props.app.modal.uiProps.maskTopPoz
-      ) {
-        maskTopPoz = this.props.app.modal.uiProps.maskTopPoz
-      }
-      if (
-        this.props.app.modal.uiProps &&
-        this.props.app.modal.uiProps.maskColor
-      ) {
-        maskColor = this.props.app.modal.uiProps.maskColor
-      }
-      modalUI = React.createElement(
-        this.props.app.modal.ui,
-        this.props.app.modal.uiProps,
-        null
-      )
-      modalUIShow = true
-      modalUIStyle = this.props.app.modal.uiProps.style
-    }
+    
     var language = this.props.app.appLanguage
-
     return (
       <IntlProvider locale={language} messages={chooseLocale(language)}>
         <div className="root">
           {this.props.children}
-          <Modal
-            style={modalUIStyle}
-            show={modalUIShow}
-            maskTopPoz={maskTopPoz}
-            maskColor={maskColor}
-            hasClose={false}
-          >
-            {modalUI}
-          </Modal>
+          <Modal onClose = {()=>this.props.appAction.hideModal()}  ui={this.props.app.modal? React.createElement(this.props.app.modal.ui,this.props.app.modal.uiProps): null } />
           <Toast toastMessage={this.props.app.toast} />
-          <Loading show={this.props.app.showLoading} />
+          <Loading onClose = {()=>this.props.appAction.hideLoading()}  loading={this.props.app.loading} />
         </div>
       </IntlProvider>
     )

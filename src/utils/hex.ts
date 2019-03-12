@@ -71,7 +71,6 @@ export function getContractData(
             _abi.inputs,
             '0x' + data.slice(10)
           )
-          // alert(JSON.stringify(p))
           Object.keys(p).forEach(key => {
             parameters[key] = p[key]
           })
@@ -86,5 +85,7 @@ export function getContractData(
         }
       }
     })
+  }).catch((e:any)=>{
+    cb(e)
   })
 }

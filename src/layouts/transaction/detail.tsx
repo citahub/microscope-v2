@@ -42,7 +42,6 @@ class TransactionDetail extends React.Component<any, any> {
     var self = this
     var data = self.props.transaction.item
     var dataReceipt = self.props.transaction.itemReceipt
-    console.log(data)
     var from =
       (data && data.from) ||
       (data &&
@@ -226,13 +225,16 @@ class TransactionDetail extends React.Component<any, any> {
                             to,
                             subData,
                             (error: any, data: any) => {
-                              if (error) console.log(error)
+                              var dataUtf8: HTMLTextAreaElement = document.getElementById(
+                                'dataUtf8'
+                              ) as HTMLTextAreaElement
+                              if (error) {
+                                console.log(error)
+                                if (dataUtf8) dataUtf8.value = error
+                              }
                               else {
                                 // alert(data)
                                 // src.innerHTML= data;
-                                var dataUtf8: HTMLTextAreaElement = document.getElementById(
-                                  'dataUtf8'
-                                ) as HTMLTextAreaElement
                                 if (dataUtf8) dataUtf8.value = data
                               }
                             }
@@ -251,7 +253,7 @@ class TransactionDetail extends React.Component<any, any> {
                         }}
                       />
                     </Tab>
-                    {to && subData.replace(/^0x/, '') ? (
+                    {to && subData.replace(/^0x/, '') && dataReceipt ? (
                       <Tab title="UTF8">
                         <textarea
                           id="dataUtf8"

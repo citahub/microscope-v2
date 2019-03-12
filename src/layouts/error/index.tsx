@@ -2,8 +2,8 @@ import React from 'react'
 import './index.styl'
 import Layout from '../../components/layout'
 // import { hashHistory } from 'react-router';
-import CustomHeader from '../common/customHeader'
-import CustomFooter from '../common/customFooter'
+import Header from '../common/Header'
+import Footer from '../common/Footer'
 
 class NotFoundPage extends React.Component<any, any> {
   constructor(props: any) {
@@ -14,7 +14,7 @@ class NotFoundPage extends React.Component<any, any> {
     var self = this
     return (
       <Layout className="error" bgColor="white">
-        <CustomHeader />
+        <Header />
         <div
           className="container"
           style={{ minHeight: self.props.app.appHeight - 338 }}
@@ -28,7 +28,7 @@ class NotFoundPage extends React.Component<any, any> {
           </div>
           <div className="errorLabel">哎呀呀，你要访问的页面没有找到！</div>
         </div>
-        <CustomFooter />
+        <Footer />
       </Layout>
     )
   }

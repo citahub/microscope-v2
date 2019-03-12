@@ -1,6 +1,6 @@
 import React from 'react'
 import './index.styl'
-class CustomFooter extends React.Component<any, any> {
+class Footer extends React.Component<any, any> {
   // constructor(props) {
   //   super(props);
   // }
@@ -9,7 +9,7 @@ class CustomFooter extends React.Component<any, any> {
   render() {
     // var self = this;
     return (
-      <div className="customFooter" style={{ color: 'white' }}>
+      <div className="Footer" style={{ color: 'white' }}>
         <div className="container">
           <div className="row">
             <div
@@ -80,4 +80,4 @@ class CustomFooter extends React.Component<any, any> {
     )
   }
 }
-export default CustomFooter
+export default Footer

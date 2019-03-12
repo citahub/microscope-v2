@@ -2,8 +2,8 @@ import React from 'react'
 import './rpc.styl'
 import Layout from '../../components/layout'
 import { hashHistory } from 'react-router'
-import CustomHeader from '../common/customHeader'
-import CustomFooter from '../common/customFooter'
+import Header from '../common/Header'
+import Footer from '../common/Footer'
 import ReactJson from 'react-json-view'
 
 const jsonRpc = [
@@ -189,7 +189,7 @@ class APIRpc extends React.Component<any, any> {
     // var item = jsonRpc.find((d)=>{return d.name==method});
     return (
       <Layout className="apiRpc" bgColor="white">
-        <CustomHeader />
+        <Header />
         <div
           className="container withRow"
           style={{
@@ -286,7 +286,7 @@ class APIRpc extends React.Component<any, any> {
             </div>
           </div>
         </div>
-        <CustomFooter />
+        <Footer />
       </Layout>
     )
   }

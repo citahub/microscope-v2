@@ -1,8 +1,8 @@
 import React from 'react'
 import './index.styl'
 import Layout from '../../components/layout'
-import CustomHeader from '../common/customHeader'
-import CustomFooter from '../common/customFooter'
+import Header from '../common/Header'
+import Footer from '../common/Footer'
 // import { CSSTransitionGroup } from 'react-transition-group' // ES6
 
 import { hashHistory } from 'react-router'
@@ -105,7 +105,7 @@ class Home extends React.Component<any, any> {
     var globalTickTime = self.props.app.globalTickTime
     return (
       <Layout className="home" bgColor="rgba(249, 249, 249, 0.56)">
-        <CustomHeader />
+        <Header />
         <div className="container">
           <div style={{ marginTop: 20 }}>
             <div className="row" style={{ marginLeft: -15, marginRight: -15 }}>
@@ -507,7 +507,7 @@ class Home extends React.Component<any, any> {
             </div>
           </div>
         </div>
-        <CustomFooter />
+        <Footer />
       </Layout>
     )
   }

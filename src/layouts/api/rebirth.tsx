@@ -2,8 +2,8 @@ import React from 'react'
 import './rebirth.styl'
 import Layout from '../../components/layout'
 import { hashHistory } from 'react-router'
-import CustomHeader from '../common/customHeader'
-import CustomFooter from '../common/customFooter'
+import Header from '../common/Header'
+import Footer from '../common/Footer'
 import ReactJson from 'react-json-view'
 
 const jsonRpc = [
@@ -120,7 +120,7 @@ class APIRebirth extends React.Component<any, any> {
     // var item = jsonRpc.find((d)=>{return d.name==method});
     return (
       <Layout className="apiRebirth" bgColor="white">
-        <CustomHeader />
+        <Header />
         <div
           className="container withRow"
           style={{
@@ -232,7 +232,7 @@ class APIRebirth extends React.Component<any, any> {
             </div>
           </div>
         </div>
-        <CustomFooter />
+        <Footer />
       </Layout>
     )
   }

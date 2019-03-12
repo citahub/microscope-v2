@@ -1,8 +1,8 @@
 import React from 'react'
 import './detail.styl'
 import Layout from '../../components/layout'
-import CustomHeader from '../common/customHeader'
-import CustomFooter from '../common/customFooter'
+import Header from '../common/Header'
+import Footer from '../common/Footer'
 
 import { hashHistory } from 'react-router'
 
@@ -29,7 +29,7 @@ class BlockDetail extends React.Component<any, any> {
     var data = self.props.block.item
     return (
       <Layout className="blockDetail" bgColor="#fbfbfb">
-        <CustomHeader />
+        <Header />
         <div
           style={{
             width: '100%',
@@ -171,7 +171,7 @@ class BlockDetail extends React.Component<any, any> {
             </div>
           </div>
         </div>
-        <CustomFooter />
+        <Footer />
       </Layout>
     )
   }

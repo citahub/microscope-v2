@@ -1,8 +1,8 @@
 import React from 'react'
 import './list.styl'
 import Layout from '../../components/layout'
-import CustomHeader from '../common/customHeader'
-import CustomFooter from '../common/customFooter'
+import Header from '../common/Header'
+import Footer from '../common/Footer'
 
 import { hashHistory } from 'react-router'
 import { timePassed } from '../../utils/time'
@@ -42,7 +42,7 @@ class BlockList extends React.Component<any, any> {
 
     return (
       <Layout className="blockList" bgColor="white">
-        <CustomHeader />
+        <Header />
         <div
           style={{
             width: '100%',
@@ -169,7 +169,7 @@ class BlockList extends React.Component<any, any> {
           </div>
         </div>
 
-        <CustomFooter />
+        <Footer />
       </Layout>
     )
   }

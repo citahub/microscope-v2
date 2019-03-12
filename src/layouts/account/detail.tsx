@@ -2,8 +2,8 @@ import React from 'react'
 import './detail.styl'
 import Layout from '../../components/layout'
 import Tabs, { Tab } from '../../components/tab'
-import CustomHeader from '../common/customHeader'
-import CustomFooter from '../common/customFooter'
+import Header from '../common/Header'
+import Footer from '../common/Footer'
 import TransactionTable from '../common/transactionTable'
 
 import { hashHistory } from 'react-router'
@@ -89,7 +89,7 @@ class AccountDetail extends React.Component<any, any> {
 
     return (
       <Layout className="accountDetail" bgColor="#fbfbfb">
-        <CustomHeader />
+        <Header />
         <div
           style={{
             width: '100%',
@@ -231,7 +231,7 @@ class AccountDetail extends React.Component<any, any> {
             </Tabs>
           </div>
         </div>
-        <CustomFooter />
+        <Footer />
       </Layout>
     )
   }

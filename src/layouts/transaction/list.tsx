@@ -1,8 +1,8 @@
 import React from 'react'
 import './list.styl'
 import Layout from '../../components/layout'
-import CustomHeader from '../common/customHeader'
-import CustomFooter from '../common/customFooter'
+import Header from '../common/Header'
+import Footer from '../common/Footer'
 
 import TransactionTable from '../common/transactionTable'
 
@@ -34,7 +34,7 @@ class TransitionList extends React.Component<any, any> {
     var globalTickTime = self.props.app.globalTickTime
     return (
       <Layout className="transactionList" bgColor="white">
-        <CustomHeader />
+        <Header />
         <div
           style={{
             width: '100%',
@@ -76,7 +76,7 @@ class TransitionList extends React.Component<any, any> {
             </div>
           </div>
         </div>
-        <CustomFooter />
+        <Footer />
       </Layout>
     )
   }

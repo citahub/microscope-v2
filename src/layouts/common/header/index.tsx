@@ -246,7 +246,7 @@ class MoreMenu extends React.Component<any, any> {
   }
 }
 
-class CustomHeader extends React.Component<any, any> {
+class Header extends React.Component<any, any> {
   refs: {
     search: any
   } = {
@@ -278,7 +278,7 @@ class CustomHeader extends React.Component<any, any> {
     var selectNetwork = getSelectNetwork()
 
     return (
-      <div className="customHeader" style={{ paddingTop: 20 }}>
+      <div className="Header" style={{ paddingTop: 20 }}>
         <div className="withRow container" style={{ height: 41 }}>
           <div
             className="operationItem"
@@ -412,4 +412,4 @@ class CustomHeader extends React.Component<any, any> {
     )
   }
 }
-export default CustomHeader
+export default Header

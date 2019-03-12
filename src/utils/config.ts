@@ -1,34 +1,34 @@
-interface ServerNode{
-  name:string;
-  url:string;
+interface ServerNode {
+  name: string
+  url: string
 }
-export {ServerNode}
+export { ServerNode }
 interface API {
-  serverList: Array<ServerNode>;
-  jsonRpc:string;
-  url:string;
-  status:string;
-  blockList:string;
-  transactionList:string;
-  ercTransactionList:string;
+  serverList: Array<ServerNode>
+  jsonRpc: string
+  url: string
+  status: string
+  blockList: string
+  transactionList: string
+  ercTransactionList: string
 }
 
 interface Config {
-  api:API;
-  apiTimeout:number;
-  apiTimeoutMsg:string;
-  apiErrorMsg:string;
+  api: API
+  apiTimeout: number
+  apiTimeoutMsg: string
+  apiErrorMsg: string
 }
 
-const api:API = {
+const api: API = {
   serverList: [
     {
-      name: "TestNet1",
-      url: "https://node.cryptape.com"
+      name: 'TestNet1',
+      url: 'https://node.cryptape.com'
     },
     {
-      name: "TestNet2",
-      url: "https://rebirth.cryptape.com"
+      name: 'TestNet2',
+      url: 'https://rebirth.cryptape.com'
     }
   ],
   jsonRpc: '/',
@@ -48,5 +48,5 @@ const config: Config = {
   apiErrorMsg: 'network error！'
 }
 
-export { api };
-export default  config
+export { api }
+export default config

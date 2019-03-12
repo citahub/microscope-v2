@@ -3,8 +3,7 @@ require('es6-promise').polyfill()
 require('isomorphic-fetch')
 import config from './config'
 
-
-function filterStatus(res:any) {
+function filterStatus(res: any) {
   if (res.status >= 0xc8 && res.status < 0x12c) {
     return res
   }
@@ -15,29 +14,26 @@ function filterStatus(res:any) {
   throw error
 }
 
-function filterJSON(res:any) {
+function filterJSON(res: any) {
   var r = res.text()
-  r = r.then(function(text:string) {
-    var result = {
-    }
+  r = r.then(function(text: string) {
+    var result = {}
     try {
       result = JSON.parse(text)
     } catch (e) {
       try {
         result = global.eval('(' + text + ')')
-      } catch (e2) {
-      }
+      } catch (e2) {}
     }
     return result
   })
   return r
 }
 
-
-function _fetch(fetchPromise:any, timeout:number) {
+function _fetch(fetchPromise: any, timeout: number) {
   var abortPromise = new Promise(function(resolve, reject) {
-    console.log(resolve,reject)
-    setTimeout(reject,timeout)
+    console.log(resolve, reject)
+    setTimeout(reject, timeout)
   })
 
   var abortablePromise = Promise.race([fetchPromise, abortPromise]).catch(
@@ -52,7 +48,7 @@ function _fetch(fetchPromise:any, timeout:number) {
   return abortablePromise
 }
 
-function apiUrl(url:string) {
+function apiUrl(url: string) {
   if (url) {
     if (url.startsWith) {
       if (url.startsWith('http:') || url.startsWith('https:')) {
@@ -71,12 +67,12 @@ function apiUrl(url:string) {
 }
 
 export function commonGet(
-  url:string,
-  params:any,
+  url: string,
+  params: any,
   headers = {},
   filterStatusFlag = true,
   filterJSONFlag = true,
-  credentials:any = 'omit'
+  credentials: any = 'omit'
 ) {
   let _url = apiUrl(url)
   if (params) {
@@ -98,21 +94,21 @@ export function commonGet(
 
   return result
 }
-export function get(url:string, params:any) {
+export function get(url: string, params: any) {
   return commonGet(url, params, {}, true, true)
 }
 
 export function putAndPost(
-  url:string,
-  method:string,
-  params:any,
-  headers:any,
-  credentials:any = 'omit'
+  url: string,
+  method: string,
+  params: any,
+  headers: any,
+  credentials: any = 'omit'
 ) {
   var defHeader = {
     // Accept: 'application/json',
     // 'Content-Type': 'text/plain;charset=UTF-8'
-    'Content-Type': 'application/json; charset=utf-8',
+    'Content-Type': 'application/json; charset=utf-8'
   }
 
   if (headers && Object.assign) {
@@ -131,21 +127,22 @@ export function putAndPost(
   //   }
   //   _body = _bodyArr.join('&')
   // }
-  return (
-    _fetch(
-      fetch(apiUrl(url), {
-        method: method,
-        headers: defHeader,
-        credentials: credentials,
-        body: JSON.stringify(params)
-      }),
-      params['timeout'] || config.apiTimeout
-    )
-      .then(filterJSON)
-  )
-
+  return _fetch(
+    fetch(apiUrl(url), {
+      method: method,
+      headers: defHeader,
+      credentials: credentials,
+      body: JSON.stringify(params)
+    }),
+    params['timeout'] || config.apiTimeout
+  ).then(filterJSON)
 }
 
-export function post(url:string, params:any, headers:any, credentials:string) {
+export function post(
+  url: string,
+  params: any,
+  headers: any,
+  credentials: string
+) {
   return putAndPost(url, 'POST', params, headers, credentials)
 }

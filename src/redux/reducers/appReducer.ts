@@ -6,7 +6,7 @@ const initialState: AppState = {
   toast: {
     text: null,
     timeout: 2000,
-    id: null,
+    id: null
   },
   showLoading: false,
   maskTopPoz: null,
@@ -24,13 +24,13 @@ const initialState: AppState = {
   globalTickTime: new Date().getTime()
 }
 
-export default function(state:AppState = initialState, action: AppAction) {
+export default function(state: AppState = initialState, action: AppAction) {
   switch (action.type) {
     case constants.TOAST:
       return {
         ...state,
         toast: {
-          ...action.payload,
+          ...action.payload
         }
       }
     case constants.SHOW_LOADING:

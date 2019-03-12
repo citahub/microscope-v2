@@ -1,18 +1,14 @@
-export interface MetaData{
+export interface MetaData {}
 
-}
-
-export interface RPCData{
-
-}
+export interface RPCData {}
 export interface NetworkState {
-  metaData: MetaData | null;
+  metaData: MetaData | null
   rpcData: {
-    input: RPCData | null,
+    input: RPCData | null
     output: RPCData | null
-  };
-  rebirthData:{
-    input: any;
-    output: any;
+  }
+  rebirthData: {
+    input: any
+    output: any
   }
 }

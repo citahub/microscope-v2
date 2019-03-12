@@ -27,32 +27,37 @@ import { ServerNode } from './config'
 //   return appchain.base.getFilterChanges(filterId)
 // }
 
-export function listenBlock(){
-  const serverNode:ServerNode = getSelectNetwork()
+export function listenBlock() {
+  const serverNode: ServerNode = getSelectNetwork()
   // const appchain = CITASDK(serverNode.url)
-  return request.get(serverNode.url + config.api.url, {})
-    .then((data:any) => {
-      var appchain2 = CITASDK(data.result.ws_url || data.result.http_url);
-      console.log(appchain2);
-      console.log(appchain2.base.newBlockFilter);
-      return appchain2.base.newBlockFilter().then((filterId:any)=>{
-            alert(filterId);
-            var newBlock = function(){
-              appchain2.base.getFilterChanges(filterId).then((newBlocks: Array<any>)=>{
-                console.log(newBlocks,new Date());
+  return request
+    .get(serverNode.url + config.api.url, {})
+    .then((data: any) => {
+      var appchain2 = CITASDK(data.result.ws_url || data.result.http_url)
+      console.log(appchain2)
+      console.log(appchain2.base.newBlockFilter)
+      return appchain2.base
+        .newBlockFilter()
+        .then((filterId: any) => {
+          alert(filterId)
+          var newBlock = function() {
+            appchain2.base
+              .getFilterChanges(filterId)
+              .then((newBlocks: Array<any>) => {
+                console.log(newBlocks, new Date())
                 // setTimeout(()=>{newBlock()},3000);
               })
-            }
-            return newBlock;
-      }).catch((e:any)=>{
-        console.log(e);
-        throw e;
-      })
+          }
+          return newBlock
+        })
+        .catch((e: any) => {
+          console.log(e)
+          throw e
+        })
     })
-    .catch((error:Error) => {
-      throw error;
+    .catch((error: Error) => {
+      throw error
     })
-
 }
 
 // export function rpc(method:string,params:any|null){

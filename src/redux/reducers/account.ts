@@ -3,22 +3,25 @@ import { AccountAction } from '../actions/account'
 import { AccountState } from '../states/account'
 
 const initialState: AccountState = {
-  trList:  {
-    pageNum:  1,
-    pageSize:  10,
-    total:  0,
+  trList: {
+    pageNum: 1,
+    pageSize: 10,
+    total: 0,
     list: null
   },
   erc20List: {
-    pageNum:  1,
-    pageSize:  10,
-    total:  0,
+    pageNum: 1,
+    pageSize: 10,
+    total: 0,
     list: null
   },
   balance: null
 }
 
-export default function(state:AccountState = initialState, action: AccountAction) {
+export default function(
+  state: AccountState = initialState,
+  action: AccountAction
+) {
   switch (action.type) {
     case constants.GET_ACCOUNT_BALANCE:
       return {

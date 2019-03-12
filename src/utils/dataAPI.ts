@@ -7,50 +7,55 @@ import * as cacheAPI from './cacheAPI'
 export function topTransactions() {
   return cacheAPI.topTransactions()
 }
-export function getTransaction(key:string) {
+export function getTransaction(key: string) {
   return cacheAPI.getTransaction(key)
 }
-export function getTransactionReceipt(key:string) {
+export function getTransactionReceipt(key: string) {
   return cacheAPI.getTransactionReceipt(key)
 }
 
-
-export function getTransactionList(pageNum:number,pageSize:number) {
-  return cacheAPI.transactionList(pageNum,pageSize,null)
+export function getTransactionList(pageNum: number, pageSize: number) {
+  return cacheAPI.transactionList(pageNum, pageSize, null)
 }
 
-export function getTransactionListByAccount(account:string, pageNum:number,pageSize:number) {
-  return cacheAPI.transactionList(pageNum,pageSize,account)
+export function getTransactionListByAccount(
+  account: string,
+  pageNum: number,
+  pageSize: number
+) {
+  return cacheAPI.transactionList(pageNum, pageSize, account)
 }
 
-export function getERC20TransactionListByAccount(account:string, pageNum:number,pageSize:number) {
-  return cacheAPI.erc20TransactionList(pageNum,pageSize,account)
+export function getERC20TransactionListByAccount(
+  account: string,
+  pageNum: number,
+  pageSize: number
+) {
+  return cacheAPI.erc20TransactionList(pageNum, pageSize, account)
 }
-
 
 export function topBlocks() {
   return cacheAPI.topBlocks()
 }
-export function getBlock(key:string) {
+export function getBlock(key: string) {
   return cacheAPI.getBlock(key)
 }
-export function getBlockList(pageNum:number,pageSize:number) {
+export function getBlockList(pageNum: number, pageSize: number) {
   return cacheAPI.blockList(pageNum, pageSize)
 }
 
-
-export function getMetaData(){
+export function getMetaData() {
   return cacheAPI.getMetaData()
 }
 
-export function getBalance(address:string){
+export function getBalance(address: string) {
   return cacheAPI.getBalance(address)
 }
 
-export function getBlockNumber(){
-  return cacheAPI.getBlockNumber();
+export function getBlockNumber() {
+  return cacheAPI.getBlockNumber()
 }
-export function getAbi(contractAddress:string){
+export function getAbi(contractAddress: string) {
   return cacheAPI.getAbi(contractAddress)
 }
 // export function listenBlock(){
@@ -60,10 +65,10 @@ export function getAbi(contractAddress:string){
 // export function rpc(method:string,params:any){
 //   return citaAPI.rpc(method,params)
 // }
-export function rpc(json:string){
+export function rpc(json: string) {
   return cacheAPI.rpc(json)
 }
 
-export function rebirth(url:string,params:any){
-  return cacheAPI.rebirth(url,params)
+export function rebirth(url: string, params: any) {
+  return cacheAPI.rebirth(url, params)
 }

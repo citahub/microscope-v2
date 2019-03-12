@@ -1,14 +1,14 @@
-import  { api, ServerNode  } from './config'
+import { api, ServerNode } from './config'
 
 export function clearAll() {
   window.localStorage.removeItem('selectNetwork')
   window.localStorage.removeItem('networks')
 }
 
-export function getSelectNetwork():ServerNode {
+export function getSelectNetwork(): ServerNode {
   var networkStr = window.localStorage.getItem('selectNetwork')
   var defaultNetwork = api.serverList[0]
-  var result:ServerNode;
+  var result: ServerNode
   if (networkStr) {
     try {
       result = JSON.parse(networkStr)
@@ -21,9 +21,8 @@ export function getSelectNetwork():ServerNode {
   return result
 }
 
-
-export function getNetworks():Array<ServerNode>{
-  var result:any[] = []
+export function getNetworks(): Array<ServerNode> {
+  var result: any[] = []
   var networks = window.localStorage.getItem('networks')
   if (networks) {
     try {
@@ -39,7 +38,7 @@ export function getNetworks():Array<ServerNode>{
   }
 }
 
-export function addNetwork(network:ServerNode){
+export function addNetwork(network: ServerNode) {
   var result = []
   var networks = window.localStorage.getItem('networks')
   if (networks) {
@@ -57,7 +56,7 @@ export function addNetwork(network:ServerNode){
   window.localStorage.setItem('networks', JSON.stringify(result))
 }
 
-export function removeNetwork(network:ServerNode){
+export function removeNetwork(network: ServerNode) {
   var result = []
   var networks = window.localStorage.getItem('networks')
   if (networks) {
@@ -75,7 +74,7 @@ export function removeNetwork(network:ServerNode){
   window.localStorage.setItem('networks', JSON.stringify(result))
 }
 
-export function setSelectNetwork(network:ServerNode) {
+export function setSelectNetwork(network: ServerNode) {
   window.localStorage.setItem('selectNetwork', JSON.stringify(network))
 }
 
@@ -84,7 +83,7 @@ export function setSelectNetwork(network:ServerNode) {
 */
 var JOYRIDE_PREFIX = 'joyride_'
 
-export function getAlreadyJoyrideFlag(selector:string) {
+export function getAlreadyJoyrideFlag(selector: string) {
   try {
     var value = window.localStorage.getItem(JOYRIDE_PREFIX + selector)
     if (value === 'true') return true
@@ -93,9 +92,9 @@ export function getAlreadyJoyrideFlag(selector:string) {
     return false
   }
 }
-export function setAlreadyJoyrideFlag(selector:string) {
+export function setAlreadyJoyrideFlag(selector: string) {
   try {
-    window.localStorage.setItem(JOYRIDE_PREFIX + selector, true+"")
+    window.localStorage.setItem(JOYRIDE_PREFIX + selector, true + '')
   } catch (e) {
     // if (e.name === 'QuotaExceededError') {
     //   // console.log('已经超出本地存储限定大小！')

@@ -1,4 +1,4 @@
-import  React from 'react'
+import React from 'react'
 import './index.styl'
 import './index.styl'
 
@@ -52,14 +52,14 @@ const style = {
   }
 }
 
-export class Tab extends React.Component<any,any> {
+export class Tab extends React.Component<any, any> {
   render() {
     return <div>{this.props.children}</div>
   }
 }
-class Tabs extends React.Component<any,any> {
-  refs: any;
-  constructor(props:any) {
+class Tabs extends React.Component<any, any> {
+  refs: any
+  constructor(props: any) {
     super(props)
     this.state = {
       selectIndex: props.initIndex
@@ -72,7 +72,7 @@ class Tabs extends React.Component<any,any> {
     onTabSwitchCallBack: null
   }
 
-  switchTab(tabIndex:number, event:any) {
+  switchTab(tabIndex: number, event: any) {
     var self = this
     try {
       if (self.props.headerWidthUnit === 'fixed') {
@@ -95,10 +95,10 @@ class Tabs extends React.Component<any,any> {
       })
     }
   }
-  componentWillReceiveProps(nextProps:any){
-    var self = this;
-    if(nextProps.initIndex !== self.props.initIndex){
-      var tabIndex = nextProps.initIndex;
+  componentWillReceiveProps(nextProps: any) {
+    var self = this
+    if (nextProps.initIndex !== self.props.initIndex) {
+      var tabIndex = nextProps.initIndex
       self.setState({ selectIndex: tabIndex }, function() {
         if (self.props.onTabSwitchCallBack) {
           self.props.onTabSwitchCallBack(tabIndex)
@@ -107,15 +107,15 @@ class Tabs extends React.Component<any,any> {
     }
   }
   render() {
-    var tabHeader:any[] = []
-    var tabContent:any[] = []
+    var tabHeader: any[] = []
+    var tabContent: any[] = []
     var self = this
     var children = React.Children.toArray(self.props.children || [])
 
-    children.forEach(function(child:any, i) {
+    children.forEach(function(child: any, i) {
       // console.log(child);
       var title = child.props.title
-      var tabHeaderItemStyle:any = { ...style.tabHeader.item.base }
+      var tabHeaderItemStyle: any = { ...style.tabHeader.item.base }
       var tabHeaderClassNames = 'tabHeader'
       if (self.props.headerWidthUnit === 'percent') {
         tabHeaderItemStyle.width = 100 / children.length + '%'
@@ -152,14 +152,15 @@ class Tabs extends React.Component<any,any> {
       ...style.tabs.base,
       ...this.props.style
     }
-    var tabHeaderStyle:any = {
+    var tabHeaderStyle: any = {
       ...style.tabHeader.base
     }
-    var tabContentStyle:any = {
+    var tabContentStyle: any = {
       ...style.tabContent.base
     }
-    var tabHeaderContainerStyle: any={
-      ...style.tabHeader.base, ...style.tabHeader.navbar
+    var tabHeaderContainerStyle: any = {
+      ...style.tabHeader.base,
+      ...style.tabHeader.navbar
     }
     if (self.props.headerDirection === 'bottom') {
       if (tabsStyle.height === undefined) {

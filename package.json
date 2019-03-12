@@ -8,6 +8,7 @@
   "scripts": {
     "start": "webpack-dev-server --open --config webpack.dev.js",
     "build": "webpack --config webpack.prod.js",
+    "lint": "eslint src/**/*.{js,jsx,ts,tsx} --fix",
     "light-server": "light-server -s build -p 7000"
   },
   "keywords": [],

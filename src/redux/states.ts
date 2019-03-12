@@ -5,9 +5,9 @@ import { TransactionState } from './states/transaction'
 import { AccountState } from './states/account'
 
 export interface IRootState {
-   app: AppState;
-   network: NetworkState;
-   block: BlockState;
-   transaction: TransactionState;
-   account: AccountState;
+  app: AppState
+  network: NetworkState
+  block: BlockState
+  transaction: TransactionState
+  account: AccountState
 }

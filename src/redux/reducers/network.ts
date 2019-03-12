@@ -3,7 +3,7 @@ import { NetworkAction } from '../actions/network'
 import { NetworkState } from '../states/network'
 
 const initialState: NetworkState = {
-  metaData:  null,
+  metaData: null,
   rpcData: {
     input: null,
     output: null
@@ -14,7 +14,10 @@ const initialState: NetworkState = {
   }
 }
 
-export default function(state:NetworkState = initialState, action: NetworkAction) {
+export default function(
+  state: NetworkState = initialState,
+  action: NetworkAction
+) {
   switch (action.type) {
     case constants.GET_NETWORK_METADATA:
       return {

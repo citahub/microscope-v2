@@ -4,6 +4,8 @@ import Layout from '../../components/layout'
 import Header from '../common/Header'
 import Footer from '../common/Footer'
 
+import BlockSearchModal from '../common/blockSearchModal'
+
 import { hashHistory } from 'react-router'
 import { timePassed } from '../../utils/time'
 import { valueFormat } from '../../utils/hex'
@@ -21,7 +23,12 @@ class BlockList extends React.Component<any, any> {
     var params = self.props.location.query
     var pageNum = params.pageNum ? parseInt(params.pageNum) : 1
     var pageSize = params.pageSize ? parseInt(params.pageSize) : 10
-    self.props.blockAction.getBlockList(pageNum, pageSize)
+    var blockFrom = params.blockFrom || ''
+    var blockTo = params.blockTo || ''
+    var transactionCountMin = params.transactionCountMin || ''
+    var transactionCountMax = params.transactionCountMax || ''
+
+    self.props.blockAction.getBlockList(pageNum, pageSize,blockFrom,blockTo,transactionCountMin,transactionCountMax)
   }
   componentWillReceiveProps(nextProps: any) {
     var self = this
@@ -32,7 +39,11 @@ class BlockList extends React.Component<any, any> {
       var params = nextProps.location.query
       var pageNum = params.pageNum ? parseInt(params.pageNum) : 1
       var pageSize = params.pageSize ? parseInt(params.pageSize) : 10
-      self.props.blockAction.getBlockList(pageNum, pageSize)
+      var blockFrom = params.blockFrom || ''
+      var blockTo = params.blockTo || ''
+      var transactionCountMin = params.transactionCountMin || ''
+      var transactionCountMax = params.transactionCountMax || ''
+      self.props.blockAction.getBlockList(pageNum, pageSize,blockFrom,blockTo,transactionCountMin,transactionCountMax)
     }
   }
   render() {
@@ -64,9 +75,24 @@ class BlockList extends React.Component<any, any> {
                 className="withRowLeftAuto"
                 style={{ color: '#868b92', fontSize: 14 }}
               >
-                当前搜索参数: ??
+                当前搜索参数: blockFrom: {self.props.block.list.blockFrom} blockTo: {self.props.block.list.blockTo} transactionCountMin: {self.props.block.list.transactionCountMin} transactionCountMax: {self.props.block.list.transactionCountMax} 
               </div>
-              <div className="queryButton">高级选择器??</div>
+              <div className="queryButton operationItem" onClick={()=>{
+                self.props.appAction.showModal({
+                  ui:BlockSearchModal,
+                  uiProps: {
+                    style: {
+                      width: '60%'
+                    },
+                    from: self.props.block.list.blockFrom,
+                    to: self.props.block.list.blockTo,
+                    min: self.props.block.list.transactionCountMin,
+                    max: self.props.block.list.transactionCountMax,
+                    appAction: self.props.appAction
+                  },
+                  
+                })
+              }}>高级选择器</div>
             </div>
             <div style={{ padding: '14px 23px 0 23px' }}>
               <table
@@ -153,14 +179,38 @@ class BlockList extends React.Component<any, any> {
                   showQuickJumper={{ goButton: <button>确定</button> }}
                   defaultPageSize={data.pageSize}
                   showSizeChanger={true}
-                  onShowSizeChange={(current: number, pageSize: number) => {
+                  onShowSizeChange={(page: number, pageSize: number) => {
                     hashHistory.push(
-                      '/block/list?pageNum=' + current + '&pageSize=' + pageSize
+                      '/block/list?pageNum=' +
+                        page +
+                        '&pageSize=' +
+                        pageSize+
+                        '&blockFrom=' +
+                        self.props.block.list.blockFrom+
+                        '&blockTo=' +
+                        self.props.block.list.blockTo+
+                        '&transactionCountMin=' +
+                        self.props.block.list.transactionCountMin+
+                        '&transactionCountMax=' +
+                        self.props.block.list.transactionCountMax
+                        
                     )
                   }}
-                  onChange={(current: number, pageSize: number) => {
+                  onChange={(page: number, pageSize: number) => {
                     hashHistory.push(
-                      '/block/list?pageNum=' + current + '&pageSize=' + pageSize
+                      '/block/list?pageNum=' +
+                        page +
+                        '&pageSize=' +
+                        pageSize+
+                        '&blockFrom=' +
+                        self.props.block.list.blockFrom+
+                        '&blockTo=' +
+                        self.props.block.list.blockTo+
+                        '&transactionCountMin=' +
+                        self.props.block.list.transactionCountMin+
+                        '&transactionCountMax=' +
+                        self.props.block.list.transactionCountMax
+                        
                     )
                   }}
                 />

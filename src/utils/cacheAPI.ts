@@ -88,17 +88,17 @@ export function topBlocks(): any {
       throw error
     })
 }
-export function blockList(pageNum: number, pageSize: number): any {
+export function blockList(pageNum: number, pageSize: number, blockFrom:string, blockTo:string, transactionCountMin:string, transactionCountMax:string): any {
   var params = {
-    // "account":  "the addr transactions related to (from or to)", # hash string
-    // "from":  "the addr transactions from", # hash string
-    // "to":  "the addr transactions to", # hash string
-    // "valueFormat": "decimal", # set value to decimal number, default hex number
+    numberFrom: blockFrom, //"10" or "0xa", #  integer or string of hex number
+    numberTo: blockTo, //"20" or "0xa", # integer or string of hex number
+    transactionFrom: transactionCountMin, // "min transaction count", # integer or string of hex number
+    transactionTo: transactionCountMax, // "max transaction count", # integer or string of hex number
     page: pageNum, //# integer, default 1
     perPage: pageSize //# integer, default 10
-    // //# offset and limit has lower priority than page and perPage
-    // "offset":  "1",// # integer, default to 0
-    // "limit":  "10", //# integer, default to 10
+    // # offset and limit has lower priority than page and perPage
+    // "offset": "1", # integer, database offset for pagination
+    // "limit": "10", # integer, database limit for pagination
   }
   return request
     .get(serverNode.url + config.api.blockList, params)

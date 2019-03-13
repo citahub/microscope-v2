@@ -9,6 +9,8 @@ const initialState: BlockState = {
   list: {
     pageNum: 1,
     pageSize: 10,
+    blockFrom: '',
+    blockTo: '',
     total: 0,
     list: null
   }

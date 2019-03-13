@@ -42,8 +42,8 @@ export function topBlocks() {
 export function getBlock(key: string) {
   return cacheAPI.getBlock(key)
 }
-export function getBlockList(pageNum: number, pageSize: number) {
-  return cacheAPI.blockList(pageNum, pageSize)
+export function getBlockList(pageNum: number, pageSize: number,blockFrom:string,blockTo:string, transactionCountMin:string, transactionCountMax:string) {
+  return cacheAPI.blockList(pageNum, pageSize,blockFrom,blockTo,transactionCountMin,transactionCountMax)
 }
 
 export function getMetaData() {

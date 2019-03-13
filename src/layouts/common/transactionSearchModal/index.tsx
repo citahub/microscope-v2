@@ -14,7 +14,7 @@ class TransactionSearchModal extends React.Component<any, any> {
     var self = this;
     return (
       <div className="transactionSearchModal">
-        <h3 style={{ textAlign: 'center' }}>高级选择器</h3>
+        <h5 style={{ textAlign: 'center' }}>高级选择器</h5>
         <div style={{ padding: 20 }}>
           <div className="form-group row">
             <label className="col-sm-2 col-form-label">Address From</label>

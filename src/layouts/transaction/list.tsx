@@ -72,7 +72,6 @@ class TransitionList extends React.Component<any, any> {
                     },
                     from: self.props.transaction.list.addressFrom,
                     to: self.props.transaction.list.addressTo,
-                    transactionAction: self.props.transactionAction,
                     appAction: self.props.appAction
                   },
                   

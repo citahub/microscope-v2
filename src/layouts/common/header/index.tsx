@@ -178,18 +178,9 @@ class MoreMenu extends React.Component<any, any> {
   }
   render() {
     var self = this
-    var more = [
-      {
-        label: 'JsonRPC',
-        path: '/api/rpc'
-      },
-      {
-        label: 'Re-birth',
-        path: '/api/rebirth'
-      }
-    ]
+    var data = self.props.data
     var className = 'menu operationItem'
-    if (self.props.location.pathname.startsWith('/api')) {
+    if (self.props.location.pathname.startsWith(data.path)) {
       className += ' active'
     }
     return (
@@ -203,7 +194,7 @@ class MoreMenu extends React.Component<any, any> {
             self.setState({ open: true })
           }}
         >
-          <div className={className}>API</div>
+          <div className={className}>{data.name}</div>
           <div
             className="operationItem vhCenter"
             style={{
@@ -227,7 +218,7 @@ class MoreMenu extends React.Component<any, any> {
               self.setState({ open: false })
             }}
           >
-            {more.map(function(item: any) {
+            {data.subMenus.map(function(item: any) {
               var subClassName = 'subMenuItem'
               if (self.props.location.pathname == item.path) {
                 subClassName += ' active'
@@ -239,7 +230,7 @@ class MoreMenu extends React.Component<any, any> {
                     hashHistory.push(item.path)
                   }}
                 >
-                  {item.label}
+                  {item.name}
                 </div>
               )
             })}
@@ -250,14 +241,83 @@ class MoreMenu extends React.Component<any, any> {
   }
 }
 
+class Drawer extends React.Component<any, any> {
+  constructor(props: any) {
+    super(props)
+    this.state = {
+      open: false
+    }
+  }
+  render() {
+    return (
+      <>
+        <div
+          className="drawer"
+          onClick={() => {
+            this.setState({ open: !this.state.open })
+          }}
+        >
+          <svg
+            xmlns="https://www.w3.org/2000/svg"
+            viewBox="0 0 30 30"
+            width="30"
+            height="30"
+            focusable="false"
+          >
+            <title>Menu</title>
+            <path
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeMiterlimit="10"
+              d="M4 7h22M4 15h22M4 23h22"
+            />
+          </svg>
+        </div>
+        {this.state.open ? (
+          <div
+            className="drawerMask"
+            onClick={() => {
+              this.setState({ open: false })
+            }}
+          >
+            <div
+              className="drawerContent"
+              onClick={e => {
+                e.stopPropagation()
+              }}
+            >
+              {this.props.ui}
+            </div>
+          </div>
+        ) : null}
+      </>
+    )
+  }
+}
+
 const menus = [
   {
-    path: '/block/list',
-    name: '区块'
+    name: '区块',
+    path: '/block/list'
   },
   {
-    path: '/transaction/list',
-    name: '交易'
+    name: '交易',
+    path: '/transaction/list'
+  },
+  {
+    name: 'API',
+    path: '/api/',
+    subMenus: [
+      {
+        name: 'JsonRPC',
+        path: '/api/rpc'
+      },
+      {
+        name: 'Re-birth',
+        path: '/api/rebirth'
+      }
+    ]
   }
 ]
 
@@ -291,114 +351,213 @@ class Header extends React.Component<any, any> {
     var networks = api.serverList
     // var languages = ["Chinese","English"];
     var selectNetwork = getSelectNetwork()
+    var width = self.props.app.appWidth
+    var logoUI = (
+      <div
+        className="operationItem"
+        onClick={() => {
+          hashHistory.push('/')
+        }}
+      >
+        <img src="images/headLogo_Microscope.png" />
+      </div>
+    )
+    var navUI = (
+      <div
+        className="withRowLeftAuto"
+        style={{
+          fontSize: 16,
+          color: '#47484a',
+          marginTop: 10,
+          height: 20,
+          lineHeight: '20px'
+        }}
+      >
+        {menus.map(menu => {
+          var className = 'menu operationItem'
+          if (self.props.location.pathname == menu.path) {
+            className += ' active'
+          }
+          if (menu.subMenus) {
+            return <MoreMenu location={self.props.location} data={menu} />
+          } else {
+            return (
+              <span
+                className={className}
+                onClick={() => {
+                  hashHistory.push(menu.path)
+                }}
+              >
+                {menu.name}
+              </span>
+            )
+          }
+        })}
+      </div>
+    )
+    var networkUI = (
+      <div>
+        <NetWork networks={networks} selectNetwork={selectNetwork} />
+      </div>
+    )
 
-    return (
-      <div className="Header" style={{ paddingTop: 20 }}>
-        <div className="withRow container" style={{ height: 41 }}>
-          <div
-            className="operationItem"
-            onClick={() => {
-              hashHistory.push('/')
-            }}
-          >
-            <img src="images/headLogo_Microscope.png" />
-          </div>
-          <div
-            className="withRowLeftAuto"
-            style={{
-              fontSize: 16,
-              color: '#47484a',
-              marginTop: 10,
-              height: 20,
-              lineHeight: '20px'
-            }}
-          >
-            {menus.map(menu => {
-              var className = 'menu operationItem'
-              if (self.props.location.pathname == menu.path) {
-                className += ' active'
+    var searchUI = (
+      <div className="input-group">
+        <input
+          placeholder="Search by Address / Txhash / Block height"
+          type="text"
+          ref="search"
+          className="form-control"
+          onFocus={() => {
+            self.keyDownListener = (event: any) => {
+              if (event.keyCode == 13) {
+                self.query()
               }
-              return (
-                <span
-                  className={className}
-                  onClick={() => {
-                    hashHistory.push(menu.path)
-                  }}
-                >
-                  {menu.name}
-                </span>
-              )
+            }
+            window.addEventListener('keydown', self.keyDownListener)
+          }}
+          onBlur={() => {
+            window.removeEventListener('keydown', self.keyDownListener)
+          }}
+          style={{
+            height: 34,
+            padding: '9px 23px 8px 12px',
+            fontSize: 12
+          }}
+        />
+        <div className="input-group-append">
+          <span
+            className="input-group-text vhCenter operationItem"
+            style={{
+              height: 34,
+              backgroundImage: 'linear-gradient(to left, #4eadf1, #6a96f0)'
+            }}
+            onClick={self.query.bind(self)}
+          >
+            <img
+              src="images/head_Search.png"
+              style={{ width: 20, height: 20 }}
+            />
+          </span>
+        </div>
+      </div>
+    )
+
+    var languageUI = (
+      <div>
+        {
+          // <Menu
+          //     onClick={()=>{}}
+          //     mode="horizontal"
+          //     triggerSubMenuAction="click"
+          //     onSelect={(d:any)=>{
+          //       console.log(d);
+          //     }}
+          //     >
+          //   <SubMenu key={"Chinese"} title={"语言"}>
+          //     {
+          //       languages.map(function(language){
+          //         return   <MenuItem key={language}>{language}</MenuItem>
+          //       })
+          //     }
+          //
+          //   </SubMenu>
+          // </Menu>
+        }
+      </div>
+    )
+
+    if (width < 768) {
+      var drawerUI = (
+        <div>
+          <div style={{ marginTop: 50 }}>
+            {menus.map((menu: any) => {
+              var className = 'menu operationItem'
+
+              if (menu.subMenus) {
+                if (self.props.location.pathname.startsWith(menu.path)) {
+                  className += ' active'
+                }
+                return (
+                  <div
+                    className={className}
+                    style={{
+                      display: 'block',
+                      marginTop: 20,
+                      textAlign: 'left'
+                    }}
+                  >
+                    {menu.name}
+                    {menu.subMenus.map((subMenu: any) => {
+                      var subMenuClassName = 'menu operationItem'
+                      if (self.props.location.pathname == subMenu.path) {
+                        subMenuClassName += ' active'
+                      }
+                      return (
+                        <div
+                          className={subMenuClassName}
+                          style={{
+                            display: 'block',
+                            marginLeft: 10,
+                            marginTop: 20,
+                            textAlign: 'left'
+                          }}
+                          onClick={() => {
+                            hashHistory.push(subMenu.path)
+                          }}
+                        >
+                          {subMenu.name}
+                        </div>
+                      )
+                    })}
+                  </div>
+                )
+              } else {
+                if (self.props.location.pathname == menu.path) {
+                  className += ' active'
+                }
+                return (
+                  <div
+                    className={className}
+                    style={{
+                      display: 'block',
+                      marginTop: 20,
+                      textAlign: 'left'
+                    }}
+                    onClick={() => {
+                      hashHistory.push(menu.path)
+                    }}
+                  >
+                    {menu.name}
+                  </div>
+                )
+              }
             })}
-            <MoreMenu location={self.props.location} />
           </div>
+        </div>
+      )
+      return (
+        <div className="header">
+          <Drawer ui={drawerUI} />
+          <div className="row" style={{ marginLeft: 10, marginTop: 10 }}>
+            <div className="col-8">{searchUI}</div>
+            <div className="col-4">{networkUI}</div>
+          </div>
+        </div>
+      )
+    }
+    return (
+      <div className="header">
+        <div className="withRow container" style={{ height: 41 }}>
+          {logoUI}
+          {navUI}
           <div
             style={{ width: 360, marginTop: 3, marginBottom: 4, height: 34 }}
           >
-            <div className="input-group">
-              <input
-                placeholder="Search by Address / Txhash / Block height"
-                type="text"
-                ref="search"
-                className="form-control"
-                onFocus={() => {
-                  self.keyDownListener = (event: any) => {
-                    if (event.keyCode == 13) {
-                      self.query()
-                    }
-                  }
-                  window.addEventListener('keydown', self.keyDownListener)
-                }}
-                onBlur={() => {
-                  window.removeEventListener('keydown', self.keyDownListener)
-                }}
-                style={{
-                  height: 34,
-                  padding: '9px 23px 8px 12px',
-                  fontSize: 12
-                }}
-              />
-              <div className="input-group-append">
-                <span
-                  className="input-group-text vhCenter operationItem"
-                  style={{
-                    height: 34,
-                    backgroundImage:
-                      'linear-gradient(to left, #4eadf1, #6a96f0)'
-                  }}
-                  onClick={self.query.bind(self)}
-                >
-                  <img
-                    src="images/head_Search.png"
-                    style={{ width: 20, height: 20 }}
-                  />
-                </span>
-              </div>
-            </div>
+            {searchUI}
           </div>
-          <div>
-            <NetWork networks={networks} selectNetwork={selectNetwork} />
-          </div>
-          <div>
-            {
-              // <Menu
-              //     onClick={()=>{}}
-              //     mode="horizontal"
-              //     triggerSubMenuAction="click"
-              //     onSelect={(d:any)=>{
-              //       console.log(d);
-              //     }}
-              //     >
-              //   <SubMenu key={"Chinese"} title={"语言"}>
-              //     {
-              //       languages.map(function(language){
-              //         return   <MenuItem key={language}>{language}</MenuItem>
-              //       })
-              //     }
-              //
-              //   </SubMenu>
-              // </Menu>
-            }
-          </div>
+          {networkUI}
+          {languageUI}
         </div>
       </div>
     )

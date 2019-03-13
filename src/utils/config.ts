@@ -23,12 +23,12 @@ interface Config {
 const api: API = {
   serverList: [
     {
-      name: 'TestNet1',
-      url: 'https://node.cryptape.com'
+      name: 'Re-Birth Server',
+      url: 'https://rebirth.cryptape.com'
     },
     {
-      name: 'TestNet2',
-      url: 'https://rebirth.cryptape.com'
+      name: 'CITA Node Server',
+      url: 'https://node.cryptape.com'
     }
   ],
   jsonRpc: '/',
@@ -40,8 +40,6 @@ const api: API = {
 }
 
 const config: Config = {
-  // nodeServer: 'https://node.cryptape.com',
-  // queryServer: 'https://microscope.cryptape.com:8888',
   api: api,
   apiTimeout: 15000,
   apiTimeoutMsg: 'api timeout，try it later',

@@ -1,6 +1,7 @@
-.Header
+.header
   width 100%
   height 80px
+  padding-top 20px
   background #FFFFFF
   box-shadow 0 5px 4px 0 rgba(170,170,170,0.07)
   position sticky
@@ -91,3 +92,38 @@
     vertical-align top
   .menu.active
     color #2647fd
+  
+@media (max-width: 768px)
+  .header
+    // height 130px
+    padding 0
+    .drawer
+      background-color: transparent;
+      position fixed
+      z-index: 9999;
+      top: 7.5px;
+      left: 15px;
+      width: 30px;
+      height: 30px;
+    .drawerMask
+      width 100vw
+      height 100vh
+      background-color rgba(0,0,0,0.7)
+
+    .drawerContent
+      position fixed
+      width 60%
+      height 100vh
+      background-color white
+      .nav
+        height 120px !important
+        >*
+          display block
+          width 100%
+          height 40px
+          margin 10px
+    .networkOpen
+      width 300px
+
+
+  

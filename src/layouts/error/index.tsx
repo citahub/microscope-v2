@@ -14,7 +14,7 @@ class NotFoundPage extends React.Component<any, any> {
     var self = this
     return (
       <Layout className="error" bgColor="white">
-        <Header location={self.props.location} />
+        <Header location={self.props.location} app={self.props.app} />
         <div
           className="container"
           style={{ minHeight: self.props.app.appHeight - 338 }}

@@ -53,7 +53,7 @@ class TransactionDetail extends React.Component<any, any> {
 
     return (
       <Layout className="transactionDetail" bgColor="#fbfbfb">
-        <Header location={self.props.location} />
+        <Header location={self.props.location} app={self.props.app} />
         <div
           style={{
             width: '100%',

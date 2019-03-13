@@ -46,7 +46,7 @@ class Home extends React.Component<any, any> {
     var globalTickTime = self.props.app.globalTickTime
     return (
       <Layout className="home" bgColor="rgba(249, 249, 249, 0.56)">
-        <Header location={self.props.location} />
+        <Header location={self.props.location} app={self.props.app} />
         <div className="container">
           <div style={{ marginTop: 20 }}>
             <div className="row" style={{ marginLeft: -15, marginRight: -15 }}>

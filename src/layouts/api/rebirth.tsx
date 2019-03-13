@@ -120,7 +120,7 @@ class APIRebirth extends React.Component<any, any> {
     // var item = jsonRpc.find((d)=>{return d.name==method});
     return (
       <Layout className="apiRebirth" bgColor="white">
-        <Header location={self.props.location} />
+        <Header location={self.props.location} app={self.props.app} />
         <div
           className="container withRow"
           style={{

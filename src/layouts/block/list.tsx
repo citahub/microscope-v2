@@ -67,7 +67,7 @@ class BlockList extends React.Component<any, any> {
 
     return (
       <Layout className="blockList" bgColor="white">
-        <Header location={self.props.location} />
+        <Header location={self.props.location} app={self.props.app} />
         <div
           style={{
             width: '100%',

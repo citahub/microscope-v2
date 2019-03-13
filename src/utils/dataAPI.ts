@@ -14,7 +14,12 @@ export function getTransactionReceipt(key: string) {
   return cacheAPI.getTransactionReceipt(key)
 }
 
-export function getTransactionList(pageNum: number, pageSize: number,addressFrom:string, addressTo:string) {
+export function getTransactionList(
+  pageNum: number,
+  pageSize: number,
+  addressFrom: string,
+  addressTo: string
+) {
   // alert(addressFrom)
   // alert(addressTo)
   return cacheAPI.transactionList(pageNum, pageSize, '', addressFrom, addressTo)
@@ -25,7 +30,7 @@ export function getTransactionListByAccount(
   pageNum: number,
   pageSize: number
 ) {
-  return cacheAPI.transactionList(pageNum, pageSize, account,'','')
+  return cacheAPI.transactionList(pageNum, pageSize, account, '', '')
 }
 
 export function getERC20TransactionListByAccount(
@@ -42,8 +47,22 @@ export function topBlocks() {
 export function getBlock(key: string) {
   return cacheAPI.getBlock(key)
 }
-export function getBlockList(pageNum: number, pageSize: number,blockFrom:string,blockTo:string, transactionCountMin:string, transactionCountMax:string) {
-  return cacheAPI.blockList(pageNum, pageSize,blockFrom,blockTo,transactionCountMin,transactionCountMax)
+export function getBlockList(
+  pageNum: number,
+  pageSize: number,
+  blockFrom: string,
+  blockTo: string,
+  transactionCountMin: string,
+  transactionCountMax: string
+) {
+  return cacheAPI.blockList(
+    pageNum,
+    pageSize,
+    blockFrom,
+    blockTo,
+    transactionCountMin,
+    transactionCountMax
+  )
 }
 
 export function getMetaData() {

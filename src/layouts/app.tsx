@@ -61,8 +61,6 @@ class App extends React.Component<any, any> {
     this.tick = setInterval(function() {
       self.props.appAction.tickTime()
     }, 30000000)
-
-   
   }
   componentDidCatch(error: any, info: any) {
     console.log(error, 'componentDidCatch')
@@ -70,15 +68,27 @@ class App extends React.Component<any, any> {
     if (this.tick) window.clearInterval(this.tick)
   }
   render() {
-    
     var language = this.props.app.appLanguage
     return (
       <IntlProvider locale={language} messages={chooseLocale(language)}>
         <div className="root">
           {this.props.children}
-          <Modal onClose = {()=>this.props.appAction.hideModal()}  ui={this.props.app.modal? React.createElement(this.props.app.modal.ui,this.props.app.modal.uiProps): null } />
+          <Modal
+            onClose={() => this.props.appAction.hideModal()}
+            ui={
+              this.props.app.modal
+                ? React.createElement(
+                    this.props.app.modal.ui,
+                    this.props.app.modal.uiProps
+                  )
+                : null
+            }
+          />
           <Toast toastMessage={this.props.app.toast} />
-          <Loading onClose = {()=>this.props.appAction.hideLoading()}  loading={this.props.app.loading} />
+          <Loading
+            onClose={() => this.props.appAction.hideLoading()}
+            loading={this.props.app.loading}
+          />
         </div>
       </IntlProvider>
     )

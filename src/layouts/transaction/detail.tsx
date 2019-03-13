@@ -231,8 +231,7 @@ class TransactionDetail extends React.Component<any, any> {
                               if (error) {
                                 console.log(error)
                                 if (dataUtf8) dataUtf8.value = error
-                              }
-                              else {
+                              } else {
                                 // alert(data)
                                 // src.innerHTML= data;
                                 if (dataUtf8) dataUtf8.value = data

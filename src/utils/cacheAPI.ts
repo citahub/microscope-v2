@@ -19,14 +19,14 @@ export function topTransactions(): any {
 export function transactionList(
   pageNum: number,
   pageSize: number,
-  account: string ,
+  account: string,
   addressFrom: string,
   addressTo: string
 ): any {
   var params = {
     account: account, //# hash string
-    from:  addressFrom, //"the addr transactions from", # hash string
-    to:  addressTo, //"the addr transactions to", # hash string
+    from: addressFrom, //"the addr transactions from", # hash string
+    to: addressTo, //"the addr transactions to", # hash string
     // "valueFormat": "decimal", # set value to decimal number, default hex number
     page: pageNum, //# integer, default 1
     perPage: pageSize //# integer, default 10
@@ -88,7 +88,14 @@ export function topBlocks(): any {
       throw error
     })
 }
-export function blockList(pageNum: number, pageSize: number, blockFrom:string, blockTo:string, transactionCountMin:string, transactionCountMax:string): any {
+export function blockList(
+  pageNum: number,
+  pageSize: number,
+  blockFrom: string,
+  blockTo: string,
+  transactionCountMin: string,
+  transactionCountMax: string
+): any {
   var params = {
     numberFrom: blockFrom, //"10" or "0xa", #  integer or string of hex number
     numberTo: blockTo, //"20" or "0xa", # integer or string of hex number

@@ -28,7 +28,14 @@ class BlockList extends React.Component<any, any> {
     var transactionCountMin = params.transactionCountMin || ''
     var transactionCountMax = params.transactionCountMax || ''
 
-    self.props.blockAction.getBlockList(pageNum, pageSize,blockFrom,blockTo,transactionCountMin,transactionCountMax)
+    self.props.blockAction.getBlockList(
+      pageNum,
+      pageSize,
+      blockFrom,
+      blockTo,
+      transactionCountMin,
+      transactionCountMax
+    )
   }
   componentWillReceiveProps(nextProps: any) {
     var self = this
@@ -43,7 +50,14 @@ class BlockList extends React.Component<any, any> {
       var blockTo = params.blockTo || ''
       var transactionCountMin = params.transactionCountMin || ''
       var transactionCountMax = params.transactionCountMax || ''
-      self.props.blockAction.getBlockList(pageNum, pageSize,blockFrom,blockTo,transactionCountMin,transactionCountMax)
+      self.props.blockAction.getBlockList(
+        pageNum,
+        pageSize,
+        blockFrom,
+        blockTo,
+        transactionCountMin,
+        transactionCountMax
+      )
     }
   }
   render() {
@@ -75,24 +89,31 @@ class BlockList extends React.Component<any, any> {
                 className="withRowLeftAuto"
                 style={{ color: '#868b92', fontSize: 14 }}
               >
-                当前搜索参数: blockFrom: {self.props.block.list.blockFrom} blockTo: {self.props.block.list.blockTo} transactionCountMin: {self.props.block.list.transactionCountMin} transactionCountMax: {self.props.block.list.transactionCountMax} 
+                当前搜索参数: blockFrom: {self.props.block.list.blockFrom}{' '}
+                blockTo: {self.props.block.list.blockTo} transactionCountMin:{' '}
+                {self.props.block.list.transactionCountMin} transactionCountMax:{' '}
+                {self.props.block.list.transactionCountMax}
               </div>
-              <div className="queryButton operationItem" onClick={()=>{
-                self.props.appAction.showModal({
-                  ui:BlockSearchModal,
-                  uiProps: {
-                    style: {
-                      width: '60%'
-                    },
-                    from: self.props.block.list.blockFrom,
-                    to: self.props.block.list.blockTo,
-                    min: self.props.block.list.transactionCountMin,
-                    max: self.props.block.list.transactionCountMax,
-                    appAction: self.props.appAction
-                  },
-                  
-                })
-              }}>高级选择器</div>
+              <div
+                className="queryButton operationItem"
+                onClick={() => {
+                  self.props.appAction.showModal({
+                    ui: BlockSearchModal,
+                    uiProps: {
+                      style: {
+                        width: '60%'
+                      },
+                      from: self.props.block.list.blockFrom,
+                      to: self.props.block.list.blockTo,
+                      min: self.props.block.list.transactionCountMin,
+                      max: self.props.block.list.transactionCountMax,
+                      appAction: self.props.appAction
+                    }
+                  })
+                }}
+              >
+                高级选择器
+              </div>
             </div>
             <div style={{ padding: '14px 23px 0 23px' }}>
               <table
@@ -184,16 +205,15 @@ class BlockList extends React.Component<any, any> {
                       '/block/list?pageNum=' +
                         page +
                         '&pageSize=' +
-                        pageSize+
+                        pageSize +
                         '&blockFrom=' +
-                        self.props.block.list.blockFrom+
+                        self.props.block.list.blockFrom +
                         '&blockTo=' +
-                        self.props.block.list.blockTo+
+                        self.props.block.list.blockTo +
                         '&transactionCountMin=' +
-                        self.props.block.list.transactionCountMin+
+                        self.props.block.list.transactionCountMin +
                         '&transactionCountMax=' +
                         self.props.block.list.transactionCountMax
-                        
                     )
                   }}
                   onChange={(page: number, pageSize: number) => {
@@ -201,16 +221,15 @@ class BlockList extends React.Component<any, any> {
                       '/block/list?pageNum=' +
                         page +
                         '&pageSize=' +
-                        pageSize+
+                        pageSize +
                         '&blockFrom=' +
-                        self.props.block.list.blockFrom+
+                        self.props.block.list.blockFrom +
                         '&blockTo=' +
-                        self.props.block.list.blockTo+
+                        self.props.block.list.blockTo +
                         '&transactionCountMin=' +
-                        self.props.block.list.transactionCountMin+
+                        self.props.block.list.transactionCountMin +
                         '&transactionCountMax=' +
                         self.props.block.list.transactionCountMax
-                        
                     )
                   }}
                 />

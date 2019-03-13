@@ -61,31 +61,33 @@ export function getContractData(
   data: any,
   cb: Function
 ) {
-  getAbi(contractAddress).then((abis: any) => {
-    const fnHash = data.slice(0, 10)
-    abis.forEach((_abi: any) => {
-      if (_abi.signature === fnHash) {
-        const parameters: any = {}
-        try {
-          const p = abiCoder.decodeParameters(
-            _abi.inputs,
-            '0x' + data.slice(10)
-          )
-          Object.keys(p).forEach(key => {
-            parameters[key] = p[key]
-          })
-          Object.defineProperty(parameters, '__length__', {
-            enumerable: false
-          })
-          // alert(JSON.stringify(parameters, null, 2))
-          cb(null, JSON.stringify(parameters, null, 2))
-        } catch (e) {
-          console.log(JSON.stringify(e))
-          cb(e)
+  getAbi(contractAddress)
+    .then((abis: any) => {
+      const fnHash = data.slice(0, 10)
+      abis.forEach((_abi: any) => {
+        if (_abi.signature === fnHash) {
+          const parameters: any = {}
+          try {
+            const p = abiCoder.decodeParameters(
+              _abi.inputs,
+              '0x' + data.slice(10)
+            )
+            Object.keys(p).forEach(key => {
+              parameters[key] = p[key]
+            })
+            Object.defineProperty(parameters, '__length__', {
+              enumerable: false
+            })
+            // alert(JSON.stringify(parameters, null, 2))
+            cb(null, JSON.stringify(parameters, null, 2))
+          } catch (e) {
+            console.log(JSON.stringify(e))
+            cb(e)
+          }
         }
-      }
+      })
     })
-  }).catch((e:any)=>{
-    cb(e)
-  })
+    .catch((e: any) => {
+      cb(e)
+    })
 }

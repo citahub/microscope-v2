@@ -1,9 +1,9 @@
 import React from 'react'
 import './index.styl'
 interface Props {
-  ui: any,
-  uiProps?: any,
-  onClose: Function 
+  ui: any
+  uiProps?: any
+  onClose: Function
 }
 
 class Modal extends React.Component<Props> {
@@ -18,12 +18,17 @@ class Modal extends React.Component<Props> {
             backgroundColor: 'rgba(0, 0, 0, 0.7)'
           }}
         >
-          <div style={ this.props.uiProps?this.props.uiProps.style:{} } onClick={e => e.stopPropagation()}>
+          <div
+            style={this.props.uiProps ? this.props.uiProps.style : {}}
+            onClick={e => e.stopPropagation()}
+          >
             {this.props.ui}
             <div
               className="modal_close"
               style={{ display: 'block' }}
-              onClick={()=>{ this.props.onClose()}}
+              onClick={() => {
+                this.props.onClose()
+              }}
             >
               x
             </div>

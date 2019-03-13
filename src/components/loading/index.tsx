@@ -7,7 +7,7 @@ interface Props {
 }
 class Loading extends React.Component<Props> {
   render() {
-    if(!this.props.loading)return null
+    if (!this.props.loading) return null
     return (
       <div className="loading">
         <div
@@ -28,7 +28,9 @@ class Loading extends React.Component<Props> {
             }}
           >
             <img
-              onClick={()=>{ this.props.onClose && this.props.onClose()}}
+              onClick={() => {
+                this.props.onClose && this.props.onClose()
+              }}
               style={{ width: '36px', height: '36px' }}
               src="images/loading.svg"
             />

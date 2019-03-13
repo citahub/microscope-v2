@@ -15,9 +15,14 @@ class TransitionList extends React.Component<any, any> {
     var params = self.props.location.query
     var pageNum = params.pageNum ? parseInt(params.pageNum) : 1
     var pageSize = params.pageSize ? parseInt(params.pageSize) : 10
-    var addressFrom = params.addressFrom || ""
-    var addressTo = params.addressTo || ""
-    self.props.transactionAction.getTransactionList(pageNum, pageSize,addressFrom,addressTo)
+    var addressFrom = params.addressFrom || ''
+    var addressTo = params.addressTo || ''
+    self.props.transactionAction.getTransactionList(
+      pageNum,
+      pageSize,
+      addressFrom,
+      addressTo
+    )
   }
   componentWillReceiveProps(nextProps: any) {
     var self = this
@@ -28,9 +33,14 @@ class TransitionList extends React.Component<any, any> {
       var params = nextProps.location.query
       var pageNum = params.pageNum ? parseInt(params.pageNum) : 1
       var pageSize = params.pageSize ? parseInt(params.pageSize) : 10
-      var addressFrom = params.addressFrom || ""
-      var addressTo = params.addressTo || ""
-      self.props.transactionAction.getTransactionList(pageNum, pageSize,addressFrom,addressTo)
+      var addressFrom = params.addressFrom || ''
+      var addressTo = params.addressTo || ''
+      self.props.transactionAction.getTransactionList(
+        pageNum,
+        pageSize,
+        addressFrom,
+        addressTo
+      )
     }
   }
   render() {
@@ -61,22 +71,28 @@ class TransitionList extends React.Component<any, any> {
                 className="withRowLeftAuto"
                 style={{ color: '#868b92', fontSize: 14 }}
               >
-                当前搜索参数: addressFrom: {self.props.transaction.list.addressFrom} addressTo: {self.props.transaction.list.addressTo}
+                当前搜索参数: addressFrom:{' '}
+                {self.props.transaction.list.addressFrom} addressTo:{' '}
+                {self.props.transaction.list.addressTo}
               </div>
-              <div className="queryButton operationItem" onClick={()=>{
-                self.props.appAction.showModal({
-                  ui:TransactionSearchModal,
-                  uiProps: {
-                    style: {
-                      width: '60%'
-                    },
-                    from: self.props.transaction.list.addressFrom,
-                    to: self.props.transaction.list.addressTo,
-                    appAction: self.props.appAction
-                  },
-                  
-                })
-              }}>高级选择器</div>
+              <div
+                className="queryButton operationItem"
+                onClick={() => {
+                  self.props.appAction.showModal({
+                    ui: TransactionSearchModal,
+                    uiProps: {
+                      style: {
+                        width: '60%'
+                      },
+                      from: self.props.transaction.list.addressFrom,
+                      to: self.props.transaction.list.addressTo,
+                      appAction: self.props.appAction
+                    }
+                  })
+                }}
+              >
+                高级选择器
+              </div>
             </div>
             <div style={{ padding: '14px 23px 0 23px' }}>
               <TransactionTable
@@ -87,12 +103,11 @@ class TransitionList extends React.Component<any, any> {
                     '/transaction/list?pageNum=' +
                       page +
                       '&pageSize=' +
-                      pageSize+
+                      pageSize +
                       '&addressFrom=' +
-                      self.props.transaction.list.addressFrom+
+                      self.props.transaction.list.addressFrom +
                       '&addressTo=' +
                       self.props.transaction.list.addressTo
-                      
                   )
                 }}
               />

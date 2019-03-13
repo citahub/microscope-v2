@@ -84,11 +84,25 @@ export function getBlock(key: string) {
   }
 }
 
-export function getBlockList(pageNum: number, pageSize: number, blockFrom: string, blockTo: string, transactionCountMin:string, transactionCountMax:string) {
+export function getBlockList(
+  pageNum: number,
+  pageSize: number,
+  blockFrom: string,
+  blockTo: string,
+  transactionCountMin: string,
+  transactionCountMax: string
+) {
   return (dispatch: any) => {
     // dispatch(showLoading())
     return dataAPI
-      .getBlockList(pageNum, pageSize,blockFrom,blockTo,transactionCountMin,transactionCountMax)
+      .getBlockList(
+        pageNum,
+        pageSize,
+        blockFrom,
+        blockTo,
+        transactionCountMin,
+        transactionCountMax
+      )
       .then((data: any) => {
         // dispatch(hideLoading())
         dispatch({

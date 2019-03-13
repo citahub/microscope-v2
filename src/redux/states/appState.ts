@@ -5,12 +5,10 @@ export interface ToastMessage {
 }
 
 export interface Modal {
-  ui: any,
+  ui: any
   uiProps?: any
 }
-export interface Loading{
-  
-}
+export interface Loading {}
 export interface AppState {
   toast: ToastMessage | null
   loading: Loading | null

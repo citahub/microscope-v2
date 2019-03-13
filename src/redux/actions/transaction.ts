@@ -102,7 +102,12 @@ export function getTransactionReceipt(key: string) {
       })
   }
 }
-export function getTransactionList(pageNum: number, pageSize: number, addressFrom: string, addressTo: string) {
+export function getTransactionList(
+  pageNum: number,
+  pageSize: number,
+  addressFrom: string,
+  addressTo: string
+) {
   return (dispatch: any) => {
     // dispatch(showLoading())
     return dataAPI

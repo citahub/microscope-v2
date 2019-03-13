@@ -66,7 +66,7 @@
     right 0
     padding 10px 0
 
-    .menuItem
+    .subMenuItem
       height 30px
       line-height 30px
       font-size 15px
@@ -78,6 +78,8 @@
         margin-top 0
       &:hover
         background-color #5b8ee6
+    .subMenuItem.active
+      color #2647fd
   .menu
     font-family PingFangSC-Regular
     font-size 16px
@@ -87,21 +89,5 @@
     margin-left 40px
     display inline-block
     vertical-align top
-  // .rc-menu
-  //   z-index 900
-  //   padding 0px
-  //   width 100%
-  //   border none
-  //   box-shadow none
-  // .rc-menu-submenu
-  //   box-shadow none
-  // .rc-menu-submenu-title
-  //   padding 0px !important
-  //   color white
-  //   height 34px
-  //   text-align center
-  //   color #332b2b
-  //   width 100px
-  //   background-color white
-  // .rc-menu-submenu-arrow
-  //   padding-top 5px
+  .menu.active
+    color #2647fd

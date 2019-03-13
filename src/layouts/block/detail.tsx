@@ -29,7 +29,7 @@ class BlockDetail extends React.Component<any, any> {
     var data = self.props.block.item
     return (
       <Layout className="blockDetail" bgColor="#fbfbfb">
-        <Header />
+        <Header location={self.props.location} />
         <div
           style={{
             width: '100%',

@@ -1,13 +1,6 @@
 import React from 'react'
 import './index.styl'
 
-// const Menu = require('rc-menu')
-// const { SubMenu, MenuItem } = Menu
-
-// import  Menu from 'rc-menu';
-// import { SubMenu, MenuItem } from 'rc-menu';
-// import 'rc-menu/assets/index.css';
-
 import { hashHistory } from 'react-router'
 import { api } from '../../../utils/config'
 import { getSelectNetwork, setSelectNetwork } from '../../../utils/storage'
@@ -195,15 +188,22 @@ class MoreMenu extends React.Component<any, any> {
         path: '/api/rebirth'
       }
     ]
+    var className = 'menu operationItem'
+    if (self.props.location.pathname.startsWith('/api')) {
+      className += ' active'
+    }
     return (
-      <div className="menu operationItem" style={{ position: 'relative' }}>
+      <div
+        className="operationItem"
+        style={{ position: 'relative', display: 'inline-block' }}
+      >
         <div
           className="withRow"
           onMouseOver={() => {
             self.setState({ open: true })
           }}
         >
-          <div className="operationItem">API</div>
+          <div className={className}>API</div>
           <div
             className="operationItem vhCenter"
             style={{
@@ -228,9 +228,13 @@ class MoreMenu extends React.Component<any, any> {
             }}
           >
             {more.map(function(item: any) {
+              var subClassName = 'subMenuItem'
+              if (self.props.location.pathname == item.path) {
+                subClassName += ' active'
+              }
               return (
                 <div
-                  className="menuItem"
+                  className={subClassName}
                   onClick={() => {
                     hashHistory.push(item.path)
                   }}
@@ -245,6 +249,17 @@ class MoreMenu extends React.Component<any, any> {
     )
   }
 }
+
+const menus = [
+  {
+    path: '/block/list',
+    name: '区块'
+  },
+  {
+    path: '/transaction/list',
+    name: '交易'
+  }
+]
 
 class Header extends React.Component<any, any> {
   refs: {
@@ -298,26 +313,23 @@ class Header extends React.Component<any, any> {
               lineHeight: '20px'
             }}
           >
-            <span
-              className="menu operationItem"
-              onClick={() => {
-                hashHistory.push('/block/list')
-              }}
-            >
-              区块
-            </span>
-            <span
-              className="menu operationItem"
-              onClick={() => {
-                hashHistory.push('/transaction/list')
-              }}
-            >
-              交易
-            </span>
-            <MoreMenu />
-            {
-              // <span className='menu operationItem' onClick={()=>{hashHistory.push('/static')}}>统计</span>
-            }
+            {menus.map(menu => {
+              var className = 'menu operationItem'
+              if (self.props.location.pathname == menu.path) {
+                className += ' active'
+              }
+              return (
+                <span
+                  className={className}
+                  onClick={() => {
+                    hashHistory.push(menu.path)
+                  }}
+                >
+                  {menu.name}
+                </span>
+              )
+            })}
+            <MoreMenu location={self.props.location} />
           </div>
           <div
             style={{ width: 360, marginTop: 3, marginBottom: 4, height: 34 }}
@@ -365,26 +377,6 @@ class Header extends React.Component<any, any> {
           </div>
           <div>
             <NetWork networks={networks} selectNetwork={selectNetwork} />
-            {
-              // <Menu
-              //     onClick={()=>{}}
-              //     mode="horizontal"
-              //     triggerSubMenuAction="click"
-              //     onSelect={(d:any)=>{
-              //       setSelectNetwork(d.key);
-              //       window.location.reload();
-              //     }}
-              //     >
-              //   <SubMenu selectKey={[network]} title={"网络"}>
-              //     {
-              //       networks.map(function(network){
-              //         return   <MenuItem key={network}>{network}</MenuItem>
-              //       })
-              //     }
-              //
-              //   </SubMenu>
-              // </Menu>
-            }
           </div>
           <div>
             {

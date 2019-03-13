@@ -89,7 +89,7 @@ class AccountDetail extends React.Component<any, any> {
 
     return (
       <Layout className="accountDetail" bgColor="#fbfbfb">
-        <Header />
+        <Header location={self.props.location} />
         <div
           style={{
             width: '100%',

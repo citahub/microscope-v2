@@ -49,7 +49,7 @@ class TransitionList extends React.Component<any, any> {
     var globalTickTime = self.props.app.globalTickTime
     return (
       <Layout className="transactionList" bgColor="white">
-        <Header />
+        <Header location={self.props.location} />
         <div
           style={{
             width: '100%',

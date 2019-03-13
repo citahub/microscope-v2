@@ -136,14 +136,8 @@ export function updateNextBlock(blockId: any) {
       dataAPI
         .getBlock(blockId)
         .then((data: any) => {
-          console.log(data)
           // dispatch(hideLoading())
           if (data) {
-            // dispatch({
-            //   type: constants.GET_LATEST_BLOCK,
-            //   data: data
-            // });
-
             dispatch({
               type: constants.APPEND_LATEST_BLOCK,
               data: data

@@ -38,15 +38,9 @@ export function transactionList(
     .get(serverNode.url + config.api.transactionList, params)
     .then((data: any) => {
       var list = data && data.result
-      console.log(list)
       list.transactions.forEach((d: any) => {
-        // d = {
-        //   ...d,
-        //   unsignedTransaction: unsigner(d.content)
-        // }
         d.unsignedTransaction = appchain.base.unsigner(d.content)
       })
-      console.log(list)
       return list
     })
     .catch((error: object) => {
@@ -144,50 +138,8 @@ export function getAbi(contractAddress: string) {
   return appchain.base.getAbi(contractAddress, 'pending')
 }
 
-// export function getLatestBlock():any{
-//   return request.get(serverNode.url + config.api.url, {})
-//           .then((data:any) => {
-//             // alert(data);
-//             var appchain2 = AppChain(data.result.ws_url || data.result.http_url);
-//             return appchain2.base.newBlockFilter().then((filterId:string)=>{
-//               var newBlock = function(){
-//                 appchain2.base.getFilterChanges(filterId).then((newBlocks: Array<any>)=>{
-//                   console.log(newBlocks,new Date());
-//                   setTimeout(()=>{newBlock()},3000);
-//                 })
-//               }
-//               return newBlock();
-//             })
-//           })
-//           .catch((error:Error) => {
-//             throw error;
-//           })
-//
-//
-// }
 export function getBlockNumber(): any {
   return appchain.base.getBlockNumber()
-}
-
-export function listenBlock() {
-  return appchain.base
-    .newBlockFilter()
-    .then((filterId: any) => {
-      var tick = function() {
-        return appchain.base
-          .getFilterChanges(filterId)
-          .then((newBlocks: Array<any>) => {
-            console.log(newBlocks, new Date())
-            return newBlocks
-            // setTimeout(()=>{newBlock()},3000);
-          })
-      }
-      return tick
-    })
-    .catch((e: Error) => {
-      console.log(e)
-      throw e
-    })
 }
 
 export function rpc(json: any) {

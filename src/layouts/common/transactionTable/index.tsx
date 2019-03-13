@@ -81,7 +81,6 @@ class TransactionTable extends React.Component<any, any> {
                     d.unsignedTransaction.transaction &&
                     d.unsignedTransaction.transaction.data) ||
                   ''
-                console.log(subData)
                 return (
                   <tr key={i}>
                     <td className="text-center transactionTypeTd">

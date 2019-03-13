@@ -169,26 +169,16 @@ class APIRebirth extends React.Component<any, any> {
               <div className="card" style={{ height: '40%' }}>
                 <div className="card-header">Input</div>
                 <div className="card-body">
-                  {
-                    // <div ref='input' style={{ width: '100%',  minHeight: 100}} contentEditable>{JSON.stringify(self.props.network.rebirthData.input||{})}</div>
-                  }
                   <ReactJson
                     src={self.props.network.rebirthData.input || {}}
                     onEdit={v => {
                       var newValue = v.updated_src
-                      console.log(newValue)
                       self.input = JSON.stringify(newValue)
                     }}
                     onDelete={v => {
                       var newValue = v.updated_src
-                      console.log(newValue)
                       self.input = JSON.stringify(newValue)
                     }}
-                    //  onAdd={(v)=>{
-                    //   var newValue = v.updated_src;
-                    //   console.log(newValue);
-                    //   self.input = JSON.stringify(newValue);
-                    // }}
                   />
                 </div>
                 <div className="card-footer" style={{ textAlign: 'right' }}>
@@ -196,14 +186,11 @@ class APIRebirth extends React.Component<any, any> {
                     className="btn btn-danger"
                     onClick={() => {
                       var input = self.input
-                      console.log(input)
                       try {
                         self.props.networkAction.rebirth(
                           getSelectNetwork().url + method,
                           JSON.parse(input || '{}')
                         )
-
-                        // self.props.networkAction.rpc(JSON.parse(input||"{}"));
                       } catch (e) {
                         console.log(e)
                       }

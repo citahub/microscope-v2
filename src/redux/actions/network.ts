@@ -32,12 +32,6 @@ export type NetworkAction =
   | GET_NETWORK_RPC
   | GET_NETWORK_REBIRTH
 
-//
-// export function getMetaData() {
-//
-//   return dataAPI.getMetaData();
-// }
-
 export function getMetaData() {
   return (dispatch: any) => {
     dispatch(showLoading())
@@ -110,69 +104,3 @@ export function rebirth(url: string, params: any) {
       })
   }
 }
-
-export function getBlockNumber() {
-  //
-  return (dispatch: any) => {
-    return dataAPI
-      .getBlockNumber()
-      .then((data: any) => {
-        // console.log(data,"getLatestBlock");
-        // setInterval(function(){
-        //   getBlock().then(function(d){
-        //     console.log(d);
-        //   })
-        // },3000);
-        console.log(data)
-
-        // dispatch({
-        //   type: constants.GET_NETWORK_METADATA,
-        //   data: data
-        // });
-      })
-      .catch((error: any) => {
-        alert(error)
-        dispatch({
-          type: constants.OPERATION_FAIL,
-          error: error
-        })
-      })
-  }
-}
-
-// bad practice
-// export function listenBlock() {
-//   //
-//   return (dispatch:any) => {
-//     return dataAPI.listenBlock().then((tick:any) => {
-//       // console.log(data,"getLatestBlock");
-//       // setInterval(function(){
-//       //   getBlock().then(function(d){
-//       //     console.log(d);
-//       //   })
-//       // },3000);
-//       // console.log(tick);
-//
-//       setInterval(()=>{
-//         tick().then((hashes:Array<string>)=>{
-//           console.log(hashes);
-//           hashes.forEach((hash)=>{
-//             console.log(hash);
-//           })
-//         })
-//       },3000)
-//
-//
-//       // dispatch({
-//       //   type: constants.GET_NETWORK_METADATA,
-//       //   data: data
-//       // });
-//     }).catch((error:any) => {
-//       alert(error);
-//       dispatch({
-//         type: constants.OPERATION_FAIL,
-//         error: error
-//       });
-//     })
-//   }
-// }

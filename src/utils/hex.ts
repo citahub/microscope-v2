@@ -40,14 +40,11 @@ export function isHash(str: string): boolean {
 }
 
 export function hex2Utf8(hex: string): string {
-  // console.log(web3Utils);
   try {
     let result = web3Utils.hexToString(hex)
-    console.log(result)
     return result
   } catch (e) {
     console.log(e)
-    console.log(hex)
     return ''
   }
 }
@@ -78,10 +75,8 @@ export function getContractData(
             Object.defineProperty(parameters, '__length__', {
               enumerable: false
             })
-            // alert(JSON.stringify(parameters, null, 2))
             cb(null, JSON.stringify(parameters, null, 2))
           } catch (e) {
-            console.log(JSON.stringify(e))
             cb(e)
           }
         }

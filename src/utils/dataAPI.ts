@@ -1,17 +1,16 @@
 /*
- the main api for this application in fluture which currenlty based on citaAPI and cacheAPI
+ the main api for this application in fluture which currenlty based on rebirthApi
 */
-// import * as citaAPI from './citaAPI'
-import * as cacheAPI from './cacheAPI'
+import * as rebirthAPI from './rebirth'
 
 export function topTransactions() {
-  return cacheAPI.topTransactions()
+  return rebirthAPI.topTransactions()
 }
 export function getTransaction(key: string) {
-  return cacheAPI.getTransaction(key)
+  return rebirthAPI.getTransaction(key)
 }
 export function getTransactionReceipt(key: string) {
-  return cacheAPI.getTransactionReceipt(key)
+  return rebirthAPI.getTransactionReceipt(key)
 }
 
 export function getTransactionList(
@@ -20,9 +19,13 @@ export function getTransactionList(
   addressFrom: string,
   addressTo: string
 ) {
-  // alert(addressFrom)
-  // alert(addressTo)
-  return cacheAPI.transactionList(pageNum, pageSize, '', addressFrom, addressTo)
+  return rebirthAPI.transactionList(
+    pageNum,
+    pageSize,
+    '',
+    addressFrom,
+    addressTo
+  )
 }
 
 export function getTransactionListByAccount(
@@ -30,7 +33,7 @@ export function getTransactionListByAccount(
   pageNum: number,
   pageSize: number
 ) {
-  return cacheAPI.transactionList(pageNum, pageSize, account, '', '')
+  return rebirthAPI.transactionList(pageNum, pageSize, account, '', '')
 }
 
 export function getERC20TransactionListByAccount(
@@ -38,14 +41,14 @@ export function getERC20TransactionListByAccount(
   pageNum: number,
   pageSize: number
 ) {
-  return cacheAPI.erc20TransactionList(pageNum, pageSize, account)
+  return rebirthAPI.erc20TransactionList(pageNum, pageSize, account)
 }
 
 export function topBlocks() {
-  return cacheAPI.topBlocks()
+  return rebirthAPI.topBlocks()
 }
 export function getBlock(key: string) {
-  return cacheAPI.getBlock(key)
+  return rebirthAPI.getBlock(key)
 }
 export function getBlockList(
   pageNum: number,
@@ -55,7 +58,7 @@ export function getBlockList(
   transactionCountMin: string,
   transactionCountMax: string
 ) {
-  return cacheAPI.blockList(
+  return rebirthAPI.blockList(
     pageNum,
     pageSize,
     blockFrom,
@@ -66,30 +69,24 @@ export function getBlockList(
 }
 
 export function getMetaData() {
-  return cacheAPI.getMetaData()
+  return rebirthAPI.getMetaData()
 }
 
 export function getBalance(address: string) {
-  return cacheAPI.getBalance(address)
+  return rebirthAPI.getBalance(address)
 }
 
 export function getBlockNumber() {
-  return cacheAPI.getBlockNumber()
+  return rebirthAPI.getBlockNumber()
 }
 export function getAbi(contractAddress: string) {
-  return cacheAPI.getAbi(contractAddress)
+  return rebirthAPI.getAbi(contractAddress)
 }
-// export function listenBlock(){
-//   return cacheAPI.listenBlock();
-// }
-//
-// export function rpc(method:string,params:any){
-//   return citaAPI.rpc(method,params)
-// }
+
 export function rpc(json: string) {
-  return cacheAPI.rpc(json)
+  return rebirthAPI.rpc(json)
 }
 
 export function rebirth(url: string, params: any) {
-  return cacheAPI.rebirth(url, params)
+  return rebirthAPI.rebirth(url, params)
 }

@@ -1,6 +1,5 @@
 import React from 'react'
 import './index.styl'
-import './index.styl'
 
 const style = {
   tabs: {
@@ -21,12 +20,6 @@ const style = {
       boxSizing: 'inherit',
       borderTop: '1px solid rgb(238, 238, 238)',
       borderBottom: '1px solid rgb(238, 238, 238)'
-      //display: '-ms-flexbox',
-      //  display: 'flex',
-      //  display: '-webkit-box',
-      //  MsFlexDirection: 'row',
-      //  WebkitFlexDirection: 'row',
-      //  WebkitBoxOrient: 'horization'
     },
     item: {
       base: {
@@ -76,10 +69,6 @@ class Tabs extends React.Component<any, any> {
     var self = this
     try {
       if (self.props.headerWidthUnit === 'fixed') {
-        // console.log(event.currentTarget);
-        //  console.log(self.refs.tabHeader.scrollLeft);
-        // console.log(event.currentTarget.offsetLeft);
-        // console.log(event.currentTarget.clientWidth);
         self.refs.tabHeader.scrollLeft =
           event.currentTarget.offsetLeft -
           self.refs.tabHeader.clientWidth / 2 +
@@ -113,7 +102,6 @@ class Tabs extends React.Component<any, any> {
     var children = React.Children.toArray(self.props.children || [])
 
     children.forEach(function(child: any, i) {
-      // console.log(child);
       var title = child.props.title
       var tabHeaderItemStyle: any = { ...style.tabHeader.item.base }
       var tabHeaderClassNames = 'tabHeader'

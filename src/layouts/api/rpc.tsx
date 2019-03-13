@@ -238,9 +238,6 @@ class APIRpc extends React.Component<any, any> {
               <div className="card" style={{ height: '40%' }}>
                 <div className="card-header">Input</div>
                 <div className="card-body">
-                  {
-                    // <div ref='input' style={{ width: '100%',  minHeight: 100}} contentEditable>{JSON.stringify(self.props.network.rpcData.input||{})}</div>
-                  }
                   <ReactJson
                     src={self.props.network.rpcData.input || {}}
                     onEdit={v => {
@@ -249,7 +246,6 @@ class APIRpc extends React.Component<any, any> {
                     }}
                     onDelete={v => {
                       var newValue = v.updated_src
-                      console.log(newValue)
                       self.input = JSON.stringify(newValue)
                     }}
                   />
@@ -259,7 +255,6 @@ class APIRpc extends React.Component<any, any> {
                     className="btn btn-danger"
                     onClick={() => {
                       var input = self.input
-                      console.log(input)
                       try {
                         self.props.networkAction.rpc(JSON.parse(input || '{}'))
                       } catch (e) {

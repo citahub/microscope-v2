@@ -12,20 +12,9 @@ import { getContractData } from '../../utils/hex'
 class TransactionDetail extends React.Component<any, any> {
   componentDidMount() {
     var self = this
-    // console.log(self.props.location);
-    // console.log(self.props.params);
+
     var params = self.props.params
-    // if(params && params.hash){
-    //
-    // }else if(params && params.id){
-    //
-    // }
-    // citaAPI.getTransaction(params.hash).then((transaction: any)=>{
-    //   console.log(transaction);
-    //   self.setState({
-    //     data: transaction
-    //   })
-    // })
+
     self.props.transactionAction.getTransaction(params.hash)
     self.props.transactionAction.getTransactionReceipt(params.hash)
   }
@@ -59,7 +48,7 @@ class TransactionDetail extends React.Component<any, any> {
       data.unsignedTransaction &&
       data.unsignedTransaction.transaction &&
       data.unsignedTransaction.transaction.data
-    // alert(to)
+
     var errorMessage = dataReceipt && dataReceipt.errorMessage
 
     return (
@@ -232,8 +221,6 @@ class TransactionDetail extends React.Component<any, any> {
                                 console.log(error)
                                 if (dataUtf8) dataUtf8.value = error
                               } else {
-                                // alert(data)
-                                // src.innerHTML= data;
                                 if (dataUtf8) dataUtf8.value = data
                               }
                             }

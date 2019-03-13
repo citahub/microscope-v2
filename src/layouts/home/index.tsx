@@ -3,18 +3,13 @@ import './index.styl'
 import Layout from '../../components/layout'
 import Header from '../common/Header'
 import Footer from '../common/Footer'
-// import { CSSTransitionGroup } from 'react-transition-group' // ES6
 
 import { hashHistory } from 'react-router'
-// import { FormattedMessage } from 'react-intl';
-// import * as citaAPI from '../../utils/citaAPI';
-// import * as cacheAPI from '../../utils/cacheAPI';
 
 import { timePassed } from '../../utils/time'
 
 import { valueFormat } from '../../utils/hex'
 
-// import * as Web3Utils from 'web3-utils';
 class Home extends React.Component<any, any> {
   topBlocksTimer: any
   topTransactionsTimer: any
@@ -25,14 +20,6 @@ class Home extends React.Component<any, any> {
     self.props.transactionAction.topTransactions()
 
     // currently no websocket
-    // self.topBlocksTimer = setInterval(()=>{
-    //   self.props.blockAction.topBlocks();
-    // },3000)
-    // self.topTransactionsTimer = setInterval(()=>{
-    //   self.props.transactionAction.topTransactions();
-    // },3000)
-
-    // self.props.blockAction.getBlockNumber();
     self.topBlocksTimer = setInterval(() => {
       if (self.props.block.latest) {
         var nextBlockId = null
@@ -43,58 +30,12 @@ class Home extends React.Component<any, any> {
       } else {
         self.props.blockAction.updateNextBlock(null)
       }
-      // self.props.blockAction.get(nextBlockId)
-      // self.props.blockAction.topBlocks();
     }, 3000)
-
-    // self.props.networkAction.listenBlock();
-    // citaAPI.newBlockFilter().then((filterId:string)=>{
-    //   console.log(filterId);
-    //   var newBlock = function(){
-    //     citaAPI.getFilterChanges(filterId).then((newBlocks: Array<any>)=>{
-    //       console.log(newBlocks,new Date());
-    //       newBlocks.forEach(function(newBlock: any){
-    //         citaAPI.getBlockByHash(newBlock).then(function(block: any){
-    //           var newTop10Blocks = self.state.top10Blocks.concat([block]);
-    //           newTop10Blocks.sort((b1:any,b2:any)=>{
-    //             if(b1.header.timestamp<=b2.header.timestamp) {
-    //               return 1;
-    //             }else{
-    //               return -1;
-    //             }
-    //           });
-    //           newTop10Blocks = newTop10Blocks.slice(0,10);
-    //           console.log(newTop10Blocks);
-    //           self.setState({
-    //             top10Blocks: newTop10Blocks
-    //           })
-    //         })
-    //       })
-    //       setTimeout(()=>{newBlock()},3000);
-    //     })
-    //   }
-    //   newBlock();
-    // })
-    // citaAPI.getMetaData().then((metaData:object)=>{
-    //   console.log(metaData,"werwerewrewr");
-    //   self.setState({
-    //     metaData: metaData
-    //   })
-    // })
-    // cacheAPI.topTransactions().then((data:Array<any>)=>{
-    //   self.setState({
-    //     top10Transactions: data || []
-    //   })
-    // })
   }
   componentWillUnmount() {
     var self = this
     clearInterval(self.topBlocksTimer)
-    // clearInterval(self.topTransactionsTimer)
   }
-  // onScrollHander(event){
-  //   var scrollTop = event.target.scrollTop;
-  // }
 
   render() {
     var self = this
@@ -413,7 +354,7 @@ class Home extends React.Component<any, any> {
                 <div>
                   {topTransactions &&
                     topTransactions.map(function(d: any) {
-                      console.log(d) // sdk and rebirth have tiny different decrypt on the format of content...can not get timestamp currently
+                      // console.log(d) // sdk and rebirth have tiny different decrypt on the format of content...can not get timestamp currently
                       var from =
                         d.from ||
                         (d.unsignedTransaction &&

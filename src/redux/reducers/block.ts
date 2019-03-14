@@ -18,10 +18,19 @@ const initialState: BlockState = {
 
 function insertAndRemove(list: any, element: any) {
   var result = list || []
-  result = [element].concat(result)
-  // while(result.length>10){
-  //   result.pop();
-  // }
+  var exists = false
+  for (var i = 0; i < result.length; i++) {
+    if (result[i].hash === element.hash) {
+      exists = true
+    }
+  }
+  if (!exists) {
+    result = [element].concat(result)
+  }
+  // result.sort(function(e1:any,e2:any){
+  //   return parseInt(e1.header.number) < parseInt(e2.header.number);
+  // })
+
   return result.slice(0, 10)
 }
 

@@ -1,7 +1,7 @@
 /*
  the main api for this application in fluture which currenlty based on rebirthApi
 */
-import * as rebirthAPI from './rebirth'
+import * as rebirthAPI from './rebirthAPI'
 
 export function topTransactions() {
   return rebirthAPI.topTransactions()

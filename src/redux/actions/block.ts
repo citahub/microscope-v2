@@ -143,8 +143,10 @@ export function updateNextBlock(blockId: any) {
               data: data
             })
             var transactions = data.body.transactions
+            var timestamp = data.header.timestamp
             transactions.forEach((t: string) => {
               dataAPI.getTransaction(t).then((d: any) => {
+                d.timestamp = timestamp;
                 dispatch({
                   type: constants.APPEND_LATEST_TRANSACTION,
                   data: d

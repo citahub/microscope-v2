@@ -60,7 +60,7 @@ class App extends React.Component<any, any> {
 
     this.tick = setInterval(function() {
       self.props.appAction.tickTime()
-    }, 30000000)
+    }, 3000)
   }
   componentDidCatch(error: any, info: any) {
     console.log(error, 'componentDidCatch')

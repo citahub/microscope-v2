@@ -109,12 +109,11 @@ export function getTransactionList(
   addressTo: string
 ) {
   return (dispatch: any) => {
-    // dispatch(showLoading())
+    dispatch(showLoading())
     return dataAPI
       .getTransactionList(pageNum, pageSize, addressFrom, addressTo)
       .then((data: any) => {
-        // dispatch(hideLoading())
-        // alert(pageNum + pageSize + addressFrom + addressTo)
+        dispatch(hideLoading())
         dispatch({
           type: constants.GET_TRANSACTION_LIST,
           data: {
@@ -128,7 +127,7 @@ export function getTransactionList(
         })
       })
       .catch((error: any) => {
-        // dispatch(hideLoading())
+        dispatch(hideLoading())
         dispatch({
           type: constants.OPERATION_FAIL,
           error: error

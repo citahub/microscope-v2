@@ -8,7 +8,9 @@ export interface Modal {
   ui: any
   uiProps?: any
 }
-export interface Loading {}
+export interface Loading {
+  maskTop: number
+}
 export interface AppState {
   toast: ToastMessage | null
   loading: Loading | null

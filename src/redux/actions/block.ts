@@ -93,7 +93,7 @@ export function getBlockList(
   transactionCountMax: string
 ) {
   return (dispatch: any) => {
-    // dispatch(showLoading())
+    dispatch(showLoading())
     return dataAPI
       .getBlockList(
         pageNum,
@@ -104,7 +104,7 @@ export function getBlockList(
         transactionCountMax
       )
       .then((data: any) => {
-        // dispatch(hideLoading())
+        dispatch(hideLoading())
         dispatch({
           type: constants.GET_BLOCK_LIST,
           data: {
@@ -120,7 +120,7 @@ export function getBlockList(
         })
       })
       .catch((error: any) => {
-        // dispatch(hideLoading())
+        dispatch(hideLoading())
         dispatch({
           type: constants.OPERATION_FAIL,
           error: error
@@ -146,7 +146,7 @@ export function updateNextBlock(blockId: any) {
             var timestamp = data.header.timestamp
             transactions.forEach((t: string) => {
               dataAPI.getTransaction(t).then((d: any) => {
-                d.timestamp = timestamp;
+                d.timestamp = timestamp
                 dispatch({
                   type: constants.APPEND_LATEST_TRANSACTION,
                   data: d

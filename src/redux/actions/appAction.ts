@@ -76,10 +76,12 @@ export const toast = createAction(
   }
 )
 
-export function showLoading(): SHOW_LOADING {
+export function showLoading(maskTop: number= 80): SHOW_LOADING {
   return {
     type: constants.SHOW_LOADING,
-    data: {}
+    data: {
+      maskTop: maskTop
+    }
   }
 }
 

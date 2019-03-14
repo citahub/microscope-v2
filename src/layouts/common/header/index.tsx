@@ -467,7 +467,7 @@ class Header extends React.Component<any, any> {
       </div>
     )
 
-    if (width < 768) {
+    if (width < 1200) {
       var drawerUI = (
         <div>
           <div style={{ marginTop: 50 }}>
@@ -539,7 +539,7 @@ class Header extends React.Component<any, any> {
       return (
         <div className="header">
           <Drawer ui={drawerUI} />
-          <div className="row" style={{ marginLeft: 10, marginTop: 10 }}>
+          <div className="row" style={{ marginLeft: 10 }}>
             <div className="col-8">{searchUI}</div>
             <div className="col-4">{networkUI}</div>
           </div>

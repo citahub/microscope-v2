@@ -9,12 +9,13 @@ class Loading extends React.Component<Props> {
   render() {
     if (!this.props.loading) return null
     return (
-      <div className="loading">
+      <div className="loading" style={{ pointerEvents: 'none' }}>
         <div
           className="loading_content vhCenter"
           style={{
-            marginTop: 0,
-            backgroundColor: 'transparent'
+            marginTop: this.props.loading.maskTop || 0,
+            backgroundColor: 'transparent',
+            pointerEvents: 'all'
           }}
         >
           <div

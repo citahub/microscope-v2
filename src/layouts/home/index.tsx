@@ -292,7 +292,13 @@ class Home extends React.Component<any, any> {
                               {block.hash}
                             </div>
                             <div className="blockItemTranscation">
-                              包含 {block.transactionsCount || (block.body && block.body.transactions && block.body.transactions.length) || 0 } 笔交易
+                              包含{' '}
+                              {block.transactionsCount ||
+                                (block.body &&
+                                  block.body.transactions &&
+                                  block.body.transactions.length) ||
+                                0}{' '}
+                              笔交易
                             </div>
                             <div className="blockItemFrom">
                               Proposed By {block.header.proposer}

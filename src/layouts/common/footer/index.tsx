@@ -1,15 +1,9 @@
 import React from 'react'
 import './index.styl'
 class Footer extends React.Component<any, any> {
-  // constructor(props) {
-  //   super(props);
-  // }
-  // componentDidMount(){
-  // }
   render() {
-    // var self = this;
     return (
-      <div className="Footer" style={{ color: 'white' }}>
+      <div className="footer" style={{ color: 'white' }}>
         <div className="container">
           <div className="row">
             <div

@@ -69,10 +69,10 @@ class APIRebirth extends React.Component<any, any> {
       return d.name == method
     })
     try {
-      self.input = JSON.parse(item.inputSample || '{}')
+      self.input = item.inputSample || '{}'
       self.props.networkAction.rebirth(
         getSelectNetwork().url + method,
-        self.input
+        JSON.parse(item.inputSample)
       )
     } catch (e) {
       console.log(e)

@@ -144,6 +144,15 @@ class TransactionDetail extends React.Component<any, any> {
                 </div>
               </div>
               <div className="withRow transactionBodyRow">
+                <div className="transactionDetailKey">Version:</div>
+                <div className="transactionDetailValue withRowLeftAuto">
+                {data &&
+                    data.unsignedTransaction &&
+                    data.unsignedTransaction.transaction &&
+                    parseInt(data.unsignedTransaction.transaction.version)}
+                </div>
+              </div>
+              <div className="withRow transactionBodyRow">
                 <div className="transactionDetailKey">Nonce:</div>
                 <div className="transactionDetailValue withRowLeftAuto">
                   {data &&
@@ -171,41 +180,41 @@ class TransactionDetail extends React.Component<any, any> {
                 </div>
               </div>
               <div className="withRow transactionBodyRow">
-                <div className="transactionDetailKey">Quota Limit:</div>
+                <div className="transactionDetailKey">Quota:</div>
                 <div className="transactionDetailValue withRowLeftAuto">
+                  {dataReceipt && parseInt(dataReceipt.quotaUsed)}
+                   &nbsp;/&nbsp;
                   {data &&
                     data.unsignedTransaction &&
                     data.unsignedTransaction.transaction &&
                     data.unsignedTransaction.transaction.quota}
                 </div>
               </div>
-              <div className="withRow transactionBodyRow">
-                <div className="transactionDetailKey">Quota Price:</div>
-                <div className="transactionDetailValue withRowLeftAuto">
-                  {data && data.quotaPrice}
-                </div>
-              </div>
-              <div className="withRow transactionBodyRow">
-                <div className="transactionDetailKey">Quota used:</div>
-                <div className="transactionDetailValue withRowLeftAuto">
-                  {data && data.quotaUsed}
-                </div>
-              </div>
-              <div className="withRow transactionBodyRow">
-                <div className="transactionDetailKey">Fee:</div>
-                <div className="transactionDetailValue withRowLeftAuto">
-                  {data && data.fee}
-                </div>
-              </div>
+              {
+                // <div className="withRow transactionBodyRow">
+                //   <div className="transactionDetailKey">Quota Price:</div>
+                //   <div className="transactionDetailValue withRowLeftAuto">
+                //     {data && data.quotaPrice}
+                //   </div>
+                // </div>
+              }
+              
+              {
+                // <div className="withRow transactionBodyRow">
+                //   <div className="transactionDetailKey">Fee:</div>
+                //   <div className="transactionDetailValue withRowLeftAuto">
+                //     {data && data.fee}
+                //   </div>
+                // </div>
+              }
               <div
                 className="withRow transactionBodyRow"
-                style={{ marginBottom: 80, height: 160 }}
+                style={{  minHeight: 160, height: 'auto' }}
               >
                 <div className="transactionDetailKey">Data:</div>
                 <div className="transactionDetailValue withRowLeftAuto">
                   <Tabs
                     headerWidthUnit="fixed"
-                    style={{ minHeight: 500 }}
                     initIndex={0}
                     onTabSwitchCallBack={(tabIndex: number) => {
                       if (tabIndex == 1) {

@@ -170,10 +170,22 @@ class MoreMenu extends React.Component<any, any> {
   } = {
     parentMenu: null
   }
+  clickListener: any
   constructor(props: any) {
     super(props)
     this.state = {
       open: false
+    }
+  }
+  componentDidMount() {
+    this.clickListener = () => {
+      this.setState({ open: false })
+    }
+    window.addEventListener('click', this.clickListener)
+  }
+  componentWillUnmount() {
+    if (this.clickListener) {
+      window.removeEventListener('click', this.clickListener)
     }
   }
   render() {
@@ -310,11 +322,11 @@ const menus = [
     path: '/api/',
     subMenus: [
       {
-        name: 'JsonRPC',
+        name: 'RPC',
         path: '/api/rpc'
       },
       {
-        name: 'Re-birth',
+        name: 'Re-Birth',
         path: '/api/rebirth'
       }
     ]

@@ -7,65 +7,67 @@ class Footer extends React.Component<any, any> {
         <div className="container">
           <div className="row">
             <div
-              className="col-xs-3 col-sm-3 col-md-3 col-12 intro"
+              className="col-xs-4 col-sm-4 col-md-4 col-12 intro"
               style={{ paddingTop: 34, paddingBottom: 34 }}
             >
               <div className="footTitle">介绍</div>
               <div style={{ marginTop: 28 }}>
-                Microscope is a blockchain explorer.Very Niubi
+                Microscope is a blockchain explorer.
               </div>
               <div style={{ marginTop: 17 }}>
-                This project is powered by Cryptape.One of the Nervos-CITA
+                This project is powered by Cryptape. One of the Nervos-CITA
                 product
               </div>
             </div>
 
             <div
-              className="col-xs-6 col-sm-6 col-md-6 col-12 otherProduct"
+              className="col-xs-4 col-sm-4 col-md-4 col-12 otherProduct"
               style={{ margin: '0 auto', paddingTop: 34, paddingBottom: 34 }}
             >
               <div className="footTitle">其他产品</div>
               <div className="row" style={{ marginTop: 28 }}>
                 <div className="col-6">
                   <img src="images/footer_nervos.png" />
-                  <div style={{ marginTop: 16, color: '#e3e3e3' }}>
-                    Nervos-CITA is a comprehensive solution to…
-                  </div>
+                  <div style={{ marginTop: 16, color: '#e3e3e3' }}>Nervos</div>
                 </div>
                 <div className="col-6">
                   <img src="images/footer_cita.png" />
-                  <div style={{ marginTop: 16, color: '#e3e3e3' }}>
-                    Nervos-CITA is a comprehensive solution to…
-                  </div>
+                  <div style={{ marginTop: 16, color: '#e3e3e3' }}>CITA</div>
                 </div>
               </div>
             </div>
 
             <div
-              className="col-xs-3 col-sm-3 col-md-3 col-12 contact"
+              className="col-xs-4 col-sm-4 col-md-4 col-12 contact"
               style={{ paddingTop: 34, paddingBottom: 34 }}
             >
               <div className="footTitle">联系我们</div>
               <div style={{ marginTop: 28 }}>
-                <img
-                  src="images/footer_mailbox.png"
-                  style={{ marginRight: 15 }}
-                />
-                E-mail
+                <a href="https://github.com/cryptape/microscope">
+                  <img
+                    src="images/footer_git.png"
+                    style={{ marginRight: 15, width: 16, height: 16 }}
+                  />
+                  Github
+                </a>
               </div>
               <div style={{ marginTop: 13 }}>
-                <img
-                  src="images/footer_group.png"
-                  style={{ marginRight: 15 }}
-                />
-                Nervos-CITA开发者群组
+                <a href="mailto:appchain.contact@cryptape.com">
+                  <img
+                    src="images/footer_mailbox.png"
+                    style={{ marginRight: 15 }}
+                  />
+                  E-mail: appchain.contact@cryptape.com
+                </a>
               </div>
               <div style={{ marginTop: 13 }}>
-                <img
-                  src="images/footer_telegram.png"
-                  style={{ marginRight: 15 }}
-                />
-                Telegram
+                <a href="https://t.me/NervosNetworkcn">
+                  <img
+                    src="images/footer_group.png"
+                    style={{ marginRight: 15 }}
+                  />
+                  CITA开发者群组
+                </a>
               </div>
             </div>
           </div>

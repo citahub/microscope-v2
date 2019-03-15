@@ -52,21 +52,21 @@ class Footer extends React.Component<any, any> {
                 </a>
               </div>
               <div style={{ marginTop: 13 }}>
-                <a href="mailto:appchain.contact@cryptape.com">
+                <a href="mailto:citahub-team@cryptape.com">
                   <img
                     src="images/footer_mailbox.png"
                     style={{ marginRight: 15 }}
                   />
-                  E-mail: appchain.contact@cryptape.com
+                  E-mail: citahub-team@cryptape.com
                 </a>
               </div>
               <div style={{ marginTop: 13 }}>
-                <a href="https://t.me/NervosNetworkcn">
+                <a href="https://talk.citahub.com/">
                   <img
                     src="images/footer_group.png"
                     style={{ marginRight: 15 }}
                   />
-                  CITA开发者群组
+                  CITAHub 开发者论坛
                 </a>
               </div>
             </div>

@@ -101,7 +101,7 @@ class AccountDetail extends React.Component<any, any> {
         >
           <div className="container">
             <div className="row" style={{ marginLeft: -20, marginRight: -20 }}>
-              <div className="col-6">
+              <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6">
                 <div className="accountNav">
                   <div className="withRow" style={{ height: 22 }}>
                     <div
@@ -123,10 +123,15 @@ class AccountDetail extends React.Component<any, any> {
                       account:
                     </div>
                     <div
+                      className='withRowLeftAuto'
                       style={{
                         marginLeft: 10,
                         fontSize: 16,
-                        color: '#6f747a'
+                        width: '100%',
+                        color: '#6f747a',
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis',
+                        whiteSpace: 'nowrap',
                       }}
                     >
                       {' '}
@@ -135,7 +140,7 @@ class AccountDetail extends React.Component<any, any> {
                   </div>
                 </div>
               </div>
-              <div className="col-6">
+              <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6">
                 <div className="accountNav">
                   <div className="withRow" style={{ height: 22 }}>
                     <div
@@ -158,10 +163,14 @@ class AccountDetail extends React.Component<any, any> {
                       Balance:{' '}
                     </div>
                     <div
+                      className='withRowLeftAuto'
                       style={{
                         marginLeft: 10,
                         fontSize: 16,
-                        color: '#6f747a'
+                        color: '#6f747a',
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis',
+                        whiteSpace: 'nowrap',
                       }}
                     >
                       #{' '}

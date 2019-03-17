@@ -16,7 +16,7 @@ class TransactionTable extends React.Component<any, any> {
     var data = self.props.data
     var globalTickTime = self.props.globalTickTime
     return (
-      <div className="transactionTable">
+      <div className="transactionTable tableWrapper">
         <table className="table table-hover" style={{ tableLayout: 'fixed' }}>
           <thead style={{ backgroundColor: '#fafbff' }}>
             <th

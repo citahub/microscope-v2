@@ -83,16 +83,17 @@ class BlockList extends React.Component<any, any> {
           >
             <div
               className="withRow"
-              style={{ height: 36, paddingLeft: 24, paddingRight: 20 }}
+              style={{ minHeight: 36, paddingLeft: 24, paddingRight: 20 }}
             >
               <div
                 className="withRowLeftAuto"
                 style={{ color: '#868b92', fontSize: 14 }}
               >
-                当前搜索参数: blockFrom: {self.props.block.list.blockFrom}{' '}
-                blockTo: {self.props.block.list.blockTo} transactionCountMin:{' '}
-                {self.props.block.list.transactionCountMin} transactionCountMax:{' '}
-                {self.props.block.list.transactionCountMax}
+                当前搜索参数:<br/>  
+                blockFrom: {self.props.block.list.blockFrom}
+                blockTo: {self.props.block.list.blockTo}
+                transactionCountMin: {self.props.block.list.transactionCountMin} 
+                transactionCountMax: {self.props.block.list.transactionCountMax}
               </div>
               <div
                 className="queryButton operationItem"
@@ -115,7 +116,7 @@ class BlockList extends React.Component<any, any> {
                 高级选择器
               </div>
             </div>
-            <div style={{ padding: '14px 23px 0 23px' }}>
+            <div className='tableWrapper' style={{ padding: '14px 23px 0 23px' }}>
               <table
                 className="table table-hover"
                 style={{ tableLayout: 'fixed' }}

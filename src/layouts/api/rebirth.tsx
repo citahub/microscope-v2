@@ -122,33 +122,35 @@ class APIRebirth extends React.Component<any, any> {
       <Layout className="apiRebirth" bgColor="white">
         <Header location={self.props.location} app={self.props.app} />
         <div
-          className="container withRow"
+          className="container"
           style={{
             minHeight: self.props.app.appHeight - 338,
             marginTop: 30,
             marginBottom: 30,
-            position: 'relative'
+            position: 'relative',
+            overflowX: 'auto'
           }}
         >
-          <div style={{ width: 200 }}>
-            {jsonRpc.map(function(item) {
-              var className = 'rpcItem'
-              if (item.name == method) {
-                className += ' rpcActiveItem'
-              }
-              return (
-                <div
-                  className={className}
-                  onClick={() => {
-                    hashHistory.push('/api/rebirth?method=' + item.name)
-                  }}
-                >
-                  {item.name}
-                </div>
-              )
-            })}
-          </div>
-          <div
+          <div className='withRow apiRebirthBody'>
+            <div style={{ width: 200 }}>
+              {jsonRpc.map(function(item) {
+                var className = 'rpcItem'
+                if (item.name == method) {
+                  className += ' rpcActiveItem'
+                }
+                return (
+                  <div
+                    className={className}
+                    onClick={() => {
+                      hashHistory.push('/api/rebirth?method=' + item.name)
+                    }}
+                  >
+                    {item.name}
+                  </div>
+                )
+              })}
+            </div>
+            <div
             className="withRowLeftAuto"
             style={{
               marginLeft: 10,
@@ -217,6 +219,7 @@ class APIRebirth extends React.Component<any, any> {
                 </div>
               </div>
             </div>
+          </div>
           </div>
         </div>
         <Footer />

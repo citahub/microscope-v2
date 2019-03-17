@@ -68,7 +68,13 @@ html,body,#app,.root
   .rc-pagination-item
     &:hover
       border-color #6a96f0!important
-      
+
+@media (max-width: 1200px)
+  .tableWrapper
+    overflow-x auto
+  table
+    table-layout unset!important
+
 div.enterScreen {
     position: absolute;
     width: 100vw;

@@ -191,33 +191,35 @@ class APIRpc extends React.Component<any, any> {
       <Layout className="apiRpc" bgColor="white">
         <Header location={self.props.location} app={self.props.app} />
         <div
-          className="container withRow"
+          className="container"
           style={{
             minHeight: self.props.app.appHeight - 338,
             marginTop: 30,
             marginBottom: 30,
+            overflowX: 'auto',
             position: 'relative'
           }}
         >
-          <div style={{ width: 200 }}>
-            {jsonRpc.map(function(item) {
-              var className = 'rpcItem'
-              if (item.name == method) {
-                className += ' rpcActiveItem'
-              }
-              return (
-                <div
-                  className={className}
-                  onClick={() => {
-                    hashHistory.push('/api/rpc?method=' + item.name)
-                  }}
-                >
-                  {item.name}
-                </div>
-              )
-            })}
-          </div>
-          <div
+          <div className='withRow apiRpcBody'>
+            <div style={{ width: 200 }}>
+              {jsonRpc.map(function(item) {
+                var className = 'rpcItem'
+                if (item.name == method) {
+                  className += ' rpcActiveItem'
+                }
+                return (
+                  <div
+                    className={className}
+                    onClick={() => {
+                      hashHistory.push('/api/rpc?method=' + item.name)
+                    }}
+                  >
+                    {item.name}
+                  </div>
+                )
+              })}
+            </div>
+            <div
             className="withRowLeftAuto"
             style={{
               marginLeft: 10,
@@ -279,6 +281,7 @@ class APIRpc extends React.Component<any, any> {
                 </div>
               </div>
             </div>
+          </div>
           </div>
         </div>
         <Footer />

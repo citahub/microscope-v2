@@ -168,26 +168,49 @@ class BlockDetail extends React.Component<any, any> {
                   {data && data.header.transactionsRoot}
                 </div>
               </div>
-              {
-                data && data.body && data.body.transactions && data.body.transactions.length > 0 ?
-                <div className="withRow blockBodyRow" style={{ height: 'auto'}}>
+              {data &&
+              data.body &&
+              data.body.transactions &&
+              data.body.transactions.length > 0 ? (
+                <div
+                  className="withRow blockBodyRow"
+                  style={{ height: 'auto' }}
+                >
                   <div className="blockDetailKey">Transactions List:</div>
                   <div
                     className="blockDetailValue withRowLeftAuto"
                     style={{ fontSize: 16 }}
                   >
-                    { data.body.transactions.map((hash:string,i:number)=>{
-                      return <div className="operationItem"                   style={{marginTop: 5, fontSize: 16, color: '#5b8ee6' }}
-                      onClick={() => {
-                        if (hash)
-                          hashHistory.push('/transaction/hash/' + hash)
-                      }}><span style={{ display: 'inline-block', width: 40, color: '#47484a'}}>[{i+1}]</span>{hash}</div>
+                    {data.body.transactions.map((hash: string, i: number) => {
+                      return (
+                        <div
+                          className="operationItem"
+                          style={{
+                            marginTop: 5,
+                            fontSize: 16,
+                            color: '#5b8ee6'
+                          }}
+                          onClick={() => {
+                            if (hash)
+                              hashHistory.push('/transaction/hash/' + hash)
+                          }}
+                        >
+                          <span
+                            style={{
+                              display: 'inline-block',
+                              width: 40,
+                              color: '#47484a'
+                            }}
+                          >
+                            [{i + 1}]
+                          </span>
+                          {hash}
+                        </div>
+                      )
                     })}
                   </div>
                 </div>
-                :null
-              }
-             
+              ) : null}
             </div>
           </div>
         </div>

@@ -27,7 +27,7 @@ const jsonRpc = [
   },
   {
     name: '/api/statistics',
-    inputSample: '{type: "proposals"}'
+    inputSample: '{"type": "proposals"}'
   },
   {
     name: '/api/status',

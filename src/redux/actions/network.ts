@@ -43,6 +43,7 @@ export function getMetaData() {
           type: constants.GET_NETWORK_METADATA,
           data: data
         })
+        return data
       })
       .catch((error: any) => {
         dispatch(hideLoading())

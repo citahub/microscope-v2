@@ -8,6 +8,7 @@ interface API {
   jsonRpc: string
   url: string
   status: string
+  statistics: string
   blockList: string
   transactionList: string
   ercTransactionList: string
@@ -34,6 +35,7 @@ const api: API = {
   jsonRpc: '/',
   url: '/api/info/url',
   status: '/api/status',
+  statistics: '/api/statistics',
   blockList: '/api/blocks',
   transactionList: '/api/transactions',
   ercTransactionList: '/api/erc20/transfers'

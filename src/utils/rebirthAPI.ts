@@ -72,10 +72,16 @@ export function erc20TransactionList(
       throw error
     })
 }
-export function topBlocks(): any {
+export function topBlocks(by: string, count: number): any {
   return request
-    .get(serverNode.url + config.api.blockList, {})
+    .get(serverNode.url + config.api.blockList, {
+      page: 1,
+      limit: count,
+      numberFrom: parseInt(by) - 10,
+      numberTo: by
+    })
     .then((data: any) => {
+      console.log(data)
       return data && data.result.blocks
     })
     .catch((error: object) => {

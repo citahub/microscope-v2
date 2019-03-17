@@ -146,7 +146,7 @@ class TransactionDetail extends React.Component<any, any> {
               <div className="withRow transactionBodyRow">
                 <div className="transactionDetailKey">Version:</div>
                 <div className="transactionDetailValue withRowLeftAuto">
-                {data &&
+                  {data &&
                     data.unsignedTransaction &&
                     data.unsignedTransaction.transaction &&
                     parseInt(data.unsignedTransaction.transaction.version)}
@@ -183,7 +183,7 @@ class TransactionDetail extends React.Component<any, any> {
                 <div className="transactionDetailKey">Quota:</div>
                 <div className="transactionDetailValue withRowLeftAuto">
                   {dataReceipt && parseInt(dataReceipt.quotaUsed)}
-                   &nbsp;/&nbsp;
+                  &nbsp;/&nbsp;
                   {data &&
                     data.unsignedTransaction &&
                     data.unsignedTransaction.transaction &&
@@ -198,7 +198,7 @@ class TransactionDetail extends React.Component<any, any> {
                 //   </div>
                 // </div>
               }
-              
+
               {
                 // <div className="withRow transactionBodyRow">
                 //   <div className="transactionDetailKey">Fee:</div>
@@ -209,7 +209,7 @@ class TransactionDetail extends React.Component<any, any> {
               }
               <div
                 className="withRow transactionBodyRow"
-                style={{  minHeight: 160, height: 'auto' }}
+                style={{ minHeight: 160, height: 'auto' }}
               >
                 <div className="transactionDetailKey">Data:</div>
                 <div className="transactionDetailValue withRowLeftAuto">

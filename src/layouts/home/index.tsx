@@ -13,11 +13,14 @@ import { valueFormat } from '../../utils/hex'
 class Home extends React.Component<any, any> {
   topBlocksTimer: any
   topTransactionsTimer: any
-  componentDidMount() {
+  componentWillMount() {
     var self = this
     self.props.networkAction.getMetaData()
     self.props.blockAction.topBlocks()
     self.props.transactionAction.topTransactions()
+  }
+  componentDidMount() {
+    var self = this
 
     // currently no websocket
     self.topBlocksTimer = setInterval(() => {

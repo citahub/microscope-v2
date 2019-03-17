@@ -44,8 +44,8 @@ export function getERC20TransactionListByAccount(
   return rebirthAPI.erc20TransactionList(pageNum, pageSize, account)
 }
 
-export function topBlocks() {
-  return rebirthAPI.topBlocks()
+export function topBlocks(by: string, count: number) {
+  return rebirthAPI.topBlocks(by, count)
 }
 export function getBlock(key: string) {
   return rebirthAPI.getBlock(key)

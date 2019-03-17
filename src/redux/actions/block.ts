@@ -37,28 +37,30 @@ export type BlockAction =
 export function topBlocks() {
   return (dispatch: any) => {
     // dispatch(showLoading())
-    return dataAPI
-      .topBlocks()
-      .then((data: Array<BlockItem>) => {
-        // dispatch(hideLoading())
-        dispatch({
-          type: constants.GET_TOP_BLOCKS,
-          data: data
+    return dataAPI.getBlockNumber().then((blockId: any) => {
+      return dataAPI
+        .topBlocks(blockId, 10)
+        .then((data: Array<BlockItem>) => {
+          // dispatch(hideLoading())
+          dispatch({
+            type: constants.GET_TOP_BLOCKS,
+            data: data
+          })
+          // if(data && data.length>0){
+          //   dispatch({
+          //     type: constants.GET_LATEST_BLOCK,
+          //     data: data[0]
+          //   });
+          // }
         })
-        // if(data && data.length>0){
-        //   dispatch({
-        //     type: constants.GET_LATEST_BLOCK,
-        //     data: data[0]
-        //   });
-        // }
-      })
-      .catch((error: any) => {
-        // dispatch(hideLoading())
-        dispatch({
-          type: constants.OPERATION_FAIL,
-          error: error
+        .catch((error: any) => {
+          // dispatch(hideLoading())
+          dispatch({
+            type: constants.OPERATION_FAIL,
+            error: error
+          })
         })
-      })
+    })
   }
 }
 
@@ -128,7 +130,22 @@ export function getBlockList(
       })
   }
 }
-
+export function getLatestBlock() {
+  return (dispatch: any) => {
+    return dataAPI
+      .getBlockNumber()
+      .then((blockId: string) => {
+        return blockId
+      })
+      .catch((error: any) => {
+        dispatch({
+          type: constants.OPERATION_FAIL,
+          error: error
+        })
+        return null
+      })
+  }
+}
 export function updateNextBlock(blockId: any) {
   return (dispatch: any) => {
     // dispatch(showLoading())

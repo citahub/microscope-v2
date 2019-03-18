@@ -214,6 +214,7 @@ class TransactionDetail extends React.Component<any, any> {
                 <div className="transactionDetailKey">Data:</div>
                 <div className="transactionDetailValue withRowLeftAuto">
                   <Tabs
+                    key={data && data.hash}
                     headerWidthUnit="fixed"
                     initIndex={0}
                     onTabSwitchCallBack={(tabIndex: number) => {

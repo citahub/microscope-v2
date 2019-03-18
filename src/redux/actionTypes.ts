@@ -38,6 +38,7 @@ export type GET_NETWORK_RPC = typeof GET_NETWORK_RPC
 export const GET_NETWORK_REBIRTH = 'GET_NETWORK_REBIRTH'
 export type GET_NETWORK_REBIRTH = typeof GET_NETWORK_REBIRTH
 
+
 // block
 
 export const GET_BLOCK_ITEM = 'GET_BLOCK_ITEM'
@@ -89,3 +90,7 @@ export type GET_ACCOUNT_BALANCE = typeof GET_ACCOUNT_BALANCE
 //   export type command = typeof command
 
 // })
+
+// statics
+export const GET_STATICS_PROPOSALS = 'GET_STATICS_PROPOSALS'
+export type GET_STATICS_PROPOSALS = typeof GET_STATICS_PROPOSALS

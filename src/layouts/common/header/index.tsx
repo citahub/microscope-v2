@@ -330,6 +330,10 @@ const menus = [
         path: '/api/rebirth'
       }
     ]
+  },
+  {
+    name: '统计',
+    path: '/statics'
   }
 ]
 

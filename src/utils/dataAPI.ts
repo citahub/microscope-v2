@@ -90,3 +90,6 @@ export function rpc(json: string) {
 export function rebirth(url: string, params: any) {
   return rebirthAPI.rebirth(url, params)
 }
+export function statics(type:string){
+  return rebirthAPI.statics(type)
+}

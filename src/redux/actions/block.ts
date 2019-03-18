@@ -164,11 +164,21 @@ export function updateNextBlock(blockId: any) {
             transactions.forEach((t: string) => {
               dataAPI.getTransaction(t).then((d: any) => {
                 d.timestamp = timestamp
-                dispatch({
-                  type: constants.APPEND_LATEST_TRANSACTION,
-                  data: d
+                dataAPI.getTransactionReceipt(t).then((sub: any) => {
+                  d.gasUsed = sub.quotaUsed
+                  dispatch({
+                    type: constants.APPEND_LATEST_TRANSACTION,
+                    data: d
+                  })
+                }).catch(()=>{
+                  dispatch({
+                    type: constants.APPEND_LATEST_TRANSACTION,
+                    data: d
+                  })
                 })
+               
               })
+              
             })
           }
         })

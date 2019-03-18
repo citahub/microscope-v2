@@ -11,8 +11,7 @@ import { timePassed } from '../../utils/time'
 import { valueFormat } from '../../utils/hex'
 
 class Home extends React.Component<any, any> {
-  topBlocksTimer: any
-  topTransactionsTimer: any
+  timer: any
   componentWillMount() {
     var self = this
     self.props.networkAction.getMetaData()
@@ -23,7 +22,7 @@ class Home extends React.Component<any, any> {
     var self = this
 
     // currently no websocket
-    self.topBlocksTimer = setInterval(() => {
+    self.timer = setInterval(() => {
       if (self.props.block.latest) {
         var nextBlockId = null
         try {
@@ -37,7 +36,7 @@ class Home extends React.Component<any, any> {
   }
   componentWillUnmount() {
     var self = this
-    clearInterval(self.topBlocksTimer)
+    clearInterval(self.timer)
   }
 
   render() {

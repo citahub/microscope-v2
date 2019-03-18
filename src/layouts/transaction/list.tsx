@@ -71,8 +71,9 @@ class TransitionList extends React.Component<any, any> {
                 className="withRowLeftAuto"
                 style={{ color: '#868b92', fontSize: 14 }}
               >
-                当前搜索参数:<br/> 
-                addressFrom: {self.props.transaction.list.addressFrom} 
+                当前搜索参数:
+                <br />
+                addressFrom: {self.props.transaction.list.addressFrom}
                 addressTo: {self.props.transaction.list.addressTo}
               </div>
               <div

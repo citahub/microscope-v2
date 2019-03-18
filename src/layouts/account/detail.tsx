@@ -123,7 +123,7 @@ class AccountDetail extends React.Component<any, any> {
                       account:
                     </div>
                     <div
-                      className='withRowLeftAuto'
+                      className="withRowLeftAuto"
                       style={{
                         marginLeft: 10,
                         fontSize: 16,
@@ -131,7 +131,7 @@ class AccountDetail extends React.Component<any, any> {
                         color: '#6f747a',
                         overflow: 'hidden',
                         textOverflow: 'ellipsis',
-                        whiteSpace: 'nowrap',
+                        whiteSpace: 'nowrap'
                       }}
                     >
                       {' '}
@@ -163,14 +163,14 @@ class AccountDetail extends React.Component<any, any> {
                       Balance:{' '}
                     </div>
                     <div
-                      className='withRowLeftAuto'
+                      className="withRowLeftAuto"
                       style={{
                         marginLeft: 10,
                         fontSize: 16,
                         color: '#6f747a',
                         overflow: 'hidden',
                         textOverflow: 'ellipsis',
-                        whiteSpace: 'nowrap',
+                        whiteSpace: 'nowrap'
                       }}
                     >
                       #{' '}

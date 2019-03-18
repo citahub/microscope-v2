@@ -81,7 +81,6 @@ export function topBlocks(by: string, count: number): any {
       numberTo: by
     })
     .then((data: any) => {
-      console.log(data)
       return data && data.result.blocks
     })
     .catch((error: object) => {
@@ -164,6 +163,16 @@ export function rebirth(url: string, params: object) {
     .get(url, params)
     .then((data: any) => {
       return data
+    })
+    .catch((error: object) => {
+      throw error
+    })
+}
+export function statics(type:string){
+  return request
+    .get(serverNode.url + config.api.statistics, {type:type})
+    .then((data: any) => {
+      return data.result
     })
     .catch((error: object) => {
       throw error

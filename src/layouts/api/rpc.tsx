@@ -200,7 +200,7 @@ class APIRpc extends React.Component<any, any> {
             position: 'relative'
           }}
         >
-          <div className='withRow apiRpcBody'>
+          <div className="withRow apiRpcBody">
             <div style={{ width: 200 }}>
               {jsonRpc.map(function(item) {
                 var className = 'rpcItem'
@@ -220,68 +220,70 @@ class APIRpc extends React.Component<any, any> {
               })}
             </div>
             <div
-            className="withRowLeftAuto"
-            style={{
-              marginLeft: 10,
-              height: '100%',
-              position: 'sticky',
-              top: 0
-            }}
-          >
-            <nav aria-label="breadcrumb">
-              <ol className="breadcrumb">
-                <li className="breadcrumb-item">{selectNetwork.url}</li>
-                <li className="breadcrumb-item active" aria-current="page">
-                  {method}
-                </li>
-              </ol>
-            </nav>
-            <div className="withColumn">
-              <div className="card" style={{ height: '40%' }}>
-                <div className="card-header">Input</div>
-                <div className="card-body">
-                  <ReactJson
-                    src={self.props.network.rpcData.input || {}}
-                    onEdit={v => {
-                      var newValue = v.updated_src
-                      self.input = JSON.stringify(newValue)
-                    }}
-                    onDelete={v => {
-                      var newValue = v.updated_src
-                      self.input = JSON.stringify(newValue)
-                    }}
-                  />
+              className="withRowLeftAuto"
+              style={{
+                marginLeft: 10,
+                height: '100%',
+                position: 'sticky',
+                top: 0
+              }}
+            >
+              <nav aria-label="breadcrumb">
+                <ol className="breadcrumb">
+                  <li className="breadcrumb-item">{selectNetwork.url}</li>
+                  <li className="breadcrumb-item active" aria-current="page">
+                    {method}
+                  </li>
+                </ol>
+              </nav>
+              <div className="withColumn">
+                <div className="card" style={{ height: '40%' }}>
+                  <div className="card-header">Input</div>
+                  <div className="card-body">
+                    <ReactJson
+                      src={self.props.network.rpcData.input || {}}
+                      onEdit={v => {
+                        var newValue = v.updated_src
+                        self.input = JSON.stringify(newValue)
+                      }}
+                      onDelete={v => {
+                        var newValue = v.updated_src
+                        self.input = JSON.stringify(newValue)
+                      }}
+                    />
+                  </div>
+                  <div className="card-footer" style={{ textAlign: 'right' }}>
+                    <button
+                      className="btn btn-danger"
+                      onClick={() => {
+                        var input = self.input
+                        try {
+                          self.props.networkAction.rpc(
+                            JSON.parse(input || '{}')
+                          )
+                        } catch (e) {
+                          console.log(e)
+                        }
+                      }}
+                    >
+                      发送
+                    </button>
+                  </div>
                 </div>
-                <div className="card-footer" style={{ textAlign: 'right' }}>
-                  <button
-                    className="btn btn-danger"
-                    onClick={() => {
-                      var input = self.input
-                      try {
-                        self.props.networkAction.rpc(JSON.parse(input || '{}'))
-                      } catch (e) {
-                        console.log(e)
-                      }
-                    }}
-                  >
-                    发送
-                  </button>
-                </div>
-              </div>
-              <div
-                className="card withColumnLeftAuto"
-                style={{ marginTop: 20 }}
-              >
-                <div className="card-header">Output</div>
-                <div className="card-body">
-                  <ReactJson src={self.props.network.rpcData.output || {}} />
-                </div>
-                <div className="card-footer">
-                  <small className="text-muted" />
+                <div
+                  className="card withColumnLeftAuto"
+                  style={{ marginTop: 20 }}
+                >
+                  <div className="card-header">Output</div>
+                  <div className="card-body">
+                    <ReactJson src={self.props.network.rpcData.output || {}} />
+                  </div>
+                  <div className="card-footer">
+                    <small className="text-muted" />
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
           </div>
         </div>
         <Footer />

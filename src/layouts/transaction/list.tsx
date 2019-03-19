@@ -95,7 +95,7 @@ class TransitionList extends React.Component<any, any> {
                 高级选择器
               </div>
             </div>
-            <div style={{ padding: '14px 23px 0 23px' }}>
+            <div style={{ padding: '14px 23px 0 23px', minHeight: 690 - 36 }}>
               <TransactionTable
                 data={data}
                 globalTickTime={globalTickTime}

@@ -12,9 +12,7 @@ import { getContractData } from '../../utils/hex'
 class TransactionDetail extends React.Component<any, any> {
   componentDidMount() {
     var self = this
-
     var params = self.props.params
-
     self.props.transactionAction.getTransaction(params.hash)
     self.props.transactionAction.getTransactionReceipt(params.hash)
   }
@@ -122,10 +120,11 @@ class TransactionDetail extends React.Component<any, any> {
                   className="transactionDetailValue withRowLeftAuto operationItem"
                   style={{ fontSize: 16, color: '#5b8ee6' }}
                   onClick={() => {
-                    if (to) hashHistory.push('/account/' + to)
+                    var account = to || (dataReceipt && dataReceipt.contractAddress)
+                    if (account) hashHistory.push('/account/' + account)
                   }}
                 >
-                  {to}
+                  {to || (dataReceipt && dataReceipt.contractAddress)}
                 </div>
               </div>
               <div className="withRow transactionBodyRow">

@@ -29,6 +29,8 @@ export default function() {
         <Route path="/api/rebirth" component={APIRebirth} />
         <Route path="/statics" component={Statics} />
         <Route path="/404" component={NotFoundPage} />
+
+        <Redirect from="/transaction/:hash" to="/transaction/hash/:hash" /> // for faucet
         <Redirect from="*" to="/404" />
       </Route>
     </Router>

@@ -1,5 +1,6 @@
 import { api, ServerNode } from './config'
 
+export const defaultNetwork: ServerNode = api.serverList[0]
 export function clearAll() {
   window.localStorage.removeItem('selectNetwork')
   window.localStorage.removeItem('networks')
@@ -7,7 +8,6 @@ export function clearAll() {
 
 export function getSelectNetwork(): ServerNode {
   var networkStr = window.localStorage.getItem('selectNetwork')
-  var defaultNetwork = api.serverList[0]
   var result: ServerNode
   if (networkStr) {
     try {

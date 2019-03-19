@@ -119,7 +119,7 @@ class BlockList extends React.Component<any, any> {
             </div>
             <div
               className="tableWrapper"
-              style={{ padding: '14px 23px 0 23px' }}
+              style={{ padding: '14px 23px 0 23px', minHeight: 690 - 36 }}
             >
               <table
                 className="table table-hover"

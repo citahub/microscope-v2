@@ -9,6 +9,8 @@ import TransactionTable from '../common/transactionTable'
 import { hashHistory } from 'react-router'
 
 import { valueFormat } from '../../utils/hex'
+import citaSDK from '../../utils/sdk'
+
 class TabContractInfoContent extends React.Component<any,any>{
   componentDidMount(){
     var self = this;
@@ -38,7 +40,7 @@ class TabContractInfoContent extends React.Component<any,any>{
             </button>
         </div>
         <div className='vhCenter' style={{ marginTop: 20 }}>
-            <textarea id="contractAbi" value={JSON.stringify(abi,null, "\t")}/>
+            <textarea readOnly id="contractAbi" value={JSON.stringify(abi,null, "\t")}/>
         </div>
         
         <div className='withRow'  style={{ marginTop: 40 }}>
@@ -57,7 +59,7 @@ class TabContractInfoContent extends React.Component<any,any>{
             </button>
         </div>
         <div className='vhCenter' style={{ marginTop: 20 }}>
-          <textarea id="contractBinary"  value={self.props.code}/>
+          <textarea readOnly id="contractBinary"  value={self.props.code}/>
         </div>
 
         
@@ -66,18 +68,136 @@ class TabContractInfoContent extends React.Component<any,any>{
   }
 }
 class TabContractCallContent extends React.Component<any,any>{
+  contract: any;
   componentDidMount(){
     var self = this;
     var address = self.props.address;
+    self.props.accountAction.getAbi(address)
+  }
+  componentWillReceiveProps(nextProps:any){
+    if(nextProps.abi!=null && nextProps.abi!=this.props.abi){
+      this.contract = new citaSDK.base.Contract(nextProps.abi, this.props.address)
+    }
+  }
+  callMethod(methodName:string,params:any){
+    return this.contract.methods[methodName](...params).call({
+      from: '',
+    })
+  }
+  sendMethod(methodName:string,params:any){
+    var self =this;
+    var pk = window.prompt("your privatekey for transactions(only for debugger)")
+    if(!pk){
+      throw new Error("pk could not be null")
+      return;
+    }
+    var accountInfo:any = (citaSDK as any).eth.accounts.privateKeyToAccount(pk);
+    pk = null;
+    return citaSDK.base
+      .getBlockNumber()
+      .then((current:any) => {
+        return self.contract.methods[methodName](...params).send({
+          nonce: 999999,
+          quota: 1000000,
+          chainId: 1,
+          version: 1,
+          validUntilBlock: current + 88,
+          value: '0x0',
+          from: accountInfo.address,
+          privateKey: accountInfo.privateKey
+        })
+      })
+        
+    
+  }
+  renderAbi(d:any,type: string){
+    var self = this;
+    if(d.type=== "fallback" || d.type=== "event" || d.type=== "constructor") return;
+    return (
+        <div style={{ marginTop: 30 }}>
+          <h5>"{d.name}" method({d.stateMutability})</h5>
+          <hr/>
+          <div className='withRow'>
+            <div style={{width: 100}}>Inputs:</div>
+            <div className='withRowLeftAuto'>
+              {
+                d.inputs && d.inputs.map((input:any)=>{
+                  return <input className={d.name+'-input'} style={{ marginLeft: 10 }} type="text" placeholder={input.name + "(" + input.type + ")"}/>
+                })
+              }
+            </div>
+          </div>
+          <div className='withRow' style={{ marginTop: 10 }}>
+            <div style={{width: 100}}>Outputs:</div>
+            <div className='withRowLeftAuto'>
+              {
+                d.outputs && d.outputs.map((output:any)=>{
+                  return <input className={d.name+'-output'} readOnly style={{ marginLeft: 10, color: 'red'}} type="text" placeholder={output.name + "(" + output.type + ")"}/>
+                })
+              }
+            </div>
+          </div>
+          {
+            // <div className='withRow' style={{ marginTop: 10,overflow: 'hidden' }}>
+            //   <div style={{width: 100}}>all:</div>
+            //   <div className='withRowLeftAuto'>
+            //     {
+            //       JSON.stringify(d)
+            //     }
+            //   </div>
+            // </div>
+          }
+          <div style={{ textAlign: 'right'}}>
+            <button
+              style={{ width: 100, marginTop: 20 }}
+              type="button"
+              className="btn btn-primary"
+              onClick={() => {
+                var inputs = document.querySelectorAll('.' +d.name+ '-input')
+                var params:any = []
+                for(var i:number=0;i<inputs.length;i++){
+                  var input = inputs[i] as HTMLInputElement
+                  params.push(input.value);
+                }
+                
 
-    console.log(address)
-
+                if(type === 'view'){
+                  self.callMethod(d.name,params).then((result:any)=>{
+                    var o = document.querySelector('.' +d.name+ '-output') as HTMLInputElement
+                    o.value = JSON.stringify(result);
+                  }).catch((e:any)=>{
+                    self.props.appAction.toast(e.message,5000)
+                  })
+                } else if(type === 'payable'){
+                  self.sendMethod(d.name,params).then((result:any)=>{
+                    var o = document.querySelector('.' +d.name+ '-output') as HTMLInputElement
+                    o.value = JSON.stringify(result);
+                  }).catch((e:any)=>{
+                    self.props.appAction.toast(e.message,5000)
+                  })
+                }
+                
+              }}
+            >
+              Call
+            </button>
+          </div>
+        </div>
+      )
   }
   render(){
     var self = this;
+    var viewAbis = self.props.abi && self.props.abi.filter((d:any)=>{ return d.stateMutability==='view'}) || []
+    var payableAbis = self.props.abi && self.props.abi.filter((d:any)=>{ return d.stateMutability==='nonpayable'}) || []
+    console.log(self.props.abi)
     return (
       <div className='container contractTabCall'>
-        {self.props.address}
+        {
+          viewAbis.map((d:any)=>this.renderAbi(d,"view"))
+        }
+        {
+          payableAbis.map((d:any)=>this.renderAbi(d,"payable"))
+        }
       </div>
     )
   }
@@ -314,7 +434,7 @@ class AccountDetail extends React.Component<any, any> {
                 </div>
               </Tab>
               {isContract?<Tab title="合约调用">
-                <TabContractCallContent address={account} code={self.props.account.code} abi={self.props.account.abi} accountAction={self.props.accountAction}/>
+                <TabContractCallContent address={account} code={self.props.account.code} abi={self.props.account.abi} accountAction={self.props.accountAction} appAction={self.props.appAction}/>
 
               </Tab>:null}
               {isContract?<Tab title="合约信息">

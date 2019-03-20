@@ -2,7 +2,7 @@ import * as request from './request'
 import * as config from './config'
 import { ServerNode } from './config'
 import { getSelectNetwork } from './storage'
-import AppChain from '@cryptape/cita-sdk'
+import citaSDK from './sdk'
 
 var serverNode: ServerNode = getSelectNetwork()
 
@@ -39,7 +39,7 @@ export function transactionList(
     .then((data: any) => {
       var list = data && data.result
       list.transactions.forEach((d: any) => {
-        d.unsignedTransaction = appchain.base.unsigner(d.content)
+        d.unsignedTransaction = citaSDK.base.unsigner(d.content)
       })
       return list
     })
@@ -116,37 +116,35 @@ export function blockList(
     })
 }
 
-const appchain = AppChain(serverNode.url)
-
 export function getMetaData() {
-  return appchain.base.getMetaData()
+  return citaSDK.base.getMetaData()
 }
 
 export function getBalance(address: string) {
-  return appchain.base.getBalance(address)
+  return citaSDK.base.getBalance(address)
 }
 
 export function getBlockByHash(hash: any) {
-  return appchain.base.getBlockByHash(hash)
+  return citaSDK.base.getBlockByHash(hash)
 }
 export function getBlock(key: number | string) {
-  return appchain.base.getBlock(key)
+  return citaSDK.base.getBlock(key)
 }
 
 export function getTransaction(hash: string) {
-  return appchain.base.getTransaction(hash)
+  return citaSDK.base.getTransaction(hash)
 }
 export function getTransactionReceipt(hash: string) {
-  return appchain.base.getTransactionReceipt(hash)
+  return citaSDK.base.getTransactionReceipt(hash)
 }
 export function getAbi(contractAddress: string) {
-  return appchain.base.getAbi(contractAddress, 'pending')
+  return citaSDK.base.getAbi(contractAddress, 'pending')
 }
 export function getCode(address: string){
-  return appchain.base.getCode(address)
+  return citaSDK.base.getCode(address)
 }
 export function getBlockNumber(): any {
-  return appchain.base.getBlockNumber()
+  return citaSDK.base.getBlockNumber()
 }
 
 export function rpc(json: any) {

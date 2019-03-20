@@ -83,6 +83,10 @@ export function getAbi(contractAddress: string) {
   return rebirthAPI.getAbi(contractAddress)
 }
 
+export function getCode(address: string) {
+  return rebirthAPI.getCode(address)
+}
+
 export function rpc(json: string) {
   return rebirthAPI.rpc(json)
 }

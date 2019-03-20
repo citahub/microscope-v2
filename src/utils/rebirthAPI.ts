@@ -142,7 +142,9 @@ export function getTransactionReceipt(hash: string) {
 export function getAbi(contractAddress: string) {
   return appchain.base.getAbi(contractAddress, 'pending')
 }
-
+export function getCode(address: string){
+  return appchain.base.getCode(address)
+}
 export function getBlockNumber(): any {
   return appchain.base.getBlockNumber()
 }

@@ -27,7 +27,7 @@ class NetWork extends React.Component<any, any> {
     var selectNetwork = self.props.selectNetwork
 
     return (
-      <div className="network" style={{ position: 'relative' }}>
+      <div className="network" style={{ position: 'fixed' }}>
         <div
           className=" withRow"
           style={{ width: 100, paddingTop: 10 }}

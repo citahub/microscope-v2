@@ -51,6 +51,7 @@ export function hex2Utf8(hex: string): string {
 import { getAbi } from './dataAPI'
 import { AbiCoder } from 'web3-eth-abi'
 
+
 const abiCoder = new AbiCoder()
 
 export function getContractData(

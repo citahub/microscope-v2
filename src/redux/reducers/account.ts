@@ -19,7 +19,9 @@ const initialState: AccountState = {
     total: 0,
     list: null
   },
-  balance: null
+  balance: null,
+  code: null,
+  abi: null
 }
 
 export default function(
@@ -41,6 +43,16 @@ export default function(
       return {
         ...state,
         erc20List: action.data
+      }
+    case constants.GET_ACCOUNT_CODE:
+      return {
+        ...state,
+        code: action.data
+      }
+    case constants.GET_ACCOUNT_ABI:
+      return {
+        ...state,
+        abi: action.data
       }
     default:
       return state

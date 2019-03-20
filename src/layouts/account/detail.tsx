@@ -9,7 +9,79 @@ import TransactionTable from '../common/transactionTable'
 import { hashHistory } from 'react-router'
 
 import { valueFormat } from '../../utils/hex'
+class TabContractInfoContent extends React.Component<any,any>{
+  componentDidMount(){
+    var self = this;
+    var address = self.props.address;
 
+    self.props.accountAction.getAbi(address)
+
+  }
+  render(){
+    var self = this;
+    var abi = self.props.abi;
+    return (
+      <div className='container contractTabInfo'>
+        <div className='withRow'  style={{ marginTop: 20 }}>
+          <div className='withRowLeftAuto'>合约ABI</div>
+          <button
+              style={{ width: 100 }}
+              type="button"
+              className="btn btn-primary"
+              onClick={() => {
+                var t=  document.getElementById('contractAbi') as HTMLTextAreaElement
+                t.select()
+                document.execCommand('copy')
+              }}
+            >
+              Copy
+            </button>
+        </div>
+        <div className='vhCenter' style={{ marginTop: 20 }}>
+            <textarea id="contractAbi" value={JSON.stringify(abi,null, "\t")}/>
+        </div>
+        
+        <div className='withRow'  style={{ marginTop: 40 }}>
+          <div className='withRowLeftAuto'>合约原始数据</div>
+          <button
+              style={{ width: 100 }}
+              type="button"
+              className="btn btn-primary"
+              onClick={() => {
+                var t=  document.getElementById('contractBinary') as HTMLTextAreaElement
+                t.select()
+                document.execCommand('copy')
+              }}
+            >
+              Copy
+            </button>
+        </div>
+        <div className='vhCenter' style={{ marginTop: 20 }}>
+          <textarea id="contractBinary"  value={self.props.code}/>
+        </div>
+
+        
+      </div>
+    )
+  }
+}
+class TabContractCallContent extends React.Component<any,any>{
+  componentDidMount(){
+    var self = this;
+    var address = self.props.address;
+
+    console.log(address)
+
+  }
+  render(){
+    var self = this;
+    return (
+      <div className='container contractTabCall'>
+        {self.props.address}
+      </div>
+    )
+  }
+}
 class AccountDetail extends React.Component<any, any> {
   componentDidMount() {
     var self = this
@@ -21,6 +93,7 @@ class AccountDetail extends React.Component<any, any> {
     if (!self.props.network.metaData) self.props.networkAction.getMetaData()
 
     self.props.accountAction.getBalance(address)
+    self.props.accountAction.getCode(address)
 
     // var tabIndex = params.tabIndex ? parseInt(params.tabIndex): 0;
     // if(tabIndex == 0){
@@ -48,6 +121,8 @@ class AccountDetail extends React.Component<any, any> {
     if (nextProps.params.address !== self.props.params.address) {
       address = nextProps.params.address
       self.props.accountAction.getBalance(address)
+      self.props.accountAction.getCode(address)
+
       fetchData = true
     }
     if (
@@ -67,7 +142,7 @@ class AccountDetail extends React.Component<any, any> {
           pageNum,
           pageSize
         )
-      } else {
+      } else if (tabIndex == 1) {
         self.props.accountAction.getERC20TransactionListByAccount(
           address,
           pageNum,
@@ -87,6 +162,7 @@ class AccountDetail extends React.Component<any, any> {
     var balance = self.props.account.balance
     var metaData = self.props.network.metaData
 
+    var isContract = self.props.account.code && self.props.account.code !=='0x'
     return (
       <Layout className="accountDetail" bgColor="#fbfbfb">
         <Header location={self.props.location} app={self.props.app} />
@@ -187,16 +263,16 @@ class AccountDetail extends React.Component<any, any> {
               headerWidthUnit="fixed"
               initIndex={tabIndex}
               onTabSwitchCallBack={(index: number) => {
-                hashHistory.push(
-                  '/account/' +
-                    account +
-                    '?pageNum=' +
-                    1 +
-                    '&pageSize=' +
-                    10 +
-                    '&tabIndex=' +
-                    index
-                )
+                  hashHistory.push(
+                    '/account/' +
+                      account +
+                      '?pageNum=' +
+                      1 +
+                      '&pageSize=' +
+                      10 +
+                      '&tabIndex=' +
+                      index
+                  )
               }}
             >
               <Tab title={'普通(' + data.total + ')'}>
@@ -237,6 +313,13 @@ class AccountDetail extends React.Component<any, any> {
                   />
                 </div>
               </Tab>
+              {isContract?<Tab title="合约调用">
+                <TabContractCallContent address={account} code={self.props.account.code} abi={self.props.account.abi} accountAction={self.props.accountAction}/>
+
+              </Tab>:null}
+              {isContract?<Tab title="合约信息">
+                <TabContractInfoContent address={account} code={self.props.account.code} abi={self.props.account.abi} accountAction={self.props.accountAction}/>
+              </Tab>:null}
             </Tabs>
           </div>
         </div>

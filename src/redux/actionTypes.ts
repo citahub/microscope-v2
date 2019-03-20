@@ -83,6 +83,12 @@ export type GET_ACCOUNT_ERC20_LIST = typeof GET_ACCOUNT_ERC20_LIST
 export const GET_ACCOUNT_BALANCE = 'GET_ACCOUNT_BALANCE'
 export type GET_ACCOUNT_BALANCE = typeof GET_ACCOUNT_BALANCE
 
+export const GET_ACCOUNT_CODE = 'GET_ACCOUNT_CODE'
+export type GET_ACCOUNT_CODE = typeof GET_ACCOUNT_CODE
+
+export const GET_ACCOUNT_ABI = 'GET_ACCOUNT_ABI'
+export type GET_ACCOUNT_ABI = typeof GET_ACCOUNT_ABI
+
 // const commands = ["GET_ACCOUNT_TR_LIST","GET_ACCOUNT_ERC20_LIST"]
 //
 // commands.forEach(function(command:string){

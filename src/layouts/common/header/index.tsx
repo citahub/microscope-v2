@@ -27,10 +27,10 @@ class NetWork extends React.Component<any, any> {
     var selectNetwork = self.props.selectNetwork
 
     return (
-      <div className="network" style={{ position: 'fixed' }}>
+      <div className="network" style={{ position: 'fixed', top: 20, width: 100 }}>
         <div
           className=" withRow"
-          style={{ width: 100, paddingTop: 10 }}
+          style={{ width: '100%', paddingTop: 10 }}
           onClick={() => {
             self.setState({ open: !self.state.open })
           }}
@@ -412,7 +412,7 @@ class Header extends React.Component<any, any> {
       </div>
     )
     var networkUI = (
-      <div>
+      <div style={{ width: 100 }}>
         <NetWork networks={networks} selectNetwork={selectNetwork} />
       </div>
     )

@@ -163,15 +163,21 @@ class TabContractCallContent extends React.Component<any,any>{
 
                 if(type === 'view'){
                   self.callMethod(d.name,params).then((result:any)=>{
-                    var o = document.querySelector('.' +d.name+ '-output') as HTMLInputElement
-                    o.value = JSON.stringify(result);
+                    var outputs = document.querySelectorAll('.' +d.name+ '-output')
+                    for(var i:number=0;i<outputs.length;i++){
+                      var output = outputs[i] as HTMLInputElement
+                      output.value = result[i];
+                    }
                   }).catch((e:any)=>{
                     self.props.appAction.toast(e.message,5000)
                   })
                 } else if(type === 'payable'){
                   self.sendMethod(d.name,params).then((result:any)=>{
-                    var o = document.querySelector('.' +d.name+ '-output') as HTMLInputElement
-                    o.value = JSON.stringify(result);
+                    var outputs = document.querySelectorAll('.' +d.name+ '-output')
+                    for(var i:number=0;i<outputs.length;i++){
+                      var output = outputs[i] as HTMLInputElement
+                      output.value = result[i];
+                    }
                   }).catch((e:any)=>{
                     self.props.appAction.toast(e.message,5000)
                   })
@@ -189,7 +195,7 @@ class TabContractCallContent extends React.Component<any,any>{
     var self = this;
     var viewAbis = self.props.abi && self.props.abi.filter((d:any)=>{ return d.stateMutability==='view'}) || []
     var payableAbis = self.props.abi && self.props.abi.filter((d:any)=>{ return d.stateMutability==='nonpayable'}) || []
-    console.log(self.props.abi)
+    console.log(viewAbis)
     return (
       <div className='container contractTabCall'>
         {

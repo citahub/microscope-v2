@@ -1,7 +1,7 @@
 import React from 'react'
 import './index.styl'
 import Layout from '../../components/layout'
-// import { hashHistory } from 'react-router';
+import { hashHistory } from 'react-router';
 import Header from '../common/Header'
 import Footer from '../common/Footer'
 
@@ -23,10 +23,13 @@ class NotFoundPage extends React.Component<any, any> {
             <img
               src="images/404.png"
               srcSet="images/404@2x.png 2x, 404/logo@3x.png 3x"
-              style={{ width: 130, height: 48 }}
+              style={{ width: '80%', height: 'auto' }}
             />
           </div>
           <div className="errorLabel">哎呀呀，你要访问的页面没有找到！</div>
+          <div className="goBackButton" onClick={()=>{
+            hashHistory.goBack()
+          }}>返回首页</div>
         </div>
         <Footer />
       </Layout>

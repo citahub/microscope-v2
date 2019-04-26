@@ -190,7 +190,7 @@ class BlockList extends React.Component<any, any> {
                             {d.transactionsCount}
                           </td>
                           <td className="text-center blockQuotaUsedTd">
-                            {valueFormat(d.header.quotaUsed)}
+                            {valueFormat(d.header.quotaUsed,self.props.network.metaData && self.props.network.metaData.tokenSymbol,self.props.network.quotaPrice)}
                           </td>
                         </tr>
                       )
@@ -256,7 +256,11 @@ import { IRootState } from '../../redux/states'
 import { connect } from 'react-redux'
 
 export default connect(
-  (state: IRootState) => ({ app: state.app, block: state.block }),
+  (state: IRootState) => ({ 
+    app: state.app, 
+    network: state.network,
+    block: state.block 
+  }),
   dispatch => ({
     appAction: bindActionCreators(appAction, dispatch),
     blockAction: bindActionCreators(blockAction, dispatch)

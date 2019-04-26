@@ -1,16 +1,39 @@
-const RATIO = 1e18
-const DECIMAL = 18
-
-export function valueFormat(value: number | string, symbol?: string): string {
-  return (
-    +(+value / RATIO).toFixed(DECIMAL).toLocaleString() +
-    (symbol ? ` ${symbol}` : '')
-  )
+const web3Utils = require('web3-utils')
+const BN = web3Utils.BN
+export function valueFormat(value: string, symbol: string|null, quotaPrice: number|null): string {
+  if(!symbol || !quotaPrice) return value + " quota"
+  var v = new BN(web3Utils.hexToNumberString(value));
+  if(v.isZero()) return "0 "+ symbol
+  var qp = new BN(quotaPrice)
+  if(!qp.isZero() && v.div(qp).gt(new BN(1))) {
+    return v.div(qp).toString(10) +" "+ symbol
+  } else {
+    return +v.toString(10) + " quota"
+  }
 }
 
-// import  * as web3Utils from 'web3-utils'
-const web3Utils = require('web3-utils')
 
+export const scientificNotationToString = function(param: string |number) {
+  let strParam: string = param + ""
+  let flag = /e/.test(strParam)
+  if (!flag) return param
+  let sysbol = true
+  if (/e-/.test(strParam)) {
+    sysbol = false
+  }
+  var matchIndex = strParam.match(/\d+$/) || [];
+  let index: number = Number(matchIndex[0])
+
+  var matchBasis = strParam.match(/^[\d\.]+/) || [];
+
+  let basis = matchBasis[0].replace(/\./, '')
+
+  if (sysbol) {
+    return basis.padEnd(index + 1, '0')
+  } else {
+    return basis.padStart(index + basis.length, '0').replace(/^0/, '0.')
+  }
+}
 export const toHex = function(n: string | number): string {
   return web3Utils.toHex(n)
 }

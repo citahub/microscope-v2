@@ -14,7 +14,7 @@ class Home extends React.Component<any, any> {
   timer: any
   componentWillMount() {
     var self = this
-    self.props.networkAction.getMetaData()
+    // self.props.networkAction.getMetaData()
     self.props.blockAction.topBlocks()
     self.props.transactionAction.topTransactions()
   }
@@ -307,12 +307,7 @@ class Home extends React.Component<any, any> {
                             </div>
                             <div className="blockItemReward">
                               quotaUsed:{' '}
-                              {metaData
-                                ? valueFormat(
-                                    block.header.quotaUsed,
-                                    metaData.tokenSymbol
-                                  )
-                                : valueFormat(block.header.quotaUsed)}
+                              {valueFormat(block.header.quotaUsed, self.props.network.metaData && self.props.network.metaData.tokenSymbol, self.props.network.quotaPrice)}
                             </div>
                           </div>
                           <div className="blockItemTime" style={{ width: 53 }}>
@@ -437,9 +432,7 @@ class Home extends React.Component<any, any> {
                               style={{ marginTop: 4 }}
                             >
                               value:{' '}
-                              {metaData
-                                ? valueFormat(value, metaData.tokenSymbol)
-                                : valueFormat(value)}
+                              {valueFormat(value, self.props.network.metaData && self.props.network.metaData.tokenSymbol, self.props.network.quotaPrice)}
                             </div>
                           </div>
                           <div
@@ -465,7 +458,6 @@ class Home extends React.Component<any, any> {
 import { injectIntl } from 'react-intl'
 import { bindActionCreators } from 'redux'
 import * as appAction from '../../redux/actions/appAction'
-import * as networkAction from '../../redux/actions/network'
 import * as blockAction from '../../redux/actions/block'
 import * as transactionAction from '../../redux/actions/transaction'
 
@@ -481,7 +473,6 @@ export default connect(
   }),
   dispatch => ({
     appAction: bindActionCreators(appAction, dispatch),
-    networkAction: bindActionCreators(networkAction, dispatch),
     blockAction: bindActionCreators(blockAction, dispatch),
     transactionAction: bindActionCreators(transactionAction, dispatch)
   })

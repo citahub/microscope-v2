@@ -286,7 +286,6 @@ class AccountDetail extends React.Component<any, any> {
     var params = self.props.location.query
     var tabIndex = params.tabIndex ? parseInt(params.tabIndex) : 0
     var balance = self.props.account.balance
-    var metaData = self.props.network.metaData
 
     var isContract = self.props.account.code && self.props.account.code !=='0x'
     return (
@@ -376,9 +375,9 @@ class AccountDetail extends React.Component<any, any> {
                       }}
                     >
                       #{' '}
-                      {metaData
-                        ? valueFormat(balance, metaData.tokenSymbol)
-                        : valueFormat(balance)}{' '}
+                      {
+                        valueFormat(balance, self.props.network.metaData.tokenSymbol,self.props.network.quotaPrice)
+                      }
                     </div>
                   </div>
                 </div>

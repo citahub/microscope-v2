@@ -7,7 +7,7 @@ import Footer from '../common/Footer'
 import { hashHistory } from 'react-router'
 import Tabs, { Tab } from '../../components/tab'
 
-import { getContractData } from '../../utils/hex'
+import { getContractData, valueFormat, toHex,scientificNotationToString } from '../../utils/hex'
 
 class TransactionDetail extends React.Component<any, any> {
   componentDidMount() {
@@ -172,40 +172,36 @@ class TransactionDetail extends React.Component<any, any> {
               <div className="withRow transactionBodyRow">
                 <div className="transactionDetailKey">Value:</div>
                 <div className="transactionDetailValue withRowLeftAuto">
-                  {data &&
-                    data.unsignedTransaction &&
-                    data.unsignedTransaction.transaction &&
-                    data.unsignedTransaction.transaction.value}
+                  {
+                    data &&
+                      data.unsignedTransaction &&
+                      data.unsignedTransaction.transaction &&
+                      valueFormat(toHex(scientificNotationToString(data.unsignedTransaction.transaction.value)),self.props.network.metaData && self.props.network.metaData.tokenSymbol,self.props.network.quotaPrice)
+                  }
+                 
                 </div>
               </div>
               <div className="withRow transactionBodyRow">
-                <div className="transactionDetailKey">Quota:</div>
+                <div className="transactionDetailKey">Quota Used:</div>
                 <div className="transactionDetailValue withRowLeftAuto">
-                  {dataReceipt && parseInt(dataReceipt.quotaUsed)}
-                  &nbsp;/&nbsp;
+                  {dataReceipt && parseInt(dataReceipt.quotaUsed)} Quota
+                </div>
+              </div>
+              <div className="withRow transactionBodyRow">
+                <div className="transactionDetailKey">Quota Limit:</div>
+                <div className="transactionDetailValue withRowLeftAuto">
                   {data &&
                     data.unsignedTransaction &&
                     data.unsignedTransaction.transaction &&
-                    data.unsignedTransaction.transaction.quota}
+                    data.unsignedTransaction.transaction.quota} Quota
                 </div>
               </div>
-              {
-                // <div className="withRow transactionBodyRow">
-                //   <div className="transactionDetailKey">Quota Price:</div>
-                //   <div className="transactionDetailValue withRowLeftAuto">
-                //     {data && data.quotaPrice}
-                //   </div>
-                // </div>
-              }
-
-              {
-                // <div className="withRow transactionBodyRow">
-                //   <div className="transactionDetailKey">Fee:</div>
-                //   <div className="transactionDetailValue withRowLeftAuto">
-                //     {data && data.fee}
-                //   </div>
-                // </div>
-              }
+              <div className="withRow transactionBodyRow">
+                <div className="transactionDetailKey">Quota Price:</div>
+                <div className="transactionDetailValue withRowLeftAuto">
+                 1 {self.props.network.metaData && self.props.network.metaData.tokenSymbol} = {self.props.network.quotaPrice} Quota
+                </div>
+              </div>
               <div
                 className="withRow transactionBodyRow"
                 style={{ minHeight: 160, height: 'auto' }}
@@ -281,7 +277,11 @@ import { IRootState } from '../../redux/states'
 import { connect } from 'react-redux'
 
 export default connect(
-  (state: IRootState) => ({ app: state.app, transaction: state.transaction }),
+  (state: IRootState) => ({ 
+    app: state.app, 
+    transaction: state.transaction,
+    network: state.network,
+  }),
   dispatch => ({
     appAction: bindActionCreators(appAction, dispatch),
     transactionAction: bindActionCreators(transactionAction, dispatch)

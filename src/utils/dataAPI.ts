@@ -97,3 +97,7 @@ export function rebirth(url: string, params: any) {
 export function statics(type:string){
   return rebirthAPI.statics(type)
 }
+
+export function getQuotaPrice(){
+  return rebirthAPI.getQuotaPrice();
+}

@@ -13,7 +13,6 @@ import { bindActionCreators, Dispatch } from 'redux'
 import * as appAction from '../redux/actions/appAction'
 import { AppAction } from '../redux/actions/appAction'
 import { IRootState } from '../redux/states'
-import { AppState } from '../redux/states/appState'
 import { IntlProvider, addLocaleData } from 'react-intl'
 
 import enLocaleData from 'react-intl/locale-data/en'
@@ -43,6 +42,8 @@ class App extends React.Component<any, any> {
   componentDidMount() {
     var self = this
     self.props.appAction.resize(window.innerWidth, window.innerHeight)
+    self.props.networkAction.getMetaData()
+    self.props.networkAction.getQuotaPrice()
     window.addEventListener(
       'resize',
       function() {
@@ -94,14 +95,20 @@ class App extends React.Component<any, any> {
     )
   }
 }
-const mapStateToProps = function(state: IRootState): { app: AppState } {
+
+
+import * as networkAction from '../redux/actions/network'
+
+const mapStateToProps = function(state: IRootState) {
   return {
-    app: state.app
+    app: state.app,
+    network: state.network,
   }
 }
 const mapDispatchToProps = function(dispatch: Dispatch<AppAction>): any {
   return {
-    appAction: bindActionCreators(appAction, dispatch)
+    appAction: bindActionCreators(appAction, dispatch),
+    networkAction: bindActionCreators(networkAction, dispatch),
   }
 }
 export default connect(

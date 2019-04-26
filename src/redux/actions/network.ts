@@ -25,12 +25,17 @@ interface GET_NETWORK_REBIRTH {
   }
 }
 
+interface GET_QUOTA_PRICE {
+  type: constants.GET_QUOTA_PRICE
+  data: number
+}
 //
 //
 export type NetworkAction =
   | GET_NETWORK_METADATA
   | GET_NETWORK_RPC
   | GET_NETWORK_REBIRTH
+  | GET_QUOTA_PRICE
 
 export function getMetaData() {
   return (dispatch: any) => {
@@ -47,6 +52,26 @@ export function getMetaData() {
       })
       .catch((error: any) => {
         dispatch(hideLoading())
+        dispatch({
+          type: constants.OPERATION_FAIL,
+          error: error
+        })
+      })
+  }
+}
+
+export function getQuotaPrice() {
+  return (dispatch: any) => {
+    return dataAPI
+      .getQuotaPrice()
+      .then((data: number) => {
+        dispatch({
+          type: constants.GET_QUOTA_PRICE,
+          data: data
+        })
+        return data
+      })
+      .catch((error: any) => {
         dispatch({
           type: constants.OPERATION_FAIL,
           error: error

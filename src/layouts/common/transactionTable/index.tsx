@@ -126,7 +126,7 @@ class TransactionTable extends React.Component<any, any> {
                       </div>
                     </td>
                     <td className="text-center transactionValueTd">
-                      {valueFormat(d.value)}
+                      {valueFormat(d.value,self.props.network.metaData && self.props.network.metaData.tokenSymbol,self.props.network.quotaPrice)}
                     </td>
                     <td>
                       <div className="text-center transactionBlockNumberTd">

@@ -38,6 +38,9 @@ export type GET_NETWORK_RPC = typeof GET_NETWORK_RPC
 export const GET_NETWORK_REBIRTH = 'GET_NETWORK_REBIRTH'
 export type GET_NETWORK_REBIRTH = typeof GET_NETWORK_REBIRTH
 
+export const GET_QUOTA_PRICE = 'GET_QUOTA_PRICE'
+export type GET_QUOTA_PRICE = typeof GET_QUOTA_PRICE
+
 
 // block
 

@@ -12,10 +12,10 @@ import { valueFormat } from '../../utils/hex'
 
 // import * as cacheAPI from '../../utils/cacheAPI';
 
-import Pagination from 'rc-pagination'
-import 'rc-pagination/assets/index.css'
-import Select from 'rc-select'
-import 'rc-select/assets/index.css'
+// import Pagination from 'rc-pagination'
+// import 'rc-pagination/assets/index.css'
+// import Select from 'rc-select'
+// import 'rc-select/assets/index.css'
 
 class BlockList extends React.Component<any, any> {
   componentDidMount() {
@@ -64,7 +64,11 @@ class BlockList extends React.Component<any, any> {
     var self = this
     var data = self.props.block.list
     var globalTickTime = self.props.app.globalTickTime
-
+    var params = self.props.location.query
+    var pageNum = params.pageNum ? parseInt(params.pageNum) : 1
+    var pageSize = params.pageSize ? parseInt(params.pageSize) : 10
+    var hasPrev = pageNum > 1;
+    var hasNext = data && data.list && data.list.length == pageSize; 
     return (
       <Layout className="blockList" bgColor="white">
         <Header location={self.props.location} app={self.props.app} />
@@ -198,46 +202,97 @@ class BlockList extends React.Component<any, any> {
                 </tbody>
               </table>
               <div style={{ float: 'right' }}>
-                <Pagination
-                  selectComponentClass={Select}
-                  current={data.pageNum}
-                  total={data.total}
-                  showQuickJumper={{ goButton: <button>确定</button> }}
-                  defaultPageSize={data.pageSize}
-                  showSizeChanger={true}
-                  onShowSizeChange={(page: number, pageSize: number) => {
-                    hashHistory.push(
-                      '/block/list?pageNum=' +
-                        page +
-                        '&pageSize=' +
-                        pageSize +
-                        '&blockFrom=' +
-                        self.props.block.list.blockFrom +
-                        '&blockTo=' +
-                        self.props.block.list.blockTo +
-                        '&transactionCountMin=' +
-                        self.props.block.list.transactionCountMin +
-                        '&transactionCountMax=' +
-                        self.props.block.list.transactionCountMax
-                    )
-                  }}
-                  onChange={(page: number, pageSize: number) => {
-                    hashHistory.push(
-                      '/block/list?pageNum=' +
-                        page +
-                        '&pageSize=' +
-                        pageSize +
-                        '&blockFrom=' +
-                        self.props.block.list.blockFrom +
-                        '&blockTo=' +
-                        self.props.block.list.blockTo +
-                        '&transactionCountMin=' +
-                        self.props.block.list.transactionCountMin +
-                        '&transactionCountMax=' +
-                        self.props.block.list.transactionCountMax
-                    )
-                  }}
-                />
+                {
+                //   <Pagination
+                //   selectComponentClass={Select}
+                //   current={data.pageNum}
+                //   total={data.total}
+                //   showQuickJumper={{ goButton: <button>确定</button> }}
+                //   defaultPageSize={data.pageSize}
+                //   showSizeChanger={true}
+                //   onShowSizeChange={(page: number, pageSize: number) => {
+                //     hashHistory.push(
+                //       '/block/list?pageNum=' +
+                //         page +
+                //         '&pageSize=' +
+                //         pageSize +
+                //         '&blockFrom=' +
+                //         self.props.block.list.blockFrom +
+                //         '&blockTo=' +
+                //         self.props.block.list.blockTo +
+                //         '&transactionCountMin=' +
+                //         self.props.block.list.transactionCountMin +
+                //         '&transactionCountMax=' +
+                //         self.props.block.list.transactionCountMax
+                //     )
+                //   }}
+                //   onChange={(page: number, pageSize: number) => {
+                //     hashHistory.push(
+                //       '/block/list?pageNum=' +
+                //         page +
+                //         '&pageSize=' +
+                //         pageSize +
+                //         '&blockFrom=' +
+                //         self.props.block.list.blockFrom +
+                //         '&blockTo=' +
+                //         self.props.block.list.blockTo +
+                //         '&transactionCountMin=' +
+                //         self.props.block.list.transactionCountMin +
+                //         '&transactionCountMax=' +
+                //         self.props.block.list.transactionCountMax
+                //     )
+                //   }}
+                // />
+                }
+                <ul className="rc-pagination ">
+                  {
+                    hasPrev? 
+                      <li title="上一页" className="rc-pagination-disabled rc-pagination-prev" aria-disabled="true"
+                      onClick={()=>{
+
+                        hashHistory.push(
+                          '/block/list?pageNum=' +
+                          (pageNum-1) +
+                            '&pageSize=' +
+                            pageSize +
+                            '&blockFrom=' +
+                            self.props.block.list.blockFrom +
+                            '&blockTo=' +
+                            self.props.block.list.blockTo +
+                            '&transactionCountMin=' +
+                            self.props.block.list.transactionCountMin +
+                            '&transactionCountMax=' +
+                            self.props.block.list.transactionCountMax
+                        )
+                      }}
+                    >
+                      <a className="rc-pagination-item-link"></a>
+                    </li>: null
+                  }
+                  {
+                    hasNext?
+                      <li title="下一页" className=" rc-pagination-next" aria-disabled="false"
+                      onClick={()=>{
+                        hashHistory.push(
+                          '/block/list?pageNum=' +
+                          (pageNum+1) +
+                            '&pageSize=' +
+                            pageSize +
+                            '&blockFrom=' +
+                            self.props.block.list.blockFrom +
+                            '&blockTo=' +
+                            self.props.block.list.blockTo +
+                            '&transactionCountMin=' +
+                            self.props.block.list.transactionCountMin +
+                            '&transactionCountMax=' +
+                            self.props.block.list.transactionCountMax
+                        )
+                      }}
+                    >
+                      <a className="rc-pagination-item-link"></a>
+                    </li>: false
+                  }
+                </ul>
               </div>
             </div>
           </div>

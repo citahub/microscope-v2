@@ -58,7 +58,7 @@ export function getBlockList(
   transactionCountMin: string,
   transactionCountMax: string
 ) {
-  return rebirthAPI.blockList(
+  return rebirthAPI.blockListV2(
     pageNum,
     pageSize,
     blockFrom,
@@ -67,6 +67,7 @@ export function getBlockList(
     transactionCountMax
   )
 }
+
 
 export function getMetaData() {
   return rebirthAPI.getMetaData()

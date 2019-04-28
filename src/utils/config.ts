@@ -10,6 +10,7 @@ interface API {
   status: string
   statistics: string
   blockList: string
+  blockListV2: string
   transactionList: string
   ercTransactionList: string
 }
@@ -37,6 +38,7 @@ const api: API = {
   status: '/api/status',
   statistics: '/api/statistics',
   blockList: '/api/blocks',
+  blockListV2: '/api/v2/blocks',
   transactionList: '/api/transactions',
   ercTransactionList: '/api/erc20/transfers'
 }

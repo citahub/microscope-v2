@@ -116,6 +116,35 @@ export function blockList(
     })
 }
 
+export function blockListV2(
+  pageNum: number,
+  pageSize: number,
+  blockFrom: string,
+  blockTo: string,
+  transactionCountMin: string,
+  transactionCountMax: string
+): any {
+  var params = {
+    block_from: blockFrom, //"10" or "0xa", #  integer or string of hex number
+    block_to: blockTo, //"20" or "0xa", # integer or string of hex number
+    min_transaction_count: transactionCountMin, // "min transaction count", # integer or string of hex number
+    max_transaction_count: transactionCountMax, // "max transaction count", # integer or string of hex number
+    page: pageNum, //# integer, default 1
+    perPage: pageSize //# integer, default 10
+    // # offset and limit has lower priority than page and perPage
+    // "offset": "1", # integer, database offset for pagination
+    // "limit": "10", # integer, database limit for pagination
+  }
+  return request
+    .get(serverNode.url + config.api.blockListV2, params)
+    .then((data: any) => {
+      return data && data.result
+    })
+    .catch((error: object) => {
+      throw error
+    })
+}
+
 export function getMetaData() {
   return citaSDK.base.getMetaData()
 }

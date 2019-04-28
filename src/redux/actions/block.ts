@@ -4,35 +4,10 @@ import { showLoading, hideLoading } from './appAction'
 
 import * as dataAPI from '../../utils/dataAPI'
 
-interface GET_BLOCK_ITEM {
-  type: constants.GET_BLOCK_ITEM
-  data: BlockItem
+export type BlockAction = {
+  type: string,
+  data: BlockItem | BlockList | Array<BlockItem>
 }
-
-interface GET_BLOCK_LIST {
-  type: constants.GET_BLOCK_LIST
-  data: BlockList
-}
-interface GET_TOP_BLOCKS {
-  type: constants.GET_TOP_BLOCKS
-  data: Array<BlockItem>
-}
-
-// interface GET_LATEST_BLOCK {
-//   type: constants.GET_LATEST_BLOCK;
-//   data: BlockItem;
-// }
-
-interface APPEND_LATEST_BLOCK {
-  type: constants.APPEND_LATEST_BLOCK
-  data: BlockItem
-}
-
-export type BlockAction =
-  | GET_BLOCK_ITEM
-  | GET_BLOCK_LIST
-  | GET_TOP_BLOCKS
-  | APPEND_LATEST_BLOCK
 
 export function topBlocks() {
   return (dispatch: any) => {

@@ -1,5 +1,4 @@
 import * as constants from '../actionTypes'
-import { AccountAction } from '../actions/account'
 import { AccountState } from '../states/account'
 
 const initialState: AccountState = {
@@ -26,7 +25,7 @@ const initialState: AccountState = {
 
 export default function(
   state: AccountState = initialState,
-  action: AccountAction
+  action: any
 ) {
   switch (action.type) {
     case constants.GET_ACCOUNT_BALANCE:

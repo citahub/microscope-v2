@@ -4,38 +4,17 @@ import { MetaData, RPCData } from '../states/network'
 import { showLoading, hideLoading } from './appAction'
 import * as dataAPI from '../../utils/dataAPI'
 
-interface GET_NETWORK_METADATA {
-  type: constants.GET_NETWORK_METADATA
-  data: MetaData
-}
-
-interface GET_NETWORK_RPC {
-  type: constants.GET_NETWORK_RPC
-  data: {
+export type NetworkAction = {
+  type: string;
+  data: MetaData | {
     input: RPCData
     output: RPCData
-  }
-}
-
-interface GET_NETWORK_REBIRTH {
-  type: constants.GET_NETWORK_REBIRTH
-  data: {
+  } | {
     input: string
     output: string
-  }
+  }| number
+  
 }
-
-interface GET_QUOTA_PRICE {
-  type: constants.GET_QUOTA_PRICE
-  data: number
-}
-//
-//
-export type NetworkAction =
-  | GET_NETWORK_METADATA
-  | GET_NETWORK_RPC
-  | GET_NETWORK_REBIRTH
-  | GET_QUOTA_PRICE
 
 export function getMetaData() {
   return (dispatch: any) => {

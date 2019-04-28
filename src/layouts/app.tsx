@@ -8,10 +8,9 @@ import Modal from '../components/modal'
 import { hashHistory } from 'react-router'
 
 import { connect } from 'react-redux'
-import { bindActionCreators, Dispatch } from 'redux'
+import { bindActionCreators } from 'redux'
 
 import * as appAction from '../redux/actions/appAction'
-import { AppAction } from '../redux/actions/appAction'
 import { IRootState } from '../redux/states'
 import { IntlProvider, addLocaleData } from 'react-intl'
 
@@ -99,19 +98,13 @@ class App extends React.Component<any, any> {
 
 import * as networkAction from '../redux/actions/network'
 
-const mapStateToProps = function(state: IRootState) {
-  return {
-    app: state.app,
+export default connect(
+  (state: IRootState) => ({ 
+    app: state.app, 
     network: state.network,
-  }
-}
-const mapDispatchToProps = function(dispatch: Dispatch<AppAction>): any {
-  return {
+   }),
+  dispatch => ({
     appAction: bindActionCreators(appAction, dispatch),
     networkAction: bindActionCreators(networkAction, dispatch),
-  }
-}
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
+  })
 )(App)

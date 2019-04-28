@@ -1,36 +1,6 @@
 import * as constants from '../actionTypes'
 import { showLoading, hideLoading } from './appAction'
 import * as dataAPI from '../../utils/dataAPI'
-import { TransactionList } from '../states/transaction'
-
-interface GET_ACCOUNT_TR_LIST {
-  type: constants.GET_ACCOUNT_TR_LIST
-  data: TransactionList
-}
-
-interface GET_ACCOUNT_ERC20_LIST {
-  type: constants.GET_ACCOUNT_ERC20_LIST
-  data: TransactionList
-}
-
-interface GET_ACCOUNT_BALANCE {
-  type: constants.GET_ACCOUNT_BALANCE
-  data: string | null
-}
-interface GET_ACCOUNT_CODE {
-  type: constants.GET_ACCOUNT_CODE
-  data: string | null
-}
-interface GET_ACCOUNT_ABI {
-  type: constants.GET_ACCOUNT_ABI
-  data: string | null
-}
-export type AccountAction =
-  | GET_ACCOUNT_TR_LIST
-  | GET_ACCOUNT_ERC20_LIST
-  | GET_ACCOUNT_BALANCE
-  | GET_ACCOUNT_CODE
-  | GET_ACCOUNT_ABI
 
 export function getTransactionListByAccount(
   account: string,

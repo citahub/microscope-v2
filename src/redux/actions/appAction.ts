@@ -1,53 +1,14 @@
 import { createAction } from 'redux-actions'
 import * as constants from '../actionTypes'
-import { Modal, ToastMessage } from '../states/appState'
+import { Modal } from '../states/appState'
 
-interface SWITCH_LANGUAGE {
-  type: constants.SWITCH_LANGUAGE
-  data: object | string
-}
-interface RESIZE_APP {
-  type: constants.RESIZE_APP
-  data: {
-    appWidth: number
-    appHeight: number
-  }
-}
-interface TOAST {
-  type: constants.TOAST
-  payload: ToastMessage
-}
-interface SHOW_LOADING {
-  type: constants.SHOW_LOADING
-  data: object
-}
-interface HIDE_LOADING {
-  type: constants.HIDE_LOADING
-}
-interface SHOW_MODAL {
-  type: constants.SHOW_MODAL
-  data: Modal
-}
-interface HIDE_MODAL {
-  type: constants.HIDE_MODAL
+export type AppAction = {
+  type: string,
+  data: any,
+  payload?: any
 }
 
-interface GLOBAL_TICKTIME {
-  type: constants.GLOBAL_TICKTIME
-  data: number | null
-}
-
-export type AppAction =
-  | SWITCH_LANGUAGE
-  | RESIZE_APP
-  | TOAST
-  | SHOW_MODAL
-  | HIDE_MODAL
-  | SHOW_LOADING
-  | HIDE_LOADING
-  | GLOBAL_TICKTIME
-
-export function switchLanguage(language: string): SWITCH_LANGUAGE {
+export function switchLanguage(language: string) {
   return {
     type: constants.SWITCH_LANGUAGE,
     data: language
@@ -76,7 +37,7 @@ export const toast = createAction(
   }
 )
 
-export function showLoading(maskTop: number = 80): SHOW_LOADING {
+export function showLoading(maskTop: number = 80) {
   return {
     type: constants.SHOW_LOADING,
     data: {
@@ -85,24 +46,24 @@ export function showLoading(maskTop: number = 80): SHOW_LOADING {
   }
 }
 
-export function hideLoading(): HIDE_LOADING {
+export function hideLoading() {
   return {
     type: constants.HIDE_LOADING
   }
 }
 
-export function showModal(modal: Modal): SHOW_MODAL {
+export function showModal(modal: Modal) {
   return {
     type: constants.SHOW_MODAL,
     data: modal
   }
 }
-export function hideModal(): HIDE_MODAL {
+export function hideModal() {
   return {
     type: constants.HIDE_MODAL
   }
 }
-export function tickTime(): GLOBAL_TICKTIME {
+export function tickTime() {
   return {
     type: constants.GLOBAL_TICKTIME,
     data: new Date().getTime()

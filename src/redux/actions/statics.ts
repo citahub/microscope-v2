@@ -2,13 +2,10 @@ import * as constants from '../actionTypes'
 
 import * as dataAPI from '../../utils/dataAPI'
 
-interface GET_STATICS_PROPOSALS {
-  type: constants.GET_STATICS_PROPOSALS
+export type StaticsAction = {
+  type: string;
   data: any
 }
-//
-export type StaticsAction =
-  | GET_STATICS_PROPOSALS
  
 export function staticsProposals(){
   return (dispatch: any) => {

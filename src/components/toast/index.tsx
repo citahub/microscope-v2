@@ -42,7 +42,6 @@ class ToastItem extends React.Component<ToastItemProps, ToastItemState> {
       var update = function() {
         count++
         self.setState(function() {
-          // console.log(count / maxFrame);
           return { opacity: 1 - count / maxFrame }
         })
         if (count < maxFrame) {

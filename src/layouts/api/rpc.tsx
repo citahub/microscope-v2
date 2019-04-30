@@ -6,6 +6,7 @@ import Header from '../common/Header'
 import Footer from '../common/Footer'
 import ReactJson from 'react-json-view'
 
+// TODO: put tempate in another file
 const jsonRpc = [
   {
     name: 'peerCount',
@@ -122,7 +123,6 @@ const jsonRpc = [
   }
 ]
 
-// import { api } from '../../utils/config'
 import { getSelectNetwork } from '../../utils/storage'
 
 class APIRpc extends React.Component<any, any> {
@@ -145,7 +145,7 @@ class APIRpc extends React.Component<any, any> {
     try {
       self.props.networkAction.rpc(JSON.parse(item.inputSample || '{}'))
     } catch (e) {
-      console.log(e)
+      console.error(e)
     }
   }
   componentWillReceiveProps(nextProps: any) {
@@ -169,24 +169,18 @@ class APIRpc extends React.Component<any, any> {
       } catch (e) {
         console.log(e)
       }
-      // self.props.networkAction.rpc(method);
     }
   }
   componentDidCatch(error: any, info: any) {
-    console.log(error, 'componentDidCatch')
-    console.log(info, 'componentDidCatch')
+    console.error(error, 'componentDidCatch')
+    console.error(info, 'componentDidCatch')
   }
   render() {
     var self = this
     var params = self.props.location.query
-    var method = params.method
-    if (!method) {
-      method = jsonRpc[0].name
-    }
-    // var networks = api.serverList;
+    var method = params.method || jsonRpc[0].name
     var selectNetwork = getSelectNetwork()
 
-    // var item = jsonRpc.find((d)=>{return d.name==method});
     return (
       <Layout className="apiRpc" bgColor="white">
         <Header location={self.props.location} app={self.props.app} />

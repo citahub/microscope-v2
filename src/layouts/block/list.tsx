@@ -10,13 +10,6 @@ import { hashHistory } from 'react-router'
 import { timePassed } from '../../utils/time'
 import { valueFormat } from '../../utils/hex'
 
-// import * as cacheAPI from '../../utils/cacheAPI';
-
-// import Pagination from 'rc-pagination'
-// import 'rc-pagination/assets/index.css'
-// import Select from 'rc-select'
-// import 'rc-select/assets/index.css'
-
 class BlockList extends React.Component<any, any> {
   componentDidMount() {
     var self = this

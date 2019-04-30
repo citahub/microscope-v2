@@ -10,6 +10,7 @@ class Modal extends React.Component<Props> {
   render() {
     if (!this.props.ui) return null
     return (
+      // TODO: simply onClick=this.props.onClose
       <div className="modal" onClick={() => this.props.onClose()}>
         <div
           className="modal_content vhCenter"

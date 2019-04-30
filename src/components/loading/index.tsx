@@ -29,6 +29,7 @@ class Loading extends React.Component<Props> {
             }}
           >
             <img
+              // TODO: could just use onClick=this.props.onClose
               onClick={() => {
                 this.props.onClose && this.props.onClose()
               }}

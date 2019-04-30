@@ -14,7 +14,7 @@ export default class Layout extends React.Component<any, any> {
           this.props.className ? 'layout ' + this.props.className : 'layout'
         }
         onScroll={e => {
-          this.props.onScroll && this.props.onSCroll(e)
+          this.props.onScroll && this.props.onScroll(e)
         }}
       >
         <div

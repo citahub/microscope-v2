@@ -1,6 +1,7 @@
 const web3Utils = require('web3-utils')
 const BN = web3Utils.BN
 export function valueFormat(value: string, symbol: string|null, quotaPrice: number|null): string {
+  if(!value) return ''
   if(!symbol || !quotaPrice) return value + " quota"
   var v = new BN(web3Utils.hexToNumberString(value));
   if(v.isZero()) return "0 "+ symbol

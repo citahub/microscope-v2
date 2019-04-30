@@ -216,8 +216,6 @@ class AccountDetail extends React.Component<any, any> {
     var pageNum = params.pageNum ? parseInt(params.pageNum) : 1
     var pageSize = params.pageSize ? parseInt(params.pageSize) : 10
 
-    if (!self.props.network.metaData) self.props.networkAction.getMetaData()
-
     self.props.accountAction.getBalance(address)
     self.props.accountAction.getCode(address)
 
@@ -376,7 +374,7 @@ class AccountDetail extends React.Component<any, any> {
                     >
                       #{' '}
                       {
-                        valueFormat(balance, self.props.network.metaData.tokenSymbol,self.props.network.quotaPrice)
+                        valueFormat(balance, self.props.network.metaData && self.props.network.metaData.tokenSymbol,self.props.network.quotaPrice)
                       }
                     </div>
                   </div>
@@ -405,6 +403,7 @@ class AccountDetail extends React.Component<any, any> {
                   <TransactionTable
                     data={data}
                     globalTickTime={globalTickTime}
+                    network={self.props.network}
                     onChange={(pageNum: number, pageSize: number) => {
                       hashHistory.push(
                         '/account/' +

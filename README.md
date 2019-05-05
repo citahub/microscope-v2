@@ -1,19 +1,24 @@
-# introduction
-this is repository of microscope MVP
+[![MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://github.com/cryptape/microscope)
+[![CITAHub](https://img.shields.io/badge/made%20for-CITAHub-blue.svg)](https://www.citahub.com/)
+
+# Overview
+this is repository of microscope v2
 
 
-# dev/run instruction
+# Development
 
-  prerequisite: nodejs
+  Prerequisite: nodejs 11.10
 
 
 ``` shell
 
     npm i
 
-    npm run start // for development
+    npm run start
 
-    npm run build // for build which output to build directory
+    npm run build
+
+    npm run deploy
 
 ```
 

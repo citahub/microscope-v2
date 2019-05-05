@@ -68,7 +68,7 @@ export function hex2Utf8(hex: string): string {
     let result = web3Utils.hexToString(hex)
     return result
   } catch (e) {
-    console.log(e)
+    console.error(e)
     return ''
   }
 }

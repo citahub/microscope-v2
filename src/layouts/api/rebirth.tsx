@@ -5,48 +5,7 @@ import { hashHistory } from 'react-router'
 import Header from '../common/Header'
 import Footer from '../common/Footer'
 import ReactJson from 'react-json-view'
-
-const jsonRpc = [
-  {
-    name: '/api/info/url',
-    inputSample: ''
-  },
-  {
-    name: '/api/blocks',
-    inputSample:
-      '{"numberFrom":"10","numberTo":"20","transactionFrom":"1","transactionTo":"100","page":"1","perPage":"10","offset":"1","limit":"10"}'
-  },
-  {
-    name: '/api/transactions',
-    inputSample:
-      '{"account":"0x46f8bf24c777fee056d447f3869ee5f71b37d0e3","from":"0x46f8bf24c777fee056d447f3869ee5f71b37d0e3","to":"0xffffffffffffffffffffffffffffffffff010001","valueFormat":"decimal","page":"1","perPage":"10","offset":"1","limit":"10"}'
-  },
-  {
-    name: '/api/transactions/:hash',
-    inputSample: ''
-  },
-  {
-    name: '/api/statistics',
-    inputSample: '{"type": "proposals"}'
-  },
-  {
-    name: '/api/status',
-    inputSample: ''
-  },
-  {
-    name: '/api/sync_errors',
-    inputSample: '{"page":1,"perPage":10,"offset":1,"limit":10}'
-  },
-  {
-    name: '/api/erc20/transfers',
-    inputSample:
-      '{"address":"0x...","account":"from or to","from":"from address","to":"to address","page":1,"perPage":10,"offset":1,"limit":10}'
-  },
-  {
-    name: '/api/event_logs/:address',
-    inputSample: '{"page":1,"perPage":10}'
-  }
-]
+import rebirthTemplate from './rebirth-template'
 
 import { getSelectNetwork } from '../../utils/storage'
 
@@ -61,10 +20,10 @@ class APIRebirth extends React.Component<any, any> {
     var params = self.props.location.query
     var method = params.method
     if (!method) {
-      method = jsonRpc[0].name
-      hashHistory.replace('/api/rebirth?method=' + jsonRpc[0].name)
+      method = rebirthTemplate[0].name
+      hashHistory.replace('/api/rebirth?method=' + rebirthTemplate[0].name)
     }
-    var item: any = jsonRpc.find(d => {
+    var item: any = rebirthTemplate.find(d => {
       return d.name == method
     })
     try {
@@ -74,7 +33,7 @@ class APIRebirth extends React.Component<any, any> {
         JSON.parse(item.inputSample)
       )
     } catch (e) {
-      console.log(e)
+      console.error(e)
     }
   }
   componentWillReceiveProps(nextProps: any) {
@@ -85,10 +44,10 @@ class APIRebirth extends React.Component<any, any> {
     ) {
       var method = nextProps.location.query.method
       if (!method) {
-        method = jsonRpc[0].name
-        hashHistory.replace('/api/rebirth?method=' + jsonRpc[0].name)
+        method = rebirthTemplate[0].name
+        hashHistory.replace('/api/rebirth?method=' + rebirthTemplate[0].name)
       }
-      var item: any = jsonRpc.find(d => {
+      var item: any = rebirthTemplate.find(d => {
         return d.name == method
       })
       try {
@@ -97,21 +56,18 @@ class APIRebirth extends React.Component<any, any> {
           JSON.parse(item.inputSample || '{}')
         )
       } catch (e) {
-        console.log(e)
+        console.error(e)
       }
     }
   }
   componentDidCatch(error: any, info: any) {
-    console.log(error, 'componentDidCatch')
-    console.log(info, 'componentDidCatch')
+    console.error(error, 'componentDidCatch')
+    console.error(info, 'componentDidCatch')
   }
   render() {
     var self = this
     var params = self.props.location.query
-    var method = params.method
-    if (!method) {
-      method = jsonRpc[0].name
-    }
+    var method = params.method || rebirthTemplate[0].name
     var selectNetwork = getSelectNetwork()
 
     return (
@@ -129,7 +85,7 @@ class APIRebirth extends React.Component<any, any> {
         >
           <div className="withRow apiRebirthBody">
             <div style={{ width: 200 }}>
-              {jsonRpc.map(function(item) {
+              {rebirthTemplate.map(function(item) {
                 var className = 'rpcItem'
                 if (item.name == method) {
                   className += ' rpcActiveItem'
@@ -190,7 +146,7 @@ class APIRebirth extends React.Component<any, any> {
                             JSON.parse(input || '{}')
                           )
                         } catch (e) {
-                          console.log(e)
+                          console.error(e)
                         }
                       }}
                     >

@@ -28,7 +28,7 @@ export function getNetworks(): Array<ServerNode> {
     try {
       result = JSON.parse(networks)
     } catch (e) {
-      console.log(e)
+      console.error(e)
       window.localStorage.removeItem('networks')
     } finally {
       return result
@@ -45,7 +45,7 @@ export function addNetwork(network: ServerNode) {
     try {
       result = JSON.parse(networks)
     } catch (e) {
-      console.log(e)
+      console.error(e)
       window.localStorage.removeItem('networks')
     } finally {
       result.push(network)
@@ -63,7 +63,7 @@ export function removeNetwork(network: ServerNode) {
     try {
       result = JSON.parse(networks)
     } catch (e) {
-      console.log(e)
+      console.error(e)
       window.localStorage.removeItem('networks')
     } finally {
       result.push(network)

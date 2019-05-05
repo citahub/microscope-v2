@@ -62,8 +62,10 @@ class App extends React.Component<any, any> {
     }, 3000)
   }
   componentDidCatch(error: any, info: any) {
-    console.log(error, 'componentDidCatch')
-    console.log(info, 'componentDidCatch')
+    console.error(error, 'componentDidCatch')
+    console.error(info, 'componentDidCatch')
+  }
+  componentWillUnmount(){
     if (this.tick) window.clearInterval(this.tick)
   }
   render() {

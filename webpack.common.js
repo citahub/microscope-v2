@@ -1,5 +1,7 @@
 const path = require('path')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const webpack = require('webpack')
+var poststylus = require('poststylus')
 
 module.exports = {
   entry: {
@@ -48,6 +50,13 @@ module.exports = {
     new ExtractTextPlugin({
       filename: 'bundle.css',
       allChunks: true
+    }),
+    new webpack.LoaderOptionsPlugin({
+      options: {
+        stylus: {
+          use: [poststylus(['autoprefixer'])]
+        }
+      }
     })
   ]
 }

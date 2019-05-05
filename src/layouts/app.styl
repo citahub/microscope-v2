@@ -21,39 +21,22 @@ html,body,#app,.root
       margin 0
 
 .vhCenter
-  display -webkit-flex
-  display -webkit-box
   display flex
-  display box
-  -webkit-flex-direction row
   flex-direction row
-  -webkit-box-align center
-  box-align center
-  -webkit-box-pack center
-  box-pack center
-  -webkit-align-items center
   align-items center
-  -webkit-justify-content center
   justify-content center
 
 .withRow
-  display -ms-flexbox
-  -ms-flex-direction row
   display flex
-  display -webkit-box
-  -webkit-flex-direction row
-  -webkit-box-orient horizontal
+  flex-direction row
+
 .withColumn
-  display -ms-flexbox
-  -ms-flex-direction column
   display flex
-  display -webkit-box
-  -webkit-flex-direction column
-  -webkit-box-orient vertical
+  flex-direction column
 
 .withRowLeftAuto,.withColumnLeftAuto
-  -webkit-box-flex 1
   flex 1
+  overflow hidden
 
 .operationItem
   cursor pointer

@@ -49,6 +49,7 @@
     "isomorphic-fetch": "^2.2.1",
     "key-mirror": "^1.0.1",
     "moment": "^2.24.0",
+    "poststylus": "^1.0.0",
     "rc-pagination": "^1.17.8",
     "rc-select": "^8.7.0",
     "react": "16.2.0",
@@ -82,7 +83,7 @@
     "eslint-plugin-typescript": "^0.14.0",
     "prettier": "^1.15.3",
     "typescript-eslint-parser": "^21.0.2",
-    "webpack-bundle-analyzer": "^3.0.3",
+    "webpack-bundle-analyzer": "^3.3.2",
     "webpack-dev-server": "^3.1.14"
   }
 }

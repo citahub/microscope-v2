@@ -6,13 +6,7 @@
   box-sizing: border-box;
   overflow-y: hidden;
   display: flex;
-  // TODO: use postcss to prefix
-  display: -webkit-box;
-  -webkit-flex-direction: column;
-  -webkit-box-orient: vertical;
-  -webkit-user-select:none;
-  -moz-user-select:none;
-  -ms-user-select:none;
+  flex-direction: column;
   user-select:none;
   z-index: 1000;
 }
@@ -24,8 +18,4 @@
   width: 100%;
   box-sizing: border-box;
   position: relative;
-}
-.loading_content>div>img{
-  -webkit-transform: rotate(360deg);
-  -webkit-animation: loadingAnimation 1.6s linear 0ms infinite;
 }

@@ -14,7 +14,6 @@ class Home extends React.Component<any, any> {
   timer: any
   componentWillMount() {
     var self = this
-    // self.props.networkAction.getMetaData()
     self.props.blockAction.topBlocks()
     self.props.transactionAction.topTransactions()
   }
@@ -41,7 +40,6 @@ class Home extends React.Component<any, any> {
 
   render() {
     var self = this
-    // var bgWidth = self.props.app.appWidth;
     var metaData = self.props.network.metaData
     var topBlocks = self.props.block.topList
     var topTransactions = self.props.transaction.topList
@@ -258,12 +256,6 @@ class Home extends React.Component<any, any> {
                   </div>
                 </div>
                 <div>
-                  {
-                    // <CSSTransitionGroup
-                    //   transitionName="latestBlock"
-                    //   transitionEnterTimeout={300}
-                    //   transitionLeaveTimeout={300}>
-                  }
                   {topBlocks &&
                     topBlocks.map(function(block: any, i: number) {
                       var blockNumber = parseInt(block.header.number)
@@ -283,7 +275,7 @@ class Home extends React.Component<any, any> {
                               块<br />#{blockNumber}
                             </div>
                           </div>
-                          <div className="withRowLeftAuto">
+                          <div className="withRowLeftAuto"  style={{ overflow: 'hidden' }}>
                             <div className="blockItemHashLabel">Hash:</div>
                             <div
                               className="blockItemHash operationItem"
@@ -318,9 +310,6 @@ class Home extends React.Component<any, any> {
                         </div>
                       )
                     })}
-                  {
-                    // </CSSTransitionGroup>
-                  }
                 </div>
               </div>
               <div
@@ -380,7 +369,7 @@ class Home extends React.Component<any, any> {
                               <img src="images/content2_contract.png" />
                             </div>
                           </div>
-                          <div className="withRowLeftAuto">
+                          <div className="withRowLeftAuto" style={{ overflow: 'hidden' }}>
                             <div className="transactionItemTxLabel">TX#：</div>
                             <div
                               className="transactionItemTxHash operationItem"

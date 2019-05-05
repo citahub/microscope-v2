@@ -67,7 +67,6 @@ class BlockSearchModal extends React.Component<any, any> {
                 var to: HTMLInputElement = self.refs.to as HTMLInputElement
                 var min: HTMLInputElement = self.refs.min as HTMLInputElement
                 var max: HTMLInputElement = self.refs.max as HTMLInputElement
-                // self.props.transactionAction.getTransactionList(1,10, from.value,to.value)
                 self.props.appAction.hideModal()
                 hashHistory.push(
                   '/block/list?blockFrom=' +

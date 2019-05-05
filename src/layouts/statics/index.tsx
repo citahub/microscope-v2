@@ -1,7 +1,6 @@
 import React from 'react'
 import './index.styl'
 import Layout from '../../components/layout'
-// import { hashHistory } from 'react-router';
 import Header from '../common/Header'
 import Footer from '../common/Footer'
 import ReactEcharts from 'echarts-for-react'

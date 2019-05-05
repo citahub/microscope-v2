@@ -15,20 +15,16 @@ export type TransactionAction = {
 }
 
 export function topTransactions() {
-  // return dataAPI.topTransactions();
   return (dispatch: any) => {
-    // dispatch(showLoading())
     return dataAPI
       .topTransactions()
       .then((data: Array<TransactionItem>) => {
-        // dispatch(hideLoading())
         dispatch({
           type: constants.GET_TOP_TRANSACTIONS,
           data: data
         })
       })
       .catch((error: any) => {
-        // dispatch(hideLoading())
         dispatch({
           type: constants.OPERATION_FAIL,
           error: error

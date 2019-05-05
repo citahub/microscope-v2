@@ -23,7 +23,6 @@ addLocaleData(zhLocaleData)
 import * as zh_CN from '../locale/zh_CN'
 import * as en_US from '../locale/en_US'
 
-// import "babel-polyfill";
 
 function chooseLocale(language: string) {
   var obj = en_US

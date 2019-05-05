@@ -27,9 +27,6 @@ function insertAndRemove(list: any, element: any) {
   if (!exists) {
     result = [element].concat(result)
   }
-  // result.sort(function(e1:any,e2:any){
-  //   return parseInt(e1.header.number) < parseInt(e2.header.number);
-  // })
 
   return result.slice(0, 10)
 }
@@ -52,11 +49,6 @@ export default function(state: BlockState = initialState, action: BlockAction) {
         ...state,
         list: action.data
       }
-    // case constants.GET_LATEST_BLOCK:
-    //   return {
-    //     ...state,
-    //     latest: action.data,
-    //   }
     case constants.APPEND_LATEST_BLOCK:
       return {
         ...state,

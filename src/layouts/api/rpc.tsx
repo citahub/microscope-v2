@@ -178,7 +178,10 @@ class APIRpc extends React.Component<any, any> {
   render() {
     var self = this
     var params = self.props.location.query
-    var method = params.method || jsonRpc[0].name
+    var method = params.method
+    if (!method) {
+      method = jsonRpc[0].name
+    }
     var selectNetwork = getSelectNetwork()
 
     return (

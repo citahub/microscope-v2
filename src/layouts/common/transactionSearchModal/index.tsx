@@ -45,7 +45,6 @@ class TransactionSearchModal extends React.Component<any, any> {
               onClick={() => {
                 var from: HTMLInputElement = self.refs.from as HTMLInputElement
                 var to: HTMLInputElement = self.refs.to as HTMLInputElement
-                // self.props.transactionAction.getTransactionList(1,10, from.value,to.value)
                 self.props.appAction.hideModal()
                 hashHistory.push(
                   '/transaction/list?addressFrom=' +

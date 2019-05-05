@@ -48,7 +48,6 @@ const jsonRpc = [
   }
 ]
 
-// import { api } from '../../utils/config'
 import { getSelectNetwork } from '../../utils/storage'
 
 class APIRebirth extends React.Component<any, any> {
@@ -100,7 +99,6 @@ class APIRebirth extends React.Component<any, any> {
       } catch (e) {
         console.log(e)
       }
-      // self.props.networkAction.rpc(method);
     }
   }
   componentDidCatch(error: any, info: any) {
@@ -114,10 +112,8 @@ class APIRebirth extends React.Component<any, any> {
     if (!method) {
       method = jsonRpc[0].name
     }
-    // var networks = api.serverList;
     var selectNetwork = getSelectNetwork()
 
-    // var item = jsonRpc.find((d)=>{return d.name==method});
     return (
       <Layout className="apiRebirth" bgColor="white">
         <Header location={self.props.location} app={self.props.app} />

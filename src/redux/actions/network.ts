@@ -85,7 +85,6 @@ export function rpc(jsonRpc: string) {
 }
 
 export function rebirth(url: string, params: any) {
-  // var url = method ;
   return (dispatch: any) => {
     dispatch(showLoading())
     return dataAPI

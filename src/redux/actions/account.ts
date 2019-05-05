@@ -71,7 +71,6 @@ export function getBalance(account: string) {
       .getBalance(account)
       .then((data: any) => {
         dispatch(hideLoading())
-        // alert(data);
         dispatch({
           type: constants.GET_ACCOUNT_BALANCE,
           data: data

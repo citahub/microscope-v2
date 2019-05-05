@@ -78,8 +78,7 @@ export function commonGet(
   if (params) {
     _url += `?${queryString.stringify(params)}`
   }
-  // delete headers.host;
-  // delete headers.referer;
+ 
   var result = _fetch(
     fetch(_url, { method: 'GET', headers: headers, credentials: credentials }),
     config.apiTimeout
@@ -106,8 +105,6 @@ export function putAndPost(
   credentials: any = 'omit'
 ) {
   var defHeader = {
-    // Accept: 'application/json',
-    // 'Content-Type': 'text/plain;charset=UTF-8'
     'Content-Type': 'application/json; charset=utf-8'
   }
 
@@ -117,16 +114,7 @@ export function putAndPost(
       ...headers
     }
   }
-  // var _body = ''
-  // if (params) {
-  //   var _bodyArr = []
-  //   for (var key in params) {
-  //     if (key !== 'timeout') {
-  //       _bodyArr.push(key + '=' + params[key])
-  //     }
-  //   }
-  //   _body = _bodyArr.join('&')
-  // }
+ 
   return _fetch(
     fetch(apiUrl(url), {
       method: method,

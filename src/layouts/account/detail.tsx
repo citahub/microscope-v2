@@ -137,16 +137,7 @@ class TabContractCallContent extends React.Component<any,any>{
               }
             </div>
           </div>
-          {
-            // <div className='withRow' style={{ marginTop: 10,overflow: 'hidden' }}>
-            //   <div style={{width: 100}}>all:</div>
-            //   <div className='withRowLeftAuto'>
-            //     {
-            //       JSON.stringify(d)
-            //     }
-            //   </div>
-            // </div>
-          }
+         
           <div style={{ textAlign: 'right'}}>
             <button
               style={{ width: 100, marginTop: 20 }}
@@ -219,20 +210,19 @@ class AccountDetail extends React.Component<any, any> {
     self.props.accountAction.getBalance(address)
     self.props.accountAction.getCode(address)
 
-    // var tabIndex = params.tabIndex ? parseInt(params.tabIndex): 0;
-    // if(tabIndex == 0){
+   
     self.props.accountAction.getTransactionListByAccount(
       address,
       pageNum,
       pageSize
     )
-    // } else{
+    
     self.props.accountAction.getERC20TransactionListByAccount(
       address,
       pageNum,
       pageSize
     )
-    // }
+   
   }
   componentWillReceiveProps(nextProps: any) {
     var self = this

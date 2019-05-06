@@ -275,7 +275,10 @@ class Home extends React.Component<any, any> {
                               块<br />#{blockNumber}
                             </div>
                           </div>
-                          <div className="withRowLeftAuto"  style={{ overflow: 'hidden' }}>
+                          <div
+                            className="withRowLeftAuto"
+                            style={{ overflow: 'hidden' }}
+                          >
                             <div className="blockItemHashLabel">Hash:</div>
                             <div
                               className="blockItemHash operationItem"
@@ -299,7 +302,12 @@ class Home extends React.Component<any, any> {
                             </div>
                             <div className="blockItemReward">
                               quotaUsed:{' '}
-                              {valueFormat(block.header.quotaUsed, self.props.network.metaData && self.props.network.metaData.tokenSymbol, self.props.network.quotaPrice)}
+                              {valueFormat(
+                                block.header.quotaUsed,
+                                self.props.network.metaData &&
+                                  self.props.network.metaData.tokenSymbol,
+                                self.props.network.quotaPrice
+                              )}
                             </div>
                           </div>
                           <div className="blockItemTime" style={{ width: 53 }}>
@@ -369,7 +377,10 @@ class Home extends React.Component<any, any> {
                               <img src="images/content2_contract.png" />
                             </div>
                           </div>
-                          <div className="withRowLeftAuto" style={{ overflow: 'hidden' }}>
+                          <div
+                            className="withRowLeftAuto"
+                            style={{ overflow: 'hidden' }}
+                          >
                             <div className="transactionItemTxLabel">TX#：</div>
                             <div
                               className="transactionItemTxHash operationItem"
@@ -421,7 +432,12 @@ class Home extends React.Component<any, any> {
                               style={{ marginTop: 4 }}
                             >
                               value:{' '}
-                              {valueFormat(value, self.props.network.metaData && self.props.network.metaData.tokenSymbol, self.props.network.quotaPrice)}
+                              {valueFormat(
+                                value,
+                                self.props.network.metaData &&
+                                  self.props.network.metaData.tokenSymbol,
+                                self.props.network.quotaPrice
+                              )}
                             </div>
                           </div>
                           <div

@@ -86,7 +86,7 @@ export function getBalance(account: string) {
   }
 }
 
-export function getCode(address:string){
+export function getCode(address: string) {
   return (dispatch: any) => {
     return dataAPI
       .getCode(address)
@@ -105,7 +105,7 @@ export function getCode(address:string){
   }
 }
 
-export function getAbi(address:string){
+export function getAbi(address: string) {
   return (dispatch: any) => {
     return dataAPI
       .getAbi(address)

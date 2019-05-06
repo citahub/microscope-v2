@@ -23,10 +23,7 @@ const initialState: AccountState = {
   abi: null
 }
 
-export default function(
-  state: AccountState = initialState,
-  action: any
-) {
+export default function(state: AccountState = initialState, action: any) {
   switch (action.type) {
     case constants.GET_ACCOUNT_BALANCE:
       return {

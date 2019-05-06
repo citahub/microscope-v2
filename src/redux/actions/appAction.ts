@@ -3,8 +3,8 @@ import * as constants from '../actionTypes'
 import { Modal } from '../states/appState'
 
 export type AppAction = {
-  type: string,
-  data: any,
+  type: string
+  data: any
   payload?: any
 }
 

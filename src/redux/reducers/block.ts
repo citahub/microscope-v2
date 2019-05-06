@@ -37,7 +37,8 @@ export default function(state: BlockState = initialState, action: BlockAction) {
       return {
         ...state,
         topList: action.data,
-        latest: action.data && action.data instanceof Array ? action.data[0] : null
+        latest:
+          action.data && action.data instanceof Array ? action.data[0] : null
       }
     case constants.GET_BLOCK_ITEM:
       return {

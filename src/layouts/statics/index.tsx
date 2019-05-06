@@ -57,7 +57,7 @@ class Statics extends React.Component<any, any> {
       return transaction.hash
     })
     var transactionQuotoUsedArray = transactions.map((transaction: any) => {
-      return parseInt(transaction.gasUsed,16) || 0
+      return parseInt(transaction.gasUsed, 16) || 0
     })
 
     var blockDurationArray = []
@@ -77,8 +77,10 @@ class Statics extends React.Component<any, any> {
     blockQuotoUsedArray.reverse()
 
     var proposals = self.props.statics.proposals || []
-    var proposalsArray = proposals.map((p:any)=>{ return  { value: p.count,name: p.validator}})
-    
+    var proposalsArray = proposals.map((p: any) => {
+      return { value: p.count, name: p.validator }
+    })
+
     return (
       <Layout className="statics" bgColor="white">
         <Header location={self.props.location} app={self.props.app} />
@@ -103,7 +105,7 @@ class Statics extends React.Component<any, any> {
                       text: 'Interval(ms) for Latest 10 Blocks'
                     },
                     tooltip: {},
-                    color: ['#415dfc', ],
+                    color: ['#415dfc'],
                     xAxis: {
                       data: blockHeightsArray
                     },
@@ -111,8 +113,8 @@ class Statics extends React.Component<any, any> {
                     series: [
                       {
                         type: 'bar',
-                        data: blockDurationArray,
-                      },
+                        data: blockDurationArray
+                      }
                     ]
                   }}
                   style={{ height: '400px', width: '100%' }}
@@ -127,7 +129,7 @@ class Statics extends React.Component<any, any> {
                       text: 'Transaction Count in Latest 10 Blocks'
                     },
                     tooltip: {},
-                    color: ['#fca441', ],
+                    color: ['#fca441'],
                     xAxis: {
                       data: blockHeightsArray
                     },
@@ -151,7 +153,7 @@ class Statics extends React.Component<any, any> {
                       text: 'Quoto Used in Latest 10 Blocks'
                     },
                     tooltip: {},
-                    color: ['#4db7f8', ],
+                    color: ['#4db7f8'],
                     xAxis: {
                       data: blockHeightsArray
                     },
@@ -174,16 +176,17 @@ class Statics extends React.Component<any, any> {
                     title: {
                       text: 'Gas Used in Latest 10 Transactions'
                     },
-                    tooltip : {
+                    tooltip: {
                       trigger: 'item',
-                      formatter: "<div style='max-width: 100px;overflow: hidden;text-overflow:ellipsis;white-space:nowrap;'>{b}:</div> {c} "
+                      formatter:
+                        "<div style='max-width: 100px;overflow: hidden;text-overflow:ellipsis;white-space:nowrap;'>{b}:</div> {c} "
                     },
-                    color: ['#ab62f1', ],
+                    color: ['#ab62f1'],
                     xAxis: {
                       data: transactionHashArray,
                       axisLabel: {
-                        show: false,
-                      },
+                        show: false
+                      }
                     },
                     yAxis: {},
                     series: [
@@ -201,47 +204,46 @@ class Statics extends React.Component<any, any> {
 
               <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6">
                 <ReactEcharts
-                  option={
-                    {
-                      title: {
-                        text: "Proposal Distribution"
-                      },
-                      tooltip : {
-                        trigger: 'item',
-                        formatter: "{a}<br/><div style='max-width: 100px;overflow: hidden;text-overflow:ellipsis;white-space:nowrap;'>{b}:</div> {c} ({d}%)"
-                      },
-                      calculable : true,
-                      series : [
-                          {
-                              name:'Proposal',
-                              type:'pie',
-                              color: ['#415dfc', '#ab62f1', '#fca441', '#4db7f8', ],
-                              radius : ['50%', '70%'],
-                              itemStyle : {
-                                  normal : {
-                                      label : {
-                                          show : false
-                                      },
-                                      labelLine : {
-                                          show : false
-                                      }
-                                  },
-                                  emphasis : {
-                                      label : {
-                                          show : true,
-                                          position : 'center',
-                                          textStyle : {
-                                              fontSize : '10',
-                                              fontWeight : 'bold'
-                                          }
-                                      }
-                                  }
-                              },
-                              data: proposalsArray
+                  option={{
+                    title: {
+                      text: 'Proposal Distribution'
+                    },
+                    tooltip: {
+                      trigger: 'item',
+                      formatter:
+                        "{a}<br/><div style='max-width: 100px;overflow: hidden;text-overflow:ellipsis;white-space:nowrap;'>{b}:</div> {c} ({d}%)"
+                    },
+                    calculable: true,
+                    series: [
+                      {
+                        name: 'Proposal',
+                        type: 'pie',
+                        color: ['#415dfc', '#ab62f1', '#fca441', '#4db7f8'],
+                        radius: ['50%', '70%'],
+                        itemStyle: {
+                          normal: {
+                            label: {
+                              show: false
+                            },
+                            labelLine: {
+                              show: false
+                            }
+                          },
+                          emphasis: {
+                            label: {
+                              show: true,
+                              position: 'center',
+                              textStyle: {
+                                fontSize: '10',
+                                fontWeight: 'bold'
+                              }
+                            }
                           }
-                      ]
-                  }
-                  }
+                        },
+                        data: proposalsArray
+                      }
+                    ]
+                  }}
                   style={{ height: '400px', width: '100%' }}
                   opts={{ renderer: 'svg' }}
                   className="react_for_echarts"

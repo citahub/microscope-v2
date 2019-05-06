@@ -169,14 +169,14 @@ export function getTransactionReceipt(hash: string) {
 export function getAbi(contractAddress: string) {
   return citaSDK.base.getAbi(contractAddress, 'pending')
 }
-export function getCode(address: string){
+export function getCode(address: string) {
   return citaSDK.base.getCode(address)
 }
 export function getBlockNumber(): any {
   return citaSDK.base.getBlockNumber()
 }
 
-export function getQuotaPrice(){
+export function getQuotaPrice() {
   return citaSDK.system.priceManager.methods.getQuotaPrice().call()
 }
 
@@ -201,9 +201,9 @@ export function rebirth(url: string, params: object) {
       throw error
     })
 }
-export function statics(type:string){
+export function statics(type: string) {
   return request
-    .get(serverNode.url + config.api.statistics, {type:type})
+    .get(serverNode.url + config.api.statistics, { type: type })
     .then((data: any) => {
       return data.result
     })
@@ -211,4 +211,3 @@ export function statics(type:string){
       throw error
     })
 }
-

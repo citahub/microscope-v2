@@ -26,14 +26,12 @@ export const GET_NETWORK_REBIRTH = 'GET_NETWORK_REBIRTH'
 
 export const GET_QUOTA_PRICE = 'GET_QUOTA_PRICE'
 
-
 // block
 export const GET_BLOCK_ITEM = 'GET_BLOCK_ITEM'
 
 export const GET_BLOCK_LIST = 'GET_BLOCK_LIST'
 
 export const GET_TOP_BLOCKS = 'GET_TOP_BLOCKS'
-
 
 export const APPEND_LATEST_BLOCK = 'APPEND_LATEST_BLOCK'
 

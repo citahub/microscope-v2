@@ -23,7 +23,6 @@ addLocaleData(zhLocaleData)
 import * as zh_CN from '../locale/zh_CN'
 import * as en_US from '../locale/en_US'
 
-
 function chooseLocale(language: string) {
   var obj = en_US
   if (language.indexOf('zh') > -1) {
@@ -65,7 +64,7 @@ class App extends React.Component<any, any> {
     console.error(error, 'componentDidCatch')
     console.error(info, 'componentDidCatch')
   }
-  componentWillUnmount(){
+  componentWillUnmount() {
     if (this.tick) window.clearInterval(this.tick)
   }
   render() {
@@ -96,16 +95,15 @@ class App extends React.Component<any, any> {
   }
 }
 
-
 import * as networkAction from '../redux/actions/network'
 
 export default connect(
-  (state: IRootState) => ({ 
-    app: state.app, 
-    network: state.network,
-   }),
+  (state: IRootState) => ({
+    app: state.app,
+    network: state.network
+  }),
   dispatch => ({
     appAction: bindActionCreators(appAction, dispatch),
-    networkAction: bindActionCreators(networkAction, dispatch),
+    networkAction: bindActionCreators(networkAction, dispatch)
   })
 )(App)

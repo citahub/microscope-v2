@@ -5,15 +5,18 @@ import { showLoading, hideLoading } from './appAction'
 import * as dataAPI from '../../utils/dataAPI'
 
 export type NetworkAction = {
-  type: string;
-  data: MetaData | {
-    input: RPCData
-    output: RPCData
-  } | {
-    input: string
-    output: string
-  }| number
-  
+  type: string
+  data:
+    | MetaData
+    | {
+        input: RPCData
+        output: RPCData
+      }
+    | {
+        input: string
+        output: string
+      }
+    | number
 }
 
 export function getMetaData() {

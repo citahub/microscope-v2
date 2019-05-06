@@ -7,7 +7,12 @@ import Footer from '../common/Footer'
 import { hashHistory } from 'react-router'
 import Tabs, { Tab } from '../../components/tab'
 
-import { getContractData, valueFormat, toHex,scientificNotationToString } from '../../utils/hex'
+import {
+  getContractData,
+  valueFormat,
+  toHex,
+  scientificNotationToString
+} from '../../utils/hex'
 
 class TransactionDetail extends React.Component<any, any> {
   componentDidMount() {
@@ -120,7 +125,8 @@ class TransactionDetail extends React.Component<any, any> {
                   className="transactionDetailValue withRowLeftAuto operationItem"
                   style={{ fontSize: 16, color: '#5b8ee6' }}
                   onClick={() => {
-                    var account = to || (dataReceipt && dataReceipt.contractAddress)
+                    var account =
+                      to || (dataReceipt && dataReceipt.contractAddress)
                     if (account) hashHistory.push('/account/' + account)
                   }}
                 >
@@ -172,13 +178,19 @@ class TransactionDetail extends React.Component<any, any> {
               <div className="withRow transactionBodyRow">
                 <div className="transactionDetailKey">Value:</div>
                 <div className="transactionDetailValue withRowLeftAuto">
-                  {
-                    data &&
-                      data.unsignedTransaction &&
-                      data.unsignedTransaction.transaction &&
-                      valueFormat(toHex(scientificNotationToString(data.unsignedTransaction.transaction.value)),self.props.network.metaData && self.props.network.metaData.tokenSymbol,self.props.network.quotaPrice)
-                  }
-                 
+                  {data &&
+                    data.unsignedTransaction &&
+                    data.unsignedTransaction.transaction &&
+                    valueFormat(
+                      toHex(
+                        scientificNotationToString(
+                          data.unsignedTransaction.transaction.value
+                        )
+                      ),
+                      self.props.network.metaData &&
+                        self.props.network.metaData.tokenSymbol,
+                      self.props.network.quotaPrice
+                    )}
                 </div>
               </div>
               <div className="withRow transactionBodyRow">
@@ -193,13 +205,17 @@ class TransactionDetail extends React.Component<any, any> {
                   {data &&
                     data.unsignedTransaction &&
                     data.unsignedTransaction.transaction &&
-                    data.unsignedTransaction.transaction.quota} Quota
+                    data.unsignedTransaction.transaction.quota}{' '}
+                  Quota
                 </div>
               </div>
               <div className="withRow transactionBodyRow">
                 <div className="transactionDetailKey">Quota Price:</div>
                 <div className="transactionDetailValue withRowLeftAuto">
-                 1 {self.props.network.metaData && self.props.network.metaData.tokenSymbol} = {self.props.network.quotaPrice} Quota
+                  1{' '}
+                  {self.props.network.metaData &&
+                    self.props.network.metaData.tokenSymbol}{' '}
+                  = {self.props.network.quotaPrice} Quota
                 </div>
               </div>
               <div
@@ -277,10 +293,10 @@ import { IRootState } from '../../redux/states'
 import { connect } from 'react-redux'
 
 export default connect(
-  (state: IRootState) => ({ 
-    app: state.app, 
+  (state: IRootState) => ({
+    app: state.app,
     transaction: state.transaction,
-    network: state.network,
+    network: state.network
   }),
   dispatch => ({
     appAction: bindActionCreators(appAction, dispatch),

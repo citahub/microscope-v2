@@ -75,7 +75,7 @@ class Tabs extends React.Component<any, any> {
           event.currentTarget.clientWidth / 2
       }
     } catch (e) {
-      console.error(e);
+      console.error(e)
     } finally {
       self.setState({ selectIndex: tabIndex }, function() {
         if (self.props.onTabSwitchCallBack) {

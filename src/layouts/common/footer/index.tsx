@@ -6,10 +6,8 @@ class Footer extends React.Component<any, any> {
       <div className="footer" style={{ color: 'white' }}>
         <div className="container">
           <div className="row">
-            <div
-              className="col-xs-4 col-sm-4 col-md-4 col-12 intro vhCenter"
-            >
-              <div style={{ padding: "0 50px", lineHeight: 2 }}>
+            <div className="col-xs-4 col-sm-4 col-md-4 col-12 intro vhCenter">
+              <div style={{ padding: '0 50px', lineHeight: 2 }}>
                 Across the Microscope, we can reach any data in CITA
               </div>
             </div>
@@ -21,12 +19,20 @@ class Footer extends React.Component<any, any> {
               <div className="footTitle">技术</div>
               <div className="row" style={{ marginTop: 32 }}>
                 <div className="col-6">
-                  <a href="https://nervos.org" rel="noreferrer noopener" target="_blank">
+                  <a
+                    href="https://nervos.org"
+                    rel="noreferrer noopener"
+                    target="_blank"
+                  >
                     <img src="images/footer_nervos.png" />
                   </a>
                 </div>
                 <div className="col-6">
-                  <a href="https://github.com/cryptape/cita" rel="noreferrer noopener" target="_blank">
+                  <a
+                    href="https://github.com/cryptape/cita"
+                    rel="noreferrer noopener"
+                    target="_blank"
+                  >
                     <img src="images/footer_cita.png" />
                   </a>
                 </div>

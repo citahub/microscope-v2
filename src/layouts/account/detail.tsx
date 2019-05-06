@@ -11,190 +11,226 @@ import { hashHistory } from 'react-router'
 import { valueFormat } from '../../utils/hex'
 import citaSDK from '../../utils/sdk'
 
-class TabContractInfoContent extends React.Component<any,any>{
-  componentDidMount(){
-    var self = this;
-    var address = self.props.address;
+class TabContractInfoContent extends React.Component<any, any> {
+  componentDidMount() {
+    var self = this
+    var address = self.props.address
 
     self.props.accountAction.getAbi(address)
-
   }
-  render(){
-    var self = this;
-    var abi = self.props.abi;
+  render() {
+    var self = this
+    var abi = self.props.abi
     return (
-      <div className='container contractTabInfo'>
-        <div className='withRow'  style={{ marginTop: 20 }}>
-          <div className='withRowLeftAuto'>合约ABI</div>
+      <div className="container contractTabInfo">
+        <div className="withRow" style={{ marginTop: 20 }}>
+          <div className="withRowLeftAuto">合约ABI</div>
           <button
-              style={{ width: 100 }}
-              type="button"
-              className="btn btn-primary"
-              onClick={() => {
-                var t=  document.getElementById('contractAbi') as HTMLTextAreaElement
-                t.select()
-                document.execCommand('copy')
-              }}
-            >
-              Copy
-            </button>
+            style={{ width: 100 }}
+            type="button"
+            className="btn btn-primary"
+            onClick={() => {
+              var t = document.getElementById(
+                'contractAbi'
+              ) as HTMLTextAreaElement
+              t.select()
+              document.execCommand('copy')
+            }}
+          >
+            Copy
+          </button>
         </div>
-        <div className='vhCenter' style={{ marginTop: 20 }}>
-            <textarea readOnly id="contractAbi" value={JSON.stringify(abi,null, "\t")}/>
-        </div>
-        
-        <div className='withRow'  style={{ marginTop: 40 }}>
-          <div className='withRowLeftAuto'>合约原始数据</div>
-          <button
-              style={{ width: 100 }}
-              type="button"
-              className="btn btn-primary"
-              onClick={() => {
-                var t=  document.getElementById('contractBinary') as HTMLTextAreaElement
-                t.select()
-                document.execCommand('copy')
-              }}
-            >
-              Copy
-            </button>
-        </div>
-        <div className='vhCenter' style={{ marginTop: 20 }}>
-          <textarea readOnly id="contractBinary"  value={self.props.code}/>
+        <div className="vhCenter" style={{ marginTop: 20 }}>
+          <textarea
+            readOnly
+            id="contractAbi"
+            value={JSON.stringify(abi, null, '\t')}
+          />
         </div>
 
-        
+        <div className="withRow" style={{ marginTop: 40 }}>
+          <div className="withRowLeftAuto">合约原始数据</div>
+          <button
+            style={{ width: 100 }}
+            type="button"
+            className="btn btn-primary"
+            onClick={() => {
+              var t = document.getElementById(
+                'contractBinary'
+              ) as HTMLTextAreaElement
+              t.select()
+              document.execCommand('copy')
+            }}
+          >
+            Copy
+          </button>
+        </div>
+        <div className="vhCenter" style={{ marginTop: 20 }}>
+          <textarea readOnly id="contractBinary" value={self.props.code} />
+        </div>
       </div>
     )
   }
 }
-class TabContractCallContent extends React.Component<any,any>{
-  contract: any;
-  componentDidMount(){
-    var self = this;
-    var address = self.props.address;
+class TabContractCallContent extends React.Component<any, any> {
+  contract: any
+  componentDidMount() {
+    var self = this
+    var address = self.props.address
     self.props.accountAction.getAbi(address)
   }
-  componentWillReceiveProps(nextProps:any){
-    if(nextProps.abi!=null && nextProps.abi!=this.props.abi){
-      this.contract = new citaSDK.base.Contract(nextProps.abi, this.props.address)
+  componentWillReceiveProps(nextProps: any) {
+    if (nextProps.abi != null && nextProps.abi != this.props.abi) {
+      this.contract = new citaSDK.base.Contract(
+        nextProps.abi,
+        this.props.address
+      )
     }
   }
-  callMethod(methodName:string,params:any){
+  callMethod(methodName: string, params: any) {
     return this.contract.methods[methodName](...params).call({
-      from: '',
+      from: ''
     })
   }
-  sendMethod(methodName:string,params:any){
-    var self =this;
-    var pk = window.prompt("your privatekey for transactions(only for debugger)")
-    if(!pk){
-      throw new Error("pk could not be null")
-      return;
+  sendMethod(methodName: string, params: any) {
+    var self = this
+    var pk = window.prompt(
+      'your privatekey for transactions(only for debugger)'
+    )
+    if (!pk) {
+      throw new Error('pk could not be null')
+      return
     }
-    var accountInfo:any = (citaSDK as any).eth.accounts.privateKeyToAccount(pk);
-    pk = null;
-    return citaSDK.base
-      .getBlockNumber()
-      .then((current:any) => {
-        return self.contract.methods[methodName](...params).send({
-          nonce: 999999,
-          quota: 1000000,
-          chainId: 1,
-          version: 1,
-          validUntilBlock: current + 88,
-          value: '0x0',
-          from: accountInfo.address,
-          privateKey: accountInfo.privateKey
-        })
+    var accountInfo: any = (citaSDK as any).eth.accounts.privateKeyToAccount(pk)
+    pk = null
+    return citaSDK.base.getBlockNumber().then((current: any) => {
+      return self.contract.methods[methodName](...params).send({
+        nonce: 999999,
+        quota: 1000000,
+        chainId: 1,
+        version: 1,
+        validUntilBlock: current + 88,
+        value: '0x0',
+        from: accountInfo.address,
+        privateKey: accountInfo.privateKey
       })
-        
-    
+    })
   }
-  renderAbi(d:any,type: string){
-    var self = this;
-    if(d.type=== "fallback" || d.type=== "event" || d.type=== "constructor") return;
+  renderAbi(d: any, type: string) {
+    var self = this
+    if (d.type === 'fallback' || d.type === 'event' || d.type === 'constructor')
+      return
     return (
-        <div style={{ marginTop: 30 }}>
-          <h5>"{d.name}" method({d.stateMutability})</h5>
-          <hr/>
-          <div className='withRow'>
-            <div style={{width: 100}}>Inputs:</div>
-            <div className='withRowLeftAuto'>
-              {
-                d.inputs && d.inputs.map((input:any)=>{
-                  return <input className={d.name+'-input'} style={{ marginLeft: 10 }} type="text" placeholder={input.name + "(" + input.type + ")"}/>
-                })
-              }
-            </div>
-          </div>
-          <div className='withRow' style={{ marginTop: 10 }}>
-            <div style={{width: 100}}>Outputs:</div>
-            <div className='withRowLeftAuto'>
-              {
-                d.outputs && d.outputs.map((output:any)=>{
-                  return <input className={d.name+'-output'} readOnly style={{ marginLeft: 10, color: 'red'}} type="text" placeholder={output.name + "(" + output.type + ")"}/>
-                })
-              }
-            </div>
-          </div>
-         
-          <div style={{ textAlign: 'right'}}>
-            <button
-              style={{ width: 100, marginTop: 20 }}
-              type="button"
-              className="btn btn-primary"
-              onClick={() => {
-                var inputs = document.querySelectorAll('.' +d.name+ '-input')
-                var params:any = []
-                for(var i:number=0;i<inputs.length;i++){
-                  var input = inputs[i] as HTMLInputElement
-                  params.push(input.value);
-                }
-                
-
-                if(type === 'view'){
-                  self.callMethod(d.name,params).then((result:any)=>{
-                    var outputs = document.querySelectorAll('.' +d.name+ '-output')
-                    for(var i:number=0;i<outputs.length;i++){
-                      var output = outputs[i] as HTMLInputElement
-                      output.value = result[i];
-                    }
-                  }).catch((e:any)=>{
-                    self.props.appAction.toast(e.message,5000)
-                  })
-                } else if(type === 'payable'){
-                  self.sendMethod(d.name,params).then((result:any)=>{
-                    var outputs = document.querySelectorAll('.' +d.name+ '-output')
-                    for(var i:number=0;i<outputs.length;i++){
-                      var output = outputs[i] as HTMLInputElement
-                      output.value = result[i];
-                    }
-                  }).catch((e:any)=>{
-                    self.props.appAction.toast(e.message,5000)
-                  })
-                }
-                
-              }}
-            >
-              Call
-            </button>
+      <div style={{ marginTop: 30 }}>
+        <h5>
+          "{d.name}" method({d.stateMutability})
+        </h5>
+        <hr />
+        <div className="withRow">
+          <div style={{ width: 100 }}>Inputs:</div>
+          <div className="withRowLeftAuto">
+            {d.inputs &&
+              d.inputs.map((input: any) => {
+                return (
+                  <input
+                    className={d.name + '-input'}
+                    style={{ marginLeft: 10 }}
+                    type="text"
+                    placeholder={input.name + '(' + input.type + ')'}
+                  />
+                )
+              })}
           </div>
         </div>
-      )
+        <div className="withRow" style={{ marginTop: 10 }}>
+          <div style={{ width: 100 }}>Outputs:</div>
+          <div className="withRowLeftAuto">
+            {d.outputs &&
+              d.outputs.map((output: any) => {
+                return (
+                  <input
+                    className={d.name + '-output'}
+                    readOnly
+                    style={{ marginLeft: 10, color: 'red' }}
+                    type="text"
+                    placeholder={output.name + '(' + output.type + ')'}
+                  />
+                )
+              })}
+          </div>
+        </div>
+
+        <div style={{ textAlign: 'right' }}>
+          <button
+            style={{ width: 100, marginTop: 20 }}
+            type="button"
+            className="btn btn-primary"
+            onClick={() => {
+              var inputs = document.querySelectorAll('.' + d.name + '-input')
+              var params: any = []
+              for (var i: number = 0; i < inputs.length; i++) {
+                var input = inputs[i] as HTMLInputElement
+                params.push(input.value)
+              }
+
+              if (type === 'view') {
+                self
+                  .callMethod(d.name, params)
+                  .then((result: any) => {
+                    var outputs = document.querySelectorAll(
+                      '.' + d.name + '-output'
+                    )
+                    for (var i: number = 0; i < outputs.length; i++) {
+                      var output = outputs[i] as HTMLInputElement
+                      output.value = result[i]
+                    }
+                  })
+                  .catch((e: any) => {
+                    self.props.appAction.toast(e.message, 5000)
+                  })
+              } else if (type === 'payable') {
+                self
+                  .sendMethod(d.name, params)
+                  .then((result: any) => {
+                    var outputs = document.querySelectorAll(
+                      '.' + d.name + '-output'
+                    )
+                    for (var i: number = 0; i < outputs.length; i++) {
+                      var output = outputs[i] as HTMLInputElement
+                      output.value = result[i]
+                    }
+                  })
+                  .catch((e: any) => {
+                    self.props.appAction.toast(e.message, 5000)
+                  })
+              }
+            }}
+          >
+            Call
+          </button>
+        </div>
+      </div>
+    )
   }
-  render(){
-    var self = this;
-    var viewAbis = self.props.abi && self.props.abi.filter((d:any)=>{ return d.stateMutability==='view'}) || []
-    var payableAbis = self.props.abi && self.props.abi.filter((d:any)=>{ return d.stateMutability==='nonpayable'}) || []
+  render() {
+    var self = this
+    var viewAbis =
+      (self.props.abi &&
+        self.props.abi.filter((d: any) => {
+          return d.stateMutability === 'view'
+        })) ||
+      []
+    var payableAbis =
+      (self.props.abi &&
+        self.props.abi.filter((d: any) => {
+          return d.stateMutability === 'nonpayable'
+        })) ||
+      []
     console.log(viewAbis)
     return (
-      <div className='container contractTabCall'>
-        {
-          viewAbis.map((d:any)=>this.renderAbi(d,"view"))
-        }
-        {
-          payableAbis.map((d:any)=>this.renderAbi(d,"payable"))
-        }
+      <div className="container contractTabCall">
+        {viewAbis.map((d: any) => this.renderAbi(d, 'view'))}
+        {payableAbis.map((d: any) => this.renderAbi(d, 'payable'))}
       </div>
     )
   }
@@ -210,19 +246,17 @@ class AccountDetail extends React.Component<any, any> {
     self.props.accountAction.getBalance(address)
     self.props.accountAction.getCode(address)
 
-   
     self.props.accountAction.getTransactionListByAccount(
       address,
       pageNum,
       pageSize
     )
-    
+
     self.props.accountAction.getERC20TransactionListByAccount(
       address,
       pageNum,
       pageSize
     )
-   
   }
   componentWillReceiveProps(nextProps: any) {
     var self = this
@@ -275,7 +309,7 @@ class AccountDetail extends React.Component<any, any> {
     var tabIndex = params.tabIndex ? parseInt(params.tabIndex) : 0
     var balance = self.props.account.balance
 
-    var isContract = self.props.account.code && self.props.account.code !=='0x'
+    var isContract = self.props.account.code && self.props.account.code !== '0x'
     return (
       <Layout className="accountDetail" bgColor="#fbfbfb">
         <Header location={self.props.location} app={self.props.app} />
@@ -363,9 +397,12 @@ class AccountDetail extends React.Component<any, any> {
                       }}
                     >
                       #{' '}
-                      {
-                        valueFormat(balance, self.props.network.metaData && self.props.network.metaData.tokenSymbol,self.props.network.quotaPrice)
-                      }
+                      {valueFormat(
+                        balance,
+                        self.props.network.metaData &&
+                          self.props.network.metaData.tokenSymbol,
+                        self.props.network.quotaPrice
+                      )}
                     </div>
                   </div>
                 </div>
@@ -376,16 +413,16 @@ class AccountDetail extends React.Component<any, any> {
               headerWidthUnit="fixed"
               initIndex={tabIndex}
               onTabSwitchCallBack={(index: number) => {
-                  hashHistory.push(
-                    '/account/' +
-                      account +
-                      '?pageNum=' +
-                      1 +
-                      '&pageSize=' +
-                      10 +
-                      '&tabIndex=' +
-                      index
-                  )
+                hashHistory.push(
+                  '/account/' +
+                    account +
+                    '?pageNum=' +
+                    1 +
+                    '&pageSize=' +
+                    10 +
+                    '&tabIndex=' +
+                    index
+                )
               }}
             >
               <Tab title={'普通(' + data.total + ')'}>
@@ -427,13 +464,27 @@ class AccountDetail extends React.Component<any, any> {
                   />
                 </div>
               </Tab>
-              {isContract?<Tab title="合约调用">
-                <TabContractCallContent address={account} code={self.props.account.code} abi={self.props.account.abi} accountAction={self.props.accountAction} appAction={self.props.appAction}/>
-
-              </Tab>:null}
-              {isContract?<Tab title="合约信息">
-                <TabContractInfoContent address={account} code={self.props.account.code} abi={self.props.account.abi} accountAction={self.props.accountAction}/>
-              </Tab>:null}
+              {isContract ? (
+                <Tab title="合约调用">
+                  <TabContractCallContent
+                    address={account}
+                    code={self.props.account.code}
+                    abi={self.props.account.abi}
+                    accountAction={self.props.accountAction}
+                    appAction={self.props.appAction}
+                  />
+                </Tab>
+              ) : null}
+              {isContract ? (
+                <Tab title="合约信息">
+                  <TabContractInfoContent
+                    address={account}
+                    code={self.props.account.code}
+                    abi={self.props.account.abi}
+                    accountAction={self.props.accountAction}
+                  />
+                </Tab>
+              ) : null}
             </Tabs>
           </div>
         </div>

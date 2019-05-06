@@ -60,8 +60,8 @@ class BlockList extends React.Component<any, any> {
     var params = self.props.location.query
     var pageNum = params.pageNum ? parseInt(params.pageNum) : 1
     var pageSize = params.pageSize ? parseInt(params.pageSize) : 10
-    var hasPrev = pageNum > 1;
-    var hasNext = data && data.list && data.list.length == pageSize; 
+    var hasPrev = pageNum > 1
+    var hasNext = data && data.list && data.list.length == pageSize
     return (
       <Layout className="blockList" bgColor="white">
         <Header location={self.props.location} app={self.props.app} />
@@ -187,7 +187,12 @@ class BlockList extends React.Component<any, any> {
                             {d.transactionsCount}
                           </td>
                           <td className="text-center blockQuotaUsedTd">
-                            {valueFormat(d.header.quotaUsed,self.props.network.metaData && self.props.network.metaData.tokenSymbol,self.props.network.quotaPrice)}
+                            {valueFormat(
+                              d.header.quotaUsed,
+                              self.props.network.metaData &&
+                                self.props.network.metaData.tokenSymbol,
+                              self.props.network.quotaPrice
+                            )}
                           </td>
                         </tr>
                       )
@@ -196,14 +201,15 @@ class BlockList extends React.Component<any, any> {
               </table>
               <div style={{ float: 'right' }}>
                 <ul className="rc-pagination ">
-                  {
-                    hasPrev? 
-                      <li title="上一页" className="rc-pagination-disabled rc-pagination-prev" aria-disabled="true"
-                      onClick={()=>{
-
+                  {hasPrev ? (
+                    <li
+                      title="上一页"
+                      className="rc-pagination-disabled rc-pagination-prev"
+                      aria-disabled="true"
+                      onClick={() => {
                         hashHistory.push(
                           '/block/list?pageNum=' +
-                          (pageNum-1) +
+                            (pageNum - 1) +
                             '&pageSize=' +
                             pageSize +
                             '&blockFrom=' +
@@ -217,16 +223,18 @@ class BlockList extends React.Component<any, any> {
                         )
                       }}
                     >
-                      <a className="rc-pagination-item-link"></a>
-                    </li>: null
-                  }
-                  {
-                    hasNext?
-                      <li title="下一页" className=" rc-pagination-next" aria-disabled="false"
-                      onClick={()=>{
+                      <a className="rc-pagination-item-link" />
+                    </li>
+                  ) : null}
+                  {hasNext ? (
+                    <li
+                      title="下一页"
+                      className=" rc-pagination-next"
+                      aria-disabled="false"
+                      onClick={() => {
                         hashHistory.push(
                           '/block/list?pageNum=' +
-                          (pageNum+1) +
+                            (pageNum + 1) +
                             '&pageSize=' +
                             pageSize +
                             '&blockFrom=' +
@@ -240,9 +248,11 @@ class BlockList extends React.Component<any, any> {
                         )
                       }}
                     >
-                      <a className="rc-pagination-item-link"></a>
-                    </li>: false
-                  }
+                      <a className="rc-pagination-item-link" />
+                    </li>
+                  ) : (
+                    false
+                  )}
                 </ul>
               </div>
             </div>
@@ -262,10 +272,10 @@ import { IRootState } from '../../redux/states'
 import { connect } from 'react-redux'
 
 export default connect(
-  (state: IRootState) => ({ 
-    app: state.app, 
+  (state: IRootState) => ({
+    app: state.app,
     network: state.network,
-    block: state.block 
+    block: state.block
   }),
   dispatch => ({
     appAction: bindActionCreators(appAction, dispatch),

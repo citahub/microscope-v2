@@ -130,11 +130,11 @@ import { IRootState } from '../../redux/states'
 import { connect } from 'react-redux'
 
 export default connect(
-  (state: IRootState) => ({ 
-    app: state.app, 
+  (state: IRootState) => ({
+    app: state.app,
     network: state.network,
     transaction: state.transaction
-   }),
+  }),
   dispatch => ({
     appAction: bindActionCreators(appAction, dispatch),
     transactionAction: bindActionCreators(transactionAction, dispatch)

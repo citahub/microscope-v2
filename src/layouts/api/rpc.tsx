@@ -63,7 +63,7 @@ class APIRpc extends React.Component<any, any> {
     var self = this
     var params = self.props.location.query
     var method = params.method || rpcTemplate[0].name
-    
+
     var selectNetwork = getSelectNetwork()
 
     return (

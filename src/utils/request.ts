@@ -78,7 +78,7 @@ export function commonGet(
   if (params) {
     _url += `?${queryString.stringify(params)}`
   }
- 
+
   var result = _fetch(
     fetch(_url, { method: 'GET', headers: headers, credentials: credentials }),
     config.apiTimeout
@@ -114,7 +114,7 @@ export function putAndPost(
       ...headers
     }
   }
- 
+
   return _fetch(
     fetch(apiUrl(url), {
       method: method,

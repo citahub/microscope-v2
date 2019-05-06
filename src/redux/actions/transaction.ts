@@ -8,10 +8,13 @@ import { showLoading, hideLoading } from './appAction'
 
 import * as dataAPI from '../../utils/dataAPI'
 
-
 export type TransactionAction = {
-  type: string,
-  data: TransactionItem | TransactionReceiptItem | TransactionList | Array<TransactionItem>
+  type: string
+  data:
+    | TransactionItem
+    | TransactionReceiptItem
+    | TransactionList
+    | Array<TransactionItem>
 }
 
 export function topTransactions() {

@@ -3,14 +3,14 @@ import * as constants from '../actionTypes'
 import * as dataAPI from '../../utils/dataAPI'
 
 export type StaticsAction = {
-  type: string;
+  type: string
   data: any
 }
- 
-export function staticsProposals(){
+
+export function staticsProposals() {
   return (dispatch: any) => {
     return dataAPI
-      .statics("proposals")
+      .statics('proposals')
       .then((data: any) => {
         dispatch({
           type: constants.GET_STATICS_PROPOSALS,

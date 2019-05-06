@@ -11,7 +11,7 @@ class Loading extends React.Component<Props> {
     return (
       <div className="loading" style={{ pointerEvents: 'none' }}>
         <div
-          className="loading_content vhCenter"
+          className="loadingContent vhCenter"
           style={{
             marginTop: this.props.loading.maskTop || 0,
             backgroundColor: 'transparent',

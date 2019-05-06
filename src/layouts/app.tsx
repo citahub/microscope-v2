@@ -7,13 +7,7 @@ import Modal from '../components/modal'
 
 import { hashHistory } from 'react-router'
 
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
-
-import * as appAction from '../redux/actions/appAction'
-import { IRootState } from '../redux/states'
 import { IntlProvider, addLocaleData } from 'react-intl'
-
 import enLocaleData from 'react-intl/locale-data/en'
 import zhLocaleData from 'react-intl/locale-data/zh'
 
@@ -95,6 +89,11 @@ class App extends React.Component<any, any> {
   }
 }
 
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+
+import * as appAction from '../redux/actions/appAction'
+import { IRootState } from '../redux/states'
 import * as networkAction from '../redux/actions/network'
 
 export default connect(

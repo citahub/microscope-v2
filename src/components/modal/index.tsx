@@ -13,7 +13,7 @@ class Modal extends React.Component<Props> {
       // TODO: simply onClick=this.props.onClose
       <div className="modal" onClick={() => this.props.onClose()}>
         <div
-          className="modal_content vhCenter"
+          className="modalContent vhCenter"
           style={{
             marginTop: 0,
             backgroundColor: 'rgba(0, 0, 0, 0.7)'
@@ -25,7 +25,7 @@ class Modal extends React.Component<Props> {
           >
             {this.props.ui}
             <div
-              className="modal_close"
+              className="modalClose"
               style={{ display: 'block' }}
               onClick={() => {
                 this.props.onClose()

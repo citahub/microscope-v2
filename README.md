@@ -12,13 +12,13 @@ this is repository of microscope v2
 
 ``` shell
 
-    npm i
+    yarn
 
-    npm run start
+    yarn run start
 
-    npm run build
+    yarn run build
 
-    npm run deploy
+    yarn run deploy
 
 ```
 

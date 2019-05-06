@@ -25,19 +25,26 @@ module.exports = {
         use: ['babel-loader']
       },
       {
-        test: /\.(styl|css)$/,
+        test: /\.styl$/,
         use: ExtractTextPlugin.extract({
           use: [
             {
-              loader: 'css-loader',
+              loader: 'css-loader'
+            },
+            {
+              loader: 'stylus-loader',
               options: {
                 minimize: true
               }
-            },
-            {
-              loader: 'stylus-loader'
             }
           ]
+        })
+      },
+      {
+        test: /\.css$/,
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: 'css-loader'
         })
       }
     ]
@@ -47,16 +54,17 @@ module.exports = {
     modules: ['node_modules']
   },
   plugins: [
-    new ExtractTextPlugin({
-      filename: 'bundle.css',
-      allChunks: true
-    }),
     new webpack.LoaderOptionsPlugin({
+      test: /\.styl$/,
       options: {
         stylus: {
           use: [poststylus(['autoprefixer'])]
         }
       }
+    }),
+    new ExtractTextPlugin({
+      filename: 'bundle.css',
+      allChunks: true
     })
   ]
 }

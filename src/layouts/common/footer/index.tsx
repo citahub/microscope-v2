@@ -8,7 +8,8 @@ class Footer extends React.Component<any, any> {
           <div className="row">
             <div className="col-xs-4 col-sm-4 col-md-4 col-12 intro vhCenter">
               <div style={{ padding: '0 50px', lineHeight: 2 }}>
-                Across the Microscope, we can reach any data in CITA
+                Microscope provides an easy-to-use user interface to inspect
+                CITA.
               </div>
             </div>
 

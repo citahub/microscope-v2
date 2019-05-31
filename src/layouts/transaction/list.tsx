@@ -1,8 +1,8 @@
 import React from 'react'
 import './list.styl'
 import Layout from '../../components/layout'
-import Header from '../common/Header'
-import Footer from '../common/Footer'
+import Header from '../common/header'
+import Footer from '../common/footer'
 
 import TransactionTable from '../common/transactionTable'
 import TransactionSearchModal from '../common/transactionSearchModal'

@@ -1,8 +1,8 @@
 import React from 'react'
 import './detail.styl'
 import Layout from '../../components/layout'
-import Header from '../common/Header'
-import Footer from '../common/Footer'
+import Header from '../common/header'
+import Footer from '../common/footer'
 
 import { hashHistory } from 'react-router'
 import Tabs, { Tab } from '../../components/tab'

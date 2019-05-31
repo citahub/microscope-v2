@@ -2,8 +2,8 @@ import React from 'react'
 import './index.styl'
 import Layout from '../../components/layout'
 import { hashHistory } from 'react-router'
-import Header from '../common/Header'
-import Footer from '../common/Footer'
+import Header from '../common/header'
+import Footer from '../common/footer'
 
 class NotFoundPage extends React.Component<any, any> {
   constructor(props: any) {

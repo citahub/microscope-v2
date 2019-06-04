@@ -22,7 +22,6 @@ class NotFoundPage extends React.Component<any, any> {
           <div className="vhCenter" style={{ marginTop: 57 }}>
             <img
               src="images/404.png"
-              srcSet="images/404@2x.png 2x, 404/logo@3x.png 3x"
               style={{ width: '80%', height: 'auto' }}
             />
           </div>
@@ -30,7 +29,7 @@ class NotFoundPage extends React.Component<any, any> {
           <div
             className="goBackButton"
             onClick={() => {
-              hashHistory.goBack()
+              hashHistory.push('/')
             }}
           >
             返回首页

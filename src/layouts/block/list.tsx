@@ -83,15 +83,17 @@ class BlockList extends React.Component<any, any> {
               style={{ minHeight: 36, paddingLeft: 24, paddingRight: 20 }}
             >
               <div
-                className="withRowLeftAuto"
+                className="queryConditoin withRowLeftAuto"
                 style={{ color: '#868b92', fontSize: 14 }}
               >
                 当前搜索参数:
                 <br />
-                blockFrom: {self.props.block.list.blockFrom}
-                blockTo: {self.props.block.list.blockTo}
-                transactionCountMin: {self.props.block.list.transactionCountMin}
-                transactionCountMax: {self.props.block.list.transactionCountMax}
+                blockFrom:<b>{self.props.block.list.blockFrom}</b>
+                blockTo:<b>{self.props.block.list.blockTo}</b>
+                transactionCountMin:
+                <b>{self.props.block.list.transactionCountMin}</b>
+                transactionCountMax:
+                <b>{self.props.block.list.transactionCountMax}</b>
               </div>
               <div
                 className="queryButton operationItem"

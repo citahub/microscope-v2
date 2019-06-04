@@ -29,7 +29,7 @@ class NotFoundPage extends React.Component<any, any> {
           <div
             className="goBackButton"
             onClick={() => {
-              hashHistory.goBack()
+              hashHistory.push('/')
             }}
           >
             返回首页

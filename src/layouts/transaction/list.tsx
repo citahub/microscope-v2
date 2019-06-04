@@ -68,13 +68,13 @@ class TransitionList extends React.Component<any, any> {
               style={{ minHeight: 36, paddingLeft: 24, paddingRight: 20 }}
             >
               <div
-                className="withRowLeftAuto"
+                className="queryCondition withRowLeftAuto"
                 style={{ color: '#868b92', fontSize: 14 }}
               >
                 当前搜索参数:
                 <br />
-                addressFrom: {self.props.transaction.list.addressFrom}
-                addressTo: {self.props.transaction.list.addressTo}
+                addressFrom: <b>{self.props.transaction.list.addressFrom}</b>
+                addressTo: <b>{self.props.transaction.list.addressTo}</b>
               </div>
               <div
                 className="queryButton operationItem"

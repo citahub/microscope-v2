@@ -12,7 +12,16 @@ class BlockDetail extends React.Component<any, any> {
   componentDidMount() {
     var self = this
     var params = self.props.params
-    self.props.blockAction.getBlock(params.hash || params.id)
+    if (params.hash) {
+      self.props.blockAction.getBlock(params.hash)
+    } else {
+      var id = params.id
+      if (!parseInt(id)) {
+        hashHistory.replace('/404')
+        return
+      }
+      self.props.blockAction.getBlock(id)
+    }
   }
   componentWillReceiveProps(nextProps: any) {
     var self = this
@@ -20,8 +29,18 @@ class BlockDetail extends React.Component<any, any> {
       JSON.stringify(nextProps.params) !== JSON.stringify(self.props.params)
     ) {
       self.props.blockAction.getBlock(
-        nextProps.params.hash || nextProps.params.id
+        nextProps.params.hash || parseInt(nextProps.params.id)
       )
+      if (nextProps.params.hash) {
+        self.props.blockAction.getBlock(nextProps.params.hash)
+      } else {
+        var id = nextProps.params.id
+        if (!parseInt(id)) {
+          hashHistory.replace('/404')
+          return
+        }
+        self.props.blockAction.getBlock(id)
+      }
     }
   }
   render() {

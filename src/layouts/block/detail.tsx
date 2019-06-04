@@ -28,9 +28,6 @@ class BlockDetail extends React.Component<any, any> {
     if (
       JSON.stringify(nextProps.params) !== JSON.stringify(self.props.params)
     ) {
-      self.props.blockAction.getBlock(
-        nextProps.params.hash || parseInt(nextProps.params.id)
-      )
       if (nextProps.params.hash) {
         self.props.blockAction.getBlock(nextProps.params.hash)
       } else {

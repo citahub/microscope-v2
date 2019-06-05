@@ -74,7 +74,7 @@ class NetWork extends React.Component<any, any> {
                       if (event.keyCode == 13) {
                         var u = self.refs.search.value
                         if (
-                          !u.startsWith('http://') ||
+                          !u.startsWith('http://') &&
                           !u.startsWith('https://')
                         ) {
                           u = 'http://' + u
@@ -103,7 +103,7 @@ class NetWork extends React.Component<any, any> {
                 className="networkSwitchButton vhCenter operationItem"
                 onClick={() => {
                   var u = self.refs.search.value
-                  if (!u.startsWith('http://') || !u.startsWith('https://')) {
+                  if (!u.startsWith('http://') && !u.startsWith('https://')) {
                     u = 'http://' + u
                   }
                   setSelectNetwork({

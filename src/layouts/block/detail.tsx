@@ -7,6 +7,7 @@ import Footer from '../common/footer'
 import { hashHistory } from 'react-router'
 
 import { format } from '../../utils/time'
+import { valueFormat, toHex, scientificNotationToString } from '../../utils/hex'
 
 class BlockDetail extends React.Component<any, any> {
   componentDidMount() {
@@ -129,19 +130,30 @@ class BlockDetail extends React.Component<any, any> {
               <div className="withRow blockBodyRow">
                 <div className="blockDetailKey">消耗的 Quota:</div>
                 <div className="blockDetailValue withRowLeftAuto">
-                  {data && data.header.quotaUsed}
+                  {data && parseInt(data.header.quotaUsed, 10)}
                 </div>
               </div>
               <div className="withRow blockBodyRow">
                 <div className="blockDetailKey">Quota 价格:</div>
                 <div className="blockDetailValue withRowLeftAuto">
-                  {data && data.header.quotaUsed}
+                  1{' '}
+                  {self.props.network.metaData &&
+                    self.props.network.metaData.tokenSymbol}{' '}
+                  = {self.props.network.quotaPrice} Quota
                 </div>
               </div>
               <div className="withRow blockBodyRow">
                 <div className="blockDetailKey">Total handling fee:</div>
                 <div className="blockDetailValue withRowLeftAuto">
-                  {data && data.header.quotaUsed}
+                  {data &&
+                    data.header.quotaUsed &&
+                    self.props.network.quotaPrice &&
+                    valueFormat(
+                      toHex(scientificNotationToString(data.header.quotaUsed)),
+                      self.props.network.metaData &&
+                        self.props.network.metaData.tokenSymbol,
+                      self.props.network.quotaPrice
+                    )}
                 </div>
               </div>
               <div className="withRow blockBodyRow">
@@ -244,7 +256,11 @@ import { IRootState } from '../../redux/states'
 import { connect } from 'react-redux'
 
 export default connect(
-  (state: IRootState) => ({ app: state.app, block: state.block }),
+  (state: IRootState) => ({
+    app: state.app,
+    block: state.block,
+    network: state.network
+  }),
   dispatch => ({
     appAction: bindActionCreators(appAction, dispatch),
     blockAction: bindActionCreators(blockAction, dispatch)

@@ -97,18 +97,18 @@
     lodash "^4.17.11"
     to-fast-properties "^2.0.0"
 
-"@cryptape/cita-sdk@^0.23.0":
-  version "0.23.0"
-  resolved "https://registry.yarnpkg.com/@cryptape/cita-sdk/-/cita-sdk-0.23.0.tgz#dc9309117b301c936cbefbf7f8e60ee68ca0b1e9"
-  integrity sha512-Kz3y8uBBjn5/gM0hKAlewR7GgRVKn3kocji+vjiQOzp2LSDCVyLQ1APgi1KfclbUsBj494Q5ln/RxMyhbiKGSA==
+"@cryptape/cita-sdk@^0.24.0":
+  version "0.24.0"
+  resolved "https://registry.yarnpkg.com/@cryptape/cita-sdk/-/cita-sdk-0.24.0.tgz#0f4b1cb49a8e50b8e96b9de29c5013678d839df1"
+  integrity sha512-30hUqJ652PM51SvTsh7f5yjn0/OGPkC7Sjp8vNGeXUyxREv1ujUYfttOV1GKDcyZuUGTh1dfv1NlkktyhT+0ww==
   dependencies:
-    "@cryptape/cita-signer" "^2.2.4"
+    "@cryptape/cita-signer" "^2.4.0"
     web3 "1.0.0-beta.37"
 
-"@cryptape/cita-signer@^2.2.4":
-  version "2.2.4"
-  resolved "https://registry.yarnpkg.com/@cryptape/cita-signer/-/cita-signer-2.2.4.tgz#c58e6a4525341b2644220c84faa05a79a287bebc"
-  integrity sha512-K/kkNa0x3qDzzBXVe6oufJasumc0m9D6bYmJIcCdK9EOfH1NtsIKv9ldO6G2GpEsdRMWei1xZZHUkfd4n3OK0g==
+"@cryptape/cita-signer@^2.4.0":
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/@cryptape/cita-signer/-/cita-signer-2.4.0.tgz#3de2f2911d072d0803f807c6348e954871f2dc3b"
+  integrity sha512-/GT35hxfNa7kuKESE13IhxRJUqsv9S+mgncwWNB8Cq4ZdYz5gw4IPZGMZeX1wRsN6WWge/ryoXhuuSencfCKMw==
   dependencies:
     ec "^0.0.1"
     elliptic "^6.4.0"

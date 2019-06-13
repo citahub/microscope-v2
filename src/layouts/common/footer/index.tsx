@@ -19,24 +19,13 @@ class Footer extends React.Component<any, any> {
             >
               <div className="footTitle">技术</div>
               <div className="row" style={{ marginTop: 32 }}>
-                <div className="col-6">
-                  <a
-                    href="https://nervos.org"
-                    rel="noreferrer noopener"
-                    target="_blank"
-                  >
-                    <img src="images/footer_nervos.png" />
-                  </a>
-                </div>
-                <div className="col-6">
-                  <a
-                    href="https://github.com/cryptape/cita"
-                    rel="noreferrer noopener"
-                    target="_blank"
-                  >
-                    <img src="images/footer_cita.png" />
-                  </a>
-                </div>
+                <a
+                  href="https://github.com/cryptape/cita"
+                  rel="noreferrer noopener"
+                  target="_blank"
+                >
+                  <img src="images/footer_cita.png" />
+                </a>
               </div>
             </div>
 

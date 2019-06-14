@@ -3,9 +3,73 @@ import './index.styl'
 
 import { hashHistory } from 'react-router'
 import { api } from '../../../utils/config'
-import { getSelectNetwork, setSelectNetwork } from '../../../utils/storage'
+import {
+  defaultNetwork,
+  getSelectNetwork,
+  setSelectNetwork,
+  getNetworks,
+  addNetwork,
+  removeNetwork
+} from '../../../utils/storage'
 
 import { isAddress, isBlockHeight, isHash, format0x } from '../../../utils/hex'
+
+class NodeItem extends React.Component<any, any> {
+  render() {
+    var item = this.props.data
+    var selected = this.props.selected
+    var removable = this.props.removable
+    return (
+      <div className="withRow operationItem" style={{ marginTop: 18 }}>
+        <div style={{ width: 20 }}>
+          <div
+            style={{
+              marginTop: 6,
+              width: 8,
+              height: 8,
+              backgroundColor: selected ? '#5b8ee6' : 'grey',
+              WebkitBorderRadius: '50% 50%'
+            }}
+          />
+        </div>
+        <div
+          className="withRowLeftAuto"
+          onClick={() => {
+            setSelectNetwork(item)
+            window.location.reload()
+          }}
+        >
+          <div style={{ color: '#6e737c', fontSize: 14, height: 20 }}>
+            {item.name}
+          </div>
+          <div
+            style={{
+              marginTop: 6,
+              color: '#979a9e',
+              fontSize: 12,
+              height: 17
+            }}
+          >
+            {item.url}
+          </div>
+        </div>
+        {removable ? (
+          <div
+            onClick={() => {
+              removeNetwork(item)
+              if (selected) {
+                setSelectNetwork(defaultNetwork)
+                //window.location.reload();
+              }
+            }}
+          >
+            X
+          </div>
+        ) : null}
+      </div>
+    )
+  }
+}
 
 class NetWork extends React.Component<any, any> {
   refs: {
@@ -79,10 +143,12 @@ class NetWork extends React.Component<any, any> {
                         ) {
                           u = 'http://' + u
                         }
-                        setSelectNetwork({
+                        var newNetwork = {
                           name: 'customer',
                           url: u
-                        })
+                        }
+                        addNetwork(newNetwork)
+                        setSelectNetwork(newNetwork)
                         window.location.reload()
                       }
                     }
@@ -106,10 +172,12 @@ class NetWork extends React.Component<any, any> {
                   if (!u.startsWith('http://') && !u.startsWith('https://')) {
                     u = 'http://' + u
                   }
-                  setSelectNetwork({
+                  var newNetwork = {
                     name: 'customer',
                     url: u
-                  })
+                  }
+                  addNetwork(newNetwork)
+                  setSelectNetwork(newNetwork)
                   window.location.reload()
                 }}
               >
@@ -117,46 +185,23 @@ class NetWork extends React.Component<any, any> {
               </div>
             </div>
             <div style={{ marginTop: 9 }}>
+              {api.serverList.map(function(item: any) {
+                return (
+                  <NodeItem
+                    key={`server-${item.url}`}
+                    selected={item.url == selectNetwork.url}
+                    data={item}
+                  />
+                )
+              })}
               {networks.map(function(item: any) {
                 return (
-                  <div
-                    className="withRow operationItem"
-                    style={{ marginTop: 18 }}
-                    onClick={() => {
-                      setSelectNetwork(item)
-                      window.location.reload()
-                    }}
-                  >
-                    <div style={{ width: 20 }}>
-                      <div
-                        style={{
-                          marginTop: 6,
-                          width: 8,
-                          height: 8,
-                          backgroundColor:
-                            item.url == selectNetwork.url ? '#5b8ee6' : 'grey',
-                          WebkitBorderRadius: '50% 50%'
-                        }}
-                      />
-                    </div>
-                    <div className="withRowLeftAuto">
-                      <div
-                        style={{ color: '#6e737c', fontSize: 14, height: 20 }}
-                      >
-                        {item.name}
-                      </div>
-                      <div
-                        style={{
-                          marginTop: 6,
-                          color: '#979a9e',
-                          fontSize: 12,
-                          height: 17
-                        }}
-                      >
-                        {item.url}
-                      </div>
-                    </div>
-                  </div>
+                  <NodeItem
+                    key={`network-${item.url}`}
+                    selected={item.url == selectNetwork.url}
+                    data={item}
+                    removable={true}
+                  />
                 )
               })}
             </div>
@@ -367,7 +412,7 @@ class Header extends React.Component<any, any> {
   }
   render() {
     var self = this
-    var networks = api.serverList
+    var networks = getNetworks()
     // var languages = ["Chinese","English"];
     var selectNetwork = getSelectNetwork()
     var width = self.props.app.appWidth

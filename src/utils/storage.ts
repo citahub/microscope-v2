@@ -39,6 +39,7 @@ export function getNetworks(): Array<ServerNode> {
 }
 
 export function addNetwork(network: ServerNode) {
+  removeNetwork(network)
   var result = []
   var networks = window.localStorage.getItem('networks')
   if (networks) {
@@ -66,12 +67,12 @@ export function removeNetwork(network: ServerNode) {
       console.error(e)
       window.localStorage.removeItem('networks')
     } finally {
-      result.push(network)
+      result = result.filter((node: any) => {
+        return JSON.stringify(node) !== JSON.stringify(network)
+      })
+      window.localStorage.setItem('networks', JSON.stringify(result))
     }
-  } else {
-    result.push(network)
   }
-  window.localStorage.setItem('networks', JSON.stringify(result))
 }
 
 export function setSelectNetwork(network: ServerNode) {

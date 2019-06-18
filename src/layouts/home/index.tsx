@@ -417,14 +417,16 @@ class Home extends React.Component<any, any> {
                                 <div className="transactionItemToLabel">
                                   To：
                                 </div>
-                                <div
-                                  className="transactionItemTo operationItem"
-                                  onClick={() => {
-                                    hashHistory.push('/account/' + d.to)
-                                  }}
-                                >
-                                  {to}
-                                </div>
+                                {to ? (
+                                  <div
+                                    className="transactionItemTo operationItem"
+                                    onClick={() => {
+                                      hashHistory.push('/account/' + d.to)
+                                    }}
+                                  >
+                                    {to}
+                                  </div>
+                                ) : null}
                               </div>
                             </div>
                             <div

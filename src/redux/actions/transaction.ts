@@ -47,6 +47,7 @@ export function getTransaction(key: string) {
           type: constants.GET_TRANSACTION_ITEM,
           data: data
         })
+        return data
       })
       .catch((error: any) => {
         dispatch(hideLoading())
@@ -54,6 +55,7 @@ export function getTransaction(key: string) {
           type: constants.OPERATION_FAIL,
           error: error
         })
+        return null
       })
   }
 }

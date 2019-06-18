@@ -14,14 +14,22 @@ class BlockDetail extends React.Component<any, any> {
     var self = this
     var params = self.props.params
     if (params.hash) {
-      self.props.blockAction.getBlock(params.hash)
+      self.props.blockAction.getBlock(params.hash).then((block: any) => {
+        if (!block) {
+          hashHistory.replace('/search?q=' + params.hash)
+        }
+      })
     } else {
       var id = params.id
       if (!parseInt(id)) {
-        hashHistory.replace('/404')
+        hashHistory.replace('/search?q=' + id)
         return
       }
-      self.props.blockAction.getBlock(id)
+      self.props.blockAction.getBlock(id).then((block: any) => {
+        if (!block) {
+          hashHistory.replace('/search?q=' + id)
+        }
+      })
     }
   }
   componentWillReceiveProps(nextProps: any) {
@@ -30,14 +38,24 @@ class BlockDetail extends React.Component<any, any> {
       JSON.stringify(nextProps.params) !== JSON.stringify(self.props.params)
     ) {
       if (nextProps.params.hash) {
-        self.props.blockAction.getBlock(nextProps.params.hash)
+        self.props.blockAction
+          .getBlock(nextProps.params.hash)
+          .then((block: any) => {
+            if (!block) {
+              hashHistory.replace('/search?q=' + nextProps.params.hash)
+            }
+          })
       } else {
         var id = nextProps.params.id
         if (!parseInt(id)) {
-          hashHistory.replace('/404')
+          hashHistory.replace('/search?q=' + id)
           return
         }
-        self.props.blockAction.getBlock(id)
+        self.props.blockAction.getBlock(id).then((block: any) => {
+          if (!block) {
+            hashHistory.replace('/search?q=' + id)
+          }
+        })
       }
     }
   }

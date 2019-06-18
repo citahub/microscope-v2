@@ -18,7 +18,13 @@ class TransactionDetail extends React.Component<any, any> {
   componentDidMount() {
     var self = this
     var params = self.props.params
-    self.props.transactionAction.getTransaction(params.hash)
+    self.props.transactionAction
+      .getTransaction(params.hash)
+      .then((transaction: any) => {
+        if (!transaction) {
+          hashHistory.replace('/search?q=' + params.hash)
+        }
+      })
     self.props.transactionAction.getTransactionReceipt(params.hash)
   }
   componentWillReceiveProps(nextProps: any) {
@@ -26,7 +32,13 @@ class TransactionDetail extends React.Component<any, any> {
     if (
       JSON.stringify(nextProps.params) !== JSON.stringify(self.props.params)
     ) {
-      self.props.transactionAction.getTransaction(nextProps.params.hash)
+      self.props.transactionAction
+        .getTransaction(nextProps.params.hash)
+        .then((transaction: any) => {
+          if (!transaction) {
+            hashHistory.replace('/search?q=' + nextProps.params.hash)
+          }
+        })
       self.props.transactionAction.getTransactionReceipt(nextProps.params.hash)
     }
   }

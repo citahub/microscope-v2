@@ -13,7 +13,8 @@ import APIRpc from '../layouts/api/rpc'
 import APIRebirth from '../layouts/api/rebirth'
 
 import Statics from '../layouts/statics'
-import NotFoundPage from '../layouts/error/index'
+import SearchPage from '../layouts/search'
+import NotFoundPage from '../layouts/error'
 export default function() {
   return (
     <Router history={hashHistory}>
@@ -28,6 +29,7 @@ export default function() {
         <Route path="/api/rpc" component={APIRpc} />
         <Route path="/api/rebirth" component={APIRebirth} />
         <Route path="/statics" component={Statics} />
+        <Route path="/search" component={SearchPage} />
         <Route path="/404" component={NotFoundPage} />
         <Redirect from="/transaction/:hash" to="/transaction/hash/:hash" /> //
         for faucet

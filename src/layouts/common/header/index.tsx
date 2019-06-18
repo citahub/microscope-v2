@@ -11,7 +11,7 @@ import {
   addNetwork,
   removeNetwork
 } from '../../../utils/storage'
-
+import * as dataAPI from '../../../utils/dataAPI'
 import { isAddress, isBlockHeight, isHash, format0x } from '../../../utils/hex'
 
 class NodeItem extends React.Component<any, any> {
@@ -403,11 +403,29 @@ class Header extends React.Component<any, any> {
     if (isAddress(inputValue)) {
       hashHistory.push('/account/' + format0x(inputValue))
     } else if (isBlockHeight(inputValue)) {
-      hashHistory.push('/block/id/' + Number(inputValue))
+      dataAPI.getBlock(inputValue).then((block: any) => {
+        if (block) {
+          hashHistory.push('/block/id/' + Number(inputValue))
+        } else {
+          hashHistory.push('/search?q=' + inputValue)
+        }
+      })
     } else if (isHash(inputValue)) {
-      hashHistory.push('/transaction/hash/' + format0x(inputValue))
+      dataAPI.getTransaction(inputValue).then((transaction: any) => {
+        if (transaction) {
+          hashHistory.push('/transaction/hash/' + format0x(inputValue))
+        } else {
+          dataAPI.getBlock(inputValue).then((block: any) => {
+            if (block) {
+              hashHistory.push('/block/hash/' + format0x(inputValue))
+            } else {
+              hashHistory.push('/search?q=' + inputValue)
+            }
+          })
+        }
+      })
     } else {
-      hashHistory.push('/404')
+      hashHistory.push('/search?q=' + inputValue)
     }
   }
   render() {
@@ -468,7 +486,7 @@ class Header extends React.Component<any, any> {
     var searchUI = (
       <div className="input-group">
         <input
-          placeholder="Search by Address / Txhash / Block height"
+          placeholder="Search by Block / Transaction / Address"
           type="text"
           ref="search"
           className="form-control"

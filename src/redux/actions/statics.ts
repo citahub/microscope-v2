@@ -16,12 +16,14 @@ export function staticsProposals() {
           type: constants.GET_STATICS_PROPOSALS,
           data: data
         })
+        return true
       })
       .catch((error: any) => {
         dispatch({
           type: constants.OPERATION_FAIL,
           error: error
         })
+        return false
       })
   }
 }

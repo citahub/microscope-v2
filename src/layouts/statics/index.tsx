@@ -7,11 +7,23 @@ import ReactEcharts from 'echarts-for-react'
 
 class Statics extends React.Component<any, any> {
   timer: any
+  constructor(props: any) {
+    super(props)
+    this.state = {
+      showProposals: false
+    }
+  }
   componentWillMount() {
     var self = this
     self.props.blockAction.topBlocks()
     self.props.transactionAction.topTransactions()
-    self.props.staticsAction.staticsProposals()
+    self.props.staticsAction.staticsProposals().then((result: boolean) => {
+      if (result) {
+        self.setState({
+          showProposals: true
+        })
+      }
+    })
   }
   componentDidMount() {
     var self = this
@@ -51,13 +63,14 @@ class Statics extends React.Component<any, any> {
       )
     })
     var blockQuotoUsedArray = blocks.map((block: any) => {
+      console.log(block.header)
       return block.header.quotaUsed || 0
     })
     var transactionHashArray = transactions.map((transaction: any) => {
       return transaction.hash
     })
     var transactionQuotoUsedArray = transactions.map((transaction: any) => {
-      return parseInt(transaction.gasUsed, 16) || 0
+      return parseInt(transaction.gasUsed) || 0
     })
 
     var blockDurationArray = []
@@ -201,54 +214,55 @@ class Statics extends React.Component<any, any> {
                   className="react_for_echarts"
                 />
               </div>
-
-              <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                <ReactEcharts
-                  option={{
-                    title: {
-                      text: 'Proposal Distribution'
-                    },
-                    tooltip: {
-                      trigger: 'item',
-                      formatter:
-                        "{a}<br/><div style='max-width: 100px;overflow: hidden;text-overflow:ellipsis;white-space:nowrap;'>{b}:</div> {c} ({d}%)"
-                    },
-                    calculable: true,
-                    series: [
-                      {
-                        name: 'Proposal',
-                        type: 'pie',
-                        color: ['#415dfc', '#ab62f1', '#fca441', '#4db7f8'],
-                        radius: ['50%', '70%'],
-                        itemStyle: {
-                          normal: {
-                            label: {
-                              show: false
+              {self.state.showProposals ? (
+                <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                  <ReactEcharts
+                    option={{
+                      title: {
+                        text: 'Proposal Distribution'
+                      },
+                      tooltip: {
+                        trigger: 'item',
+                        formatter:
+                          "{a}<br/><div style='max-width: 100px;overflow: hidden;text-overflow:ellipsis;white-space:nowrap;'>{b}:</div> {c} ({d}%)"
+                      },
+                      calculable: true,
+                      series: [
+                        {
+                          name: 'Proposal',
+                          type: 'pie',
+                          color: ['#415dfc', '#ab62f1', '#fca441', '#4db7f8'],
+                          radius: ['50%', '70%'],
+                          itemStyle: {
+                            normal: {
+                              label: {
+                                show: false
+                              },
+                              labelLine: {
+                                show: false
+                              }
                             },
-                            labelLine: {
-                              show: false
-                            }
-                          },
-                          emphasis: {
-                            label: {
-                              show: true,
-                              position: 'center',
-                              textStyle: {
-                                fontSize: '10',
-                                fontWeight: 'bold'
+                            emphasis: {
+                              label: {
+                                show: true,
+                                position: 'center',
+                                textStyle: {
+                                  fontSize: '10',
+                                  fontWeight: 'bold'
+                                }
                               }
                             }
-                          }
-                        },
-                        data: proposalsArray
-                      }
-                    ]
-                  }}
-                  style={{ height: '400px', width: '100%' }}
-                  opts={{ renderer: 'svg' }}
-                  className="react_for_echarts"
-                />
-              </div>
+                          },
+                          data: proposalsArray
+                        }
+                      ]
+                    }}
+                    style={{ height: '400px', width: '100%' }}
+                    opts={{ renderer: 'svg' }}
+                    className="react_for_echarts"
+                  />
+                </div>
+              ) : null}
             </div>
           </div>
         </div>

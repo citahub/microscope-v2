@@ -131,13 +131,13 @@ class BlockDetail extends React.Component<any, any> {
                 </div>
               </div>
               <div className="withRow blockBodyRow">
-                <div className="blockDetailKey">交易:</div>
+                <div className="blockDetailKey">交易数:</div>
                 <div className="blockDetailValue withRowLeftAuto">
                   {data && data.body.transactions.length}
                 </div>
               </div>
               <div className="withRow blockBodyRow">
-                <div className="blockDetailKey">节点:</div>
+                <div className="blockDetailKey">Proposer:</div>
                 <div
                   className="blockDetailValue withRowLeftAuto"
                   style={{ fontSize: 16 }}
@@ -148,7 +148,7 @@ class BlockDetail extends React.Component<any, any> {
               <div className="withRow blockBodyRow">
                 <div className="blockDetailKey">消耗的 Quota:</div>
                 <div className="blockDetailValue withRowLeftAuto">
-                  {data && parseInt(data.header.quotaUsed, 10)}
+                  {data && parseInt(data.header.quotaUsed)}
                 </div>
               </div>
               <div className="withRow blockBodyRow">

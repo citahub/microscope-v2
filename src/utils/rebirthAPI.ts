@@ -125,8 +125,8 @@ export function blockListV2(
   transactionCountMax: string
 ): any {
   var params = {
-    block_from: blockFrom, //"10" or "0xa", #  integer or string of hex number
-    block_to: blockTo, //"20" or "0xa", # integer or string of hex number
+    block_number_from: blockFrom, //"10" or "0xa", #  integer or string of hex number
+    block_number_to: blockTo, //"20" or "0xa", # integer or string of hex number
     min_transaction_count: transactionCountMin, // "min transaction count", # integer or string of hex number
     max_transaction_count: transactionCountMax, // "max transaction count", # integer or string of hex number
     page: pageNum, //# integer, default 1

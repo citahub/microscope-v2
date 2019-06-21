@@ -5,9 +5,13 @@
   background #FFFFFF
   box-shadow 0 5px 4px 0 rgba(170,170,170,0.07)
   position sticky
+  position -webkit-sticky
   top 0
   z-index 888
-
+  .headerLogo
+    img
+      width 165px
+      height 41px
 
   .topArrow,.bottomArrow
     width 0px
@@ -92,7 +96,7 @@
   .menu.active
     color #2647fd
   
-@media (max-width: 1200px)
+@media (max-width: 750px)
   .header
     overflow hidden
     .drawer
@@ -106,6 +110,9 @@
     .drawerMask
       width 100vw
       height 100vh
+      position fixed
+      top 0
+      z-index 99
       background-color rgba(0,0,0,0.7)
 
     .drawerContent

@@ -59,3 +59,13 @@ export function tickTime() {
     data: new Date().getTime()
   }
 }
+
+export function resize(appWidth: any, appHeight: any) {
+  return {
+    type: constants.RESIZE_APP,
+    data: {
+      appWidth,
+      appHeight
+    }
+  }
+}

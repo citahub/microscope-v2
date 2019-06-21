@@ -18,7 +18,7 @@ class Footer extends React.Component<any, any> {
               style={{ margin: '0 auto', paddingTop: 34, paddingBottom: 34 }}
             >
               <div className="footTitle">技术</div>
-              <div className="row" style={{ marginTop: 32 }}>
+              <div className="row" style={{ margin: 0, marginTop: 32 }}>
                 <a
                   href="https://github.com/cryptape/cita"
                   rel="noreferrer noopener"

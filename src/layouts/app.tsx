@@ -30,6 +30,7 @@ function chooseLocale(language: string) {
 class App extends React.Component<any, any> {
   unlisten: any = null
   tick: any
+  resizeListener: any = null
   componentDidMount() {
     var self = this
     self.props.networkAction.getMetaData()
@@ -42,6 +43,10 @@ class App extends React.Component<any, any> {
     this.tick = setInterval(function() {
       self.props.appAction.tickTime()
     }, 3000)
+    this.resizeListener = () => {
+      self.props.appAction.resize(window.innerWidth, window.innerHeight)
+    }
+    window.addEventListener('resize', this.resizeListener)
   }
   componentDidCatch(error: any, info: any) {
     console.error(error, 'componentDidCatch')
@@ -50,6 +55,8 @@ class App extends React.Component<any, any> {
   componentWillUnmount() {
     if (this.tick) window.clearInterval(this.tick)
     if (this.unlisten) this.unlisten()
+    if (this.resizeListener)
+      window.removeEventListener('resize', this.resizeListener)
   }
   render() {
     var language = this.props.app.appLanguage

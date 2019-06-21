@@ -6,7 +6,8 @@ const initialState: AppState = {
   toast: null,
   loading: null,
   modal: null,
-
+  appWidth: '100vw',
+  appHeight: '100vh',
   drawerOpen: false,
   appLanguage: navigator.language || 'en',
   globalTickTime: new Date().getTime()
@@ -52,6 +53,12 @@ export default function(state: AppState = initialState, action: AppAction) {
       return {
         ...state,
         globalTickTime: action.data
+      }
+    case constants.RESIZE_APP:
+      return {
+        ...state,
+        appWidth: action.data.appWidth,
+        appHeight: action.data.appHeight
       }
     default:
       return state

@@ -15,7 +15,8 @@ export interface AppState {
   toast: ToastMessage | null
   loading: Loading | null
   modal: Modal | null
-
+  appWidth: number | string
+  appHeight: number | string
   drawerOpen: boolean
   appLanguage: string
 

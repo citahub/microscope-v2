@@ -5,7 +5,7 @@ import Loading from '../components/loading'
 import Toast from '../components/toast'
 import Modal from '../components/modal'
 
-import { hashHistory } from 'react-router'
+import hashHistory from '../routes/history'
 
 import { IntlProvider, addLocaleData } from 'react-intl'
 import enLocaleData from 'react-intl/locale-data/en'
@@ -35,11 +35,8 @@ class App extends React.Component<any, any> {
     self.props.networkAction.getMetaData()
     self.props.networkAction.getQuotaPrice()
 
-    let lastLocation = '' // hack hash history twice render bug on react-router 3.0
-    this.unlisten = hashHistory.listen(location => {
-      if (lastLocation !== location.pathname) {
-        lastLocation = location.pathname
-      }
+    this.unlisten = hashHistory.listen(() => {
+      window.scroll(0, 0)
     })
 
     this.tick = setInterval(function() {
@@ -52,6 +49,7 @@ class App extends React.Component<any, any> {
   }
   componentWillUnmount() {
     if (this.tick) window.clearInterval(this.tick)
+    if (this.unlisten) this.unlisten()
   }
   render() {
     var language = this.props.app.appLanguage

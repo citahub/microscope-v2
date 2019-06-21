@@ -1,6 +1,6 @@
 import React from 'react'
 import './index.styl'
-import { hashHistory } from 'react-router'
+import hashHistory from '../../../routes/history'
 
 class TransactionSearchModal extends React.Component<any, any> {
   componentDidMount() {

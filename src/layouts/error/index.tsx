@@ -1,9 +1,7 @@
 import React from 'react'
 import './index.styl'
-import Layout from '../../components/layout'
-import { hashHistory } from 'react-router'
-import Header from '../common/header'
-import Footer from '../common/footer'
+import Content from '../../components/content'
+import hashHistory from '../../routes/history'
 
 class NotFoundPage extends React.Component<any, any> {
   constructor(props: any) {
@@ -13,8 +11,7 @@ class NotFoundPage extends React.Component<any, any> {
   render() {
     var self = this
     return (
-      <Layout className="error" bgColor="white">
-        <Header location={self.props.location} app={self.props.app} />
+      <Content className="error" bgColor="white">
         <div
           className="container"
           style={{ minHeight: self.props.app.appHeight - 338 }}
@@ -35,8 +32,7 @@ class NotFoundPage extends React.Component<any, any> {
             返回首页
           </div>
         </div>
-        <Footer />
-      </Layout>
+      </Content>
     )
   }
 }

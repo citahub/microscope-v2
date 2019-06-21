@@ -1,8 +1,8 @@
 import React from 'react'
 import './index.styl'
 
-import { hashHistory } from 'react-router'
-import { api } from '../../../utils/config'
+import hashHistory from '../../routes/history'
+import { api } from '../../utils/config'
 import {
   defaultNetwork,
   getSelectNetwork,
@@ -10,9 +10,9 @@ import {
   getNetworks,
   addNetwork,
   removeNetwork
-} from '../../../utils/storage'
-import * as dataAPI from '../../../utils/dataAPI'
-import { isAddress, isBlockHeight, isHash, format0x } from '../../../utils/hex'
+} from '../../utils/storage'
+import * as dataAPI from '../../utils/dataAPI'
+import { isAddress, isBlockHeight, isHash, format0x } from '../../utils/hex'
 
 class NodeItem extends React.Component<any, any> {
   render() {

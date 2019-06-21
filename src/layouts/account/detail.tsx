@@ -1,13 +1,11 @@
 import React from 'react'
 import './detail.styl'
-import Layout from '../../components/layout'
+import Content from '../../components/content'
 import Tabs, { Tab } from '../../components/tab'
-import Header from '../common/header'
-import Footer from '../common/footer'
 import TransactionTable from '../common/transactionTable'
 
-import { hashHistory } from 'react-router'
-
+import hashHistory from '../../routes/history'
+import queryString from 'query-string'
 import { valueFormat } from '../../utils/hex'
 import citaSDK from '../../utils/sdk'
 
@@ -238,8 +236,8 @@ class TabContractCallContent extends React.Component<any, any> {
 class AccountDetail extends React.Component<any, any> {
   componentDidMount() {
     var self = this
-    var address = self.props.params.address
-    var params = self.props.location.query
+    var address = self.props.match.params.address
+    var params: any = queryString.parse(self.props.location.search)
     var pageNum = params.pageNum ? parseInt(params.pageNum) : 1
     var pageSize = params.pageSize ? parseInt(params.pageSize) : 10
 
@@ -260,24 +258,22 @@ class AccountDetail extends React.Component<any, any> {
   }
   componentWillReceiveProps(nextProps: any) {
     var self = this
-    var address = self.props.params.address
-    var pageNum = parseInt(self.props.location.query.pageNum) || 1
-    var pageSize = parseInt(self.props.location.query.pageSize) || 10
-    var tabIndex = parseInt(self.props.location.query.tabIndex) || 0
+    var address = self.props.match.params.address
+    var params: any = queryString.parse(self.props.location.search)
+    var pageNum = parseInt(params.pageNum) || 1
+    var pageSize = parseInt(params.pageSize) || 10
+    var tabIndex = parseInt(params.tabIndex) || 0
 
     var fetchData = false
-    if (nextProps.params.address !== self.props.params.address) {
-      address = nextProps.params.address
+    if (nextProps.match.params.address !== self.props.match.params.address) {
+      address = nextProps.match.params.address
       self.props.accountAction.getBalance(address)
       self.props.accountAction.getCode(address)
 
       fetchData = true
     }
-    if (
-      JSON.stringify(nextProps.location.query) !==
-      JSON.stringify(this.props.location.query)
-    ) {
-      var params = nextProps.location.query
+    if (nextProps.location.search !== this.props.location.search) {
+      params = queryString.parse(nextProps.location.search)
       pageNum = params.pageNum ? parseInt(params.pageNum) : 1
       pageSize = params.pageSize ? parseInt(params.pageSize) : 10
       tabIndex = params.tabIndex ? parseInt(params.tabIndex) : 0
@@ -301,18 +297,17 @@ class AccountDetail extends React.Component<any, any> {
   }
   render() {
     var self = this
-    var account = self.props.params.address
+    var account = self.props.match.params.address
     var data = self.props.account.trList
     var globalTickTime = self.props.app.globalTickTime
     var erc20Data = self.props.account.erc20List
-    var params = self.props.location.query
+    var params: any = queryString.parse(self.props.location.search)
     var tabIndex = params.tabIndex ? parseInt(params.tabIndex) : 0
     var balance = self.props.account.balance
 
     var isContract = self.props.account.code && self.props.account.code !== '0x'
     return (
-      <Layout className="accountDetail" bgColor="#fbfbfb">
-        <Header location={self.props.location} app={self.props.app} />
+      <Content className="accountDetail" bgColor="#fbfbfb">
         <div
           style={{
             width: '100%',
@@ -488,8 +483,7 @@ class AccountDetail extends React.Component<any, any> {
             </Tabs>
           </div>
         </div>
-        <Footer />
-      </Layout>
+      </Content>
     )
   }
 }

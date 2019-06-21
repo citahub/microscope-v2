@@ -1,19 +1,18 @@
 import React from 'react'
 import './list.styl'
-import Layout from '../../components/layout'
-import Header from '../common/header'
-import Footer from '../common/footer'
+import Content from '../../components/content'
 
 import BlockSearchModal from '../common/blockSearchModal'
 
-import { hashHistory } from 'react-router'
+import hashHistory from '../../routes/history'
 import { timePassed } from '../../utils/time'
 import { valueFormat } from '../../utils/hex'
+import queryString from 'query-string'
 
 class BlockList extends React.Component<any, any> {
   componentDidMount() {
     var self = this
-    var params = self.props.location.query
+    var params: any = queryString.parse(self.props.location.search)
     var pageNum = params.pageNum ? parseInt(params.pageNum) : 1
     var pageSize = params.pageSize ? parseInt(params.pageSize) : 10
     var blockFrom = params.blockFrom || ''
@@ -32,11 +31,8 @@ class BlockList extends React.Component<any, any> {
   }
   componentWillReceiveProps(nextProps: any) {
     var self = this
-    if (
-      JSON.stringify(nextProps.location.query) !==
-      JSON.stringify(this.props.location.query)
-    ) {
-      var params = nextProps.location.query
+    if (nextProps.location.search !== this.props.location.search) {
+      var params: any = queryString.parse(nextProps.location.search)
       var pageNum = params.pageNum ? parseInt(params.pageNum) : 1
       var pageSize = params.pageSize ? parseInt(params.pageSize) : 10
       var blockFrom = params.blockFrom || ''
@@ -57,14 +53,13 @@ class BlockList extends React.Component<any, any> {
     var self = this
     var data = self.props.block.list
     var globalTickTime = self.props.app.globalTickTime
-    var params = self.props.location.query
+    var params: any = queryString.parse(self.props.location.search)
     var pageNum = params.pageNum ? parseInt(params.pageNum) : 1
     var pageSize = params.pageSize ? parseInt(params.pageSize) : 10
     var hasPrev = pageNum > 1
     var hasNext = data && data.list && data.list.length == pageSize
     return (
-      <Layout className="blockList" bgColor="white">
-        <Header location={self.props.location} app={self.props.app} />
+      <Content className="blockList" bgColor="white">
         <div
           style={{
             width: '100%',
@@ -260,9 +255,7 @@ class BlockList extends React.Component<any, any> {
             </div>
           </div>
         </div>
-
-        <Footer />
-      </Layout>
+      </Content>
     )
   }
 }

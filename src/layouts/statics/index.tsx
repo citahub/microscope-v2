@@ -1,8 +1,6 @@
 import React from 'react'
 import './index.styl'
-import Layout from '../../components/layout'
-import Header from '../common/header'
-import Footer from '../common/footer'
+import Content from '../../components/content'
 import ReactEcharts from 'echarts-for-react'
 
 class Statics extends React.Component<any, any> {
@@ -95,8 +93,7 @@ class Statics extends React.Component<any, any> {
     })
 
     return (
-      <Layout className="statics" bgColor="white">
-        <Header location={self.props.location} app={self.props.app} />
+      <Content className="statics" bgColor="white">
         <div
           style={{
             width: '100%',
@@ -266,8 +263,7 @@ class Statics extends React.Component<any, any> {
             </div>
           </div>
         </div>
-        <Footer />
-      </Layout>
+      </Content>
     )
   }
 }

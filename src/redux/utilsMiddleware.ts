@@ -1,5 +1,4 @@
 import { toast } from '../redux/actions/appAction'
-// import { hashHistory } from 'react-router';
 // import { apiUnAuthMsg } from '../utils/config';
 
 export default function utilsMiddleware({ dispatch }: any) {

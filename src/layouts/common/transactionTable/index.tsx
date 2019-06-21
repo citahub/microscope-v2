@@ -7,7 +7,7 @@ import 'rc-select/assets/index.css'
 
 import { timePassed } from '../../../utils/time'
 import { valueFormat } from '../../../utils/hex'
-import { hashHistory } from 'react-router'
+import hashHistory from '../../../routes/history'
 
 class TransactionTable extends React.Component<any, any> {
   componentDidMount() {}

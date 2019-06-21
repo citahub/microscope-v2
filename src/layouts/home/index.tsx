@@ -1,10 +1,8 @@
 import React from 'react'
 import './index.styl'
-import Layout from '../../components/layout'
-import Header from '../common/header'
-import Footer from '../common/footer'
+import Content from '../../components/content'
 
-import { hashHistory } from 'react-router'
+import hashHistory from '../../routes/history'
 
 import { timePassed } from '../../utils/time'
 
@@ -45,8 +43,7 @@ class Home extends React.Component<any, any> {
     var topTransactions = self.props.transaction.topList
     var globalTickTime = self.props.app.globalTickTime
     return (
-      <Layout className="home" bgColor="rgba(249, 249, 249, 0.56)">
-        <Header location={self.props.location} app={self.props.app} />
+      <Content className="home" bgColor="rgba(249, 249, 249, 0.56)">
         <div className="container">
           <div style={{ marginTop: 20 }}>
             <div className="row" style={{ marginLeft: -15, marginRight: -15 }}>
@@ -456,8 +453,7 @@ class Home extends React.Component<any, any> {
             </div>
           </div>
         </div>
-        <Footer />
-      </Layout>
+      </Content>
     )
   }
 }

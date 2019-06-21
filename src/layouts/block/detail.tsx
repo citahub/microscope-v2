@@ -1,10 +1,7 @@
 import React from 'react'
 import './detail.styl'
-import Layout from '../../components/layout'
-import Header from '../common/header'
-import Footer from '../common/footer'
-
-import { hashHistory } from 'react-router'
+import Content from '../../components/content'
+import hashHistory from '../../routes/history'
 
 import { format } from '../../utils/time'
 import { valueFormat, toHex, scientificNotationToString } from '../../utils/hex'
@@ -12,7 +9,7 @@ import { valueFormat, toHex, scientificNotationToString } from '../../utils/hex'
 class BlockDetail extends React.Component<any, any> {
   componentDidMount() {
     var self = this
-    var params = self.props.params
+    var params = self.props.match.params
     if (params.hash) {
       self.props.blockAction.getBlock(params.hash).then((block: any) => {
         if (!block) {
@@ -35,18 +32,19 @@ class BlockDetail extends React.Component<any, any> {
   componentWillReceiveProps(nextProps: any) {
     var self = this
     if (
-      JSON.stringify(nextProps.params) !== JSON.stringify(self.props.params)
+      JSON.stringify(nextProps.match.params) !==
+      JSON.stringify(self.props.match.params)
     ) {
-      if (nextProps.params.hash) {
+      if (nextProps.match.params.hash) {
         self.props.blockAction
-          .getBlock(nextProps.params.hash)
+          .getBlock(nextProps.match.params.hash)
           .then((block: any) => {
             if (!block) {
-              hashHistory.replace('/search?q=' + nextProps.params.hash)
+              hashHistory.replace('/search?q=' + nextProps.match.params.hash)
             }
           })
       } else {
-        var id = nextProps.params.id
+        var id = nextProps.match.params.id
         if (!parseInt(id)) {
           hashHistory.replace('/search?q=' + id)
           return
@@ -63,8 +61,7 @@ class BlockDetail extends React.Component<any, any> {
     var self = this
     var data = self.props.block.item
     return (
-      <Layout className="blockDetail" bgColor="#fbfbfb">
-        <Header location={self.props.location} app={self.props.app} />
+      <Content className="blockDetail" bgColor="#fbfbfb">
         <div
           style={{
             width: '100%',
@@ -88,7 +85,8 @@ class BlockDetail extends React.Component<any, any> {
                     className="preButton vhCenter operationItem"
                     onClick={() => {
                       var id =
-                        self.props.params.id || (data && data.header.number)
+                        self.props.match.params.id ||
+                        (data && data.header.number)
                       if (id && parseInt(id) - 1 >= 0)
                         hashHistory.push('/block/id/' + (parseInt(id) - 1))
                     }}
@@ -99,7 +97,8 @@ class BlockDetail extends React.Component<any, any> {
                     className="nextButton vhCenter operationItem"
                     onClick={() => {
                       var id =
-                        self.props.params.id || (data && data.header.number)
+                        self.props.match.params.id ||
+                        (data && data.header.number)
                       if (id && parseInt(id) + 1 >= 0)
                         hashHistory.push('/block/id/' + (parseInt(id) + 1))
                     }}
@@ -260,8 +259,7 @@ class BlockDetail extends React.Component<any, any> {
             </div>
           </div>
         </div>
-        <Footer />
-      </Layout>
+      </Content>
     )
   }
 }

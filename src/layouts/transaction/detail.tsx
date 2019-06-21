@@ -1,10 +1,7 @@
 import React from 'react'
 import './detail.styl'
-import Layout from '../../components/layout'
-import Header from '../common/header'
-import Footer from '../common/footer'
-
-import { hashHistory } from 'react-router'
+import Content from '../../components/content'
+import hashHistory from '../../routes/history'
 import Tabs, { Tab } from '../../components/tab'
 
 import {
@@ -17,7 +14,7 @@ import {
 class TransactionDetail extends React.Component<any, any> {
   componentDidMount() {
     var self = this
-    var params = self.props.params
+    var params = self.props.match.params
     self.props.transactionAction
       .getTransaction(params.hash)
       .then((transaction: any) => {
@@ -30,16 +27,19 @@ class TransactionDetail extends React.Component<any, any> {
   componentWillReceiveProps(nextProps: any) {
     var self = this
     if (
-      JSON.stringify(nextProps.params) !== JSON.stringify(self.props.params)
+      JSON.stringify(nextProps.match.params) !==
+      JSON.stringify(self.props.match.params)
     ) {
       self.props.transactionAction
-        .getTransaction(nextProps.params.hash)
+        .getTransaction(nextProps.match.params.hash)
         .then((transaction: any) => {
           if (!transaction) {
-            hashHistory.replace('/search?q=' + nextProps.params.hash)
+            hashHistory.replace('/search?q=' + nextProps.match.params.hash)
           }
         })
-      self.props.transactionAction.getTransactionReceipt(nextProps.params.hash)
+      self.props.transactionAction.getTransactionReceipt(
+        nextProps.match.params.hash
+      )
     }
   }
   render() {
@@ -67,8 +67,7 @@ class TransactionDetail extends React.Component<any, any> {
     var errorMessage = dataReceipt && dataReceipt.errorMessage
 
     return (
-      <Layout className="transactionDetail" bgColor="#fbfbfb">
-        <Header location={self.props.location} app={self.props.app} />
+      <Content className="transactionDetail" bgColor="#fbfbfb">
         <div
           style={{
             width: '100%',
@@ -291,8 +290,7 @@ class TransactionDetail extends React.Component<any, any> {
             </div>
           </div>
         </div>
-        <Footer />
-      </Layout>
+      </Content>
     )
   }
 }

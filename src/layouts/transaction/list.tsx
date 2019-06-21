@@ -1,18 +1,17 @@
 import React from 'react'
 import './list.styl'
-import Layout from '../../components/layout'
-import Header from '../common/header'
-import Footer from '../common/footer'
+import Content from '../../components/content'
 
 import TransactionTable from '../common/transactionTable'
 import TransactionSearchModal from '../common/transactionSearchModal'
 
-import { hashHistory } from 'react-router'
+import hashHistory from '../../routes/history'
+import queryString from 'query-string'
 
 class TransitionList extends React.Component<any, any> {
   componentDidMount() {
     var self = this
-    var params = self.props.location.query
+    var params: any = queryString.parse(self.props.location.search)
     var pageNum = params.pageNum ? parseInt(params.pageNum) : 1
     var pageSize = params.pageSize ? parseInt(params.pageSize) : 10
     var addressFrom = params.addressFrom || ''
@@ -26,11 +25,8 @@ class TransitionList extends React.Component<any, any> {
   }
   componentWillReceiveProps(nextProps: any) {
     var self = this
-    if (
-      JSON.stringify(nextProps.location.query) !==
-      JSON.stringify(this.props.location.query)
-    ) {
-      var params = nextProps.location.query
+    if (nextProps.location.search !== this.props.location.search) {
+      var params: any = queryString.parse(nextProps.location.search)
       var pageNum = params.pageNum ? parseInt(params.pageNum) : 1
       var pageSize = params.pageSize ? parseInt(params.pageSize) : 10
       var addressFrom = params.addressFrom || ''
@@ -48,8 +44,7 @@ class TransitionList extends React.Component<any, any> {
     var data = self.props.transaction.list
     var globalTickTime = self.props.app.globalTickTime
     return (
-      <Layout className="transactionList" bgColor="white">
-        <Header location={self.props.location} app={self.props.app} />
+      <Content className="transactionList" bgColor="white">
         <div
           style={{
             width: '100%',
@@ -116,8 +111,7 @@ class TransitionList extends React.Component<any, any> {
             </div>
           </div>
         </div>
-        <Footer />
-      </Layout>
+      </Content>
     )
   }
 }

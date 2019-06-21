@@ -1,13 +1,12 @@
 import React from 'react'
 import './rpc.styl'
-import Layout from '../../components/layout'
-import { hashHistory } from 'react-router'
-import Header from '../common/header'
-import Footer from '../common/footer'
+import Content from '../../components/content'
+import hashHistory from '../../routes/history'
 import ReactJson from 'react-json-view'
 import rpcTemplate from './rpc-template'
 
 import { getSelectNetwork } from '../../utils/storage'
+import queryString from 'query-string'
 
 class APIRpc extends React.Component<any, any> {
   input: string = ''
@@ -17,7 +16,7 @@ class APIRpc extends React.Component<any, any> {
   }
   componentDidMount() {
     var self = this
-    var params = self.props.location.query
+    var params = queryString.parse(self.props.location.search)
     var method = params.method
     if (!method) {
       method = rpcTemplate[0].name
@@ -34,11 +33,9 @@ class APIRpc extends React.Component<any, any> {
   }
   componentWillReceiveProps(nextProps: any) {
     var self = this
-    if (
-      JSON.stringify(nextProps.location.query) !==
-      JSON.stringify(self.props.location.query)
-    ) {
-      var method = nextProps.location.query.method
+    if (nextProps.location.search !== self.props.location.search) {
+      var params = queryString.parse(self.props.location.search)
+      var method = params.method
       if (!method) {
         method = rpcTemplate[0].name
         hashHistory.replace('/api/rpc?method=' + rpcTemplate[0].name)
@@ -61,14 +58,13 @@ class APIRpc extends React.Component<any, any> {
   }
   render() {
     var self = this
-    var params = self.props.location.query
+    var params = queryString.parse(self.props.location.search)
     var method = params.method || rpcTemplate[0].name
 
     var selectNetwork = getSelectNetwork()
 
     return (
-      <Layout className="apiRpc" bgColor="white">
-        <Header location={self.props.location} app={self.props.app} />
+      <Content className="apiRpc" bgColor="white">
         <div
           className="container"
           style={{
@@ -165,8 +161,7 @@ class APIRpc extends React.Component<any, any> {
             </div>
           </div>
         </div>
-        <Footer />
-      </Layout>
+      </Content>
     )
   }
 }

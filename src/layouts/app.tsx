@@ -32,16 +32,8 @@ class App extends React.Component<any, any> {
   tick: any
   componentDidMount() {
     var self = this
-    self.props.appAction.resize(window.innerWidth, window.innerHeight)
     self.props.networkAction.getMetaData()
     self.props.networkAction.getQuotaPrice()
-    window.addEventListener(
-      'resize',
-      function() {
-        self.props.appAction.resize(window.innerWidth, window.innerHeight)
-      },
-      false
-    )
 
     let lastLocation = '' // hack hash history twice render bug on react-router 3.0
     this.unlisten = hashHistory.listen(location => {

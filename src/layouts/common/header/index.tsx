@@ -433,7 +433,6 @@ class Header extends React.Component<any, any> {
     var networks = getNetworks()
     // var languages = ["Chinese","English"];
     var selectNetwork = getSelectNetwork()
-    var width = self.props.app.appWidth
     var logoUI = (
       <div
         className="operationItem"
@@ -549,7 +548,7 @@ class Header extends React.Component<any, any> {
       </div>
     )
 
-    if (width < 1200) {
+    if (window.innerWidth < 1200) {
       var drawerUI = (
         <div>
           <div style={{ marginTop: 50 }}>

@@ -15,7 +15,9 @@ import APIRebirth from '../layouts/api/rebirth'
 import Statics from '../layouts/statics'
 import SearchPage from '../layouts/search'
 import NotFoundPage from '../layouts/error'
+
 export default function() {
+  // need consider for faucet website redirection
   return (
     <Router history={hashHistory}>
       <Route path="/" component={App}>
@@ -31,8 +33,7 @@ export default function() {
         <Route path="/statics" component={Statics} />
         <Route path="/search" component={SearchPage} />
         <Route path="/404" component={NotFoundPage} />
-        <Redirect from="/transaction/:hash" to="/transaction/hash/:hash" /> //
-        for faucet
+        <Redirect from="/transaction/:hash" to="/transaction/hash/:hash" />
         <Redirect from="*" to="/404" />
       </Route>
     </Router>

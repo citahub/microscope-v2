@@ -17,8 +17,6 @@ export interface AppState {
   modal: Modal | null
 
   drawerOpen: boolean
-  appWidth: number
-  appHeight: number
   appLanguage: string
 
   // global

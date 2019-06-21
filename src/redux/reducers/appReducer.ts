@@ -8,10 +8,7 @@ const initialState: AppState = {
   modal: null,
 
   drawerOpen: false,
-  appWidth: 1024,
-  appHeight: 800,
   appLanguage: navigator.language || 'en',
-
   globalTickTime: new Date().getTime()
 }
 
@@ -45,12 +42,6 @@ export default function(state: AppState = initialState, action: AppAction) {
         modal: null
       }
 
-    case constants.RESIZE_APP:
-      return {
-        ...state,
-        appWidth: action.data.appWidth,
-        appHeight: action.data.appHeight
-      }
     case constants.SWITCH_LANGUAGE:
       return {
         ...state,

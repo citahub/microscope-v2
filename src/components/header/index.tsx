@@ -246,56 +246,66 @@ class MoreMenu extends React.Component<any, any> {
     return (
       <div
         className="operationItem"
-        style={{ position: 'relative', display: 'inline-block' }}
+        style={{
+          width: 35,
+          height: 20,
+          marginLeft: 40,
+          position: 'relative',
+          display: 'inline-block'
+        }}
       >
-        <div
-          className="withRow"
-          onMouseOver={() => {
-            self.setState({ open: true })
-          }}
-        >
-          <div className={className}>{data.name}</div>
+        <div style={{ position: 'fixed', width: 35 }}>
           <div
-            className="operationItem vhCenter"
-            style={{
-              width: 16,
-              height: 20,
-              paddingLeft: 5,
-              position: 'relative'
+            className="withRow"
+            onMouseOver={() => {
+              self.setState({ open: true })
             }}
           >
+            <div className={className} style={{ marginLeft: 0 }}>
+              {data.name}
+            </div>
             <div
-              className={self.state.open ? 'topArrow' : 'bottomArrow'}
-              style={{ borderWidth: 3 }}
-            />
+              className="operationItem vhCenter"
+              style={{
+                width: 16,
+                height: 20,
+                paddingLeft: 5,
+                position: 'relative'
+              }}
+            >
+              <div
+                className={self.state.open ? 'topArrow' : 'bottomArrow'}
+                style={{ borderWidth: 3 }}
+              />
+            </div>
           </div>
+          {self.state.open ? (
+            <div
+              ref="parentMenu"
+              className="menuOpen"
+              onMouseLeave={() => {
+                self.setState({ open: false })
+              }}
+            >
+              {data.subMenus.map(function(item: any) {
+                var subClassName = 'subMenuItem'
+                if (self.props.location.pathname == item.path) {
+                  subClassName += ' active'
+                }
+                return (
+                  <div
+                    className={subClassName}
+                    onClick={() => {
+                      hashHistory.push(item.path)
+                    }}
+                  >
+                    {item.name}
+                  </div>
+                )
+              })}
+            </div>
+          ) : null}
         </div>
-        {self.state.open ? (
-          <div
-            ref="parentMenu"
-            className="menuOpen"
-            onMouseLeave={() => {
-              self.setState({ open: false })
-            }}
-          >
-            {data.subMenus.map(function(item: any) {
-              var subClassName = 'subMenuItem'
-              if (self.props.location.pathname == item.path) {
-                subClassName += ' active'
-              }
-              return (
-                <div
-                  className={subClassName}
-                  onClick={() => {
-                    hashHistory.push(item.path)
-                  }}
-                >
-                  {item.name}
-                </div>
-              )
-            })}
-          </div>
-        ) : null}
       </div>
     )
   }

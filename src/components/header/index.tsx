@@ -254,7 +254,7 @@ class MoreMenu extends React.Component<any, any> {
           display: 'inline-block'
         }}
       >
-        <div style={{ position: 'fixed', width: 35 }}>
+        <div style={{ position: 'fixed', width: 35, top: 30 }}>
           <div
             className="withRow"
             onMouseOver={() => {
@@ -310,62 +310,6 @@ class MoreMenu extends React.Component<any, any> {
     )
   }
 }
-
-// class Drawer extends React.Component<any, any> {
-//   constructor(props: any) {
-//     super(props)
-//     this.state = {
-//       open: false
-//     }
-//   }
-//   render() {
-//     return (
-//       <>
-//         <div
-//           className="drawer"
-//           onClick={() => {
-//             this.setState({ open: !this.state.open })
-//           }}
-//         >
-//           <svg
-//             xmlns="https://www.w3.org/2000/svg"
-//             viewBox="0 0 30 30"
-//             width="30"
-//             height="30"
-//             focusable="false"
-//           >
-//             <title>Menu</title>
-//             <path
-//               stroke="currentColor"
-//               strokeWidth="2"
-//               strokeLinecap="round"
-//               strokeMiterlimit="10"
-//               d="M4 7h22M4 15h22M4 23h22"
-//             />
-//           </svg>
-//         </div>
-//         {this.state.open ? (
-//           <div
-//             className="drawerMask"
-//             onClick={() => {
-//               this.setState({ open: false })
-//             }}
-//           >
-//             <div
-//               className="drawerContent"
-//               onClick={e => {
-//                 e.stopPropagation()
-//               }}
-//             >
-//               {this.props.ui}
-//             </div>
-//           </div>
-//         ) : null}
-//       </>
-//     )
-//   }
-// }
-
 const menus = [
   {
     name: '区块',

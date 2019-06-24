@@ -64,7 +64,6 @@ class ToastItem extends React.Component<ToastItemProps, ToastItemState> {
     var item = this.props.data
     return (
       <div
-        className="toast_item_container"
         key={'toast_' + item.id}
         style={{ ...this.props.style, opacity: this.state.opacity }}
       >
@@ -125,7 +124,7 @@ class Toast extends React.Component<ToastProps, ToastState> {
     data = data.reverse()
     var self = this
     return (
-      <div className="toast">
+      <div className="appToast">
         {data.map(item => {
           return (
             <ToastItem

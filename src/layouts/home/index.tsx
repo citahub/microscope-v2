@@ -286,19 +286,19 @@ class Home extends React.Component<any, any> {
                               {block.hash}
                             </div>
                             <div className="blockItemTranscation">
-                              包含{' '}
+                              包含&nbsp;
                               {block.transactionsCount ||
                                 (block.body &&
                                   block.body.transactions &&
                                   block.body.transactions.length) ||
-                                0}{' '}
-                              笔交易
+                                0}
+                              &nbsp;笔交易
                             </div>
                             <div className="blockItemFrom">
                               Proposed By {block.header.proposer}
                             </div>
                             <div className="blockItemReward">
-                              quotaUsed:{' '}
+                              Quota Used:&nbsp;
                               {valueFormat(
                                 block.header.quotaUsed,
                                 self.props.network.metaData &&
@@ -378,7 +378,7 @@ class Home extends React.Component<any, any> {
                             className="withRowLeftAuto"
                             style={{ overflow: 'hidden' }}
                           >
-                            <div className="transactionItemTxLabel">TX#：</div>
+                            <div className="transactionItemTxLabel">TX：</div>
                             <div
                               className="transactionItemTxHash operationItem"
                               onClick={() => {
@@ -430,7 +430,7 @@ class Home extends React.Component<any, any> {
                               className="transactionItemValue"
                               style={{ marginTop: 4 }}
                             >
-                              value:{' '}
+                              value:&nbsp;
                               {valueFormat(
                                 value,
                                 self.props.network.metaData &&

@@ -216,17 +216,17 @@ class TransactionDetail extends React.Component<any, any> {
                   {data &&
                     data.unsignedTransaction &&
                     data.unsignedTransaction.transaction &&
-                    data.unsignedTransaction.transaction.quota}{' '}
-                  Quota
+                    data.unsignedTransaction.transaction.quota}
+                  &nbsp; Quota
                 </div>
               </div>
               <div className="withRow transactionBodyRow">
                 <div className="transactionDetailKey">Quota Price:</div>
                 <div className="transactionDetailValue withRowLeftAuto">
-                  1{' '}
+                  1&nbsp;
                   {self.props.network.metaData &&
-                    self.props.network.metaData.tokenSymbol}{' '}
-                  = {self.props.network.quotaPrice} Quota
+                    self.props.network.metaData.tokenSymbol}
+                  &nbsp; = {self.props.network.quotaPrice} Quota
                 </div>
               </div>
               <div

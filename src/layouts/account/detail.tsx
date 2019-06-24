@@ -352,8 +352,7 @@ class AccountDetail extends React.Component<any, any> {
                         whiteSpace: 'nowrap'
                       }}
                     >
-                      {' '}
-                      # {account}
+                      {account}
                     </div>
                   </div>
                 </div>
@@ -377,8 +376,7 @@ class AccountDetail extends React.Component<any, any> {
                         color: '#47484a'
                       }}
                     >
-                      {' '}
-                      Balance:{' '}
+                      Balance:
                     </div>
                     <div
                       className="withRowLeftAuto"
@@ -391,7 +389,6 @@ class AccountDetail extends React.Component<any, any> {
                         whiteSpace: 'nowrap'
                       }}
                     >
-                      #{' '}
                       {valueFormat(
                         balance,
                         self.props.network.metaData &&

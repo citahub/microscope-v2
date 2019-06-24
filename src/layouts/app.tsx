@@ -1,6 +1,9 @@
 import React from 'react'
 import 'bootstrap/dist/css/bootstrap.css'
 import './app.styl'
+import Layout from '../components/layout'
+import Header from '../components/header'
+import Footer from '../components/footer'
 import Loading from '../components/loading'
 import Toast from '../components/toast'
 import Modal from '../components/modal'
@@ -63,7 +66,14 @@ class App extends React.Component<any, any> {
     return (
       <IntlProvider locale={language} messages={chooseLocale(language)}>
         <div className="root">
-          {this.props.children}
+          <Layout>
+            <Header
+              location={window.location}
+              appAction={this.props.appAction}
+            />
+            {this.props.children}
+            <Footer />
+          </Layout>
           <Modal
             onClose={() => this.props.appAction.hideModal()}
             ui={

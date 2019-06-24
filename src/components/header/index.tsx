@@ -59,7 +59,7 @@ class NodeItem extends React.Component<any, any> {
               removeNetwork(item)
               if (selected) {
                 setSelectNetwork(defaultNetwork)
-                //window.location.reload();
+                window.location.reload()
               }
             }}
           >
@@ -137,6 +137,12 @@ class NetWork extends React.Component<any, any> {
                     self.keyDownListener = (event: any) => {
                       if (event.keyCode == 13) {
                         var u = self.refs.search.value
+                        if (!u) {
+                          self.props.appAction.toast(
+                            'Please input rebirth-service/node address'
+                          )
+                          return
+                        }
                         if (
                           !u.startsWith('http://') &&
                           !u.startsWith('https://')
@@ -169,6 +175,13 @@ class NetWork extends React.Component<any, any> {
                 className="networkSwitchButton vhCenter operationItem"
                 onClick={() => {
                   var u = self.refs.search.value
+                  if (!u) {
+                    self.props.appAction.toast(
+                      'Please input rebirth-service/node address',
+                      3000
+                    )
+                    return
+                  }
                   if (!u.startsWith('http://') && !u.startsWith('https://')) {
                     u = 'http://' + u
                   }
@@ -562,7 +575,11 @@ class MobileHeader extends React.Component<any, any> {
             <SearchBar />
           </div>
           <div>
-            <NetWork networks={networks} selectNetwork={selectNetwork} />
+            <NetWork
+              networks={networks}
+              selectNetwork={selectNetwork}
+              appAction={self.props.appAction}
+            />
           </div>
         </div>
       </div>
@@ -577,7 +594,13 @@ class Header extends React.Component<any, any> {
     var selectNetwork = getSelectNetwork()
 
     if (window.innerWidth < 750) {
-      return <MobileHeader location={self.props.location} key="mobile_header" />
+      return (
+        <MobileHeader
+          location={self.props.location}
+          key="mobile_header"
+          appAction={self.props.appAction}
+        />
+      )
     } else {
       return (
         <div className="header">
@@ -633,7 +656,11 @@ class Header extends React.Component<any, any> {
               <SearchBar />
             </div>
             <div style={{ width: 100 }}>
-              <NetWork networks={networks} selectNetwork={selectNetwork} />
+              <NetWork
+                networks={networks}
+                selectNetwork={selectNetwork}
+                appAction={self.props.appAction}
+              />
             </div>
           </div>
         </div>

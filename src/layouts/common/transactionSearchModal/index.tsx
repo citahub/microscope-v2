@@ -22,7 +22,7 @@ class TransactionSearchModal extends React.Component<any, any> {
               <input
                 type="text"
                 ref="from"
-                className="form-control"
+                className="form-control hash"
                 placeholder="Address From"
                 maxLength={66}
               />
@@ -34,7 +34,7 @@ class TransactionSearchModal extends React.Component<any, any> {
               <input
                 type="text"
                 ref="to"
-                className="form-control"
+                className="form-control hash"
                 placeholder="Address To"
                 maxLength={66}
               />

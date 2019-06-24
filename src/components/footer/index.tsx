@@ -40,7 +40,7 @@ class Footer extends React.Component<any, any> {
                     src="images/footer_git.png"
                     style={{ marginRight: 15, width: 16, height: 16 }}
                   />
-                  Github
+                  GitHub
                 </a>
               </div>
               <div style={{ marginTop: 13 }}>

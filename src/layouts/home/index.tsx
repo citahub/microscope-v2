@@ -283,7 +283,7 @@ class Home extends React.Component<any, any> {
                                 hashHistory.push('/block/hash/' + block.hash)
                               }}
                             >
-                              {block.hash}
+                              <span className="hash">{block.hash}</span>
                             </div>
                             <div className="blockItemTranscation">
                               包含&nbsp;
@@ -295,7 +295,10 @@ class Home extends React.Component<any, any> {
                               &nbsp;笔交易
                             </div>
                             <div className="blockItemFrom">
-                              Proposed By {block.header.proposer}
+                              Proposed By{' '}
+                              <span className="hash">
+                                {block.header.proposer}
+                              </span>
                             </div>
                             <div className="blockItemReward">
                               Quota Used:&nbsp;
@@ -385,7 +388,7 @@ class Home extends React.Component<any, any> {
                                 hashHistory.push('/transaction/hash/' + d.hash)
                               }}
                             >
-                              {d.hash}
+                              <span className="hash">{d.hash}</span>
                             </div>
                             <div
                               className="row"
@@ -404,7 +407,7 @@ class Home extends React.Component<any, any> {
                                     hashHistory.push('/account/' + d.from)
                                   }}
                                 >
-                                  {from}
+                                  <span className="hash">{from}</span>
                                 </div>
                               </div>
                               <div
@@ -421,7 +424,7 @@ class Home extends React.Component<any, any> {
                                       hashHistory.push('/account/' + d.to)
                                     }}
                                   >
-                                    {to}
+                                    <span className="hash">{to}</span>
                                   </div>
                                 ) : null}
                               </div>

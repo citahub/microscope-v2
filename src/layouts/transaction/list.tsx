@@ -71,8 +71,8 @@ class TransitionList extends React.Component<any, any> {
               >
                 当前搜索参数:
                 <br />
-                addressFrom: <b>{addressFrom}</b>
-                addressTo: <b>{addressTo}</b>
+                addressFrom: <b className="hash">{addressFrom}</b>
+                addressTo: <b className="hash">{addressTo}</b>
               </div>
               <div
                 className="queryButton operationItem"

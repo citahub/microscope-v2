@@ -115,7 +115,7 @@ class BlockDetail extends React.Component<any, any> {
                   className="blockDetailValue withRowLeftAuto"
                   style={{ fontSize: 16 }}
                 >
-                  {data && data.hash}
+                  <span className="hash">{data && data.hash}</span>
                 </div>
               </div>
               <div className="withRow blockBodyRow">
@@ -141,7 +141,7 @@ class BlockDetail extends React.Component<any, any> {
                   className="blockDetailValue withRowLeftAuto"
                   style={{ fontSize: 16 }}
                 >
-                  {data && data.header.proposer}
+                  <span className="hash">{data && data.header.proposer}</span>
                 </div>
               </div>
               <div className="withRow blockBodyRow">
@@ -183,7 +183,7 @@ class BlockDetail extends React.Component<any, any> {
                       hashHistory.push('/block/hash/' + data.header.prevHash)
                   }}
                 >
-                  {data && data.header.prevHash}
+                  <span className="hash">{data && data.header.prevHash}</span>
                 </div>
               </div>
               <div className="withRow blockBodyRow">
@@ -192,7 +192,9 @@ class BlockDetail extends React.Component<any, any> {
                   className="blockDetailValue withRowLeftAuto"
                   style={{ fontSize: 16 }}
                 >
-                  {data && data.header.receiptsRoot}
+                  <span className="hash">
+                    {data && data.header.receiptsRoot}
+                  </span>
                 </div>
               </div>
               <div className="withRow blockBodyRow">
@@ -201,7 +203,7 @@ class BlockDetail extends React.Component<any, any> {
                   className="blockDetailValue withRowLeftAuto"
                   style={{ fontSize: 16 }}
                 >
-                  {data && data.header.stateRoot}
+                  <span className="hash">{data && data.header.stateRoot}</span>
                 </div>
               </div>
               <div className="withRow blockBodyRow">
@@ -210,7 +212,9 @@ class BlockDetail extends React.Component<any, any> {
                   className="blockDetailValue withRowLeftAuto"
                   style={{ fontSize: 16 }}
                 >
-                  {data && data.header.transactionsRoot}
+                  <span className="hash">
+                    {data && data.header.transactionsRoot}
+                  </span>
                 </div>
               </div>
               {data &&
@@ -249,7 +253,7 @@ class BlockDetail extends React.Component<any, any> {
                           >
                             [{i + 1}]
                           </span>
-                          {hash}
+                          <span className="hash">{hash}</span>
                         </div>
                       )
                     })}

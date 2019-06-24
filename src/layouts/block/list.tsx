@@ -179,7 +179,7 @@ class BlockList extends React.Component<any, any> {
                                 hashHistory.push('/block/hash/' + d.hash)
                               }}
                             >
-                              {d.hash}
+                              <span className="hash">{d.hash}</span>
                             </div>
                           </td>
                           <td className="text-center blockTimestampTd">

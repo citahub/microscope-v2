@@ -102,7 +102,7 @@ class TransactionTable extends React.Component<any, any> {
                           hashHistory.push('/transaction/hash/' + d.hash)
                         }}
                       >
-                        {d.hash}
+                        <span className="hash">{d.hash}</span>
                       </div>
                     </td>
                     <td>
@@ -112,7 +112,7 @@ class TransactionTable extends React.Component<any, any> {
                           hashHistory.push('/account/' + d.from)
                         }}
                       >
-                        {d.from}
+                        <span className="hash">{d.from}</span>
                       </div>
                     </td>
                     <td>
@@ -122,7 +122,7 @@ class TransactionTable extends React.Component<any, any> {
                           hashHistory.push('/account/' + d.to)
                         }}
                       >
-                        {d.to}
+                        <span className="hash">{d.to}</span>
                       </div>
                     </td>
                     <td className="text-center transactionValueTd">

@@ -352,7 +352,7 @@ class AccountDetail extends React.Component<any, any> {
                         whiteSpace: 'nowrap'
                       }}
                     >
-                      {account}
+                      <span className="hash">{account}</span>
                     </div>
                   </div>
                 </div>

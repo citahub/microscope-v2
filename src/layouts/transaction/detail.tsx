@@ -87,7 +87,7 @@ class TransactionDetail extends React.Component<any, any> {
                   marginRight: 17
                 }}
               />
-              Transaction: {data && data.hash}
+              Transaction: <span className="hash">{data && data.hash}</span>
             </div>
             <div className="transactionBody">
               <div className="withRow transactionBodyRow">
@@ -127,7 +127,7 @@ class TransactionDetail extends React.Component<any, any> {
                     if (from) hashHistory.push('/account/' + from)
                   }}
                 >
-                  {from}
+                  <span className="hash">{from}</span>
                 </div>
               </div>
               <div className="withRow transactionBodyRow">
@@ -141,7 +141,9 @@ class TransactionDetail extends React.Component<any, any> {
                     if (account) hashHistory.push('/account/' + account)
                   }}
                 >
-                  {to || (dataReceipt && dataReceipt.contractAddress)}
+                  <span className="hash">
+                    {to || (dataReceipt && dataReceipt.contractAddress)}
+                  </span>
                 </div>
               </div>
               <div className="withRow transactionBodyRow">

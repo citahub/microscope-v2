@@ -29,7 +29,8 @@ const style = {
         lineHeight: '44px',
         color: '#999',
         width: 100,
-        borderBottom: '1px solid transparent'
+        borderBottom: '1px solid transparent',
+        cursor: 'pointer'
       },
       selected: {
         color: '#434343',

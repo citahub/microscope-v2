@@ -178,7 +178,7 @@ class TransactionDetail extends React.Component<any, any> {
                 </div>
               </div>
               <div className="withRow transactionBodyRow">
-                <div className="transactionDetailKey">ValidUnitBlock:</div>
+                <div className="transactionDetailKey">Valid Until Block:</div>
                 <div className="transactionDetailValue withRowLeftAuto">
                   {data &&
                     data.unsignedTransaction &&

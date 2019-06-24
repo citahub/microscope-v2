@@ -159,7 +159,7 @@ class Statics extends React.Component<any, any> {
                 <ReactEcharts
                   option={{
                     title: {
-                      text: 'Quoto Used in Latest 10 Blocks'
+                      text: 'Quota Used in Latest 10 Blocks'
                     },
                     tooltip: {},
                     color: ['#4db7f8'],
@@ -183,7 +183,7 @@ class Statics extends React.Component<any, any> {
                 <ReactEcharts
                   option={{
                     title: {
-                      text: 'Gas Used in Latest 10 Transactions'
+                      text: 'Quota Used in Latest 10 Transactions'
                     },
                     tooltip: {
                       trigger: 'item',

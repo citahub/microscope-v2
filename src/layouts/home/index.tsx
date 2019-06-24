@@ -354,7 +354,6 @@ class Home extends React.Component<any, any> {
                 <div>
                   {topTransactions &&
                     topTransactions.map(function(d: any, i: number) {
-                      // console.log(d) // sdk and rebirth have tiny different decrypt on the format of content...can not get timestamp currently
                       var from =
                         d.from ||
                         (d.unsignedTransaction &&

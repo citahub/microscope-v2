@@ -32,7 +32,6 @@ function filterJSON(res: any) {
 
 function _fetch(fetchPromise: any, timeout: number) {
   var abortPromise = new Promise(function(resolve, reject) {
-    console.log(resolve, reject)
     setTimeout(reject, timeout)
   })
 

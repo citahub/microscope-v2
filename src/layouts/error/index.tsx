@@ -9,13 +9,9 @@ class NotFoundPage extends React.Component<any, any> {
   }
   componentDidMount() {}
   render() {
-    var self = this
     return (
       <Content className="error" bgColor="white">
-        <div
-          className="container"
-          style={{ minHeight: self.props.app.appHeight - 338 }}
-        >
+        <div className="container">
           <div className="vhCenter" style={{ marginTop: 57 }}>
             <img
               src="images/404.png"

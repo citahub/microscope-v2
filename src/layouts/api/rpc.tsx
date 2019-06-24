@@ -68,7 +68,6 @@ class APIRpc extends React.Component<any, any> {
         <div
           className="container"
           style={{
-            minHeight: self.props.app.appHeight - 338,
             marginTop: 30,
             marginBottom: 30,
             overflowX: 'auto',

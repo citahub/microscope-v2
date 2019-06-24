@@ -8,11 +8,8 @@ class SearchPage extends React.Component<any, any> {
   render() {
     var self = this
     return (
-      <Content className="search" bgColor="white">
-        <div
-          className="container vhCenter"
-          style={{ minHeight: self.props.app.appHeight - 80 }}
-        >
+      <Content className="search vhCenter" bgColor="white">
+        <div className="container">
           <div>
             <div className="searchLabel">
               您要搜索的资源

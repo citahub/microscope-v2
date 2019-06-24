@@ -28,6 +28,7 @@ class BlockSearchModal extends React.Component<any, any> {
                 ref="from"
                 className="form-control"
                 placeholder="From"
+                maxLength={66}
               />
             </div>
             <div className="col-sm-5">
@@ -36,6 +37,7 @@ class BlockSearchModal extends React.Component<any, any> {
                 ref="to"
                 className="form-control"
                 placeholder="To"
+                maxLength={66}
               />
             </div>
           </div>
@@ -47,6 +49,8 @@ class BlockSearchModal extends React.Component<any, any> {
                 ref="min"
                 className="form-control"
                 placeholder="Min"
+                pattern="\d*"
+                maxLength={16}
               />
             </div>
             <div className="col-sm-5">
@@ -55,6 +59,8 @@ class BlockSearchModal extends React.Component<any, any> {
                 ref="max"
                 className="form-control"
                 placeholder="Max"
+                pattern="\d*"
+                maxLength={16}
               />
             </div>
           </div>

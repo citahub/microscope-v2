@@ -387,6 +387,7 @@ class SearchBar extends React.Component<any, any> {
           placeholder="Search by Block / Transaction / Address"
           type="text"
           ref="search"
+          maxLength={66}
           className="form-control"
           onFocus={() => {
             self.keyDownListener = (event: any) => {

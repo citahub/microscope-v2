@@ -24,6 +24,7 @@ class TransactionSearchModal extends React.Component<any, any> {
                 ref="from"
                 className="form-control"
                 placeholder="Address From"
+                maxLength={66}
               />
             </div>
           </div>
@@ -35,6 +36,7 @@ class TransactionSearchModal extends React.Component<any, any> {
                 ref="to"
                 className="form-control"
                 placeholder="Address To"
+                maxLength={66}
               />
             </div>
           </div>

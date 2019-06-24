@@ -15,7 +15,7 @@ class Statics extends React.Component<any, any> {
     var self = this
     self.props.blockAction.topBlocks()
     self.props.transactionAction.topTransactions()
-    self.props.staticsAction.staticsProposals().then((result: boolean) => {
+    self.props.staticsAction.staticsProposals(true).then((result: boolean) => {
       if (result) {
         self.setState({
           showProposals: true
@@ -61,7 +61,6 @@ class Statics extends React.Component<any, any> {
       )
     })
     var blockQuotoUsedArray = blocks.map((block: any) => {
-      console.log(block.header)
       return block.header.quotaUsed || 0
     })
     var transactionHashArray = transactions.map((transaction: any) => {

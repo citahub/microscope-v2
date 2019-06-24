@@ -536,6 +536,9 @@ class MobileHeader extends React.Component<any, any> {
                                 }}
                                 onClick={() => {
                                   hashHistory.push(subMenu.path)
+                                  self.setState({
+                                    open: false
+                                  })
                                 }}
                               >
                                 {subMenu.name}
@@ -558,6 +561,9 @@ class MobileHeader extends React.Component<any, any> {
                           }}
                           onClick={() => {
                             hashHistory.push(menu.path)
+                            self.setState({
+                              open: false
+                            })
                           }}
                         >
                           {menu.name}

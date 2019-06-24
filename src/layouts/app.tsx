@@ -68,7 +68,7 @@ class App extends React.Component<any, any> {
         <div className="root">
           <Layout>
             <Header
-              location={window.location}
+              location={hashHistory.location}
               appAction={this.props.appAction}
             />
             {this.props.children}

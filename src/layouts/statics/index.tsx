@@ -127,7 +127,7 @@ class Statics extends React.Component<any, any> {
                     ]
                   }}
                   style={{ height: '400px', width: '100%' }}
-                  opts={{ renderer: 'svg' }}
+                  opts={{ renderer: 'canvas' }}
                   className="react_for_echarts"
                 />
               </div>
@@ -151,7 +151,7 @@ class Statics extends React.Component<any, any> {
                     ]
                   }}
                   style={{ height: '400px', width: '100%' }}
-                  opts={{ renderer: 'svg' }}
+                  opts={{ renderer: 'canvas' }}
                   className="react_for_echarts"
                 />
               </div>
@@ -175,7 +175,7 @@ class Statics extends React.Component<any, any> {
                     ]
                   }}
                   style={{ height: '400px', width: '100%' }}
-                  opts={{ renderer: 'svg' }}
+                  opts={{ renderer: 'canvas' }}
                   className="react_for_echarts"
                 />
               </div>
@@ -187,8 +187,7 @@ class Statics extends React.Component<any, any> {
                     },
                     tooltip: {
                       trigger: 'item',
-                      formatter:
-                        "<div style='max-width: 100px;overflow: hidden;text-overflow:ellipsis;white-space:nowrap;'>{b}:</div> {c} "
+                      formatter: '<div>{b}</div> {c} '
                     },
                     color: ['#ab62f1'],
                     xAxis: {
@@ -206,7 +205,7 @@ class Statics extends React.Component<any, any> {
                     ]
                   }}
                   style={{ height: '400px', width: '100%' }}
-                  opts={{ renderer: 'svg' }}
+                  opts={{ renderer: 'canvas' }}
                   className="react_for_echarts"
                 />
               </div>
@@ -219,8 +218,7 @@ class Statics extends React.Component<any, any> {
                       },
                       tooltip: {
                         trigger: 'item',
-                        formatter:
-                          "{a}<br/><div style='max-width: 100px;overflow: hidden;text-overflow:ellipsis;white-space:nowrap;'>{b}:</div> {c} ({d}%)"
+                        formatter: '{a}<br/><div>{b}</div> {c} ({d}%)'
                       },
                       calculable: true,
                       series: [
@@ -240,7 +238,7 @@ class Statics extends React.Component<any, any> {
                             },
                             emphasis: {
                               label: {
-                                show: true,
+                                show: false,
                                 position: 'center',
                                 textStyle: {
                                   fontSize: '10',
@@ -254,7 +252,7 @@ class Statics extends React.Component<any, any> {
                       ]
                     }}
                     style={{ height: '400px', width: '100%' }}
-                    opts={{ renderer: 'svg' }}
+                    opts={{ renderer: 'canvas' }}
                     className="react_for_echarts"
                   />
                 </div>

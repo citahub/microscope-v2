@@ -13,6 +13,7 @@ class BlockList extends React.Component<any, any> {
   componentDidMount() {
     var self = this
     var params: any = queryString.parse(self.props.location.search)
+    console.log(params)
     var pageNum = params.pageNum ? parseInt(params.pageNum) : 1
     var pageSize = params.pageSize ? parseInt(params.pageSize) : 10
     var blockFrom = params.blockFrom || ''
@@ -56,6 +57,10 @@ class BlockList extends React.Component<any, any> {
     var params: any = queryString.parse(self.props.location.search)
     var pageNum = params.pageNum ? parseInt(params.pageNum) : 1
     var pageSize = params.pageSize ? parseInt(params.pageSize) : 10
+    var blockFrom = params.blockFrom || ''
+    var blockTo = params.blockTo || ''
+    var transactionCountMin = params.transactionCountMin || ''
+    var transactionCountMax = params.transactionCountMax || ''
     var hasPrev = pageNum > 1
     var hasNext = data && data.list && data.list.length == pageSize
     return (
@@ -83,12 +88,12 @@ class BlockList extends React.Component<any, any> {
               >
                 当前搜索参数:
                 <br />
-                blockFrom:<b>{self.props.block.list.blockFrom}</b>
-                blockTo:<b>{self.props.block.list.blockTo}</b>
+                blockFrom:<b>{blockFrom}</b>
+                blockTo:<b>{blockTo}</b>
                 transactionCountMin:
-                <b>{self.props.block.list.transactionCountMin}</b>
+                <b>{transactionCountMin}</b>
                 transactionCountMax:
-                <b>{self.props.block.list.transactionCountMax}</b>
+                <b>{transactionCountMax}</b>
               </div>
               <div
                 className="queryButton operationItem"
@@ -99,10 +104,10 @@ class BlockList extends React.Component<any, any> {
                       style: {
                         width: '60%'
                       },
-                      from: self.props.block.list.blockFrom,
-                      to: self.props.block.list.blockTo,
-                      min: self.props.block.list.transactionCountMin,
-                      max: self.props.block.list.transactionCountMax,
+                      from: blockFrom,
+                      to: blockTo,
+                      min: transactionCountMin,
+                      max: transactionCountMax,
                       appAction: self.props.appAction
                     }
                   })

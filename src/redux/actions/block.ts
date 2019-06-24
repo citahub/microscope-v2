@@ -104,6 +104,19 @@ export function getBlockList(
           type: constants.OPERATION_FAIL,
           error: error
         })
+        dispatch({
+          type: constants.GET_BLOCK_LIST,
+          data: {
+            pageNum,
+            pageSize,
+            blockFrom,
+            blockTo,
+            transactionCountMin,
+            transactionCountMax,
+            list: [],
+            total: 0
+          }
+        })
       })
   }
 }

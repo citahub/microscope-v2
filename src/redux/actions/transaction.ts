@@ -110,6 +110,17 @@ export function getTransactionList(
           type: constants.OPERATION_FAIL,
           error: error
         })
+        dispatch({
+          type: constants.GET_TRANSACTION_LIST,
+          data: {
+            pageNum: pageNum,
+            pageSize: pageSize,
+            addressFrom: addressFrom || '',
+            addressTo: addressTo || '',
+            list: [],
+            total: 0
+          }
+        })
       })
   }
 }

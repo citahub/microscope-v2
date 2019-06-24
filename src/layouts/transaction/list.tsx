@@ -43,6 +43,9 @@ class TransitionList extends React.Component<any, any> {
     var self = this
     var data = self.props.transaction.list
     var globalTickTime = self.props.app.globalTickTime
+    var params: any = queryString.parse(self.props.location.search)
+    var addressFrom = params.addressFrom || ''
+    var addressTo = params.addressTo || ''
     return (
       <Content className="transactionList" bgColor="white">
         <div
@@ -68,8 +71,8 @@ class TransitionList extends React.Component<any, any> {
               >
                 当前搜索参数:
                 <br />
-                addressFrom: <b>{self.props.transaction.list.addressFrom}</b>
-                addressTo: <b>{self.props.transaction.list.addressTo}</b>
+                addressFrom: <b>{addressFrom}</b>
+                addressTo: <b>{addressTo}</b>
               </div>
               <div
                 className="queryButton operationItem"
@@ -80,8 +83,8 @@ class TransitionList extends React.Component<any, any> {
                       style: {
                         width: '60%'
                       },
-                      from: self.props.transaction.list.addressFrom,
-                      to: self.props.transaction.list.addressTo,
+                      from: addressFrom,
+                      to: addressTo,
                       appAction: self.props.appAction
                     }
                   })
@@ -102,9 +105,9 @@ class TransitionList extends React.Component<any, any> {
                       '&pageSize=' +
                       pageSize +
                       '&addressFrom=' +
-                      self.props.transaction.list.addressFrom +
+                      addressFrom +
                       '&addressTo=' +
-                      self.props.transaction.list.addressTo
+                      addressTo
                   )
                 }}
               />

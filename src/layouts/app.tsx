@@ -10,26 +10,8 @@ import Modal from '../components/modal'
 
 import hashHistory from '../routes/history'
 
-import { IntlProvider, addLocaleData } from 'react-intl'
-import enLocaleData from 'react-intl/locale-data/en'
-import zhLocaleData from 'react-intl/locale-data/zh'
-
-addLocaleData(enLocaleData)
-addLocaleData(zhLocaleData)
-
-import zh_CN from '../locale/zh_CN'
-import en_US from '../locale/en_US'
-
-function chooseLocale(language: string) {
-  var obj = en_US
-  if (language.toLowerCase().indexOf('zh') > -1) {
-    obj = zh_CN
-  } else if (language.toLowerCase().indexOf('en') > -1) {
-    obj = en_US
-  }
-  return obj
-}
-
+import { IntlProvider } from 'react-intl'
+import { chooseLocale } from '../locale/i18n'
 class App extends React.Component<any, any> {
   unlisten: any = null
   tick: any

@@ -3,6 +3,7 @@ import './index.styl'
 
 import hashHistory from '../../routes/history'
 import { api } from '../../utils/config'
+import { languages } from '../../locale/i18n'
 import {
   defaultNetwork,
   getSelectNetwork,
@@ -98,7 +99,7 @@ class Language extends React.Component<any, any> {
     return (
       <div
         className="language"
-        style={{ position: 'fixed', top: 20, width: 80 }}
+        style={{ position: 'fixed', top: 20, width: 60 }}
       >
         <div
           className="withRow"
@@ -442,7 +443,6 @@ const menus = [
     path: '/statics'
   }
 ]
-const languages = ['zh', 'en']
 
 class SearchBar extends React.Component<any, any> {
   refs: {
@@ -544,6 +544,7 @@ class MobileHeader extends React.Component<any, any> {
   }
   render() {
     var self = this
+    var intl = self.props.intl
     var networks = getNetworks()
     var selectNetwork = getSelectNetwork()
 
@@ -614,7 +615,7 @@ class MobileHeader extends React.Component<any, any> {
                             textAlign: 'left'
                           }}
                         >
-                          {menu.id}
+                          {intl.formatMessage({ id: menu.id })}
                           {menu.subMenus.map((subMenu: any) => {
                             var subMenuClassName = 'menu operationItem'
                             if (self.props.location.pathname == subMenu.path) {
@@ -636,7 +637,7 @@ class MobileHeader extends React.Component<any, any> {
                                   })
                                 }}
                               >
-                                {subMenu.id}
+                                {intl.formatMessage({ id: subMenu.id })}
                               </div>
                             )
                           })}
@@ -661,7 +662,7 @@ class MobileHeader extends React.Component<any, any> {
                             })
                           }}
                         >
-                          {menu.id}
+                          {intl.formatMessage({ id: menu.id })}
                         </div>
                       )
                     }
@@ -672,10 +673,10 @@ class MobileHeader extends React.Component<any, any> {
           </div>
         ) : null}
         <div className="withRow container" style={{ height: 41 }}>
-          <div>
+          <div className="withRowLeftAuto">
             <SearchBar intl={self.props.intl} />
           </div>
-          <div>
+          <div style={{ width: 120 }}>
             <NetWork
               intl={self.props.intl}
               networks={networks}
@@ -695,7 +696,7 @@ class Header extends React.Component<any, any> {
     var networks = getNetworks()
     var selectNetwork = getSelectNetwork()
     var intl = self.props.intl
-    if (window.innerWidth < 750) {
+    if (window.innerWidth < 1000) {
       return (
         <MobileHeader
           location={self.props.location}
@@ -772,7 +773,7 @@ class Header extends React.Component<any, any> {
                 appAction={self.props.appAction}
               />
             </div>
-            <div style={{ width: 80, marginLeft: 10 }}>
+            <div style={{ width: 60, marginLeft: 10 }}>
               <Language
                 intl={self.props.intl}
                 appAction={self.props.appAction}

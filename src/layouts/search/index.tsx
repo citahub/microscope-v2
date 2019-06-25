@@ -15,7 +15,7 @@ class SearchPage extends React.Component<any, any> {
             <div className="searchLabel">
               {intl.formatMessage(
                 {
-                  id: 'app.page.search.label'
+                  id: 'app.pages.search.label'
                 },
                 {
                   key:
@@ -30,7 +30,7 @@ class SearchPage extends React.Component<any, any> {
                 hashHistory.push('/')
               }}
             >
-              {intl.formatMessage({ id: 'app.page.search.goback' })}
+              {intl.formatMessage({ id: 'app.pages.search.goback' })}
             </div>
           </div>
         </div>

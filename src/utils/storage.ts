@@ -1,4 +1,5 @@
 import { api, ServerNode } from './config'
+import { defaultLanguage } from '../locale/i18n'
 
 export const defaultNetwork: ServerNode = api.serverList[0]
 export function clearAll() {
@@ -84,7 +85,6 @@ export function setSelectLanguage(language: any) {
   window.localStorage.setItem('selectLanguage', JSON.stringify(language))
 }
 
-const defaultLanguage = navigator.language || 'EN'
 export function getSelectLanguage(): any {
   var languageStr = window.localStorage.getItem('selectLanguage')
   var result: any

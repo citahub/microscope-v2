@@ -20,7 +20,7 @@ class NotFoundPage extends React.Component<any, any> {
             />
           </div>
           <div className="errorLabel">
-            {intl.formatMessage({ id: 'app.page.404.label' })}
+            {intl.formatMessage({ id: 'app.pages.404.label' })}
           </div>
           <div
             className="goBackButton"
@@ -28,7 +28,7 @@ class NotFoundPage extends React.Component<any, any> {
               hashHistory.push('/')
             }}
           >
-            {intl.formatMessage({ id: 'app.page.404.goback' })}
+            {intl.formatMessage({ id: 'app.pages.404.goback' })}
           </div>
         </div>
       </Content>

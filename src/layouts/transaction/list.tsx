@@ -41,6 +41,7 @@ class TransitionList extends React.Component<any, any> {
   }
   render() {
     var self = this
+    var intl = self.props.intl
     var data = self.props.transaction.list
     var globalTickTime = self.props.app.globalTickTime
     var params: any = queryString.parse(self.props.location.search)
@@ -69,10 +70,13 @@ class TransitionList extends React.Component<any, any> {
                 className="queryCondition withRowLeftAuto"
                 style={{ color: '#868b92', fontSize: 14 }}
               >
-                当前搜索参数:
-                <br />
-                addressFrom: <b className="hash">{addressFrom}</b>
-                addressTo: <b className="hash">{addressTo}</b>
+                {intl.formatMessage(
+                  { id: 'app.pages.transactionlist.search.parameters' },
+                  {
+                    addressFrom: addressFrom,
+                    addressTo: addressTo
+                  }
+                )}
               </div>
               <div
                 className="queryButton operationItem"
@@ -85,16 +89,20 @@ class TransitionList extends React.Component<any, any> {
                       },
                       from: addressFrom,
                       to: addressTo,
-                      appAction: self.props.appAction
+                      appAction: self.props.appAction,
+                      intl: intl
                     }
                   })
                 }}
               >
-                高级选择器
+                {intl.formatMessage({
+                  id: 'app.pages.transactionlist.search.button'
+                })}
               </div>
             </div>
             <div style={{ padding: '14px 23px 0 23px', minHeight: 690 - 36 }}>
               <TransactionTable
+                intl={intl}
                 data={data}
                 globalTickTime={globalTickTime}
                 network={self.props.network}

@@ -52,6 +52,7 @@ class BlockList extends React.Component<any, any> {
   }
   render() {
     var self = this
+    var intl = self.props.intl
     var data = self.props.block.list
     var globalTickTime = self.props.app.globalTickTime
     var params: any = queryString.parse(self.props.location.search)
@@ -86,14 +87,15 @@ class BlockList extends React.Component<any, any> {
                 className="queryConditoin withRowLeftAuto"
                 style={{ color: '#868b92', fontSize: 14 }}
               >
-                当前搜索参数:
-                <br />
-                blockFrom:<b>{blockFrom}</b>
-                blockTo:<b>{blockTo}</b>
-                transactionCountMin:
-                <b>{transactionCountMin}</b>
-                transactionCountMax:
-                <b>{transactionCountMax}</b>
+                {intl.formatMessage(
+                  { id: 'app.pages.blocklist.search.parameters' },
+                  {
+                    blockFrom: blockFrom,
+                    blockTo: blockTo,
+                    transactionCountMin: transactionCountMin,
+                    transactionCountMax: transactionCountMax
+                  }
+                )}
               </div>
               <div
                 className="queryButton operationItem"
@@ -108,12 +110,15 @@ class BlockList extends React.Component<any, any> {
                       to: blockTo,
                       min: transactionCountMin,
                       max: transactionCountMax,
-                      appAction: self.props.appAction
+                      appAction: self.props.appAction,
+                      intl: intl
                     }
                   })
                 }}
               >
-                高级选择器
+                {intl.formatMessage({
+                  id: 'app.pages.blocklist.search.button'
+                })}
               </div>
             </div>
             <div
@@ -130,31 +135,41 @@ class BlockList extends React.Component<any, any> {
                     style={{ width: (232 / 1154) * 100 + '%' }}
                     scope="col"
                   >
-                    高度
+                    {intl.formatMessage({
+                      id: 'app.pages.blocklist.table.header.height'
+                    })}
                   </th>
                   <th
                     className="text-center"
                     style={{ width: ((591 - 232) / 1154) * 100 + '%' }}
                     scope="col"
                   >
-                    哈希
+                    {intl.formatMessage({
+                      id: 'app.pages.blocklist.table.header.hash'
+                    })}
                   </th>
                   <th
                     className="text-center"
                     style={{ width: ((815 - 591) / 1154) * 100 + '%' }}
                     scope="col"
                   >
-                    出块时间
+                    {intl.formatMessage({
+                      id: 'app.pages.blocklist.table.header.timestamp'
+                    })}
                   </th>
                   <th
                     className="text-center"
                     style={{ width: ((995 - 815) / 1154) * 100 + '%' }}
                     scope="col"
                   >
-                    交易数
+                    {intl.formatMessage({
+                      id: 'app.pages.blocklist.table.header.txcount'
+                    })}
                   </th>
                   <th className="text-center" scope="col">
-                    Quota消耗
+                    {intl.formatMessage({
+                      id: 'app.pages.blocklist.table.header.quotaused'
+                    })}
                   </th>
                 </thead>
                 <tbody>
@@ -205,9 +220,8 @@ class BlockList extends React.Component<any, any> {
                 <ul className="rc-pagination ">
                   {hasPrev ? (
                     <li
-                      title="上一页"
                       className="rc-pagination-disabled rc-pagination-prev"
-                      aria-disabled="true"
+                      aria-disabled="false"
                       onClick={() => {
                         hashHistory.push(
                           '/block/list?pageNum=' +
@@ -230,7 +244,6 @@ class BlockList extends React.Component<any, any> {
                   ) : null}
                   {hasNext ? (
                     <li
-                      title="下一页"
                       className=" rc-pagination-next"
                       aria-disabled="false"
                       onClick={() => {

@@ -28,7 +28,7 @@ const style = {
         padding: '0 10px',
         lineHeight: '44px',
         color: '#999',
-        width: 100,
+        minWidth: 100,
         borderBottom: '1px solid transparent',
         cursor: 'pointer'
       },

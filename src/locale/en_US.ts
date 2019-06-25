@@ -1,3 +1,4 @@
+const en = require('rc-pagination/es/locale/en_US').default
 const en_US = {
   'app.title': 'microscope',
   'app.languages.en': 'English',
@@ -20,20 +21,106 @@ const en_US = {
   'app.footer.category.contact': 'Contact Us',
   'app.footer.category.contact.bbs': 'CITAHub Develop BBS',
 
-  'app.page.static.interval': 'Interval(ms) for Latest 10 Blocks',
-  'app.page.static.txcount': 'Transaction Count in Latest 10 Blocks',
-  'app.page.static.quotainblock': 'Quota Used in Latest 10 Blocks',
-  'app.page.static.quotaintx': 'Quota Used in Latest 10 Transactions',
-  'app.page.static.distribution': 'Proposal Distribution',
+  'app.pages.home.meta.blockheight': 'Block Height',
+  'app.pages.home.meta.blockinterval': 'Block Interval',
+  'app.pages.home.meta.validators': 'Validators',
+  'app.pages.home.meta.chainname': 'Chain Name',
+  'app.pages.home.meta.operator': 'Operator',
+  'app.pages.home.meta.economicalmodel': 'Economical Model',
+  'app.pages.home.meta.tokensymbol': 'Token Symbol',
+  'app.pages.home.meta.chainid': 'Chain ID',
+  'app.pages.home.meta.version': 'Version',
+  'app.pages.home.top10.block': 'Top10 Blocks',
+  'app.pages.home.top10.block.transactioncount': 'Contain {key} Tx(s)',
+  'app.pages.home.top10.more': 'More >',
+  'app.pages.home.top10.transaction': 'Top10 Transactions',
 
-  'app.page.api.input': 'Input',
-  'app.page.api.output': 'Output',
-  'app.page.api.send': 'Send',
+  'app.pages.blocklist.search.parameters':
+    'Search Conditions: block from {blockFrom}, block to {blockTo}, min transaction count {transactionCountMin}, max transaction count {transactionCountMax}',
+  'app.pages.blocklist.search.button': 'Advanced',
+  'app.pages.blocklist.table.header.height': 'Block Height',
+  'app.pages.blocklist.table.header.hash': 'Hash',
+  'app.pages.blocklist.table.header.timestamp': 'Time',
+  'app.pages.blocklist.table.header.txcount': 'Tx Count',
+  'app.pages.blocklist.table.header.quotaused': 'Quota Used',
 
-  'app.page.404.label': 'Sorry, the page you are visiting is not found!',
-  'app.page.404.goback': 'Go Back',
+  'app.pages.blockdetail.hash': 'Hash',
+  'app.pages.blockdetail.timestamp': 'Timestamp',
+  'app.pages.blockdetail.txcount': 'Tx Count',
+  'app.pages.blockdetail.proposer': 'Proposer',
+  'app.pages.blockdetail.quotaused': 'Quoto Used',
+  'app.pages.blockdetail.quotaprice': 'Quoto Price',
+  'app.pages.blockdetail.totalfee': 'Total Fee',
+  'app.pages.blockdetail.prehash': 'Preview Hash',
+  'app.pages.blockdetail.receiptsroot': 'Receipts Root',
+  'app.pages.blockdetail.stateroot': 'State Root',
+  'app.pages.blockdetail.txsroot': 'Transactions Root',
 
-  'app.page.search.label': 'the resource {key} you are searching is not found!',
-  'app.page.search.goback': 'Go Back'
+  'app.pages.txdetail.title': 'Transaction:',
+  'app.pages.txdetail.status': 'Status',
+  'app.pages.txdetail.type': 'Type',
+  'app.pages.txdetail.from': 'From',
+  'app.pages.txdetail.to': 'To/Contract',
+  'app.pages.txdetail.blockheight': 'Block Height',
+  'app.pages.txdetail.version': 'Version',
+  'app.pages.txdetail.nonce': 'Nonce',
+  'app.pages.txdetail.validuntilblock': 'Valid Until Block',
+  'app.pages.txdetail.value': 'Value',
+  'app.pages.txdetail.quotaused': 'Quota Used',
+  'app.pages.txdetail.quotalimit': 'Quota Limit',
+  'app.pages.txdetail.quotaprice': 'Quota Price',
+  'app.pages.txdetail.data': 'Data',
+
+  'app.pages.transactionlist.search.parameters':
+    'Search Conditions: address from {addressFrom}, address to {addressTo}',
+  'app.pages.transactionlist.search.button': 'Advanced',
+
+  'app.pages.addressdetail.account': 'account',
+  'app.pages.addressdetail.balance': 'balance',
+  'app.pages.addressdetail.tabs.general': 'General({key})',
+  'app.pages.addressdetail.tabs.erc20': 'ERC20({key})',
+  'app.pages.addressdetail.tabs.contractcall': 'Contract Call',
+  'app.pages.addressdetail.tabs.contractinfo': 'Contract Info',
+
+  'app.pages.static.interval': 'Interval(ms) for Latest 10 Blocks',
+  'app.pages.static.txcount': 'Transaction Count in Latest 10 Blocks',
+  'app.pages.static.quotainblock': 'Quota Used in Latest 10 Blocks',
+  'app.pages.static.quotaintx': 'Quota Used in Latest 10 Transactions',
+  'app.pages.static.distribution': 'Proposal Distribution',
+
+  'app.pages.api.input': 'Input',
+  'app.pages.api.output': 'Output',
+  'app.pages.api.send': 'Send',
+
+  'app.pages.404.label': 'Sorry, the page you are visiting is not found!',
+  'app.pages.404.goback': 'Go Back',
+
+  'app.pages.search.label':
+    'the resource {key} you are searching is not found!',
+  'app.pages.search.goback': 'Go Back',
+
+  'app.pages.common.transactiontable.header.type': 'Tx Type',
+  'app.pages.common.transactiontable.header.hash': 'Hash',
+  'app.pages.common.transactiontable.header.from': 'From',
+  'app.pages.common.transactiontable.header.to': 'to',
+  'app.pages.common.transactiontable.header.value': 'Value',
+  'app.pages.common.transactiontable.header.blockheight': 'Block Height',
+  'app.pages.common.transactiontable.header.quotaused': 'Quota Used',
+  'app.pages.common.transactiontable.header.timestamp': 'Time',
+  'app.pages.common.pagination': JSON.stringify(en),
+
+  'app.pages.common.blocksearchmodal.title': 'Advanced',
+  'app.pages.common.blocksearchmodal.blockheight': 'Block Height',
+  'app.pages.common.blocksearchmodal.blockheight.from': 'From',
+  'app.pages.common.blocksearchmodal.blockheight.to': 'To',
+  'app.pages.common.blocksearchmodal.txscount': 'Transaction Count',
+  'app.pages.common.blocksearchmodal.txscount.min': 'min',
+  'app.pages.common.blocksearchmodal.txscount.max': 'max',
+  'app.pages.common.blocksearchmodal.button': 'Search',
+
+  'app.pages.common.txsearchmodal.title': 'Advanced',
+  'app.pages.common.txsearchmodal.address.from': 'Address From',
+  'app.pages.common.txsearchmodal.address.to': 'Address To',
+  'app.pages.common.txsearchmodal.button': 'Search'
 }
 export default en_US

@@ -44,6 +44,7 @@ class TransactionDetail extends React.Component<any, any> {
   }
   render() {
     var self = this
+    var intl = self.props.intl
     var data = self.props.transaction.item
     var dataReceipt = self.props.transaction.itemReceipt
     var from =
@@ -87,11 +88,14 @@ class TransactionDetail extends React.Component<any, any> {
                   marginRight: 17
                 }}
               />
-              Transaction: <span className="hash">{data && data.hash}</span>
+              {intl.formatMessage({ id: 'app.pages.txdetail.title' })}
+              <span className="hash">{data && data.hash}</span>
             </div>
             <div className="transactionBody">
               <div className="withRow transactionBodyRow">
-                <div className="transactionDetailKey">Status:</div>
+                <div className="transactionDetailKey">
+                  {intl.formatMessage({ id: 'app.pages.txdetail.status' })}:
+                </div>
                 <div className="transactionDetailValue withRowLeftAuto">
                   {!data ? (
                     ''
@@ -106,7 +110,9 @@ class TransactionDetail extends React.Component<any, any> {
               </div>
 
               <div className="withRow transactionBodyRow">
-                <div className="transactionDetailKey">Type:</div>
+                <div className="transactionDetailKey">
+                  {intl.formatMessage({ id: 'app.pages.txdetail.type' })}:
+                </div>
                 <div className="transactionDetailValue withRowLeftAuto">
                   {!data
                     ? ''
@@ -119,7 +125,9 @@ class TransactionDetail extends React.Component<any, any> {
               </div>
 
               <div className="withRow transactionBodyRow">
-                <div className="transactionDetailKey">From:</div>
+                <div className="transactionDetailKey">
+                  {intl.formatMessage({ id: 'app.pages.txdetail.from' })}:
+                </div>
                 <div
                   className="transactionDetailValue withRowLeftAuto operationItem"
                   style={{ fontSize: 16, color: '#5b8ee6' }}
@@ -131,7 +139,9 @@ class TransactionDetail extends React.Component<any, any> {
                 </div>
               </div>
               <div className="withRow transactionBodyRow">
-                <div className="transactionDetailKey">To/Contract</div>
+                <div className="transactionDetailKey">
+                  {intl.formatMessage({ id: 'app.pages.txdetail.to' })}:
+                </div>
                 <div
                   className="transactionDetailValue withRowLeftAuto operationItem"
                   style={{ fontSize: 16, color: '#5b8ee6' }}
@@ -147,7 +157,10 @@ class TransactionDetail extends React.Component<any, any> {
                 </div>
               </div>
               <div className="withRow transactionBodyRow">
-                <div className="transactionDetailKey">Block Height:</div>
+                <div className="transactionDetailKey">
+                  {intl.formatMessage({ id: 'app.pages.txdetail.blockheight' })}
+                  :
+                </div>
                 <div
                   className="transactionDetailValue withRowLeftAuto operationItem"
                   style={{ fontSize: 16, color: '#5b8ee6' }}
@@ -162,7 +175,9 @@ class TransactionDetail extends React.Component<any, any> {
                 </div>
               </div>
               <div className="withRow transactionBodyRow">
-                <div className="transactionDetailKey">Version:</div>
+                <div className="transactionDetailKey">
+                  {intl.formatMessage({ id: 'app.pages.txdetail.version' })}:
+                </div>
                 <div className="transactionDetailValue withRowLeftAuto">
                   {data &&
                     data.unsignedTransaction &&
@@ -171,7 +186,9 @@ class TransactionDetail extends React.Component<any, any> {
                 </div>
               </div>
               <div className="withRow transactionBodyRow">
-                <div className="transactionDetailKey">Nonce:</div>
+                <div className="transactionDetailKey">
+                  {intl.formatMessage({ id: 'app.pages.txdetail.nonce' })}:
+                </div>
                 <div className="transactionDetailValue withRowLeftAuto">
                   {data &&
                     data.unsignedTransaction &&
@@ -180,7 +197,12 @@ class TransactionDetail extends React.Component<any, any> {
                 </div>
               </div>
               <div className="withRow transactionBodyRow">
-                <div className="transactionDetailKey">Valid Until Block:</div>
+                <div className="transactionDetailKey">
+                  {intl.formatMessage({
+                    id: 'app.pages.txdetail.validuntilblock'
+                  })}
+                  :
+                </div>
                 <div className="transactionDetailValue withRowLeftAuto">
                   {data &&
                     data.unsignedTransaction &&
@@ -189,7 +211,9 @@ class TransactionDetail extends React.Component<any, any> {
                 </div>
               </div>
               <div className="withRow transactionBodyRow">
-                <div className="transactionDetailKey">Value:</div>
+                <div className="transactionDetailKey">
+                  {intl.formatMessage({ id: 'app.pages.txdetail.value' })}:
+                </div>
                 <div className="transactionDetailValue withRowLeftAuto">
                   {data &&
                     data.unsignedTransaction &&
@@ -207,13 +231,17 @@ class TransactionDetail extends React.Component<any, any> {
                 </div>
               </div>
               <div className="withRow transactionBodyRow">
-                <div className="transactionDetailKey">Quota Used:</div>
+                <div className="transactionDetailKey">
+                  {intl.formatMessage({ id: 'app.pages.txdetail.quotaused' })}:
+                </div>
                 <div className="transactionDetailValue withRowLeftAuto">
                   {dataReceipt && parseInt(dataReceipt.quotaUsed)} Quota
                 </div>
               </div>
               <div className="withRow transactionBodyRow">
-                <div className="transactionDetailKey">Quota Limit:</div>
+                <div className="transactionDetailKey">
+                  {intl.formatMessage({ id: 'app.pages.txdetail.quotalimit' })}:
+                </div>
                 <div className="transactionDetailValue withRowLeftAuto">
                   {data &&
                     data.unsignedTransaction &&
@@ -223,7 +251,9 @@ class TransactionDetail extends React.Component<any, any> {
                 </div>
               </div>
               <div className="withRow transactionBodyRow">
-                <div className="transactionDetailKey">Quota Price:</div>
+                <div className="transactionDetailKey">
+                  {intl.formatMessage({ id: 'app.pages.txdetail.quotaprice' })}:
+                </div>
                 <div className="transactionDetailValue withRowLeftAuto">
                   1&nbsp;
                   {self.props.network.metaData &&
@@ -235,7 +265,9 @@ class TransactionDetail extends React.Component<any, any> {
                 className="withRow transactionBodyRow"
                 style={{ minHeight: 160, height: 'auto' }}
               >
-                <div className="transactionDetailKey">Data:</div>
+                <div className="transactionDetailKey">
+                  {intl.formatMessage({ id: 'app.pages.txdetail.data' })}:
+                </div>
                 <div className="transactionDetailValue withRowLeftAuto">
                   <Tabs
                     key={data && data.hash}

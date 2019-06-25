@@ -59,6 +59,7 @@ class BlockDetail extends React.Component<any, any> {
   }
   render() {
     var self = this
+    var intl = self.props.intl
     var data = self.props.block.item
     return (
       <Content className="blockDetail" bgColor="#fbfbfb">
@@ -110,7 +111,9 @@ class BlockDetail extends React.Component<any, any> {
             </div>
             <div className="blockBody">
               <div className="withRow blockBodyRow">
-                <div className="blockDetailKey">区块哈希:</div>
+                <div className="blockDetailKey">
+                  {intl.formatMessage({ id: 'app.pages.blockdetail.hash' })}:
+                </div>
                 <div
                   className="blockDetailValue withRowLeftAuto"
                   style={{ fontSize: 16 }}
@@ -119,7 +122,12 @@ class BlockDetail extends React.Component<any, any> {
                 </div>
               </div>
               <div className="withRow blockBodyRow">
-                <div className="blockDetailKey">时间戳:</div>
+                <div className="blockDetailKey">
+                  {intl.formatMessage({
+                    id: 'app.pages.blockdetail.timestamp'
+                  })}
+                  :
+                </div>
                 <div
                   className="blockDetailValue withRowLeftAuto"
                   style={{ fontSize: 16 }}
@@ -130,13 +138,18 @@ class BlockDetail extends React.Component<any, any> {
                 </div>
               </div>
               <div className="withRow blockBodyRow">
-                <div className="blockDetailKey">交易数:</div>
+                <div className="blockDetailKey">
+                  {intl.formatMessage({ id: 'app.pages.blockdetail.txcount' })}:
+                </div>
                 <div className="blockDetailValue withRowLeftAuto">
                   {data && data.body.transactions.length}
                 </div>
               </div>
               <div className="withRow blockBodyRow">
-                <div className="blockDetailKey">Proposer:</div>
+                <div className="blockDetailKey">
+                  {intl.formatMessage({ id: 'app.pages.blockdetail.proposer' })}
+                  :
+                </div>
                 <div
                   className="blockDetailValue withRowLeftAuto"
                   style={{ fontSize: 16 }}
@@ -145,13 +158,23 @@ class BlockDetail extends React.Component<any, any> {
                 </div>
               </div>
               <div className="withRow blockBodyRow">
-                <div className="blockDetailKey">消耗的 Quota:</div>
+                <div className="blockDetailKey">
+                  {intl.formatMessage({
+                    id: 'app.pages.blockdetail.quotaused'
+                  })}
+                  :
+                </div>
                 <div className="blockDetailValue withRowLeftAuto">
                   {data && parseInt(data.header.quotaUsed)}
                 </div>
               </div>
               <div className="withRow blockBodyRow">
-                <div className="blockDetailKey">Quota 价格:</div>
+                <div className="blockDetailKey">
+                  {intl.formatMessage({
+                    id: 'app.pages.blockdetail.quotaprice'
+                  })}
+                  :
+                </div>
                 <div className="blockDetailValue withRowLeftAuto">
                   1&nbsp;
                   {self.props.network.metaData &&
@@ -160,7 +183,10 @@ class BlockDetail extends React.Component<any, any> {
                 </div>
               </div>
               <div className="withRow blockBodyRow">
-                <div className="blockDetailKey">Total handling fee:</div>
+                <div className="blockDetailKey">
+                  {intl.formatMessage({ id: 'app.pages.blockdetail.totalfee' })}
+                  :
+                </div>
                 <div className="blockDetailValue withRowLeftAuto">
                   {data &&
                     data.header.quotaUsed &&
@@ -174,7 +200,9 @@ class BlockDetail extends React.Component<any, any> {
                 </div>
               </div>
               <div className="withRow blockBodyRow">
-                <div className="blockDetailKey">上一块哈希:</div>
+                <div className="blockDetailKey">
+                  {intl.formatMessage({ id: 'app.pages.blockdetail.prehash' })}:
+                </div>
                 <div
                   className="blockDetailValue withRowLeftAuto operationItem"
                   style={{ fontSize: 16, color: '#5b8ee6' }}
@@ -187,7 +215,12 @@ class BlockDetail extends React.Component<any, any> {
                 </div>
               </div>
               <div className="withRow blockBodyRow">
-                <div className="blockDetailKey">Receipts Root:</div>
+                <div className="blockDetailKey">
+                  {intl.formatMessage({
+                    id: 'app.pages.blockdetail.receiptsroot'
+                  })}
+                  :
+                </div>
                 <div
                   className="blockDetailValue withRowLeftAuto"
                   style={{ fontSize: 16 }}
@@ -198,7 +231,12 @@ class BlockDetail extends React.Component<any, any> {
                 </div>
               </div>
               <div className="withRow blockBodyRow">
-                <div className="blockDetailKey">State Root:</div>
+                <div className="blockDetailKey">
+                  {intl.formatMessage({
+                    id: 'app.pages.blockdetail.stateroot'
+                  })}
+                  :
+                </div>
                 <div
                   className="blockDetailValue withRowLeftAuto"
                   style={{ fontSize: 16 }}
@@ -207,7 +245,9 @@ class BlockDetail extends React.Component<any, any> {
                 </div>
               </div>
               <div className="withRow blockBodyRow">
-                <div className="blockDetailKey">Transactions Root:</div>
+                <div className="blockDetailKey">
+                  {intl.formatMessage({ id: 'app.pages.blockdetail.txsroot' })}:
+                </div>
                 <div
                   className="blockDetailValue withRowLeftAuto"
                   style={{ fontSize: 16 }}

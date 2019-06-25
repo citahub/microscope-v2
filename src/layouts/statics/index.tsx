@@ -113,7 +113,7 @@ class Statics extends React.Component<any, any> {
                   option={{
                     title: {
                       text: intl.formatMessage({
-                        id: 'app.page.static.interval'
+                        id: 'app.pages.static.interval'
                       })
                     },
                     tooltip: {},
@@ -139,7 +139,7 @@ class Statics extends React.Component<any, any> {
                   option={{
                     title: {
                       text: intl.formatMessage({
-                        id: 'app.page.static.txcount'
+                        id: 'app.pages.static.txcount'
                       })
                     },
                     tooltip: {},
@@ -165,7 +165,7 @@ class Statics extends React.Component<any, any> {
                   option={{
                     title: {
                       text: intl.formatMessage({
-                        id: 'app.page.static.quotainblock'
+                        id: 'app.pages.static.quotainblock'
                       })
                     },
                     tooltip: {},
@@ -191,7 +191,7 @@ class Statics extends React.Component<any, any> {
                   option={{
                     title: {
                       text: intl.formatMessage({
-                        id: 'app.page.static.quotaintx'
+                        id: 'app.pages.static.quotaintx'
                       })
                     },
                     tooltip: {
@@ -224,7 +224,7 @@ class Statics extends React.Component<any, any> {
                     option={{
                       title: {
                         text: intl.formatMessage({
-                          id: 'app.page.static.distribution'
+                          id: 'app.pages.static.distribution'
                         })
                       },
                       tooltip: {

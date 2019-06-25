@@ -114,7 +114,7 @@ class APIRpc extends React.Component<any, any> {
               <div className="withColumn">
                 <div className="card" style={{ height: '40%' }}>
                   <div className="card-header">
-                    {intl.formatMessage({ id: 'app.page.api.input' })}
+                    {intl.formatMessage({ id: 'app.pages.api.input' })}
                   </div>
                   <div className="card-body">
                     <ReactJson
@@ -143,7 +143,7 @@ class APIRpc extends React.Component<any, any> {
                         }
                       }}
                     >
-                      {intl.formatMessage({ id: 'app.page.api.send' })}
+                      {intl.formatMessage({ id: 'app.pages.api.send' })}
                     </button>
                   </div>
                 </div>
@@ -152,7 +152,7 @@ class APIRpc extends React.Component<any, any> {
                   style={{ marginTop: 20 }}
                 >
                   <div className="card-header">
-                    {intl.formatMessage({ id: 'app.page.api.output' })}
+                    {intl.formatMessage({ id: 'app.pages.api.output' })}
                   </div>
                   <div className="card-body">
                     <ReactJson src={self.props.network.rpcData.output || {}} />

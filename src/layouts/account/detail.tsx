@@ -22,7 +22,7 @@ class TabContractInfoContent extends React.Component<any, any> {
     return (
       <div className="container contractTabInfo">
         <div className="withRow" style={{ marginTop: 20 }}>
-          <div className="withRowLeftAuto">合约ABI</div>
+          <div className="withRowLeftAuto">ABI</div>
           <button
             style={{ width: 100 }}
             type="button"
@@ -47,7 +47,7 @@ class TabContractInfoContent extends React.Component<any, any> {
         </div>
 
         <div className="withRow" style={{ marginTop: 40 }}>
-          <div className="withRowLeftAuto">合约原始数据</div>
+          <div className="withRowLeftAuto">Original Data</div>
           <button
             style={{ width: 100 }}
             type="button"
@@ -297,6 +297,7 @@ class AccountDetail extends React.Component<any, any> {
   }
   render() {
     var self = this
+    var intl = self.props.intl
     var account = self.props.match.params.address
     var data = self.props.account.trList
     var globalTickTime = self.props.app.globalTickTime
@@ -338,7 +339,10 @@ class AccountDetail extends React.Component<any, any> {
                         color: '#47484a'
                       }}
                     >
-                      account:
+                      {intl.formatMessage({
+                        id: 'app.pages.addressdetail.account'
+                      })}
+                      :
                     </div>
                     <div
                       className="withRowLeftAuto"
@@ -376,7 +380,10 @@ class AccountDetail extends React.Component<any, any> {
                         color: '#47484a'
                       }}
                     >
-                      Balance:
+                      {intl.formatMessage({
+                        id: 'app.pages.addressdetail.balance'
+                      })}
+                      :
                     </div>
                     <div
                       className="withRowLeftAuto"
@@ -417,9 +424,15 @@ class AccountDetail extends React.Component<any, any> {
                 )
               }}
             >
-              <Tab title={'普通(' + data.total + ')'}>
+              <Tab
+                title={intl.formatMessage(
+                  { id: 'app.pages.addressdetail.tabs.general' },
+                  { key: data.total }
+                )}
+              >
                 <div className="accountBody">
                   <TransactionTable
+                    intl={intl}
                     data={data}
                     globalTickTime={globalTickTime}
                     network={self.props.network}
@@ -437,9 +450,15 @@ class AccountDetail extends React.Component<any, any> {
                   />
                 </div>
               </Tab>
-              <Tab title={'ERC20(' + erc20Data.total + ')'}>
+              <Tab
+                title={intl.formatMessage(
+                  { id: 'app.pages.addressdetail.tabs.erc20' },
+                  { key: erc20Data.total }
+                )}
+              >
                 <div className="accountBody">
                   <TransactionTable
+                    intl={intl}
                     data={erc20Data}
                     globalTickTime={globalTickTime}
                     onChange={(pageNum: number, pageSize: number) => {
@@ -457,7 +476,11 @@ class AccountDetail extends React.Component<any, any> {
                 </div>
               </Tab>
               {isContract ? (
-                <Tab title="合约调用">
+                <Tab
+                  title={intl.formatMessage({
+                    id: 'app.pages.addressdetail.tabs.contractcall'
+                  })}
+                >
                   <TabContractCallContent
                     address={account}
                     code={self.props.account.code}
@@ -468,7 +491,11 @@ class AccountDetail extends React.Component<any, any> {
                 </Tab>
               ) : null}
               {isContract ? (
-                <Tab title="合约信息">
+                <Tab
+                  title={intl.formatMessage({
+                    id: 'app.pages.addressdetail.tabs.contractinfo'
+                  })}
+                >
                   <TabContractInfoContent
                     address={account}
                     code={self.props.account.code}

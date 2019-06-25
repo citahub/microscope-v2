@@ -13,8 +13,10 @@ class TransactionTable extends React.Component<any, any> {
   componentDidMount() {}
   render() {
     var self = this
+    var intl = self.props.intl
     var data = self.props.data
     var globalTickTime = self.props.globalTickTime
+    console.log(intl)
     return (
       <div className="transactionTable tableWrapper">
         <table className="table table-hover" style={{ tableLayout: 'fixed' }}>
@@ -24,52 +26,68 @@ class TransactionTable extends React.Component<any, any> {
               style={{ width: (157 / 1154) * 100 + '%' }}
               scope="col"
             >
-              交易类型
+              {intl.formatMessage({
+                id: 'app.pages.common.transactiontable.header.type'
+              })}
             </th>
             <th
               className="text-center"
               style={{ width: ((312 - 157) / 1154) * 100 + '%' }}
               scope="col"
             >
-              哈希
+              {intl.formatMessage({
+                id: 'app.pages.common.transactiontable.header.hash'
+              })}
             </th>
             <th
               className="text-center"
               style={{ width: ((476 - 312) / 1154) * 100 + '%' }}
               scope="col"
             >
-              从
+              {intl.formatMessage({
+                id: 'app.pages.common.transactiontable.header.from'
+              })}
             </th>
             <th
               className="text-center"
               style={{ width: ((623 - 476) / 1154) * 100 + '%' }}
               scope="col"
             >
-              至
+              {intl.formatMessage({
+                id: 'app.pages.common.transactiontable.header.to'
+              })}
             </th>
             <th
               className="text-center"
-              style={{ width: ((789 - 623) / 1154) * 100 + '%' }}
+              style={{ width: ((769 - 623) / 1154) * 100 + '%' }}
               scope="col"
             >
-              价值
+              {intl.formatMessage({
+                id: 'app.pages.common.transactiontable.header.value'
+              })}
             </th>
             <th
               className="text-center"
-              style={{ width: ((897 - 789) / 1154) * 100 + '%' }}
+              style={{ width: ((897 - 769) / 1154) * 100 + '%' }}
               scope="col"
             >
-              高度
+              {intl.formatMessage({
+                id: 'app.pages.common.transactiontable.header.blockheight'
+              })}
             </th>
             <th
               className="text-center"
               style={{ width: ((981 - 815) / 1154) * 100 + '%' }}
               scope="col"
             >
-              消耗的 Quota
+              {intl.formatMessage({
+                id: 'app.pages.common.transactiontable.header.quotaused'
+              })}
             </th>
             <th className="text-center" scope="col">
-              时间
+              {intl.formatMessage({
+                id: 'app.pages.common.transactiontable.header.timestamp'
+              })}
             </th>
           </thead>
           <tbody>
@@ -151,10 +169,11 @@ class TransactionTable extends React.Component<any, any> {
         </table>
         <div style={{ float: 'right' }}>
           <Pagination
+            locale={JSON.parse(intl.messages['app.pages.common.pagination'])}
             selectComponentClass={Select}
             current={data.pageNum}
             total={data.total}
-            showQuickJumper={{ goButton: <button>确定</button> }}
+            showQuickJumper={true}
             defaultPageSize={data.pageSize}
             showSizeChanger={true}
             onShowSizeChange={(current: number, pageSize: number) => {

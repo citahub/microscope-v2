@@ -12,30 +12,45 @@ class TransactionSearchModal extends React.Component<any, any> {
   }
   render() {
     var self = this
+    var intl = self.props.intl
     return (
       <div className="transactionSearchModal">
-        <h5 style={{ textAlign: 'center' }}>高级选择器</h5>
+        <h5 style={{ textAlign: 'center' }}>
+          {intl.formatMessage({ id: 'app.pages.common.txsearchmodal.title' })}
+        </h5>
         <div style={{ padding: 20 }}>
           <div className="form-group row">
-            <label className="col-sm-2 col-form-label">Address From</label>
+            <label className="col-sm-2 col-form-label">
+              {intl.formatMessage({
+                id: 'app.pages.common.txsearchmodal.address.from'
+              })}
+            </label>
             <div className="col-sm-10">
               <input
                 type="text"
                 ref="from"
                 className="form-control hash"
-                placeholder="Address From"
+                placeholder={intl.formatMessage({
+                  id: 'app.pages.common.txsearchmodal.address.from'
+                })}
                 maxLength={66}
               />
             </div>
           </div>
           <div className="form-group row">
-            <label className="col-sm-2 col-form-label">Address To</label>
+            <label className="col-sm-2 col-form-label">
+              {intl.formatMessage({
+                id: 'app.pages.common.txsearchmodal.address.to'
+              })}
+            </label>
             <div className="col-sm-10">
               <input
                 type="text"
                 ref="to"
                 className="form-control hash"
-                placeholder="Address To"
+                placeholder={intl.formatMessage({
+                  id: 'app.pages.common.txsearchmodal.address.to'
+                })}
                 maxLength={66}
               />
             </div>
@@ -56,7 +71,9 @@ class TransactionSearchModal extends React.Component<any, any> {
                 )
               }}
             >
-              Submit
+              {intl.formatMessage({
+                id: 'app.pages.common.txsearchmodal.button'
+              })}
             </button>
           </div>
         </div>

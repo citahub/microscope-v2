@@ -8,7 +8,7 @@ class Footer extends React.Component<any, any> {
         <div className="container">
           <div className="row">
             <div className="col-xs-4 col-sm-4 col-md-4 col-12 intro vhCenter">
-              <div style={{ padding: '0 50px', lineHeight: 2 }}>
+              <div style={{ padding: '0 0', lineHeight: 2, maxWidth: 300 }}>
                 {intl.formatMessage({ id: 'app.footer.category.introcution' })}
               </div>
             </div>

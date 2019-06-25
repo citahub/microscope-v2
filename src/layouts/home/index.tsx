@@ -38,6 +38,7 @@ class Home extends React.Component<any, any> {
 
   render() {
     var self = this
+    var intl = self.props.intl
     var metaData = self.props.network.metaData
     var topBlocks = self.props.block.topList
     var topTransactions = self.props.transaction.topList
@@ -62,7 +63,11 @@ class Home extends React.Component<any, any> {
                       ? parseInt(topBlocks[0].header.number)
                       : '?'}
                   </div>
-                  <div className="generalItem2Label">区块高度</div>
+                  <div className="generalItem2Label">
+                    {intl.formatMessage({
+                      id: 'app.pages.home.meta.blockheight'
+                    })}
+                  </div>
                 </div>
               </div>
               <div className="generalItem col-xs-12 col-sm-9 col-md-6 col-lg-4">
@@ -77,7 +82,11 @@ class Home extends React.Component<any, any> {
                   <div className="generalItem1Label">
                     {metaData ? metaData.blockInterval / 1000 + 's' : '?'}
                   </div>
-                  <div className="generalItem2Label">出块间隔</div>
+                  <div className="generalItem2Label">
+                    {intl.formatMessage({
+                      id: 'app.pages.home.meta.blockinterval'
+                    })}
+                  </div>
                 </div>
               </div>
               <div className="generalItem col-xs-12 col-sm-9 col-md-6 col-lg-4">
@@ -92,7 +101,11 @@ class Home extends React.Component<any, any> {
                   <div className="generalItem1Label">
                     {metaData ? metaData.validators.length : '?'}
                   </div>
-                  <div className="generalItem2Label">共识节点</div>
+                  <div className="generalItem2Label">
+                    {intl.formatMessage({
+                      id: 'app.pages.home.meta.validators'
+                    })}
+                  </div>
                 </div>
               </div>
             </div>
@@ -122,7 +135,11 @@ class Home extends React.Component<any, any> {
                     <div className="generalInfoItemName">
                       {metaData ? metaData.chainName : '?'}
                     </div>
-                    <div className="generalInfoItemLabel">名称</div>
+                    <div className="generalInfoItemLabel">
+                      {intl.formatMessage({
+                        id: 'app.pages.home.meta.chainname'
+                      })}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -138,7 +155,11 @@ class Home extends React.Component<any, any> {
                     <div className="generalInfoItemName">
                       {metaData ? metaData.operator : '?'}
                     </div>
-                    <div className="generalInfoItemLabel">运营方</div>
+                    <div className="generalInfoItemLabel">
+                      {intl.formatMessage({
+                        id: 'app.pages.home.meta.operator'
+                      })}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -158,7 +179,11 @@ class Home extends React.Component<any, any> {
                           : 'Charge Modal'
                         : '?'}
                     </div>
-                    <div className="generalInfoItemLabel">经济模型</div>
+                    <div className="generalInfoItemLabel">
+                      {intl.formatMessage({
+                        id: 'app.pages.home.meta.economicalmodel'
+                      })}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -174,7 +199,11 @@ class Home extends React.Component<any, any> {
                     <div className="generalInfoItemName">
                       {metaData ? metaData.tokenSymbol : '?'}
                     </div>
-                    <div className="generalInfoItemLabel">代币名称</div>
+                    <div className="generalInfoItemLabel">
+                      {intl.formatMessage({
+                        id: 'app.pages.home.meta.tokensymbol'
+                      })}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -190,7 +219,11 @@ class Home extends React.Component<any, any> {
                     <div className="generalInfoItemName">
                       {metaData ? metaData.chainId : '?'}
                     </div>
-                    <div className="generalInfoItemLabel">链ID</div>
+                    <div className="generalInfoItemLabel">
+                      {intl.formatMessage({
+                        id: 'app.pages.home.meta.chainid'
+                      })}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -206,7 +239,11 @@ class Home extends React.Component<any, any> {
                     <div className="generalInfoItemName">
                       {metaData ? metaData.version : '?'}
                     </div>
-                    <div className="generalInfoItemLabel">版本号</div>
+                    <div className="generalInfoItemLabel">
+                      {intl.formatMessage({
+                        id: 'app.pages.home.meta.version'
+                      })}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -235,7 +272,7 @@ class Home extends React.Component<any, any> {
                       color: '#47484a'
                     }}
                   >
-                    最近10个块
+                    {intl.formatMessage({ id: 'app.pages.home.top10.block' })}
                   </div>
                   <div
                     className="col-6 operationItem"
@@ -249,7 +286,7 @@ class Home extends React.Component<any, any> {
                       hashHistory.push('/block/list')
                     }}
                   >
-                    查看更多 &gt;
+                    {intl.formatMessage({ id: 'app.pages.home.top10.more' })}
                   </div>
                 </div>
                 <div>
@@ -269,7 +306,7 @@ class Home extends React.Component<any, any> {
                                 hashHistory.push('/block/id/' + blockNumber)
                               }}
                             >
-                              块<br />#{blockNumber}
+                              #{blockNumber}
                             </div>
                           </div>
                           <div
@@ -286,13 +323,20 @@ class Home extends React.Component<any, any> {
                               <span className="hash">{block.hash}</span>
                             </div>
                             <div className="blockItemTranscation">
-                              包含&nbsp;
-                              {block.transactionsCount ||
-                                (block.body &&
-                                  block.body.transactions &&
-                                  block.body.transactions.length) ||
-                                0}
-                              &nbsp;笔交易
+                              {intl.formatMessage(
+                                {
+                                  id:
+                                    'app.pages.home.top10.block.transactioncount'
+                                },
+                                {
+                                  key:
+                                    block.transactionsCount ||
+                                    (block.body &&
+                                      block.body.transactions &&
+                                      block.body.transactions.length) ||
+                                    0
+                                }
+                              )}
                             </div>
                             <div className="blockItemFrom">
                               Proposed By{' '}
@@ -334,7 +378,9 @@ class Home extends React.Component<any, any> {
                       color: '#47484a'
                     }}
                   >
-                    最近10笔交易
+                    {intl.formatMessage({
+                      id: 'app.pages.home.top10.transaction'
+                    })}
                   </div>
                   <div
                     className="col-6 operationItem"
@@ -348,7 +394,7 @@ class Home extends React.Component<any, any> {
                       hashHistory.push('/transaction/list')
                     }}
                   >
-                    查看更多 &gt;
+                    {intl.formatMessage({ id: 'app.pages.home.top10.more' })}
                   </div>
                 </div>
                 <div>

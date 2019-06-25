@@ -1,7 +1,7 @@
 import * as constants from '../actionTypes'
 import { AppAction } from '../actions/appAction'
 import { AppState } from '../states/appState'
-
+import { getSelectLanguage } from '../../utils/storage'
 const initialState: AppState = {
   toast: null,
   loading: null,
@@ -9,7 +9,7 @@ const initialState: AppState = {
   appWidth: '100vw',
   appHeight: '100vh',
   drawerOpen: false,
-  appLanguage: navigator.language || 'en',
+  appLanguage: getSelectLanguage(),
   globalTickTime: new Date().getTime()
 }
 

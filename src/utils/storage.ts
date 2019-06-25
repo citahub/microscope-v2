@@ -4,6 +4,7 @@ export const defaultNetwork: ServerNode = api.serverList[0]
 export function clearAll() {
   window.localStorage.removeItem('selectNetwork')
   window.localStorage.removeItem('networks')
+  window.localStorage.removeItem('selectLanguage')
 }
 
 export function getSelectNetwork(): ServerNode {
@@ -77,4 +78,24 @@ export function removeNetwork(network: ServerNode) {
 
 export function setSelectNetwork(network: ServerNode) {
   window.localStorage.setItem('selectNetwork', JSON.stringify(network))
+}
+
+export function setSelectLanguage(language: any) {
+  window.localStorage.setItem('selectLanguage', JSON.stringify(language))
+}
+
+const defaultLanguage = navigator.language || 'EN'
+export function getSelectLanguage(): any {
+  var languageStr = window.localStorage.getItem('selectLanguage')
+  var result: any
+  if (languageStr) {
+    try {
+      result = JSON.parse(languageStr)
+    } catch (e) {
+      result = defaultLanguage
+    }
+  } else {
+    result = defaultLanguage
+  }
+  return result
 }

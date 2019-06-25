@@ -63,6 +63,7 @@ class APIRebirth extends React.Component<any, any> {
   }
   render() {
     var self = this
+    var intl = self.props.intl
     var params = queryString.parse(self.props.location.search)
     var method = params.method || rebirthTemplate[0].name
     var selectNetwork = getSelectNetwork()
@@ -116,7 +117,9 @@ class APIRebirth extends React.Component<any, any> {
               </nav>
               <div className="withColumn">
                 <div className="card" style={{ height: '40%' }}>
-                  <div className="card-header">Input</div>
+                  <div className="card-header">
+                    {intl.formatMessage({ id: 'app.page.api.input' })}
+                  </div>
                   <div className="card-body">
                     <ReactJson
                       src={self.props.network.rebirthData.input || {}}
@@ -145,7 +148,7 @@ class APIRebirth extends React.Component<any, any> {
                         }
                       }}
                     >
-                      发送
+                      {intl.formatMessage({ id: 'app.page.api.send' })}
                     </button>
                   </div>
                 </div>
@@ -153,7 +156,9 @@ class APIRebirth extends React.Component<any, any> {
                   className="card withColumnLeftAuto"
                   style={{ marginTop: 20 }}
                 >
-                  <div className="card-header">Output</div>
+                  <div className="card-header">
+                    {intl.formatMessage({ id: 'app.page.api.output' })}
+                  </div>
                   <div className="card-body">
                     <div ref="output" style={{ width: '100%', minHeight: 200 }}>
                       <ReactJson

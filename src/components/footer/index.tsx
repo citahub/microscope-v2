@@ -2,14 +2,14 @@ import React from 'react'
 import './index.styl'
 class Footer extends React.Component<any, any> {
   render() {
+    var intl = this.props.intl
     return (
       <div className="footer" style={{ color: 'white' }}>
         <div className="container">
           <div className="row">
             <div className="col-xs-4 col-sm-4 col-md-4 col-12 intro vhCenter">
               <div style={{ padding: '0 50px', lineHeight: 2 }}>
-                Microscope provides an easy-to-use user interface to inspect
-                CITA.
+                {intl.formatMessage({ id: 'app.footer.category.introcution' })}
               </div>
             </div>
 
@@ -17,7 +17,9 @@ class Footer extends React.Component<any, any> {
               className="col-xs-4 col-sm-4 col-md-4 col-12 otherProduct"
               style={{ margin: '0 auto', paddingTop: 34, paddingBottom: 34 }}
             >
-              <div className="footTitle">技术</div>
+              <div className="footTitle">
+                {intl.formatMessage({ id: 'app.footer.category.tech' })}
+              </div>
               <div className="row" style={{ margin: 0, marginTop: 32 }}>
                 <a
                   href="https://github.com/cryptape/cita"
@@ -33,7 +35,9 @@ class Footer extends React.Component<any, any> {
               className="col-xs-4 col-sm-4 col-md-4 col-12 contact"
               style={{ paddingTop: 34, paddingBottom: 34 }}
             >
-              <div className="footTitle">联系我们</div>
+              <div className="footTitle">
+                {intl.formatMessage({ id: 'app.footer.category.contact' })}
+              </div>
               <div style={{ marginTop: 28 }}>
                 <a href="https://github.com/cryptape/microscope">
                   <img
@@ -58,7 +62,9 @@ class Footer extends React.Component<any, any> {
                     src="images/footer_group.png"
                     style={{ marginRight: 15 }}
                   />
-                  CITAHub 开发者论坛
+                  {intl.formatMessage({
+                    id: 'app.footer.category.contact.bbs'
+                  })}
                 </a>
               </div>
             </div>
@@ -68,4 +74,5 @@ class Footer extends React.Component<any, any> {
     )
   }
 }
-export default Footer
+import { injectIntl } from 'react-intl'
+export default injectIntl(Footer)

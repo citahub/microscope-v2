@@ -7,17 +7,22 @@ import queryString from 'query-string'
 class SearchPage extends React.Component<any, any> {
   render() {
     var self = this
+    var intl = self.props.intl
     return (
       <Content className="search vhCenter" bgColor="white">
         <div className="container">
           <div>
             <div className="searchLabel">
-              您要搜索的资源
-              <b>
-                {self.props.location.search &&
-                  queryString.parse(self.props.location.search).q}
-              </b>
-              没有找到！
+              {intl.formatMessage(
+                {
+                  id: 'app.page.search.label'
+                },
+                {
+                  key:
+                    self.props.location.search &&
+                    queryString.parse(self.props.location.search).q
+                }
+              )}
             </div>
             <div
               className="goBackButton"
@@ -25,7 +30,7 @@ class SearchPage extends React.Component<any, any> {
                 hashHistory.push('/')
               }}
             >
-              返回首页
+              {intl.formatMessage({ id: 'app.page.search.goback' })}
             </div>
           </div>
         </div>

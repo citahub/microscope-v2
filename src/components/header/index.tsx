@@ -9,7 +9,9 @@ import {
   setSelectNetwork,
   getNetworks,
   addNetwork,
-  removeNetwork
+  removeNetwork,
+  getSelectLanguage,
+  setSelectLanguage
 } from '../../utils/storage'
 import * as dataAPI from '../../utils/dataAPI'
 import { isAddress, isBlockHeight, isHash, format0x } from '../../utils/hex'
@@ -70,7 +72,89 @@ class NodeItem extends React.Component<any, any> {
     )
   }
 }
-
+class Language extends React.Component<any, any> {
+  clickListener: any
+  constructor(props: any) {
+    super(props)
+    this.state = {
+      open: false
+    }
+  }
+  componentDidMount() {
+    this.clickListener = () => {
+      this.setState({ open: false })
+    }
+    window.addEventListener('click', this.clickListener)
+  }
+  componentWillUnmount() {
+    if (this.clickListener) {
+      window.removeEventListener('click', this.clickListener)
+    }
+  }
+  render() {
+    var self = this
+    var intl = self.props.intl
+    var selectLanguage = getSelectLanguage()
+    return (
+      <div
+        className="language"
+        style={{ position: 'fixed', top: 20, width: 80 }}
+      >
+        <div
+          className="withRow"
+          style={{ width: '100%', paddingTop: 10 }}
+          onMouseOver={() => {
+            self.setState({ open: true })
+          }}
+        >
+          <div className="operationItem languageName withRowLeftAuto">
+            {intl.formatMessage({ id: 'app.languages.' + selectLanguage })}
+          </div>
+          <div
+            className="operationItem vhCenter"
+            style={{
+              width: 16,
+              height: 20,
+              paddingLeft: 5,
+              position: 'relative'
+            }}
+          >
+            <div className={self.state.open ? 'topArrow' : 'bottomArrow'} />
+          </div>
+        </div>
+        {self.state.open ? (
+          <div
+            className="languageOpen"
+            onMouseLeave={() => {
+              self.setState({ open: false })
+            }}
+          >
+            {languages.map((language: string) => {
+              var className = 'languageItem'
+              if (language === selectLanguage) {
+                className += ' languageItemSelected'
+              }
+              return (
+                <div
+                  onClick={() => {
+                    self.props.appAction.switchLanguage(language)
+                    setSelectLanguage(language)
+                    self.setState({
+                      open: false
+                    })
+                  }}
+                  className={className}
+                >
+                  {intl.formatMessage({ id: 'app.languages.' + language })}
+                </div>
+              )
+            })}
+          </div>
+        ) : null}
+      </div>
+    )
+  }
+}
 class NetWork extends React.Component<any, any> {
   refs: {
     search: any
@@ -89,11 +173,11 @@ class NetWork extends React.Component<any, any> {
     var self = this
     var networks = self.props.networks
     var selectNetwork = self.props.selectNetwork
-
+    var intl = self.props.intl
     return (
       <div
         className="network"
-        style={{ position: 'fixed', top: 20, width: 100 }}
+        style={{ position: 'fixed', top: 20, width: 120 }}
       >
         <div
           className="withRow"
@@ -124,12 +208,14 @@ class NetWork extends React.Component<any, any> {
               self.setState({ open: false })
             }}
           >
-            <div>Switch Chain</div>
+            <div>{intl.formatMessage({ id: 'app.header.network.title' })}</div>
             <div className="withRow" style={{ marginTop: 14, height: 34 }}>
               <div className="withRowLeftAuto">
                 <input
                   autoFocus
-                  placeholder="Please input rebirth service address"
+                  placeholder={intl.formatMessage({
+                    id: 'app.header.network.placeholder'
+                  })}
                   type="text"
                   ref="search"
                   className="form-control"
@@ -139,7 +225,9 @@ class NetWork extends React.Component<any, any> {
                         var u = self.refs.search.value
                         if (!u) {
                           self.props.appAction.toast(
-                            'Please input rebirth-service/node address'
+                            intl.formatMessage({
+                              id: 'app.header.network.placeholder'
+                            })
                           )
                           return
                         }
@@ -177,7 +265,9 @@ class NetWork extends React.Component<any, any> {
                   var u = self.refs.search.value
                   if (!u) {
                     self.props.appAction.toast(
-                      'Please input rebirth-service/node address',
+                      intl.formatMessage({
+                        id: 'app.header.network.placeholder'
+                      }),
                       3000
                     )
                     return
@@ -194,7 +284,7 @@ class NetWork extends React.Component<any, any> {
                   window.location.reload()
                 }}
               >
-                switch
+                {intl.formatMessage({ id: 'app.header.network.button' })}
               </div>
             </div>
             <div style={{ marginTop: 9 }}>
@@ -251,6 +341,7 @@ class MoreMenu extends React.Component<any, any> {
   }
   render() {
     var self = this
+    var intl = self.props.intl
     var data = self.props.data
     var className = 'menu operationItem'
     if (self.props.location.pathname.startsWith(data.path)) {
@@ -275,7 +366,7 @@ class MoreMenu extends React.Component<any, any> {
             }}
           >
             <div className={className} style={{ marginLeft: 0 }}>
-              {data.name}
+              {intl.formatMessage({ id: data.id })}
             </div>
             <div
               className="operationItem vhCenter"
@@ -312,7 +403,7 @@ class MoreMenu extends React.Component<any, any> {
                       hashHistory.push(item.path)
                     }}
                   >
-                    {item.name}
+                    {intl.formatMessage({ id: item.id })}
                   </div>
                 )
               })}
@@ -325,32 +416,33 @@ class MoreMenu extends React.Component<any, any> {
 }
 const menus = [
   {
-    name: '区块',
+    id: 'app.header.menus.block',
     path: '/block/list'
   },
   {
-    name: '交易',
+    id: 'app.header.menus.transaction',
     path: '/transaction/list'
   },
   {
-    name: 'API',
+    id: 'app.header.menus.api',
     path: '/api/',
     subMenus: [
       {
-        name: 'RPC',
+        id: 'app.header.menus.api.rpc',
         path: '/api/rpc'
       },
       {
-        name: 'Re-Birth',
+        id: 'app.header.menus.api.rebirth',
         path: '/api/rebirth'
       }
     ]
   },
   {
-    name: '统计',
+    id: 'app.header.menus.static',
     path: '/statics'
   }
 ]
+const languages = ['zh', 'en']
 
 class SearchBar extends React.Component<any, any> {
   refs: {
@@ -394,10 +486,13 @@ class SearchBar extends React.Component<any, any> {
   }
   render() {
     var self = this
+    var intl = self.props.intl
     return (
       <div className="input-group">
         <input
-          placeholder="Search by Block / Transaction / Address"
+          placeholder={intl.formatMessage({
+            id: 'app.header.search.placeholder'
+          })}
           type="text"
           ref="search"
           maxLength={66}
@@ -519,7 +614,7 @@ class MobileHeader extends React.Component<any, any> {
                             textAlign: 'left'
                           }}
                         >
-                          {menu.name}
+                          {menu.id}
                           {menu.subMenus.map((subMenu: any) => {
                             var subMenuClassName = 'menu operationItem'
                             if (self.props.location.pathname == subMenu.path) {
@@ -541,7 +636,7 @@ class MobileHeader extends React.Component<any, any> {
                                   })
                                 }}
                               >
-                                {subMenu.name}
+                                {subMenu.id}
                               </div>
                             )
                           })}
@@ -566,7 +661,7 @@ class MobileHeader extends React.Component<any, any> {
                             })
                           }}
                         >
-                          {menu.name}
+                          {menu.id}
                         </div>
                       )
                     }
@@ -578,10 +673,11 @@ class MobileHeader extends React.Component<any, any> {
         ) : null}
         <div className="withRow container" style={{ height: 41 }}>
           <div>
-            <SearchBar />
+            <SearchBar intl={self.props.intl} />
           </div>
           <div>
             <NetWork
+              intl={self.props.intl}
               networks={networks}
               selectNetwork={selectNetwork}
               appAction={self.props.appAction}
@@ -598,13 +694,14 @@ class Header extends React.Component<any, any> {
     var self = this
     var networks = getNetworks()
     var selectNetwork = getSelectNetwork()
-
+    var intl = self.props.intl
     if (window.innerWidth < 750) {
       return (
         <MobileHeader
           location={self.props.location}
           key="mobile_header"
           appAction={self.props.appAction}
+          intl={self.props.intl}
         />
       )
     } else {
@@ -636,7 +733,13 @@ class Header extends React.Component<any, any> {
                   className += ' active'
                 }
                 if (menu.subMenus) {
-                  return <MoreMenu location={self.props.location} data={menu} />
+                  return (
+                    <MoreMenu
+                      location={self.props.location}
+                      data={menu}
+                      intl={intl}
+                    />
+                  )
                 } else {
                   return (
                     <span
@@ -645,7 +748,7 @@ class Header extends React.Component<any, any> {
                         hashHistory.push(menu.path)
                       }}
                     >
-                      {menu.name}
+                      {intl.formatMessage({ id: menu.id })}
                     </span>
                   )
                 }
@@ -659,12 +762,19 @@ class Header extends React.Component<any, any> {
                 height: 34
               }}
             >
-              <SearchBar />
+              <SearchBar intl={self.props.intl} />
             </div>
-            <div style={{ width: 100 }}>
+            <div style={{ width: 120 }}>
               <NetWork
+                intl={self.props.intl}
                 networks={networks}
                 selectNetwork={selectNetwork}
+                appAction={self.props.appAction}
+              />
+            </div>
+            <div style={{ width: 80, marginLeft: 10 }}>
+              <Language
+                intl={self.props.intl}
                 appAction={self.props.appAction}
               />
             </div>
@@ -674,4 +784,5 @@ class Header extends React.Component<any, any> {
     }
   }
 }
-export default Header
+import { injectIntl } from 'react-intl'
+export default injectIntl(Header)

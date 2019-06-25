@@ -46,6 +46,7 @@ class Statics extends React.Component<any, any> {
   }
   render() {
     var self = this
+    var intl = self.props.intl
     var blocks = self.props.block.topList || []
     var transactions = self.props.transaction.topList || []
 
@@ -111,7 +112,9 @@ class Statics extends React.Component<any, any> {
                 <ReactEcharts
                   option={{
                     title: {
-                      text: 'Interval(ms) for Latest 10 Blocks'
+                      text: intl.formatMessage({
+                        id: 'app.page.static.interval'
+                      })
                     },
                     tooltip: {},
                     color: ['#415dfc'],
@@ -135,7 +138,9 @@ class Statics extends React.Component<any, any> {
                 <ReactEcharts
                   option={{
                     title: {
-                      text: 'Transaction Count in Latest 10 Blocks'
+                      text: intl.formatMessage({
+                        id: 'app.page.static.txcount'
+                      })
                     },
                     tooltip: {},
                     color: ['#fca441'],
@@ -159,7 +164,9 @@ class Statics extends React.Component<any, any> {
                 <ReactEcharts
                   option={{
                     title: {
-                      text: 'Quota Used in Latest 10 Blocks'
+                      text: intl.formatMessage({
+                        id: 'app.page.static.quotainblock'
+                      })
                     },
                     tooltip: {},
                     color: ['#4db7f8'],
@@ -183,7 +190,9 @@ class Statics extends React.Component<any, any> {
                 <ReactEcharts
                   option={{
                     title: {
-                      text: 'Quota Used in Latest 10 Transactions'
+                      text: intl.formatMessage({
+                        id: 'app.page.static.quotaintx'
+                      })
                     },
                     tooltip: {
                       trigger: 'item',
@@ -214,7 +223,9 @@ class Statics extends React.Component<any, any> {
                   <ReactEcharts
                     option={{
                       title: {
-                        text: 'Proposal Distribution'
+                        text: intl.formatMessage({
+                          id: 'app.page.static.distribution'
+                        })
                       },
                       tooltip: {
                         trigger: 'item',

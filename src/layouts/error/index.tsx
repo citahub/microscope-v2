@@ -9,6 +9,7 @@ class NotFoundPage extends React.Component<any, any> {
   }
   componentDidMount() {}
   render() {
+    var intl = this.props.intl
     return (
       <Content className="error" bgColor="white">
         <div className="container">
@@ -18,14 +19,16 @@ class NotFoundPage extends React.Component<any, any> {
               style={{ width: '80%', height: 'auto' }}
             />
           </div>
-          <div className="errorLabel">哎呀呀，你要访问的页面没有找到！</div>
+          <div className="errorLabel">
+            {intl.formatMessage({ id: 'app.page.404.label' })}
+          </div>
           <div
             className="goBackButton"
             onClick={() => {
               hashHistory.push('/')
             }}
           >
-            返回首页
+            {intl.formatMessage({ id: 'app.page.404.goback' })}
           </div>
         </div>
       </Content>

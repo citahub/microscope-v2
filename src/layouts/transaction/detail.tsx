@@ -78,18 +78,26 @@ class TransactionDetail extends React.Component<any, any> {
           }}
         >
           <div className="container">
-            <div className="transactionNav vhCenter" style={{ fontSize: 20 }}>
-              <img
-                src="images/content_transaction.png"
-                style={{
-                  width: 16,
-                  height: 18,
-                  display: 'inline-block',
-                  marginRight: 17
-                }}
-              />
-              {intl.formatMessage({ id: 'app.pages.txdetail.title' })}
-              <span className="hash">{data && data.hash}</span>
+            <div
+              className="transactionNav"
+              style={{ fontSize: 20, paddingTop: 60 }}
+            >
+              <div style={{ textAlign: 'center' }}>
+                <img
+                  src="images/content_transaction.png"
+                  style={{
+                    width: 16,
+                    height: 18,
+                    display: 'inline-block'
+                  }}
+                />
+                <span style={{ display: 'inline-block', width: 80 }}>
+                  {intl.formatMessage({ id: 'app.pages.txdetail.title' })}
+                </span>
+                <span style={{ display: 'inline-block' }} className="hash">
+                  {data && data.hash}
+                </span>
+              </div>
             </div>
             <div className="transactionBody">
               <div className="withRow transactionBodyRow">

@@ -128,7 +128,7 @@ class Home extends React.Component<any, any> {
                 style={{ marginTop: 12 }}
               >
                 <div className="withRow">
-                  <div className="generalInfoItemIcon" style={{ width: 80 }}>
+                  <div className="generalInfoItemIcon">
                     <img src="images/general_info_name.png" />
                   </div>
                   <div className="withRowLeftAuto" style={{ paddingLeft: 20 }}>
@@ -148,7 +148,7 @@ class Home extends React.Component<any, any> {
                 style={{ marginTop: 12 }}
               >
                 <div className="withRow">
-                  <div className="generalInfoItemIcon" style={{ width: 80 }}>
+                  <div className="generalInfoItemIcon">
                     <img src="images/general_info_operator.png" />
                   </div>
                   <div className="withRowLeftAuto" style={{ paddingLeft: 20 }}>
@@ -168,7 +168,7 @@ class Home extends React.Component<any, any> {
                 style={{ marginTop: 12 }}
               >
                 <div className="withRow">
-                  <div className="generalInfoItemIcon" style={{ width: 80 }}>
+                  <div className="generalInfoItemIcon">
                     <img src="images/general_info_mode.png" />
                   </div>
                   <div className="withRowLeftAuto" style={{ paddingLeft: 20 }}>
@@ -192,7 +192,7 @@ class Home extends React.Component<any, any> {
                 style={{ marginTop: 12 }}
               >
                 <div className="withRow">
-                  <div className="generalInfoItemIcon" style={{ width: 80 }}>
+                  <div className="generalInfoItemIcon">
                     <img src="images/general_info_token.png" />
                   </div>
                   <div className="withRowLeftAuto" style={{ paddingLeft: 20 }}>
@@ -212,7 +212,7 @@ class Home extends React.Component<any, any> {
                 style={{ marginTop: 12 }}
               >
                 <div className="withRow">
-                  <div className="generalInfoItemIcon" style={{ width: 80 }}>
+                  <div className="generalInfoItemIcon">
                     <img src="images/general_info_chain.png" />
                   </div>
                   <div className="withRowLeftAuto" style={{ paddingLeft: 20 }}>
@@ -232,7 +232,7 @@ class Home extends React.Component<any, any> {
                 style={{ marginTop: 12 }}
               >
                 <div className="withRow">
-                  <div className="generalInfoItemIcon" style={{ width: 80 }}>
+                  <div className="generalInfoItemIcon">
                     <img src="images/general_info_version.png" />
                   </div>
                   <div className="withRowLeftAuto" style={{ paddingLeft: 20 }}>
@@ -295,7 +295,7 @@ class Home extends React.Component<any, any> {
                       var blockNumber = parseInt(block.header.number)
                       return (
                         <div key={i} className="blockItem withRow">
-                          <div style={{ width: 138 }}>
+                          <div className="blockItemNumberWrapper">
                             <div
                               className="blockItemNumber vhCenter operationItem"
                               style={{
@@ -418,10 +418,8 @@ class Home extends React.Component<any, any> {
                           d.unsignedTransaction.transaction.value)
                       return (
                         <div key={i} className="transactionItem withRow">
-                          <div style={{ width: 88 }}>
-                            <div className="transactionItemIcon">
-                              <img src="images/content2_contract.png" />
-                            </div>
+                          <div className="transactionItemIcon">
+                            <img src="images/content2_contract.png" />
                           </div>
                           <div
                             className="withRowLeftAuto"

@@ -77,12 +77,9 @@ class BlockList extends React.Component<any, any> {
         >
           <div
             className="container blockListBody"
-            style={{ minHeight: 690, paddingTop: 47 }}
+            style={{ minHeight: 690, padding: '47px 20px' }}
           >
-            <div
-              className="withRow"
-              style={{ minHeight: 36, paddingLeft: 24, paddingRight: 20 }}
-            >
+            <div className="withRow" style={{ minHeight: 36 }}>
               <div
                 className="queryConditoin withRowLeftAuto"
                 style={{ color: '#868b92', fontSize: 14 }}
@@ -121,15 +118,12 @@ class BlockList extends React.Component<any, any> {
                 })}
               </div>
             </div>
-            <div
-              className="tableWrapper"
-              style={{ padding: '14px 23px 0 23px', minHeight: 690 - 36 }}
-            >
+            <div className="tableWrapper" style={{ marginTop: 14 }}>
               <table
                 className="table table-hover"
                 style={{ tableLayout: 'fixed' }}
               >
-                <thead style={{ backgroundColor: '#fafbff' }}>
+                <thead style={{ backgroundColor: '#fafbff', height: 50 }}>
                   <th
                     className="text-center"
                     style={{ width: (232 / 1154) * 100 + '%' }}
@@ -216,60 +210,66 @@ class BlockList extends React.Component<any, any> {
                     })}
                 </tbody>
               </table>
-              <div style={{ float: 'right' }}>
-                <ul className="rc-pagination ">
-                  {hasPrev ? (
-                    <li
-                      className="rc-pagination-disabled rc-pagination-prev"
-                      aria-disabled="false"
-                      onClick={() => {
-                        hashHistory.push(
-                          '/block/list?pageNum=' +
-                            (pageNum - 1) +
-                            '&pageSize=' +
-                            pageSize +
-                            '&blockFrom=' +
-                            self.props.block.list.blockFrom +
-                            '&blockTo=' +
-                            self.props.block.list.blockTo +
-                            '&transactionCountMin=' +
-                            self.props.block.list.transactionCountMin +
-                            '&transactionCountMax=' +
-                            self.props.block.list.transactionCountMax
-                        )
-                      }}
-                    >
-                      <a className="rc-pagination-item-link" />
-                    </li>
-                  ) : null}
-                  {hasNext ? (
-                    <li
-                      className=" rc-pagination-next"
-                      aria-disabled="false"
-                      onClick={() => {
-                        hashHistory.push(
-                          '/block/list?pageNum=' +
-                            (pageNum + 1) +
-                            '&pageSize=' +
-                            pageSize +
-                            '&blockFrom=' +
-                            self.props.block.list.blockFrom +
-                            '&blockTo=' +
-                            self.props.block.list.blockTo +
-                            '&transactionCountMin=' +
-                            self.props.block.list.transactionCountMin +
-                            '&transactionCountMax=' +
-                            self.props.block.list.transactionCountMax
-                        )
-                      }}
-                    >
-                      <a className="rc-pagination-item-link" />
-                    </li>
-                  ) : (
-                    false
-                  )}
-                </ul>
-              </div>
+            </div>
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'flex-end',
+                marginTop: 10
+              }}
+            >
+              <ul className="rc-pagination ">
+                {hasPrev ? (
+                  <li
+                    className="rc-pagination-disabled rc-pagination-prev"
+                    aria-disabled="false"
+                    onClick={() => {
+                      hashHistory.push(
+                        '/block/list?pageNum=' +
+                          (pageNum - 1) +
+                          '&pageSize=' +
+                          pageSize +
+                          '&blockFrom=' +
+                          self.props.block.list.blockFrom +
+                          '&blockTo=' +
+                          self.props.block.list.blockTo +
+                          '&transactionCountMin=' +
+                          self.props.block.list.transactionCountMin +
+                          '&transactionCountMax=' +
+                          self.props.block.list.transactionCountMax
+                      )
+                    }}
+                  >
+                    <a className="rc-pagination-item-link" />
+                  </li>
+                ) : null}
+                {hasNext ? (
+                  <li
+                    className=" rc-pagination-next"
+                    aria-disabled="false"
+                    onClick={() => {
+                      hashHistory.push(
+                        '/block/list?pageNum=' +
+                          (pageNum + 1) +
+                          '&pageSize=' +
+                          pageSize +
+                          '&blockFrom=' +
+                          self.props.block.list.blockFrom +
+                          '&blockTo=' +
+                          self.props.block.list.blockTo +
+                          '&transactionCountMin=' +
+                          self.props.block.list.transactionCountMin +
+                          '&transactionCountMax=' +
+                          self.props.block.list.transactionCountMax
+                      )
+                    }}
+                  >
+                    <a className="rc-pagination-item-link" />
+                  </li>
+                ) : (
+                  false
+                )}
+              </ul>
             </div>
           </div>
         </div>

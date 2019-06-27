@@ -31,6 +31,7 @@
       font-size 16px
   .generalInfoItemIcon
     text-align right
+    width 80px
   .generalInfoItemName
     font-size 18px
     height 25px
@@ -52,6 +53,8 @@
     font-size 14px
     &:nth-child(1)
       margin-top 10px
+    .blockItemNumberWrapper
+      width 138px
     .blockItemNumber
       text-align right
       margin-left 27px
@@ -165,3 +168,19 @@
       overflow hidden
       text-overflow ellipsis
       white-space nowrap
+
+@media (max-width: 850px)
+  .home
+    .generalInfoItemIcon
+      width 40px
+    .blockItem
+      .blockItemNumberWrapper
+        width 108px
+      .blockItemNumber
+        margin-left 5px
+    .transactionItem
+      .transactionItemIcon
+        width 58px
+    .generalItem
+      .generalItemIcon
+        left 20px

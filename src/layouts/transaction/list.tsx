@@ -60,12 +60,9 @@ class TransitionList extends React.Component<any, any> {
         >
           <div
             className="container transactionListBody"
-            style={{ minHeight: 690, paddingTop: 47 }}
+            style={{ padding: '47px 20px' }}
           >
-            <div
-              className="withRow"
-              style={{ minHeight: 36, paddingLeft: 24, paddingRight: 20 }}
-            >
+            <div className="withRow" style={{ minHeight: 36 }}>
               <div
                 className="queryCondition withRowLeftAuto"
                 style={{ color: '#868b92', fontSize: 14 }}
@@ -100,7 +97,7 @@ class TransitionList extends React.Component<any, any> {
                 })}
               </div>
             </div>
-            <div style={{ padding: '14px 23px 0 23px', minHeight: 690 - 36 }}>
+            <div style={{ marginTop: 14 }}>
               <TransactionTable
                 intl={intl}
                 data={data}

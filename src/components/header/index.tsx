@@ -209,7 +209,9 @@ class NetWork extends React.Component<any, any> {
               self.setState({ open: false })
             }}
           >
-            <div>{intl.formatMessage({ id: 'app.header.network.title' })}</div>
+            <div style={{ display: 'none' }}>
+              {intl.formatMessage({ id: 'app.header.network.title' })}
+            </div>
             <div className="withRow" style={{ marginTop: 14, height: 34 }}>
               <div className="withRowLeftAuto">
                 <input

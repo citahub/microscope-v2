@@ -224,7 +224,6 @@ class TabContractCallContent extends React.Component<any, any> {
           return d.stateMutability === 'nonpayable'
         })) ||
       []
-    console.log(viewAbis)
     return (
       <div className="container contractTabCall">
         {viewAbis.map((d: any) => this.renderAbi(d, 'view'))}

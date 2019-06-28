@@ -13,7 +13,6 @@ class BlockList extends React.Component<any, any> {
   componentDidMount() {
     var self = this
     var params: any = queryString.parse(self.props.location.search)
-    console.log(params)
     var pageNum = params.pageNum ? parseInt(params.pageNum) : 1
     var pageSize = params.pageSize ? parseInt(params.pageSize) : 10
     var blockFrom = params.blockFrom || ''

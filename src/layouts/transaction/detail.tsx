@@ -292,7 +292,6 @@ class TransactionDetail extends React.Component<any, any> {
                                 'dataUtf8'
                               ) as HTMLTextAreaElement
                               if (error) {
-                                console.log(error)
                                 if (dataUtf8) dataUtf8.value = error
                               } else {
                                 if (dataUtf8) dataUtf8.value = data

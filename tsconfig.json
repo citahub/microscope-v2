@@ -1,11 +1,12 @@
 {
+  "extends": "@cryptape/sdk-ts-config/tsconfig.json",
   "compilerOptions": {
-    "module": "commonjs",
-    "target": "es5",
+    "target": "es6",
+    "moduleResolution": "node",
     "sourceMap": true,
-    "jsx": "react"
-  },
-  "exclude": [
-    "node_modules"
-  ]
+    "esModuleInterop": true,
+    "jsx": "react",
+    "declaration": false
+  }
+
 }

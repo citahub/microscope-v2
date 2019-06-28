@@ -1,30 +1,28 @@
-# introduction
-this is repository of microscope.
+[![MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://github.com/cryptape/microscope)
+[![CITAHub](https://img.shields.io/badge/made%20for-CITAHub-blue.svg)](https://www.citahub.com/)
 
-1. use websocket to improve comunication with cita and rebirth cache server
-
-2. package the cita communication to citaAPI, rebirth communication to cacheAPI.
-
-3. use typescript/eslint to improve the code standards
-
-4. switch the internation part label to locale json file
+# Overview
+this is repository of microscope v2
 
 
+# Development
 
-# dev/run instruction
-
-  prerequisite: nodejs
+  Prerequisite: nodejs 11.10
 
 
 ``` shell
 
-    npm i
+    yarn
 
-    npm run dev // for development
+    yarn run start
 
-    npm run build // for build which output to portal directory
+    yarn run build
+
+    yarn run deploy
 
 ```
 
 # 3rd libaray
-  2. [rc-menu](https://github.com/react-component/menu)
+  1. [react-json-view](https://github.com/mac-s-g/react-json-view)
+  2. [rc-pagination](https://github.com/react-component/pagination)
+  3. [rc-select](https://github.com/react-component/select)

@@ -1,5 +1,7 @@
 const path = require('path')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const webpack = require('webpack')
+var poststylus = require('poststylus')
 
 module.exports = {
   entry: {
@@ -19,44 +21,50 @@ module.exports = {
       },
       {
         exclude: /node_modules/,
-        test: /\.jsx$/,
-        use: ['babel-loader']
-      },
-      {
-        exclude: /node_modules/,
         test: /\.js$/,
         use: ['babel-loader']
       },
       {
-        test: /\.(styl|css)$/,
+        test: /\.styl$/,
         use: ExtractTextPlugin.extract({
           use: [
             {
-              loader: 'css-loader',
+              loader: 'css-loader'
+            },
+            {
+              loader: 'stylus-loader',
               options: {
                 minimize: true
               }
-            },
-            {
-              loader: 'stylus-loader'
             }
           ]
+        })
+      },
+      {
+        test: /\.css$/,
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: 'css-loader'
         })
       }
     ]
   },
   resolve: {
-    extensions: ['.ts', '.tsx', '.js', '.jsx'],
-    modules: ['ui', 'node_modules']
+    extensions: ['.ts', '.tsx', '.js'],
+    modules: ['node_modules']
   },
   plugins: [
+    new webpack.LoaderOptionsPlugin({
+      test: /\.styl$/,
+      options: {
+        stylus: {
+          use: [poststylus(['autoprefixer'])]
+        }
+      }
+    }),
     new ExtractTextPlugin({
       filename: 'bundle.css',
       allChunks: true
     })
-  ],
-  output: {
-    path: path.join(path.resolve(__dirname), './portal/'),
-    filename: '[name].js'
-  }
+  ]
 }

@@ -1,34 +1,162 @@
-.header {
-  position: relative;
-  width: 100%;
-  height: 44px;
-  box-sizing: border-box;
-  border-bottom: 1px solid #ddd;
-  background-color: transparent;
-  background-image: none;
-}
-.header_title {
-  width: 100%;
-  height: 100%;
-  text-align: center
-}
+.header
+  width 100%
+  height 80px
+  padding-top 20px
+  background #FFFFFF
+  box-shadow 0 5px 4px 0 rgba(170,170,170,0.07)
+  position sticky
+  position -webkit-sticky
+  top 0
+  z-index 888
+  .headerLogo
+    img
+      width 165px
+      height 41px
 
-.header_backButtonArea {
-  position: absolute;
-  left: 0;
-  top: 5px;
-  height: 34px;
-  line-height: 34px;
-  width: 35px;
-  z-index: 1
-}
-.header_backButton {
-  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAsCAYAAAB/nHhDAAAAAXNSR0IArs4c6QAAAVxJREFUWAnd17FqwlAUgGGTkEBeQfoyunaSDoUOQohJBreufYG+QjJ2KDgVn0DoUvAJ3Lv4DJEYzym9IepV7z3n3KG9S+SS/B83Qw4OBn99eVIHKMsy9DzvOQiCzzRNv1TXVz8419/4om3b16ZpZv0WG+jFJxDehGH40gdYr+g0HkXRKEmSrQhgEkeIdALTOAmwiVsDtnErgBI3BqhxI4ATvwlw41cBifhFQCquBSTjZ4B0/AhwEe8AV/EfwGUcAR/HHEwiHBbfuu853sRZPsTXENgBNKzresyJ6Z71i6JYQfwRoD1c3+CVPelupO51A6eqqgkgC0DwVFOA36nR/nMdgJsukCPABXIGSCNaQBK5CEghVwEJ5CbARYwADmIMUBErgIJYA7YICbBByIApwgJMEDZwisDn/iHLsiXu42L/R8NInucfamjBLLnHPbVEAIwhEsfxHQBzFf8f1wP06nnrbBa8rQAAAABJRU5ErkJggg==');
-  background-size: 12px 22px;
-  background-repeat: no-repeat;
-  width: 12px;
-  height: 22px;
-  position: absolute;
-  top: 6px;
-  left: 15px
-}
+  .topArrow,.bottomArrow
+    width 0px
+    height 0px
+    display inline-block
+    position absolute
+  .topArrow
+    border-width 6px
+    border-style solid
+    border-color  transparent transparent #afb1b5 transparent
+  .bottomArrow
+    border-width 6px
+    border-style solid
+    border-color  #afb1b5 transparent transparent transparent
+
+  .network .topArrow, .language .topArrow
+    top -3px    
+  .networkName, .languageName
+    overflow hidden
+    text-overflow ellipsis
+    white-space nowrap
+    margin-left 5px
+    font-size 16px
+    line-height 16px
+    height 24px
+    color #47484a
+    text-align right
+  
+  .languageOpen
+    width 100px
+    height auto
+    border-radius 5px 5px
+    position absolute
+    background-color #ffffff
+    box-shadow 0 2px 6px 1px rgba(188, 193, 199, 0.71)
+    top 30px
+    right 0
+    .languageItem
+      padding-top 5px
+      padding-bottom 5px
+      text-align center
+      &:hover
+        background-color #5b8ee6
+        color white
+    .languageItemSelected
+      position relative
+      &:before
+        content '✔' 
+        display block
+        position absolute
+        left 10px
+        top 5px
+
+  .networkOpen
+    width 465px
+    min-height 200px
+    z-index 8888
+    box-shadow 0 2px 6px 1px rgba(188, 193, 199, 0.71)
+    background-color #ffffff
+    border-radius 5px 5px
+    position absolute
+    top 50px
+    right 0
+    padding 30px 20px
+    .networkSwitchButton
+      margin-left 15px
+      font-size 14px
+      color white
+      width 88px
+      height 100%
+      border-radius 4px
+      background-image linear-gradient(to left, #4eadf1, #6a96f0)
+  .menuOpen
+    width 100px
+    min-height 50px
+    box-shadow 0 2px 6px 1px rgba(188, 193, 199, 0.71)
+    background-color #ffffff
+    border-radius 5px 5px
+
+    position absolute
+    top 25px
+    right 0
+    padding 10px 0
+
+    .subMenuItem
+      height 30px
+      line-height 30px
+      font-size 15px
+      text-align left
+      padding-left 10px
+      padding-right 10px
+      margin-top 10px
+      &:nth-child(1)
+        margin-top 0
+      &:hover
+        background-color #5b8ee6
+        color white
+    .subMenuItem.active
+      color #2647fd
+  .menu
+    font-family PingFangSC-Regular
+    font-size 16px
+    color #47484A
+    letter-spacing 0
+    text-align center
+    margin-left 40px
+    display inline-block
+    vertical-align top
+  .menu.active
+    color #2647fd
+  
+@media (max-width: 1000px)
+  .header
+    overflow hidden
+    .drawer
+      background-color: transparent;
+      position fixed
+      z-index: 9999;
+      top: 20px;
+      left: 5px;
+      width: 30px;
+      height: 30px;
+    .drawerMask
+      width 100vw
+      height 100vh
+      position fixed
+      top 0
+      z-index 99
+      background-color rgba(0,0,0,0.7)
+
+    .drawerContent
+      position fixed
+      width 60%
+      max-width 300px
+      height 100vh
+      background-color white
+      .nav
+        height 120px !important
+        >*
+          display block
+          width 100%
+          height 40px
+          margin 10px
+    .networkOpen
+      width 300px
+
+
+  

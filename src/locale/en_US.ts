@@ -1,0 +1,126 @@
+const en = require('rc-pagination/es/locale/en_US').default
+const en_US = {
+  'app.title': 'microscope',
+  'app.languages.en': 'English',
+  'app.languages.zh': 'Chinese',
+
+  'app.header.menus.block': 'Blocks',
+  'app.header.menus.transaction': 'Transactions',
+  'app.header.menus.api': 'API',
+  'app.header.menus.api.rpc': 'RPC',
+  'app.header.menus.api.rebirth': 'ReBirth',
+  'app.header.menus.static': 'Stats',
+  'app.header.search.placeholder': 'Search by Block / Transaction / Address',
+  'app.header.network.title': 'Switch Chain',
+  'app.header.network.placeholder': 'Please input rebirth service address',
+  'app.header.network.button': 'switch',
+
+  'app.footer.category.introcution':
+    'Microscope provides an easy-to-use user interface to inspect CITA.',
+  'app.footer.category.tech': 'Technology',
+  'app.footer.category.contact': 'Contact Us',
+  'app.footer.category.contact.bbs': 'CITAHub Forum',
+
+  'app.pages.home.meta.blockheight': 'Block Height',
+  'app.pages.home.meta.blockinterval': 'Block Interval',
+  'app.pages.home.meta.validators': 'Validators',
+  'app.pages.home.meta.chainname': 'Chain Name',
+  'app.pages.home.meta.operator': 'Operator',
+  'app.pages.home.meta.economicalmodel': 'Economical Model',
+  'app.pages.home.meta.tokensymbol': 'Token Symbol',
+  'app.pages.home.meta.chainid': 'Chain ID',
+  'app.pages.home.meta.version': 'Version',
+  'app.pages.home.top10.block': 'Latest 10 Blocks',
+  'app.pages.home.top10.block.transactioncount': 'Contain {key} Tx(s)',
+  'app.pages.home.top10.more': 'More >',
+  'app.pages.home.top10.transaction': 'Latest 10 Transactions',
+
+  'app.pages.blocklist.search.parameters':
+    'Search Conditions: block height {blockFrom}-{blockTo} transaction count {transactionCountMin}-{transactionCountMax}',
+  'app.pages.blocklist.search.button': 'Advanced',
+  'app.pages.blocklist.table.header.height': 'Block Height',
+  'app.pages.blocklist.table.header.hash': 'Hash',
+  'app.pages.blocklist.table.header.timestamp': 'Timestamp',
+  'app.pages.blocklist.table.header.txcount': 'Transactions',
+  'app.pages.blocklist.table.header.quotaused': 'Quota Used',
+
+  'app.pages.blockdetail.hash': 'Block Hash',
+  'app.pages.blockdetail.timestamp': 'Timestamp',
+  'app.pages.blockdetail.txcount': 'Transactions',
+  'app.pages.blockdetail.proposer': 'Proposer',
+  'app.pages.blockdetail.quotaused': 'Quota Used',
+  'app.pages.blockdetail.quotaprice': 'Quota Price',
+  'app.pages.blockdetail.totalfee': 'Total Fee',
+  'app.pages.blockdetail.prehash': 'Parent Hash',
+  'app.pages.blockdetail.receiptsroot': 'Receipts Root',
+  'app.pages.blockdetail.stateroot': 'State Root',
+  'app.pages.blockdetail.txsroot': 'Transactions Root',
+
+  'app.pages.txdetail.title': 'Transaction:',
+  'app.pages.txdetail.status': 'Status',
+  'app.pages.txdetail.type': 'Type',
+  'app.pages.txdetail.from': 'From',
+  'app.pages.txdetail.to': 'To/Contract',
+  'app.pages.txdetail.blockheight': 'Block Height',
+  'app.pages.txdetail.version': 'Version',
+  'app.pages.txdetail.nonce': 'Nonce',
+  'app.pages.txdetail.validuntilblock': 'Valid Until Block',
+  'app.pages.txdetail.value': 'Value',
+  'app.pages.txdetail.quotaused': 'Quota Used',
+  'app.pages.txdetail.quotalimit': 'Quota Limit',
+  'app.pages.txdetail.quotaprice': 'Quota Price',
+  'app.pages.txdetail.data': 'Data',
+
+  'app.pages.transactionlist.search.parameters':
+    'Search Conditions: address {addressFrom}-{addressTo}',
+  'app.pages.transactionlist.search.button': 'Advanced',
+
+  'app.pages.addressdetail.account': 'Account',
+  'app.pages.addressdetail.balance': 'Balance',
+  'app.pages.addressdetail.tabs.general': 'Transactions({key})',
+  'app.pages.addressdetail.tabs.erc20': 'ERC20 Token Txns({key})',
+  'app.pages.addressdetail.tabs.contractcall': 'Contract Call',
+  'app.pages.addressdetail.tabs.contractinfo': 'Contract Info',
+
+  'app.pages.static.interval': 'Interval(ms) for Latest 10 Blocks',
+  'app.pages.static.txcount': 'Transaction Count in Latest 10 Blocks',
+  'app.pages.static.quotainblock': 'Quota Used in Latest 10 Blocks',
+  'app.pages.static.quotaintx': 'Quota Used of the latest 10 Transactions',
+  'app.pages.static.distribution': 'Proposal Distribution',
+
+  'app.pages.api.input': 'Input',
+  'app.pages.api.output': 'Output',
+  'app.pages.api.send': 'Send',
+
+  'app.pages.404.label': 'Sorry, the page you are visiting is not found!',
+  'app.pages.404.goback': 'Go Back',
+
+  'app.pages.search.label':
+    'the resource {key} you are searching is not found!',
+  'app.pages.search.goback': 'Go Back',
+
+  'app.pages.common.transactiontable.header.type': 'Type',
+  'app.pages.common.transactiontable.header.hash': 'Hash',
+  'app.pages.common.transactiontable.header.from': 'From',
+  'app.pages.common.transactiontable.header.to': 'To/Contract',
+  'app.pages.common.transactiontable.header.value': 'Value',
+  'app.pages.common.transactiontable.header.blockheight': 'Block Height',
+  'app.pages.common.transactiontable.header.quotaused': 'Quota Used',
+  'app.pages.common.transactiontable.header.timestamp': 'Timestamp',
+  'app.pages.common.pagination': JSON.stringify(en),
+
+  'app.pages.common.blocksearchmodal.title': 'Advanced',
+  'app.pages.common.blocksearchmodal.blockheight': 'Block Height',
+  'app.pages.common.blocksearchmodal.blockheight.from': 'From',
+  'app.pages.common.blocksearchmodal.blockheight.to': 'To',
+  'app.pages.common.blocksearchmodal.txscount': 'Transaction Count',
+  'app.pages.common.blocksearchmodal.txscount.min': 'min',
+  'app.pages.common.blocksearchmodal.txscount.max': 'max',
+  'app.pages.common.blocksearchmodal.button': 'Search',
+
+  'app.pages.common.txsearchmodal.title': 'Advanced',
+  'app.pages.common.txsearchmodal.address.from': 'Address From',
+  'app.pages.common.txsearchmodal.address.to': 'Address To',
+  'app.pages.common.txsearchmodal.button': 'Search'
+}
+export default en_US

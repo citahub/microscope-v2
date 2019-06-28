@@ -1,117 +1,96 @@
-import * as React from 'react';
+import React from 'react'
 import 'bootstrap/dist/css/bootstrap.css'
 import './app.styl'
+import Layout from '../components/layout'
+import Header from '../components/header'
+import Footer from '../components/footer'
 import Loading from '../components/loading'
 import Toast from '../components/toast'
 import Modal from '../components/modal'
 
-import { hashHistory } from 'react-router';
+import hashHistory from '../routes/history'
 
-import { connect } from 'react-redux'
-import { bindActionCreators, Dispatch } from 'redux'
-
-import * as appAction from '../redux/actions/appAction'
-import { RESIZE_APP, AppAction } from '../redux/actions/appAction'
-import { IRootState } from '../redux/states'
-import { AppState } from '../redux/states/appState'
-import { IntlProvider, addLocaleData } from 'react-intl';
-
-import * as enLocaleData from 'react-intl/locale-data/en';
-import * as zhLocaleData from 'react-intl/locale-data/zh';
-
-addLocaleData(enLocaleData);
-addLocaleData(zhLocaleData);
-
-
-import * as zh_CN from '../locale/zh_CN.js';
-import * as en_US from '../locale/en_US.js';
-
-// import "babel-polyfill";
-
-// import {renderToString} from 'react-dom/server'
-
-function chooseLocale(language:string){
-  var obj = en_US;
-  if(language.indexOf('zh')>-1){
-    obj= zh_CN;
-  }else if(language.indexOf('en')>-1){
-    obj= en_US;
-  }
-  return obj;
-}
-
-class App extends React.Component <{app:AppState,appAction:{resize: (width: number,height: number)=>RESIZE_APP}}>{
-  unlisten: ()=>void;
+import { IntlProvider } from 'react-intl'
+import { chooseLocale } from '../locale/i18n'
+class App extends React.Component<any, any> {
+  unlisten: any = null
+  tick: any
+  resizeListener: any = null
   componentDidMount() {
-    var self = this;
-    self.props.appAction.resize(window.innerWidth,window.innerHeight);
-    window.addEventListener('resize',function(){
-      self.props.appAction.resize(window.innerWidth,window.innerHeight);
-    },false)
+    var self = this
+    self.props.networkAction.getMetaData()
+    self.props.networkAction.getQuotaPrice()
 
-    let lastLocation = ''; // hack hash history twice render bug on react-router 3.0
-    this.unlisten = hashHistory.listen(location => {
-      if (lastLocation !== location.pathname) {
-        lastLocation = location.pathname;
-      }
-    });
+    this.unlisten = hashHistory.listen(() => {
+      window.scroll(0, 0)
+    })
 
-    // ethereumAPI.paused().then(function(d){
-    //   alert(d);
-    //   console.log(JSON.stringify(d));
-    // })
-    // ethereumAPI.appToOwner(0).then(function(d){
-    //   console.log(d,"appToOwner");
-    // }).catch(function(e){
-    //   console.log(e,"appToOwner");
-    // })
-
-
+    this.tick = setInterval(function() {
+      self.props.appAction.tickTime()
+    }, 3000)
+    this.resizeListener = () => {
+      self.props.appAction.resize(window.innerWidth, window.innerHeight)
+    }
+    window.addEventListener('resize', this.resizeListener)
   }
-  componentDidCatch(error:object, info:object) {
-    console.log(error,"componentDidCatch");
-    console.log(info,"componentDidCatch");
+  componentDidCatch(error: any, info: any) {
+    console.error(error, 'componentDidCatch')
+    console.error(info, 'componentDidCatch')
+  }
+  componentWillUnmount() {
+    if (this.tick) window.clearInterval(this.tick)
+    if (this.unlisten) this.unlisten()
+    if (this.resizeListener)
+      window.removeEventListener('resize', this.resizeListener)
   }
   render() {
-    var modalUI = null;
-    var modalUIShow = false;
-    var modalUIStyle = {};
-    var maskTopPoz = 0;
-    var maskColor = 'rgba(0,0,0,0.7)';
-    if (this.props.app.modal.ui !== null) {
-      if (this.props.app.modal.uiProps && this.props.app.modal.uiProps.maskTopPoz) {
-        maskTopPoz = this.props.app.modal.uiProps.maskTopPoz;
-      }
-      if (this.props.app.modal.uiProps && this.props.app.modal.uiProps.maskColor) {
-        maskColor = this.props.app.modal.uiProps.maskColor;
-      }
-      modalUI = React.createElement(this.props.app.modal.ui, this.props.app.modal.uiProps, null);
-      modalUIShow = true;
-      modalUIStyle = this.props.app.modal.uiProps.style;
-    }
-
+    var language = this.props.app.appLanguage
     return (
-      <IntlProvider locale={this.props.app.appLanguage} messages={chooseLocale(this.props.app.appLanguage)}>
-        <div className='root'>
-          {this.props.children}
-          <Modal style={modalUIStyle} show={modalUIShow} maskTopPoz={maskTopPoz} maskColor={maskColor} hasClose={false}>
-            {modalUI}
-          </Modal>
-          <Toast toastMessage={this.props.app.toast}/>
-          <Loading show={this.props.app.showLoading}/>
+      <IntlProvider locale={language} messages={chooseLocale(language)}>
+        <div className="root">
+          <Layout>
+            <Header
+              location={hashHistory.location}
+              appAction={this.props.appAction}
+            />
+            {this.props.children}
+            <Footer />
+          </Layout>
+          <Modal
+            onClose={() => this.props.appAction.hideModal()}
+            ui={
+              this.props.app.modal
+                ? React.createElement(
+                    this.props.app.modal.ui,
+                    this.props.app.modal.uiProps
+                  )
+                : null
+            }
+          />
+          <Toast toastMessage={this.props.app.toast} />
+          <Loading
+            onClose={() => this.props.appAction.hideLoading()}
+            loading={this.props.app.loading}
+          />
         </div>
       </IntlProvider>
-    );
+    )
   }
 }
-const mapStateToProps = function(state: IRootState):{app:AppState} {
-  return {
-    app: state.app
-  }
-};
-const mapDispatchToProps = function(dispatch: Dispatch<AppAction>):any {
-  return {
-    appAction: bindActionCreators(appAction, dispatch)
-  }
-};
-export default connect(mapStateToProps,mapDispatchToProps)(App)
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+
+import * as appAction from '../redux/actions/appAction'
+import { IRootState } from '../redux/states'
+import * as networkAction from '../redux/actions/network'
+
+export default connect(
+  (state: IRootState) => ({
+    app: state.app,
+    network: state.network
+  }),
+  dispatch => ({
+    appAction: bindActionCreators(appAction, dispatch),
+    networkAction: bindActionCreators(networkAction, dispatch)
+  })
+)(App)

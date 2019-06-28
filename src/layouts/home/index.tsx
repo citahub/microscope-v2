@@ -1,244 +1,531 @@
-import * as React from 'react'
+import React from 'react'
 import './index.styl'
-import Layout from '../../components/layout'
 import Content from '../../components/content'
-import CustomHeader from '../common/customHeader'
-import CustomFooter from '../common/customFooter'
 
+import hashHistory from '../../routes/history'
 
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
-import * as appAction from '../../redux/actions/appAction'
+import { timePassed } from '../../utils/time'
 
-// import { hashHistory } from 'react-router';
+import { valueFormat } from '../../utils/hex'
 
-// import { FormattedMessage } from 'react-intl';
-
-import * as citaAPI from '../../utils/citaAPI';
-
-import { IRootState } from '../../redux/states'
-class Home extends React.Component<any,any>{
-  constructor(props:any) {
-    super(props);
-    this.state = {
-      top10Blocks: [],
-      metaData: null
-    }
-
+class Home extends React.Component<any, any> {
+  timer: any
+  componentWillMount() {
+    var self = this
+    self.props.blockAction.topBlocks()
+    self.props.transactionAction.topTransactions()
   }
-  componentDidMount(){
-    // citaAPI.base.getBlockNumber().then((d)=>{
-    //   var blockId = d;
-    //   // console.log(blockId);
-    //   citaAPI.base.getBlock(blockId).then(function(block){
-    //     console.log(block);
-    //
-    //   })
-    //
-    // })
-    var self = this;
-    console.log(citaAPI);
-    citaAPI.newBlockFilter().then((filterId)=>{
-      console.log(filterId);
-      var newBlock = function(){
-        citaAPI.getFilterChanges(filterId).then((newBlocks)=>{
-          console.log(newBlocks,new Date());
-          newBlocks.forEach(function(newBlock){
-            citaAPI.getBlockByHash(newBlock).then(function(block){
-              var newTop10Blocks = self.state.top10Blocks.concat([block]);
-              newTop10Blocks.sort((b1,b2)=>{
-                if(b1.header.timestamp<=b2.header.timestamp) {
-                  return 1;
-                }else{
-                  return -1;
-                }
-              });
-              newTop10Blocks = newTop10Blocks.slice(0,10);
-              console.log(newTop10Blocks);
-              self.setState({
-                top10Blocks: newTop10Blocks
-              })
-            })
-          })
-          setTimeout(()=>{newBlock()},3000);
-        })
+  componentDidMount() {
+    var self = this
+
+    // currently no websocket
+    self.timer = setInterval(() => {
+      if (self.props.block.latest) {
+        var nextBlockId = null
+        try {
+          nextBlockId = parseInt(self.props.block.latest.header.number) + 1
+        } catch (e) {}
+        self.props.blockAction.updateNextBlock(nextBlockId)
+      } else {
+        self.props.blockAction.updateNextBlock(null)
       }
-      newBlock();
-    })
-
-    // citaAPI.base.newBlockFilter().then((filterId)=>{
-    //   console.log(filterId);
-    //   var newBlock = function(){
-    //     citaAPI.base.getFilterChanges(filterId).then((newBlocks)=>{
-    //       console.log(newBlocks,new Date());
-    //       newBlocks.forEach(function(newBlock){
-    //         citaAPI.base.getBlockByHash(newBlock,true).then(function(block){
-    //           var newTop10Blocks = self.state.top10Blocks.concat([block]);
-    //           newTop10Blocks.sort((b1,b2)=>{
-    //             if(b1.header.timestamp<=b2.header.timestamp) {
-    //               return 1;
-    //             }else{
-    //               return -1;
-    //             }
-    //           });
-    //           newTop10Blocks = newTop10Blocks.slice(0,10);
-    //           console.log(newTop10Blocks);
-    //           self.setState({
-    //             top10Blocks: newTop10Blocks
-    //           })
-    //         })
-    //       })
-    //       setTimeout(()=>{newBlock()},3000);
-    //     })
-    //   }
-    //   newBlock();
-    // })
-    // citaAPI.base.getMetaData().then((metaData)=>{
-    //   console.log(metaData,"werwerewrewr");
-    //   self.setState({
-    //     metaData: metaData
-    //   })
-    // })
-
-    // citaAPI.base.newMessageFilter().then((filterId)=>{
-    //   console.log(filterId,"newFilter");
-    //   var newChange = function(){
-    //     citaAPI.base.getFilterChanges(filterId).then((d2)=>{
-    //       console.log(d2,"newFilter");
-    //       setTimeout(()=>{newChange()},3000);
-    //     })
-    //   }
-    //   newChange();
-    //
-    // })
+    }, 3000)
   }
-
-  onScrollHander(event){
-    var scrollTop = event.target.scrollTop;
+  componentWillUnmount() {
+    var self = this
+    clearInterval(self.timer)
   }
-
 
   render() {
-    var self = this;
-    var bgWidth = self.props.app.appWidth;
-    var metaData = self.state.metaData;
+    var self = this
+    var intl = self.props.intl
+    var metaData = self.props.network.metaData
+    var topBlocks = self.props.block.topList
+    var topTransactions = self.props.transaction.topList
+    var globalTickTime = self.props.app.globalTickTime
     return (
-      <Layout className='home' bgColor="rgba(249, 249, 249, 0.56)">
-        <Content style={{ width: '100%', height: '100%' }} onScroll={self.onScrollHander.bind(self)}>
-          <CustomHeader/>
-          <div className="container">
-            <div style={{ marginTop: 20 }}>
-              <div className="row" style={{ marginLeft: -15, marginRight: -15 }}>
-                <div className='generalItem col-xs-12 col-sm-9 col-md-6 col-lg-4'>
-                  <div style={{ position:'relative', background: "url('./images/content1_bg.png') no-repeat"}}>
-                    <div className='generalItemIcon'>
-                      <img src="./images/content1_high.png"/>
-                    </div>
-                    <div className='generalItem1Label'>{self.state.top10Blocks && self.state.top10Blocks[0]? self.state.top10Blocks[0].header.number:"?"}</div>
-                    <div className='generalItem2Label'>Block Height</div>
+      <Content className="home" bgColor="rgba(249, 249, 249, 0.56)">
+        <div className="container">
+          <div style={{ marginTop: 20 }}>
+            <div className="row" style={{ marginLeft: -15, marginRight: -15 }}>
+              <div className="generalItem col-xs-12 col-sm-9 col-md-6 col-lg-4">
+                <div
+                  style={{
+                    position: 'relative',
+                    background: "url('./images/content1_bg.png') no-repeat"
+                  }}
+                >
+                  <div className="generalItemIcon">
+                    <img src="./images/content1_high.png" />
                   </div>
-                </div>
-                <div className='generalItem col-xs-12 col-sm-9 col-md-6 col-lg-4'>
-                  <div style={{ background: "url('./images/content1_bg.png') no-repeat"}}>
-                    <div className='generalItemIcon'>
-                      <img src="./images/content1_spacing.png"/>
-                    </div>
-                    <div className='generalItem1Label'>{metaData?metaData.blockInterval:"?"}</div>
-                    <div className='generalItem2Label'>Block Interval</div>
+                  <div className="generalItem1Label">
+                    {topBlocks && topBlocks[0]
+                      ? parseInt(topBlocks[0].header.number)
+                      : '?'}
                   </div>
-                </div>
-                <div className='generalItem col-xs-12 col-sm-9 col-md-6 col-lg-4'>
-                  <div style={{ background: "url('./images/content1_bg.png') no-repeat"}}>
-                    <div className='generalItemIcon'>
-                      <img src="./images/content1_node.png"/>
-                    </div>
-                    <div className='generalItem1Label'>{metaData?metaData.validators.length:"?"}</div>
-                    <div className='generalItem2Label'>Validators</div>
+                  <div className="generalItem2Label">
+                    {intl.formatMessage({
+                      id: 'app.pages.home.meta.blockheight'
+                    })}
                   </div>
                 </div>
               </div>
-              <div className="row" style={{  marginTop: 30, minHeight: 150, backgroundColor: "white" }}>
-                <div className='col-xs-12 col-sm-9 col-md-6 col-lg-4'>
-                  <div>{metaData?metaData.chainName:"?"}</div>
-                  <div>Chain Name</div>
-                  <div>{metaData?metaData.tokenSymbol:"?"}</div>
-                  <div>Token Symbol</div>
+              <div className="generalItem col-xs-12 col-sm-9 col-md-6 col-lg-4">
+                <div
+                  style={{
+                    background: "url('./images/content1_bg.png') no-repeat"
+                  }}
+                >
+                  <div className="generalItemIcon">
+                    <img src="./images/content1_spacing.png" />
+                  </div>
+                  <div className="generalItem1Label">
+                    {metaData
+                      ? (metaData.blockInterval / 1000).toFixed(2) + 's'
+                      : '?'}
+                  </div>
+                  <div className="generalItem2Label">
+                    {intl.formatMessage({
+                      id: 'app.pages.home.meta.blockinterval'
+                    })}
+                  </div>
                 </div>
-                <div className='col-xs-12 col-sm-9 col-md-6 col-lg-4'>
-                  <div>{metaData?metaData.operator:"?"}</div>
-                  <div>Operator</div>
-                  <div>{metaData?metaData.chainId:"?"}</div>
-                  <div>Chain ID</div>
-                </div>
-                <div className='col-xs-12 col-sm-9 col-md-6 col-lg-4'>
-                  <div>{metaData?metaData.economicalModel:"?"}</div>
-                  <div>Economical Model</div>
-                  <div>{metaData?metaData.version:"?"}</div>
-                  <div>Version</div>
+              </div>
+              <div className="generalItem col-xs-12 col-sm-9 col-md-6 col-lg-4">
+                <div
+                  style={{
+                    background: "url('./images/content1_bg.png') no-repeat"
+                  }}
+                >
+                  <div className="generalItemIcon">
+                    <img src="./images/content1_node.png" />
+                  </div>
+                  <div className="generalItem1Label">
+                    {metaData ? metaData.validators.length : '?'}
+                  </div>
+                  <div className="generalItem2Label">
+                    {intl.formatMessage({
+                      id: 'app.pages.home.meta.validators'
+                    })}
+                  </div>
                 </div>
               </div>
             </div>
-            <div style={{ marginBottom: 179, marginTop: 60 }}>
-              <div className="row" style={{ backgroundColor: "transparent" }}>
-                <div className='col-6' style={{ margin: 0, padding: 0, paddingRight: 16 }}>
-                  <div className='row' style={{ height: 25 }}>
-                    <div className='col-6' style={{ textAlign: "left", fontSize: 18, lineHeight: "18px", color: "#47484a"}}>最近10个块</div>
-                    <div className='col-6' style={{ textAlign: "right", fontSize: 14,lineHeight: "14px", color: "#979a9e"}}>查看更多 &gt;</div>
+            <div
+              className="row"
+              style={{
+                marginLeft: 0,
+                marginRight: 0,
+                marginTop: 30,
+                paddingTop: 8,
+                paddingBottom: 8,
+                minHeight: 150,
+                backgroundColor: 'white',
+                borderRadius: 6,
+                boxShadow: '0 4px 16px 0 rgba(86, 129, 204, 0.1)'
+              }}
+            >
+              <div
+                className="col-xs-12 col-sm-6 col-md-6 col-lg-4"
+                style={{ marginTop: 12 }}
+              >
+                <div className="withRow">
+                  <div className="generalInfoItemIcon">
+                    <img src="images/general_info_name.png" />
                   </div>
-                  <div>
-                    {
-                      self.state.top10Blocks.map(function(block,i){
-                        return (
-                          <div className='blockItem'>
-                            <div >
-                              <div className="vhCenter">
-                                块#{block.header.number}
-                              </div>
-                              <div>
-                                <div style={{ color: "#47484a"}}>Hash:</div>
-                                <div style={{  color: "#5b8ee6" }}>{block.hash}</div>
-                                <div style={{ marginTop: 9, color: "#47484a"}}>包含 {block.body.transactions.length} 笔交易</div>
-                                <div style={{ color: "#979a9e", marginTop:3 }}>提案来自…{block.header.proposer}…</div>
-
-                              </div>
-                              <div>
-                                3s
-                              </div>
-                            </div>
-                          </div>
-                        )
-                      })
-                    }
+                  <div className="withRowLeftAuto" style={{ paddingLeft: 20 }}>
+                    <div className="generalInfoItemName">
+                      {metaData ? metaData.chainName : '?'}
+                    </div>
+                    <div className="generalInfoItemLabel">
+                      {intl.formatMessage({
+                        id: 'app.pages.home.meta.chainname'
+                      })}
+                    </div>
                   </div>
                 </div>
-                <div className='col-6' style={{ margin: 0, padding: 0, paddingLeft: 16 }}>
-                  <div className='row' style={{ height: 25 }}>
-                    <div className='col-6' style={{ textAlign: "left", fontSize: 18, lineHeight: "18px",color: "#47484a"}}>最近10笔交易</div>
-                    <div className='col-6' style={{ textAlign: "right", fontSize: 14, lineHeight: "14px",color: "#979a9e"}}>查看更多 &gt;</div>
+              </div>
+              <div
+                className="col-xs-12 col-sm-6 col-md-6 col-lg-4"
+                style={{ marginTop: 12 }}
+              >
+                <div className="withRow">
+                  <div className="generalInfoItemIcon">
+                    <img src="images/general_info_operator.png" />
                   </div>
-                  <div>
-                    {
-                      // new Array(10).fill(0).map(function(d,i){
-                      //   return (
-                      //     <div className='transactionItem'>
-                      //       {i}
-                      //     </div>
-                      //   )
-                      // })
-                    }
+                  <div className="withRowLeftAuto" style={{ paddingLeft: 20 }}>
+                    <div className="generalInfoItemName">
+                      {metaData ? metaData.operator : '?'}
+                    </div>
+                    <div className="generalInfoItemLabel">
+                      {intl.formatMessage({
+                        id: 'app.pages.home.meta.operator'
+                      })}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                className="col-xs-12 col-sm-6 col-md-6 col-lg-4"
+                style={{ marginTop: 12 }}
+              >
+                <div className="withRow">
+                  <div className="generalInfoItemIcon">
+                    <img src="images/general_info_mode.png" />
+                  </div>
+                  <div className="withRowLeftAuto" style={{ paddingLeft: 20 }}>
+                    <div className="generalInfoItemName">
+                      {metaData
+                        ? metaData.economicalModel === 0
+                          ? 'Quota Modal'
+                          : 'Charge Modal'
+                        : '?'}
+                    </div>
+                    <div className="generalInfoItemLabel">
+                      {intl.formatMessage({
+                        id: 'app.pages.home.meta.economicalmodel'
+                      })}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                className="col-xs-12 col-sm-6 col-md-6 col-lg-4"
+                style={{ marginTop: 12 }}
+              >
+                <div className="withRow">
+                  <div className="generalInfoItemIcon">
+                    <img src="images/general_info_token.png" />
+                  </div>
+                  <div className="withRowLeftAuto" style={{ paddingLeft: 20 }}>
+                    <div className="generalInfoItemName">
+                      {metaData ? metaData.tokenSymbol : '?'}
+                    </div>
+                    <div className="generalInfoItemLabel">
+                      {intl.formatMessage({
+                        id: 'app.pages.home.meta.tokensymbol'
+                      })}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                className="col-xs-12 col-sm-6 col-md-6 col-lg-4"
+                style={{ marginTop: 12 }}
+              >
+                <div className="withRow">
+                  <div className="generalInfoItemIcon">
+                    <img src="images/general_info_chain.png" />
+                  </div>
+                  <div className="withRowLeftAuto" style={{ paddingLeft: 20 }}>
+                    <div className="generalInfoItemName">
+                      {metaData ? metaData.chainId : '?'}
+                    </div>
+                    <div className="generalInfoItemLabel">
+                      {intl.formatMessage({
+                        id: 'app.pages.home.meta.chainid'
+                      })}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                className="col-xs-12 col-sm-6 col-md-6 col-lg-4"
+                style={{ marginTop: 12 }}
+              >
+                <div className="withRow">
+                  <div className="generalInfoItemIcon">
+                    <img src="images/general_info_version.png" />
+                  </div>
+                  <div className="withRowLeftAuto" style={{ paddingLeft: 20 }}>
+                    <div className="generalInfoItemName">
+                      {metaData ? metaData.version : '?'}
+                    </div>
+                    <div className="generalInfoItemLabel">
+                      {intl.formatMessage({
+                        id: 'app.pages.home.meta.version'
+                      })}
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          <CustomFooter/>
-        </Content>
-      </Layout>
-    );
+          <div style={{ marginBottom: 179, marginTop: 30 }}>
+            <div
+              className="row"
+              style={{
+                backgroundColor: 'transparent',
+                marginLeft: -15,
+                marginRight: -15
+              }}
+            >
+              <div
+                className="col-xs-12 col-sm-9 col-md-6 col-lg-6"
+                style={{ margin: '0 auto', marginTop: 30 }}
+              >
+                <div className="row" style={{ height: 25 }}>
+                  <div
+                    className="col-6"
+                    style={{
+                      textAlign: 'left',
+                      fontSize: 18,
+                      lineHeight: '18px',
+                      color: '#47484a'
+                    }}
+                  >
+                    {intl.formatMessage({ id: 'app.pages.home.top10.block' })}
+                  </div>
+                  <div
+                    className="col-6 operationItem"
+                    style={{
+                      textAlign: 'right',
+                      fontSize: 14,
+                      lineHeight: '14px',
+                      color: '#979a9e'
+                    }}
+                    onClick={() => {
+                      hashHistory.push('/block/list')
+                    }}
+                  >
+                    {intl.formatMessage({ id: 'app.pages.home.top10.more' })}
+                  </div>
+                </div>
+                <div>
+                  {topBlocks &&
+                    topBlocks.map(function(block: any, i: number) {
+                      var blockNumber = parseInt(block.header.number)
+                      return (
+                        <div key={i} className="blockItem withRow">
+                          <div className="blockItemNumberWrapper">
+                            <div
+                              className="blockItemNumber vhCenter operationItem"
+                              style={{
+                                backgroundImage:
+                                  'url("./images/block_header.svg")'
+                              }}
+                              onClick={() => {
+                                hashHistory.push('/block/id/' + blockNumber)
+                              }}
+                            >
+                              #{blockNumber}
+                            </div>
+                          </div>
+                          <div
+                            className="withRowLeftAuto"
+                            style={{ overflow: 'hidden' }}
+                          >
+                            <div className="blockItemHashLabel">Hash:</div>
+                            <div
+                              className="blockItemHash operationItem"
+                              onClick={() => {
+                                hashHistory.push('/block/hash/' + block.hash)
+                              }}
+                            >
+                              <span className="hash">{block.hash}</span>
+                            </div>
+                            <div className="blockItemTranscation">
+                              {intl.formatMessage(
+                                {
+                                  id:
+                                    'app.pages.home.top10.block.transactioncount'
+                                },
+                                {
+                                  key:
+                                    block.transactionsCount ||
+                                    (block.body &&
+                                      block.body.transactions &&
+                                      block.body.transactions.length) ||
+                                    0
+                                }
+                              )}
+                            </div>
+                            <div className="blockItemFrom">
+                              Proposed By{' '}
+                              <span className="hash">
+                                {block.header.proposer}
+                              </span>
+                            </div>
+                            <div className="blockItemReward">
+                              Quota Used:&nbsp;
+                              {valueFormat(
+                                block.header.quotaUsed,
+                                self.props.network.metaData &&
+                                  self.props.network.metaData.tokenSymbol,
+                                self.props.network.quotaPrice
+                              )}
+                            </div>
+                          </div>
+                          <div className="blockItemTime" style={{ width: 53 }}>
+                            {timePassed(
+                              globalTickTime - block.header.timestamp
+                            )}
+                          </div>
+                        </div>
+                      )
+                    })}
+                </div>
+              </div>
+              <div
+                className="col-xs-12 col-sm-9 col-md-6 col-lg-6"
+                style={{ margin: '0 auto', marginTop: 30 }}
+              >
+                <div className="row" style={{ height: 25 }}>
+                  <div
+                    className="col-6"
+                    style={{
+                      textAlign: 'left',
+                      fontSize: 18,
+                      lineHeight: '18px',
+                      color: '#47484a'
+                    }}
+                  >
+                    {intl.formatMessage({
+                      id: 'app.pages.home.top10.transaction'
+                    })}
+                  </div>
+                  <div
+                    className="col-6 operationItem"
+                    style={{
+                      textAlign: 'right',
+                      fontSize: 14,
+                      lineHeight: '14px',
+                      color: '#979a9e'
+                    }}
+                    onClick={() => {
+                      hashHistory.push('/transaction/list')
+                    }}
+                  >
+                    {intl.formatMessage({ id: 'app.pages.home.top10.more' })}
+                  </div>
+                </div>
+                <div>
+                  {topTransactions &&
+                    topTransactions.map(function(d: any, i: number) {
+                      // console.log(d) // sdk and rebirth have tiny different decrypt on the format of content...can not get timestamp currently
+                      var from =
+                        d.from ||
+                        (d.unsignedTransaction &&
+                          d.unsignedTransaction.sender &&
+                          d.unsignedTransaction.sender.address)
+                      var to =
+                        d.to ||
+                        (d.unsignedTransaction &&
+                          d.unsignedTransaction.transaction &&
+                          d.unsignedTransaction.transaction.to)
+                      var value =
+                        d.value ||
+                        (d.unsignedTransaction &&
+                          d.unsignedTransaction.transaction &&
+                          d.unsignedTransaction.transaction.value)
+                      return (
+                        <div key={i} className="transactionItem withRow">
+                          <div className="transactionItemIcon">
+                            <img src="images/content2_contract.png" />
+                          </div>
+                          <div
+                            className="withRowLeftAuto"
+                            style={{ overflow: 'hidden' }}
+                          >
+                            <div className="transactionItemTxLabel">TX：</div>
+                            <div
+                              className="transactionItemTxHash operationItem"
+                              onClick={() => {
+                                hashHistory.push('/transaction/hash/' + d.hash)
+                              }}
+                            >
+                              <span className="hash">{d.hash}</span>
+                            </div>
+                            <div
+                              className="row"
+                              style={{ margin: 0, marginTop: 4 }}
+                            >
+                              <div
+                                className="col-6"
+                                style={{ padding: 0, paddingRight: 6 }}
+                              >
+                                <div className="transactionItemFromLabel">
+                                  From：
+                                </div>
+                                <div
+                                  className="transactionItemFrom operationItem"
+                                  onClick={() => {
+                                    hashHistory.push('/account/' + d.from)
+                                  }}
+                                >
+                                  <span className="hash">{from}</span>
+                                </div>
+                              </div>
+                              <div
+                                className="col-6"
+                                style={{ padding: 0, paddingLeft: 6 }}
+                              >
+                                <div className="transactionItemToLabel">
+                                  To：
+                                </div>
+                                {to ? (
+                                  <div
+                                    className="transactionItemTo operationItem"
+                                    onClick={() => {
+                                      hashHistory.push('/account/' + to)
+                                    }}
+                                  >
+                                    <span className="hash">{to}</span>
+                                  </div>
+                                ) : null}
+                              </div>
+                            </div>
+                            <div
+                              className="transactionItemValue"
+                              style={{ marginTop: 4 }}
+                            >
+                              value:&nbsp;
+                              {valueFormat(
+                                value,
+                                self.props.network.metaData &&
+                                  self.props.network.metaData.tokenSymbol,
+                                self.props.network.quotaPrice
+                              )}
+                            </div>
+                          </div>
+                          <div
+                            className="transactionItemTime"
+                            style={{ width: 53 }}
+                          >
+                            {timePassed(globalTickTime - d.timestamp)}
+                          </div>
+                        </div>
+                      )
+                    })}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </Content>
+    )
   }
 }
-import {injectIntl} from 'react-intl';
 
-export default connect( (state:IRootState)=> ({app: state.app}), dispatch => ({
-  appAction: bindActionCreators(appAction, dispatch)
-}))(injectIntl(Home))
+import { injectIntl } from 'react-intl'
+import { bindActionCreators } from 'redux'
+import * as appAction from '../../redux/actions/appAction'
+import * as blockAction from '../../redux/actions/block'
+import * as transactionAction from '../../redux/actions/transaction'
+
+import { IRootState } from '../../redux/states'
+import { connect } from 'react-redux'
+
+export default connect(
+  (state: IRootState) => ({
+    app: state.app,
+    network: state.network,
+    block: state.block,
+    transaction: state.transaction
+  }),
+  dispatch => ({
+    appAction: bindActionCreators(appAction, dispatch),
+    blockAction: bindActionCreators(blockAction, dispatch),
+    transactionAction: bindActionCreators(transactionAction, dispatch)
+  })
+)(injectIntl(Home))

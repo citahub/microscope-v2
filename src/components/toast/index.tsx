@@ -1,30 +1,29 @@
-import * as React from 'react'
+import React from 'react'
 import './index.styl'
 
-
-interface ToastMessage{
-  id: number;
-  text: string;
-  timeout: number;
+interface ToastMessage {
+  id: number
+  text: string
+  timeout: number
 }
 
-interface ToastItemProps{
-  disappearDuration: number;
-  data: ToastMessage;
-  willLeave: ()=>void;
-  style: object;
+interface ToastItemProps {
+  disappearDuration: number
+  data: ToastMessage
+  willLeave: () => void
+  style: object
 }
-interface ToastItemState{
-  opacity: number;
+interface ToastItemState {
+  opacity: number
 }
 class ToastItem extends React.Component<ToastItemProps, ToastItemState> {
-  constructor(props:ToastItemProps) {
-    super(props);
+  constructor(props: ToastItemProps) {
+    super(props)
     this.state = {
       opacity: 1
     }
-    this["_animationFun"] = null;
   }
+  _animationFun: any = null
   static defaultProps = {
     disappearDuration: 2000,
     data: {},
@@ -34,52 +33,56 @@ class ToastItem extends React.Component<ToastItemProps, ToastItemState> {
     }
   }
   componentDidMount() {
-    var self = this;
-    var requestAnimationFrame = window["requestAnimationFrame"] || window["mozRequestAnimationFrame"] || window["webkitRequestAnimationFrame"]
+    var self = this
+    var requestAnimationFrame =
+      window['requestAnimationFrame'] || window['webkitRequestAnimationFrame']
     setTimeout(function() {
-      var maxFrame = self.props.disappearDuration / 1000 * 40; // suppose fps = 40
-      var count = 0;
+      var maxFrame = (self.props.disappearDuration / 1000) * 40 // suppose fps = 40
+      var count = 0
       var update = function() {
-        count++;
+        count++
         self.setState(function() {
-          // console.log(count / maxFrame);
           return { opacity: 1 - count / maxFrame }
-        });
+        })
         if (count < maxFrame) {
-          self["_animationFun"] = requestAnimationFrame(update)
+          self['_animationFun'] = requestAnimationFrame(update)
         } else {
-          self.props.willLeave();
+          self.props.willLeave()
         }
       }
-      update();
+      update()
     }, this.props.data.timeout)
   }
   componentWillUnmount() {
-    if (this["_animationFun"]) {
-      var cancelAnimationFrame = window["cancelAnimationFrame"] || window["mozCancelAnimationFrame"] || window["webkitCancelAnimationFrame"]
-      cancelAnimationFrame(this["_animationFun"]);
+    if (this['_animationFun']) {
+      var cancelAnimationFrame =
+        window['cancelAnimationFrame'] || window['webkitCancelAnimationFrame']
+      cancelAnimationFrame(this['_animationFun'])
     }
   }
   render() {
-    var item = this.props.data;
+    var item = this.props.data
     return (
-      <div className='toast_item_container' key={'toast_' + item.id} style={{ ...this.props.style, opacity: this.state.opacity }}>
-        <div className='toast_item_text'>{item.text}</div>
+      <div
+        key={'toast_' + item.id}
+        style={{ ...this.props.style, opacity: this.state.opacity }}
+      >
+        <div className="toast_item_text">{item.text}</div>
       </div>
     )
   }
 }
 
-interface ToastProps{
-  style?: object;
+interface ToastProps {
+  style?: object
   toastMessage: ToastMessage
 }
-interface ToastState{
-  items: Array<ToastMessage>;
+interface ToastState {
+  items: Array<ToastMessage>
 }
-class Toast extends React.Component<ToastProps,ToastState> {
-  constructor(props:ToastProps) {
-    super(props);
+class Toast extends React.Component<ToastProps, ToastState> {
+  constructor(props: ToastProps) {
+    super(props)
     this.state = {
       items: []
     }
@@ -91,46 +94,48 @@ class Toast extends React.Component<ToastProps,ToastState> {
       timeout: 2000
     }
   }
-  addMessage(toastMessage:ToastMessage) {
-    var self = this;
-    self.setState(function(prevState:ToastState) {
+  addMessage(toastMessage: ToastMessage) {
+    var self = this
+    self.setState(function(prevState: ToastState) {
       return { items: prevState.items.concat([toastMessage]) }
-    });
+    })
   }
-  componentWillReceiveProps(nextProps:ToastProps) {
+  componentWillReceiveProps(nextProps: ToastProps) {
     if (this.props.toastMessage !== nextProps.toastMessage) {
-      this.addMessage(nextProps.toastMessage);
+      this.addMessage(nextProps.toastMessage)
     }
   }
 
-  willLeave(id:number) {
-    this.setState(function(prevState:ToastState) {
-      var newItems = prevState.items;
+  willLeave(id: number) {
+    this.setState(function(prevState: ToastState) {
+      var newItems = prevState.items
       for (var i = 0; i < newItems.length; i++) {
         if (newItems[i].id === id) {
-          newItems.splice(i, 1);
-          break;
+          newItems.splice(i, 1)
+          break
         }
       }
       return { items: newItems }
-    });
+    })
   }
   render() {
-    var data = this.state.items || [];
-    if (data.length === 0) return null;
-    data = data.reverse();
-    var self = this;
+    var data = this.state.items || []
+    if (data.length === 0) return null
+    data = data.reverse()
+    var self = this
     return (
-      <div className='toast'>
-        {
-          data.map(item => {
-            return (
-                      <ToastItem willLeave={self.willLeave.bind(self, item.id)} key={item.id} data={item} style={self.props.style}></ToastItem>
-                    )
-          })
-        }
+      <div className="appToast">
+        {data.map(item => {
+          return (
+            <ToastItem
+              willLeave={self.willLeave.bind(self, item.id)}
+              key={item.id}
+              data={item}
+              style={self.props.style}
+            />
+          )
+        })}
       </div>
-
     )
   }
 }

@@ -1,74 +1,296 @@
-import * as React from 'react'
+import React from 'react'
 import './list.styl'
-import Layout from '../../components/layout'
-import Header from '../../components/header'
 import Content from '../../components/content'
-import CustomHeader from '../common/customHeader'
-import CustomFooter from '../common/customFooter'
 
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
-import * as appAction from '../../redux/actions/appAction'
-import { hashHistory } from 'react-router';
+import BlockSearchModal from '../common/blockSearchModal'
 
-import * as cacheAPI from '../../utils/cacheAPI';
+import hashHistory from '../../routes/history'
+import { timePassed } from '../../utils/time'
+import { valueFormat } from '../../utils/hex'
+import queryString from 'query-string'
 
-class BlockList  extends React.Component<any,any> {
-  constructor(props) {
-    super(props);
-    this.state={
-      data: []
+class BlockList extends React.Component<any, any> {
+  componentDidMount() {
+    var self = this
+    var params: any = queryString.parse(self.props.location.search)
+    var pageNum = params.pageNum ? parseInt(params.pageNum) : 1
+    var pageSize = params.pageSize ? parseInt(params.pageSize) : 10
+    var blockFrom = params.blockFrom || ''
+    var blockTo = params.blockTo || ''
+    var transactionCountMin = params.transactionCountMin || ''
+    var transactionCountMax = params.transactionCountMax || ''
+
+    self.props.blockAction.getBlockList(
+      pageNum,
+      pageSize,
+      blockFrom,
+      blockTo,
+      transactionCountMin,
+      transactionCountMax
+    )
+  }
+  componentWillReceiveProps(nextProps: any) {
+    var self = this
+    if (nextProps.location.search !== this.props.location.search) {
+      var params: any = queryString.parse(nextProps.location.search)
+      var pageNum = params.pageNum ? parseInt(params.pageNum) : 1
+      var pageSize = params.pageSize ? parseInt(params.pageSize) : 10
+      var blockFrom = params.blockFrom || ''
+      var blockTo = params.blockTo || ''
+      var transactionCountMin = params.transactionCountMin || ''
+      var transactionCountMax = params.transactionCountMax || ''
+      self.props.blockAction.getBlockList(
+        pageNum,
+        pageSize,
+        blockFrom,
+        blockTo,
+        transactionCountMin,
+        transactionCountMax
+      )
     }
   }
-  componentDidMount(){
-    var self = this;
-    cacheAPI.blockList().then((d)=>{
-      console.log(d);
-      self.setState({
-        data: d.result.blocks
-      })
-    })
-  }
   render() {
-    var self = this;
+    var self = this
+    var intl = self.props.intl
+    var data = self.props.block.list
+    var globalTickTime = self.props.app.globalTickTime
+    var params: any = queryString.parse(self.props.location.search)
+    var pageNum = params.pageNum ? parseInt(params.pageNum) : 1
+    var pageSize = params.pageSize ? parseInt(params.pageSize) : 10
+    var blockFrom = params.blockFrom || ''
+    var blockTo = params.blockTo || ''
+    var transactionCountMin = params.transactionCountMin || ''
+    var transactionCountMax = params.transactionCountMax || ''
+    var hasPrev = pageNum > 1
+    var hasNext = data && data.list && data.list.length == pageSize
     return (
-      <Layout className='blockList' bgColor='white'>
-        <Content style={{ width: '100%', height: '100%' }}>
-          <CustomHeader/>
-          <div className="container" style={{ minHeight: 863 }}>
-            <table>
-              <thead>
-                  <th>高度</th>
-                  <th>Hash</th>
-                  <th>Age</th>
-                  <th>交易</th>
-                  <th>Quota 消耗</th>
-              </thead>
-              <tbody>
-              {
-              self.state.data && self.state.data.map(function(d,i){
-                return (
-                  <tr>
-                      <td>{d.blockNumber}</td>
-                      <td>{d.hash}</td>
-                      <td>{d.blockNumber}</td>
-                      <td>{d.blockNumber}</td>
-                      <td>{d.quotaUsed}</td>
-                  </tr>
-                )
-              })
-            }
-              </tbody>
-            </table>
+      <Content className="blockList" bgColor="white">
+        <div
+          style={{
+            width: '100%',
+            backgroundImage: 'url("./images/list_bg.png")',
+            backgroundRepeat: 'no-repeat',
+            paddingTop: 75,
+            paddingBottom: 98
+          }}
+        >
+          <div
+            className="container blockListBody"
+            style={{ minHeight: 690, padding: '47px 20px' }}
+          >
+            <div className="withRow" style={{ minHeight: 36 }}>
+              <div
+                className="queryConditoin withRowLeftAuto"
+                style={{ color: '#868b92', fontSize: 14 }}
+              >
+                {intl.formatMessage(
+                  { id: 'app.pages.blocklist.search.parameters' },
+                  {
+                    blockFrom: blockFrom,
+                    blockTo: blockTo,
+                    transactionCountMin: transactionCountMin,
+                    transactionCountMax: transactionCountMax
+                  }
+                )}
+              </div>
+              <div
+                className="queryButton operationItem"
+                onClick={() => {
+                  self.props.appAction.showModal({
+                    ui: BlockSearchModal,
+                    uiProps: {
+                      style: {
+                        width: '60%'
+                      },
+                      from: blockFrom,
+                      to: blockTo,
+                      min: transactionCountMin,
+                      max: transactionCountMax,
+                      appAction: self.props.appAction,
+                      intl: intl
+                    }
+                  })
+                }}
+              >
+                {intl.formatMessage({
+                  id: 'app.pages.blocklist.search.button'
+                })}
+              </div>
+            </div>
+            <div className="tableWrapper" style={{ marginTop: 14 }}>
+              <table
+                className="table table-hover"
+                style={{ tableLayout: 'fixed' }}
+              >
+                <thead style={{ backgroundColor: '#fafbff', height: 50 }}>
+                  <th
+                    className="text-center"
+                    style={{ width: (232 / 1154) * 100 + '%' }}
+                    scope="col"
+                  >
+                    {intl.formatMessage({
+                      id: 'app.pages.blocklist.table.header.height'
+                    })}
+                  </th>
+                  <th
+                    className="text-center"
+                    style={{ width: ((591 - 232) / 1154) * 100 + '%' }}
+                    scope="col"
+                  >
+                    {intl.formatMessage({
+                      id: 'app.pages.blocklist.table.header.hash'
+                    })}
+                  </th>
+                  <th
+                    className="text-center"
+                    style={{ width: ((815 - 591) / 1154) * 100 + '%' }}
+                    scope="col"
+                  >
+                    {intl.formatMessage({
+                      id: 'app.pages.blocklist.table.header.timestamp'
+                    })}
+                  </th>
+                  <th
+                    className="text-center"
+                    style={{ width: ((995 - 815) / 1154) * 100 + '%' }}
+                    scope="col"
+                  >
+                    {intl.formatMessage({
+                      id: 'app.pages.blocklist.table.header.txcount'
+                    })}
+                  </th>
+                  <th className="text-center" scope="col">
+                    {intl.formatMessage({
+                      id: 'app.pages.blocklist.table.header.quotaused'
+                    })}
+                  </th>
+                </thead>
+                <tbody>
+                  {data.list &&
+                    data.list.map(function(d: any, i: number) {
+                      return (
+                        <tr key={i}>
+                          <td
+                            className="text-center blockNumberTd operationItem"
+                            onClick={() => {
+                              hashHistory.push(
+                                '/block/id/' + parseInt(d.header.number)
+                              )
+                            }}
+                          >
+                            {parseInt(d.header.number)}
+                          </td>
+                          <td>
+                            <div
+                              className="text-center blockHashTd operationItem"
+                              onClick={() => {
+                                hashHistory.push('/block/hash/' + d.hash)
+                              }}
+                            >
+                              <span className="hash">{d.hash}</span>
+                            </div>
+                          </td>
+                          <td className="text-center blockTimestampTd">
+                            {timePassed(globalTickTime - d.header.timestamp)}
+                          </td>
+                          <td className="text-center blockTransactionCountTd">
+                            {d.transactionsCount}
+                          </td>
+                          <td className="text-center blockQuotaUsedTd">
+                            {valueFormat(
+                              d.header.quotaUsed,
+                              self.props.network.metaData &&
+                                self.props.network.metaData.tokenSymbol,
+                              self.props.network.quotaPrice
+                            )}
+                          </td>
+                        </tr>
+                      )
+                    })}
+                </tbody>
+              </table>
+            </div>
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'flex-end',
+                marginTop: 10
+              }}
+            >
+              <ul className="rc-pagination ">
+                {hasPrev ? (
+                  <li
+                    className="rc-pagination-disabled rc-pagination-prev"
+                    aria-disabled="false"
+                    onClick={() => {
+                      hashHistory.push(
+                        '/block/list?pageNum=' +
+                          (pageNum - 1) +
+                          '&pageSize=' +
+                          pageSize +
+                          '&blockFrom=' +
+                          self.props.block.list.blockFrom +
+                          '&blockTo=' +
+                          self.props.block.list.blockTo +
+                          '&transactionCountMin=' +
+                          self.props.block.list.transactionCountMin +
+                          '&transactionCountMax=' +
+                          self.props.block.list.transactionCountMax
+                      )
+                    }}
+                  >
+                    <a className="rc-pagination-item-link" />
+                  </li>
+                ) : null}
+                {hasNext ? (
+                  <li
+                    className=" rc-pagination-next"
+                    aria-disabled="false"
+                    onClick={() => {
+                      hashHistory.push(
+                        '/block/list?pageNum=' +
+                          (pageNum + 1) +
+                          '&pageSize=' +
+                          pageSize +
+                          '&blockFrom=' +
+                          self.props.block.list.blockFrom +
+                          '&blockTo=' +
+                          self.props.block.list.blockTo +
+                          '&transactionCountMin=' +
+                          self.props.block.list.transactionCountMin +
+                          '&transactionCountMax=' +
+                          self.props.block.list.transactionCountMax
+                      )
+                    }}
+                  >
+                    <a className="rc-pagination-item-link" />
+                  </li>
+                ) : (
+                  false
+                )}
+              </ul>
+            </div>
           </div>
-          <CustomFooter/>
-        </Content>
-      </Layout>
-    );
+        </div>
+      </Content>
+    )
   }
 }
-import {injectIntl} from 'react-intl';
+import { injectIntl } from 'react-intl'
+import { bindActionCreators } from 'redux'
+import * as appAction from '../../redux/actions/appAction'
+import * as blockAction from '../../redux/actions/block'
+import { IRootState } from '../../redux/states'
+import { connect } from 'react-redux'
 
-export default connect(state => ({}), dispatch => ({
-  appAction: bindActionCreators(appAction, dispatch)
-}))(injectIntl(BlockList))
+export default connect(
+  (state: IRootState) => ({
+    app: state.app,
+    network: state.network,
+    block: state.block
+  }),
+  dispatch => ({
+    appAction: bindActionCreators(appAction, dispatch),
+    blockAction: bindActionCreators(blockAction, dispatch)
+  })
+)(injectIntl(BlockList))

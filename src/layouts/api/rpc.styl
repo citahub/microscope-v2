@@ -1,0 +1,28 @@
+.apiRpc
+  background-color white
+  @media (max-width: 1200px)
+    .apiRpcBody
+      overflow-x auto
+      min-width 800px
+  .rpcItem
+    height 40px
+    padding 5px 10px
+    line-height 30px
+    font-size 14px
+    background #fafafa
+    border 1px solid #eee
+    margin-top 10px
+    &:nth-child(1)
+      margin-top 0
+    &:hover, &.rpcActiveItem
+      background-color #fafafa
+      background #3498db
+      
+  div.react-json-view
+    background-color red
+    .string-value
+      display inline-block
+      max-width 50vw !important
+      overflow hidden
+      text-overflow ellipsis
+      white-space nowrap

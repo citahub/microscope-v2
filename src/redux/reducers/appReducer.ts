@@ -1,82 +1,65 @@
 import * as constants from '../actionTypes'
-
+import { AppAction } from '../actions/appAction'
 import { AppState } from '../states/appState'
-
+import { getSelectLanguage } from '../../utils/storage'
 const initialState: AppState = {
-  toast: {
-    text: null,
-    timeout: 2000,
-    id: null,
-  },
-  showLoading: false,
-  maskTopPoz: null,
-  maskColor: null,
-  modal: {
-    ui: null,
-    uiProps: null
-  },
-
+  toast: null,
+  loading: null,
+  modal: null,
+  appWidth: '100vw',
+  appHeight: '100vh',
   drawerOpen: false,
-
-  appWidth: 1024,
-  appHeight: 800,
-  appLanguage: navigator.language || 'en'
+  appLanguage: getSelectLanguage(),
+  globalTickTime: new Date().getTime()
 }
 
-export default function(state:AppState = initialState, action: any) {
-  const { payload } = action
+export default function(state: AppState = initialState, action: AppAction) {
   switch (action.type) {
     case constants.TOAST:
       return {
         ...state,
         toast: {
-          ...state.toast,
-          ...payload
+          ...action.payload
         }
       }
     case constants.SHOW_LOADING:
       return {
         ...state,
-        showLoading: true,
-        maskTopPoz: action.maskTopPoz,
-        maskColor: action.maskColor
+        loading: action.data
       }
     case constants.HIDE_LOADING:
       return {
         ...state,
-        showLoading: false,
-        maskTopPoz: null,
-        maskColor: null
+        loading: null
       }
     case constants.SHOW_MODAL:
       return {
         ...state,
-        modal: {
-          ui: action.data.ui,
-          uiProps: action.data.uiProps
-        }
+        modal: action.data
       }
     case constants.HIDE_MODAL:
       return {
         ...state,
-        modal: {
-          ui: null,
-          uiProps: null
-        }
+        modal: null
       }
 
-    case constants.RESIZE_APP:
-      return {
-        ...state,
-        appWidth: action.data.appWidth,
-        appHeight: action.data.appHeight
-      }
     case constants.SWITCH_LANGUAGE:
       return {
         ...state,
         appLanguage: action.data
       }
 
+    case constants.GLOBAL_TICKTIME:
+      return {
+        ...state,
+        globalTickTime: action.data
+      }
+    case constants.RESIZE_APP:
+      return {
+        ...state,
+        appWidth: action.data.appWidth,
+        appHeight: action.data.appHeight
+      }
     default:
       return state
   }

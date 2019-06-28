@@ -1,16 +1,19 @@
-html,body,#app,.root
-  width 100%
-  height 100%
-  font-family  PingFangSC-Regular, Arial, Helvetica, sans-serif
-#app
-  position relative
+body
+  overflow-x hidden
+  font-family PingFangSC-Regular, Arial, Helvetica, sans-serif
+
+.root
+  width 100vw
+  height 100vh
 
 *, *:after, *:before
   margin 0
   padding 0
   box-sizing border-box
 
-
+.hash
+  font-family source-code-pro,Menlo,Monaco,Consolas,Courier New,monospace
+  
 @media (min-width: 1200px)
   .container
     max-width 1200px
@@ -21,36 +24,121 @@ html,body,#app,.root
       margin 0
 
 .vhCenter
-  display -webkit-flex
-  display -webkit-box
   display flex
-  display box
-  -webkit-flex-direction row
   flex-direction row
-  -webkit-box-align center
-  box-align center
-  -webkit-box-pack center
-  box-pack center
-  -webkit-align-items center
   align-items center
-  -webkit-justify-content center
   justify-content center
 
 .withRow
-  display -ms-flexbox
-  -ms-flex-direction row
   display flex
-  display -webkit-box
-  -webkit-flex-direction row
-  -webkit-box-orient horizontal
+  flex-direction row
+
 .withColumn
-  display -ms-flexbox
-  -ms-flex-direction column
   display flex
-  display -webkit-box
-  -webkit-flex-direction column
-  -webkit-box-orient vertical
+  flex-direction column
 
 .withRowLeftAuto,.withColumnLeftAuto
-  -webkit-box-flex 1
   flex 1
+
+.operationItem
+  cursor pointer
+
+.rc-pagination 
+  li:focus
+    outline none!important
+  .rc-pagination-item-active
+    background -webkit-gradient(linear,right top,left top,from(#4eadf1),to(#6a96f0))
+    background linear-gradient(270deg,#4eadf1,#6a96f0)
+    border-color transparent!important
+  .rc-pagination-item
+    &:hover
+      border-color #6a96f0!important
+
+@media (max-width: 1200px)
+  .tableWrapper
+    overflow-x auto
+  table
+    min-width 1160px
+
+div.enterScreen {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    color: #202214;
+    background: #202214;
+    text-align: center;
+    z-index: 999;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    letter-spacing: 4px;
+    font-family: 'Press Start 2P', cursive;
+    text-transform: capitalize;
+    text-rendering: optimizeSpeed;
+  }
+
+
+  div.enterScreen span {
+    color: #202214;
+    /* color: #FFF; */
+    animation: blur 2s infinite;
+    font-family: inherit;
+    filter: blur(50px);
+  }
+
+  @keyframes blur {
+    50%,
+    80% {
+      color: #FFF;
+      filter: blur(0px);
+    }
+  }
+
+  div.enterScreen span:nth-of-type(1) {
+    animation-delay: 0s;
+  }
+
+  div.enterScreen span:nth-of-type(2) {
+    animation-delay: 0.04s;
+  }
+
+  div.enterScreen span:nth-of-type(3) {
+    animation-delay: 0.08s;
+  }
+
+  div.enterScreen span:nth-of-type(4) {
+    animation-delay: 0.12s;
+  }
+
+  div.enterScreen span:nth-of-type(5) {
+    animation-delay: 0.2s;
+  }
+
+  div.enterScreen span:nth-of-type(6) {
+    animation-delay: 0.24s;
+  }
+
+  div.enterScreen span:nth-of-type(7) {
+    animation-delay: 0.28s;
+  }
+
+  div.enterScreen span:nth-of-type(8) {
+    animation-delay: 0.32s;
+  }
+
+  div.enterScreen span:nth-of-type(9) {
+    animation-delay: 0.36s;
+  }
+
+  div.enterScreen span:nth-of-type(10) {
+    animation-delay: 0.4s;
+  }
+
+  @media (max-width: 375px) {
+    div.enterScreen {
+      font-size: 1.4rem;
+    }
+  }

@@ -47,6 +47,7 @@ export function getTransaction(key: string) {
           type: constants.GET_TRANSACTION_ITEM,
           data: data
         })
+        return data
       })
       .catch((error: any) => {
         dispatch(hideLoading())
@@ -54,6 +55,7 @@ export function getTransaction(key: string) {
           type: constants.OPERATION_FAIL,
           error: error
         })
+        return null
       })
   }
 }
@@ -107,6 +109,17 @@ export function getTransactionList(
         dispatch({
           type: constants.OPERATION_FAIL,
           error: error
+        })
+        dispatch({
+          type: constants.GET_TRANSACTION_LIST,
+          data: {
+            pageNum: pageNum,
+            pageSize: pageSize,
+            addressFrom: addressFrom || '',
+            addressTo: addressTo || '',
+            list: [],
+            total: 0
+          }
         })
       })
   }

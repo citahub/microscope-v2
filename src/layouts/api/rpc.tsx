@@ -1,13 +1,12 @@
 import React from 'react'
 import './rpc.styl'
-import Layout from '../../components/layout'
-import { hashHistory } from 'react-router'
-import Header from '../common/header'
-import Footer from '../common/footer'
+import Content from '../../components/content'
+import hashHistory from '../../routes/history'
 import ReactJson from 'react-json-view'
 import rpcTemplate from './rpc-template'
 
 import { getSelectNetwork } from '../../utils/storage'
+import queryString from 'query-string'
 
 class APIRpc extends React.Component<any, any> {
   input: string = ''
@@ -17,7 +16,7 @@ class APIRpc extends React.Component<any, any> {
   }
   componentDidMount() {
     var self = this
-    var params = self.props.location.query
+    var params = queryString.parse(self.props.location.search)
     var method = params.method
     if (!method) {
       method = rpcTemplate[0].name
@@ -34,11 +33,9 @@ class APIRpc extends React.Component<any, any> {
   }
   componentWillReceiveProps(nextProps: any) {
     var self = this
-    if (
-      JSON.stringify(nextProps.location.query) !==
-      JSON.stringify(self.props.location.query)
-    ) {
-      var method = nextProps.location.query.method
+    if (nextProps.location.search !== self.props.location.search) {
+      var params = queryString.parse(nextProps.location.search)
+      var method = params.method
       if (!method) {
         method = rpcTemplate[0].name
         hashHistory.replace('/api/rpc?method=' + rpcTemplate[0].name)
@@ -61,18 +58,17 @@ class APIRpc extends React.Component<any, any> {
   }
   render() {
     var self = this
-    var params = self.props.location.query
+    var intl = self.props.intl
+    var params = queryString.parse(self.props.location.search)
     var method = params.method || rpcTemplate[0].name
 
     var selectNetwork = getSelectNetwork()
 
     return (
-      <Layout className="apiRpc" bgColor="white">
-        <Header location={self.props.location} app={self.props.app} />
+      <Content className="apiRpc" bgColor="white">
         <div
           className="container"
           style={{
-            minHeight: self.props.app.appHeight - 338,
             marginTop: 30,
             marginBottom: 30,
             overflowX: 'auto',
@@ -117,7 +113,9 @@ class APIRpc extends React.Component<any, any> {
               </nav>
               <div className="withColumn">
                 <div className="card" style={{ height: '40%' }}>
-                  <div className="card-header">Input</div>
+                  <div className="card-header">
+                    {intl.formatMessage({ id: 'app.pages.api.input' })}
+                  </div>
                   <div className="card-body">
                     <ReactJson
                       src={self.props.network.rpcData.input || {}}
@@ -145,7 +143,7 @@ class APIRpc extends React.Component<any, any> {
                         }
                       }}
                     >
-                      发送
+                      {intl.formatMessage({ id: 'app.pages.api.send' })}
                     </button>
                   </div>
                 </div>
@@ -153,7 +151,9 @@ class APIRpc extends React.Component<any, any> {
                   className="card withColumnLeftAuto"
                   style={{ marginTop: 20 }}
                 >
-                  <div className="card-header">Output</div>
+                  <div className="card-header">
+                    {intl.formatMessage({ id: 'app.pages.api.output' })}
+                  </div>
                   <div className="card-body">
                     <ReactJson src={self.props.network.rpcData.output || {}} />
                   </div>
@@ -165,8 +165,7 @@ class APIRpc extends React.Component<any, any> {
             </div>
           </div>
         </div>
-        <Footer />
-      </Layout>
+      </Content>
     )
   }
 }

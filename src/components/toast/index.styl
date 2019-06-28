@@ -1,15 +1,15 @@
-.toast{
-  position: absolute;
+.appToast{
+  position: fixed;
   top: 0;
   width: 100%;
   height: 100%;
   box-sizing: border-box;
-  overflow-Y: hidden;
+  overflow-y: hidden;
   display: flex;
   flex-direction: column;
   pointer-events: none;
 }
-.toast>div{
+.appToast>div{
   width: 80%;
   background-color: rgba(0,0,0,0.8);
   border-radius: 2px;
@@ -20,7 +20,7 @@
   z-index: 9999;
   min-height: 32px
 }
-.toast>div>div {
+.appToast>div>div {
   color: white;
   font-size: 12px;
   line-height: 12px;

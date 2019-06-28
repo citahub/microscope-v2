@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Router, Route, IndexRoute, Redirect, hashHistory } from 'react-router'
+import { Router, Route, Redirect, Switch } from 'react-router'
 
 import App from '../layouts/app'
 import Home from '../layouts/home/index'
@@ -13,26 +13,53 @@ import APIRpc from '../layouts/api/rpc'
 import APIRebirth from '../layouts/api/rebirth'
 
 import Statics from '../layouts/statics'
-import NotFoundPage from '../layouts/error/index'
+import SearchPage from '../layouts/search'
+import NotFoundPage from '../layouts/error'
+import hashHistory from './history'
+
 export default function() {
+  // need consider for faucet website redirection
   return (
-    <Router history={hashHistory}>
-      <Route path="/" component={App}>
-        <IndexRoute component={Home} />
-        <Route path="/block/list" component={BlockList} />
-        <Route path="/block/hash/:hash" component={BlockDetail} />
-        <Route path="/block/id/:id" component={BlockDetail} />
-        <Route path="/transaction/list" component={TransactionList} />
-        <Route path="/transaction/hash/:hash" component={TransactionDetail} />
-        <Route path="/account/:address" component={AccountDetail} />
-        <Route path="/api/rpc" component={APIRpc} />
-        <Route path="/api/rebirth" component={APIRebirth} />
-        <Route path="/statics" component={Statics} />
-        <Route path="/404" component={NotFoundPage} />
-        <Redirect from="/transaction/:hash" to="/transaction/hash/:hash" /> //
-        for faucet
-        <Redirect from="*" to="/404" />
-      </Route>
-    </Router>
+    <App>
+      <Router history={hashHistory}>
+        <Route
+          render={() => {
+            return (
+              <Switch>
+                <Route exact path="/" component={Home} />
+                <Route exact path="/block/list" component={BlockList} />
+                <Route exact path="/block/hash/:hash" component={BlockDetail} />
+                <Route exact path="/block/id/:id" component={BlockDetail} />
+                <Route
+                  exact
+                  path="/transaction/list"
+                  component={TransactionList}
+                />
+                <Route
+                  exact
+                  path="/transaction/hash/:hash"
+                  component={TransactionDetail}
+                />
+                <Route
+                  exact
+                  path="/account/:address"
+                  component={AccountDetail}
+                />
+                <Route exact path="/api/rpc" component={APIRpc} />
+                <Route exact path="/api/rebirth" component={APIRebirth} />
+                <Route exact path="/statics" component={Statics} />
+                <Route exact path="/search" component={SearchPage} />
+                <Route exact path="/404" component={NotFoundPage} />
+                <Redirect
+                  from="/transaction/:hash"
+                  to="/transaction/hash/:hash"
+                />
+                <Redirect from="*" to="/404" />
+              </Switch>
+            )
+          }}
+        />
+      </Router>
+    </App>
   )
 }

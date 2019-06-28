@@ -1,9 +1,7 @@
 import React from 'react'
 import './index.styl'
-import Layout from '../../components/layout'
-import { hashHistory } from 'react-router'
-import Header from '../common/header'
-import Footer from '../common/footer'
+import Content from '../../components/content'
+import hashHistory from '../../routes/history'
 
 class NotFoundPage extends React.Component<any, any> {
   constructor(props: any) {
@@ -11,32 +9,29 @@ class NotFoundPage extends React.Component<any, any> {
   }
   componentDidMount() {}
   render() {
-    var self = this
+    var intl = this.props.intl
     return (
-      <Layout className="error" bgColor="white">
-        <Header location={self.props.location} app={self.props.app} />
-        <div
-          className="container"
-          style={{ minHeight: self.props.app.appHeight - 338 }}
-        >
+      <Content className="error" bgColor="white">
+        <div className="container">
           <div className="vhCenter" style={{ marginTop: 57 }}>
             <img
               src="images/404.png"
               style={{ width: '80%', height: 'auto' }}
             />
           </div>
-          <div className="errorLabel">哎呀呀，你要访问的页面没有找到！</div>
+          <div className="errorLabel">
+            {intl.formatMessage({ id: 'app.pages.404.label' })}
+          </div>
           <div
             className="goBackButton"
             onClick={() => {
               hashHistory.push('/')
             }}
           >
-            返回首页
+            {intl.formatMessage({ id: 'app.pages.404.goback' })}
           </div>
         </div>
-        <Footer />
-      </Layout>
+      </Content>
     )
   }
 }

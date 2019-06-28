@@ -1,10 +1,8 @@
 import React from 'react'
 import './index.styl'
-import Layout from '../../components/layout'
-import Header from '../common/header'
-import Footer from '../common/footer'
+import Content from '../../components/content'
 
-import { hashHistory } from 'react-router'
+import hashHistory from '../../routes/history'
 
 import { timePassed } from '../../utils/time'
 
@@ -40,13 +38,13 @@ class Home extends React.Component<any, any> {
 
   render() {
     var self = this
+    var intl = self.props.intl
     var metaData = self.props.network.metaData
     var topBlocks = self.props.block.topList
     var topTransactions = self.props.transaction.topList
     var globalTickTime = self.props.app.globalTickTime
     return (
-      <Layout className="home" bgColor="rgba(249, 249, 249, 0.56)">
-        <Header location={self.props.location} app={self.props.app} />
+      <Content className="home" bgColor="rgba(249, 249, 249, 0.56)">
         <div className="container">
           <div style={{ marginTop: 20 }}>
             <div className="row" style={{ marginLeft: -15, marginRight: -15 }}>
@@ -65,7 +63,11 @@ class Home extends React.Component<any, any> {
                       ? parseInt(topBlocks[0].header.number)
                       : '?'}
                   </div>
-                  <div className="generalItem2Label">区块高度</div>
+                  <div className="generalItem2Label">
+                    {intl.formatMessage({
+                      id: 'app.pages.home.meta.blockheight'
+                    })}
+                  </div>
                 </div>
               </div>
               <div className="generalItem col-xs-12 col-sm-9 col-md-6 col-lg-4">
@@ -78,9 +80,15 @@ class Home extends React.Component<any, any> {
                     <img src="./images/content1_spacing.png" />
                   </div>
                   <div className="generalItem1Label">
-                    {metaData ? metaData.blockInterval : '?'}
+                    {metaData
+                      ? (metaData.blockInterval / 1000).toFixed(2) + 's'
+                      : '?'}
                   </div>
-                  <div className="generalItem2Label">出块间隔</div>
+                  <div className="generalItem2Label">
+                    {intl.formatMessage({
+                      id: 'app.pages.home.meta.blockinterval'
+                    })}
+                  </div>
                 </div>
               </div>
               <div className="generalItem col-xs-12 col-sm-9 col-md-6 col-lg-4">
@@ -95,7 +103,11 @@ class Home extends React.Component<any, any> {
                   <div className="generalItem1Label">
                     {metaData ? metaData.validators.length : '?'}
                   </div>
-                  <div className="generalItem2Label">共识节点</div>
+                  <div className="generalItem2Label">
+                    {intl.formatMessage({
+                      id: 'app.pages.home.meta.validators'
+                    })}
+                  </div>
                 </div>
               </div>
             </div>
@@ -118,14 +130,18 @@ class Home extends React.Component<any, any> {
                 style={{ marginTop: 12 }}
               >
                 <div className="withRow">
-                  <div className="generalInfoItemIcon" style={{ width: 80 }}>
+                  <div className="generalInfoItemIcon">
                     <img src="images/general_info_name.png" />
                   </div>
                   <div className="withRowLeftAuto" style={{ paddingLeft: 20 }}>
                     <div className="generalInfoItemName">
                       {metaData ? metaData.chainName : '?'}
                     </div>
-                    <div className="generalInfoItemLabel">名称</div>
+                    <div className="generalInfoItemLabel">
+                      {intl.formatMessage({
+                        id: 'app.pages.home.meta.chainname'
+                      })}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -134,14 +150,18 @@ class Home extends React.Component<any, any> {
                 style={{ marginTop: 12 }}
               >
                 <div className="withRow">
-                  <div className="generalInfoItemIcon" style={{ width: 80 }}>
+                  <div className="generalInfoItemIcon">
                     <img src="images/general_info_operator.png" />
                   </div>
                   <div className="withRowLeftAuto" style={{ paddingLeft: 20 }}>
                     <div className="generalInfoItemName">
                       {metaData ? metaData.operator : '?'}
                     </div>
-                    <div className="generalInfoItemLabel">运营方</div>
+                    <div className="generalInfoItemLabel">
+                      {intl.formatMessage({
+                        id: 'app.pages.home.meta.operator'
+                      })}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -150,7 +170,7 @@ class Home extends React.Component<any, any> {
                 style={{ marginTop: 12 }}
               >
                 <div className="withRow">
-                  <div className="generalInfoItemIcon" style={{ width: 80 }}>
+                  <div className="generalInfoItemIcon">
                     <img src="images/general_info_mode.png" />
                   </div>
                   <div className="withRowLeftAuto" style={{ paddingLeft: 20 }}>
@@ -161,7 +181,11 @@ class Home extends React.Component<any, any> {
                           : 'Charge Modal'
                         : '?'}
                     </div>
-                    <div className="generalInfoItemLabel">经济模型</div>
+                    <div className="generalInfoItemLabel">
+                      {intl.formatMessage({
+                        id: 'app.pages.home.meta.economicalmodel'
+                      })}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -170,14 +194,18 @@ class Home extends React.Component<any, any> {
                 style={{ marginTop: 12 }}
               >
                 <div className="withRow">
-                  <div className="generalInfoItemIcon" style={{ width: 80 }}>
+                  <div className="generalInfoItemIcon">
                     <img src="images/general_info_token.png" />
                   </div>
                   <div className="withRowLeftAuto" style={{ paddingLeft: 20 }}>
                     <div className="generalInfoItemName">
                       {metaData ? metaData.tokenSymbol : '?'}
                     </div>
-                    <div className="generalInfoItemLabel">代币名称</div>
+                    <div className="generalInfoItemLabel">
+                      {intl.formatMessage({
+                        id: 'app.pages.home.meta.tokensymbol'
+                      })}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -186,14 +214,18 @@ class Home extends React.Component<any, any> {
                 style={{ marginTop: 12 }}
               >
                 <div className="withRow">
-                  <div className="generalInfoItemIcon" style={{ width: 80 }}>
+                  <div className="generalInfoItemIcon">
                     <img src="images/general_info_chain.png" />
                   </div>
                   <div className="withRowLeftAuto" style={{ paddingLeft: 20 }}>
                     <div className="generalInfoItemName">
                       {metaData ? metaData.chainId : '?'}
                     </div>
-                    <div className="generalInfoItemLabel">链ID</div>
+                    <div className="generalInfoItemLabel">
+                      {intl.formatMessage({
+                        id: 'app.pages.home.meta.chainid'
+                      })}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -202,14 +234,18 @@ class Home extends React.Component<any, any> {
                 style={{ marginTop: 12 }}
               >
                 <div className="withRow">
-                  <div className="generalInfoItemIcon" style={{ width: 80 }}>
+                  <div className="generalInfoItemIcon">
                     <img src="images/general_info_version.png" />
                   </div>
                   <div className="withRowLeftAuto" style={{ paddingLeft: 20 }}>
                     <div className="generalInfoItemName">
                       {metaData ? metaData.version : '?'}
                     </div>
-                    <div className="generalInfoItemLabel">版本号</div>
+                    <div className="generalInfoItemLabel">
+                      {intl.formatMessage({
+                        id: 'app.pages.home.meta.version'
+                      })}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -238,7 +274,7 @@ class Home extends React.Component<any, any> {
                       color: '#47484a'
                     }}
                   >
-                    最近10个块
+                    {intl.formatMessage({ id: 'app.pages.home.top10.block' })}
                   </div>
                   <div
                     className="col-6 operationItem"
@@ -252,7 +288,7 @@ class Home extends React.Component<any, any> {
                       hashHistory.push('/block/list')
                     }}
                   >
-                    查看更多 &gt;
+                    {intl.formatMessage({ id: 'app.pages.home.top10.more' })}
                   </div>
                 </div>
                 <div>
@@ -261,7 +297,7 @@ class Home extends React.Component<any, any> {
                       var blockNumber = parseInt(block.header.number)
                       return (
                         <div key={i} className="blockItem withRow">
-                          <div style={{ width: 138 }}>
+                          <div className="blockItemNumberWrapper">
                             <div
                               className="blockItemNumber vhCenter operationItem"
                               style={{
@@ -272,7 +308,7 @@ class Home extends React.Component<any, any> {
                                 hashHistory.push('/block/id/' + blockNumber)
                               }}
                             >
-                              块<br />#{blockNumber}
+                              #{blockNumber}
                             </div>
                           </div>
                           <div
@@ -286,22 +322,32 @@ class Home extends React.Component<any, any> {
                                 hashHistory.push('/block/hash/' + block.hash)
                               }}
                             >
-                              {block.hash}
+                              <span className="hash">{block.hash}</span>
                             </div>
                             <div className="blockItemTranscation">
-                              包含{' '}
-                              {block.transactionsCount ||
-                                (block.body &&
-                                  block.body.transactions &&
-                                  block.body.transactions.length) ||
-                                0}{' '}
-                              笔交易
+                              {intl.formatMessage(
+                                {
+                                  id:
+                                    'app.pages.home.top10.block.transactioncount'
+                                },
+                                {
+                                  key:
+                                    block.transactionsCount ||
+                                    (block.body &&
+                                      block.body.transactions &&
+                                      block.body.transactions.length) ||
+                                    0
+                                }
+                              )}
                             </div>
                             <div className="blockItemFrom">
-                              Proposed By {block.header.proposer}
+                              Proposed By{' '}
+                              <span className="hash">
+                                {block.header.proposer}
+                              </span>
                             </div>
                             <div className="blockItemReward">
-                              quotaUsed:{' '}
+                              Quota Used:&nbsp;
                               {valueFormat(
                                 block.header.quotaUsed,
                                 self.props.network.metaData &&
@@ -334,7 +380,9 @@ class Home extends React.Component<any, any> {
                       color: '#47484a'
                     }}
                   >
-                    最近10笔交易
+                    {intl.formatMessage({
+                      id: 'app.pages.home.top10.transaction'
+                    })}
                   </div>
                   <div
                     className="col-6 operationItem"
@@ -348,7 +396,7 @@ class Home extends React.Component<any, any> {
                       hashHistory.push('/transaction/list')
                     }}
                   >
-                    查看更多 &gt;
+                    {intl.formatMessage({ id: 'app.pages.home.top10.more' })}
                   </div>
                 </div>
                 <div>
@@ -372,23 +420,21 @@ class Home extends React.Component<any, any> {
                           d.unsignedTransaction.transaction.value)
                       return (
                         <div key={i} className="transactionItem withRow">
-                          <div style={{ width: 88 }}>
-                            <div className="transactionItemIcon">
-                              <img src="images/content2_contract.png" />
-                            </div>
+                          <div className="transactionItemIcon">
+                            <img src="images/content2_contract.png" />
                           </div>
                           <div
                             className="withRowLeftAuto"
                             style={{ overflow: 'hidden' }}
                           >
-                            <div className="transactionItemTxLabel">TX#：</div>
+                            <div className="transactionItemTxLabel">TX：</div>
                             <div
                               className="transactionItemTxHash operationItem"
                               onClick={() => {
                                 hashHistory.push('/transaction/hash/' + d.hash)
                               }}
                             >
-                              {d.hash}
+                              <span className="hash">{d.hash}</span>
                             </div>
                             <div
                               className="row"
@@ -407,7 +453,7 @@ class Home extends React.Component<any, any> {
                                     hashHistory.push('/account/' + d.from)
                                   }}
                                 >
-                                  {from}
+                                  <span className="hash">{from}</span>
                                 </div>
                               </div>
                               <div
@@ -417,21 +463,23 @@ class Home extends React.Component<any, any> {
                                 <div className="transactionItemToLabel">
                                   To：
                                 </div>
-                                <div
-                                  className="transactionItemTo operationItem"
-                                  onClick={() => {
-                                    hashHistory.push('/account/' + d.to)
-                                  }}
-                                >
-                                  {to}
-                                </div>
+                                {to ? (
+                                  <div
+                                    className="transactionItemTo operationItem"
+                                    onClick={() => {
+                                      hashHistory.push('/account/' + to)
+                                    }}
+                                  >
+                                    <span className="hash">{to}</span>
+                                  </div>
+                                ) : null}
                               </div>
                             </div>
                             <div
                               className="transactionItemValue"
                               style={{ marginTop: 4 }}
                             >
-                              value:{' '}
+                              value:&nbsp;
                               {valueFormat(
                                 value,
                                 self.props.network.metaData &&
@@ -454,8 +502,7 @@ class Home extends React.Component<any, any> {
             </div>
           </div>
         </div>
-        <Footer />
-      </Layout>
+      </Content>
     )
   }
 }

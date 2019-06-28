@@ -1,13 +1,11 @@
 import React from 'react'
 import './detail.styl'
-import Layout from '../../components/layout'
+import Content from '../../components/content'
 import Tabs, { Tab } from '../../components/tab'
-import Header from '../common/header'
-import Footer from '../common/footer'
 import TransactionTable from '../common/transactionTable'
 
-import { hashHistory } from 'react-router'
-
+import hashHistory from '../../routes/history'
+import queryString from 'query-string'
 import { valueFormat } from '../../utils/hex'
 import citaSDK from '../../utils/sdk'
 
@@ -24,7 +22,7 @@ class TabContractInfoContent extends React.Component<any, any> {
     return (
       <div className="container contractTabInfo">
         <div className="withRow" style={{ marginTop: 20 }}>
-          <div className="withRowLeftAuto">合约ABI</div>
+          <div className="withRowLeftAuto">ABI</div>
           <button
             style={{ width: 100 }}
             type="button"
@@ -49,7 +47,7 @@ class TabContractInfoContent extends React.Component<any, any> {
         </div>
 
         <div className="withRow" style={{ marginTop: 40 }}>
-          <div className="withRowLeftAuto">合约原始数据</div>
+          <div className="withRowLeftAuto">Original Data</div>
           <button
             style={{ width: 100 }}
             type="button"
@@ -226,7 +224,6 @@ class TabContractCallContent extends React.Component<any, any> {
           return d.stateMutability === 'nonpayable'
         })) ||
       []
-    console.log(viewAbis)
     return (
       <div className="container contractTabCall">
         {viewAbis.map((d: any) => this.renderAbi(d, 'view'))}
@@ -238,8 +235,8 @@ class TabContractCallContent extends React.Component<any, any> {
 class AccountDetail extends React.Component<any, any> {
   componentDidMount() {
     var self = this
-    var address = self.props.params.address
-    var params = self.props.location.query
+    var address = self.props.match.params.address
+    var params: any = queryString.parse(self.props.location.search)
     var pageNum = params.pageNum ? parseInt(params.pageNum) : 1
     var pageSize = params.pageSize ? parseInt(params.pageSize) : 10
 
@@ -260,24 +257,22 @@ class AccountDetail extends React.Component<any, any> {
   }
   componentWillReceiveProps(nextProps: any) {
     var self = this
-    var address = self.props.params.address
-    var pageNum = parseInt(self.props.location.query.pageNum) || 1
-    var pageSize = parseInt(self.props.location.query.pageSize) || 10
-    var tabIndex = parseInt(self.props.location.query.tabIndex) || 0
+    var address = self.props.match.params.address
+    var params: any = queryString.parse(self.props.location.search)
+    var pageNum = parseInt(params.pageNum) || 1
+    var pageSize = parseInt(params.pageSize) || 10
+    var tabIndex = parseInt(params.tabIndex) || 0
 
     var fetchData = false
-    if (nextProps.params.address !== self.props.params.address) {
-      address = nextProps.params.address
+    if (nextProps.match.params.address !== self.props.match.params.address) {
+      address = nextProps.match.params.address
       self.props.accountAction.getBalance(address)
       self.props.accountAction.getCode(address)
 
       fetchData = true
     }
-    if (
-      JSON.stringify(nextProps.location.query) !==
-      JSON.stringify(this.props.location.query)
-    ) {
-      var params = nextProps.location.query
+    if (nextProps.location.search !== this.props.location.search) {
+      params = queryString.parse(nextProps.location.search)
       pageNum = params.pageNum ? parseInt(params.pageNum) : 1
       pageSize = params.pageSize ? parseInt(params.pageSize) : 10
       tabIndex = params.tabIndex ? parseInt(params.tabIndex) : 0
@@ -301,18 +296,18 @@ class AccountDetail extends React.Component<any, any> {
   }
   render() {
     var self = this
-    var account = self.props.params.address
+    var intl = self.props.intl
+    var account = self.props.match.params.address
     var data = self.props.account.trList
     var globalTickTime = self.props.app.globalTickTime
     var erc20Data = self.props.account.erc20List
-    var params = self.props.location.query
+    var params: any = queryString.parse(self.props.location.search)
     var tabIndex = params.tabIndex ? parseInt(params.tabIndex) : 0
     var balance = self.props.account.balance
 
     var isContract = self.props.account.code && self.props.account.code !== '0x'
     return (
-      <Layout className="accountDetail" bgColor="#fbfbfb">
-        <Header location={self.props.location} app={self.props.app} />
+      <Content className="accountDetail" bgColor="#fbfbfb">
         <div
           style={{
             width: '100%',
@@ -343,7 +338,10 @@ class AccountDetail extends React.Component<any, any> {
                         color: '#47484a'
                       }}
                     >
-                      account:
+                      {intl.formatMessage({
+                        id: 'app.pages.addressdetail.account'
+                      })}
+                      :
                     </div>
                     <div
                       className="withRowLeftAuto"
@@ -357,8 +355,7 @@ class AccountDetail extends React.Component<any, any> {
                         whiteSpace: 'nowrap'
                       }}
                     >
-                      {' '}
-                      # {account}
+                      <span className="hash">{account}</span>
                     </div>
                   </div>
                 </div>
@@ -382,8 +379,10 @@ class AccountDetail extends React.Component<any, any> {
                         color: '#47484a'
                       }}
                     >
-                      {' '}
-                      Balance:{' '}
+                      {intl.formatMessage({
+                        id: 'app.pages.addressdetail.balance'
+                      })}
+                      :
                     </div>
                     <div
                       className="withRowLeftAuto"
@@ -396,7 +395,6 @@ class AccountDetail extends React.Component<any, any> {
                         whiteSpace: 'nowrap'
                       }}
                     >
-                      #{' '}
                       {valueFormat(
                         balance,
                         self.props.network.metaData &&
@@ -425,9 +423,15 @@ class AccountDetail extends React.Component<any, any> {
                 )
               }}
             >
-              <Tab title={'普通(' + data.total + ')'}>
+              <Tab
+                title={intl.formatMessage(
+                  { id: 'app.pages.addressdetail.tabs.general' },
+                  { key: data.total }
+                )}
+              >
                 <div className="accountBody">
                   <TransactionTable
+                    intl={intl}
                     data={data}
                     globalTickTime={globalTickTime}
                     network={self.props.network}
@@ -445,9 +449,15 @@ class AccountDetail extends React.Component<any, any> {
                   />
                 </div>
               </Tab>
-              <Tab title={'ERC20(' + erc20Data.total + ')'}>
+              <Tab
+                title={intl.formatMessage(
+                  { id: 'app.pages.addressdetail.tabs.erc20' },
+                  { key: erc20Data.total }
+                )}
+              >
                 <div className="accountBody">
                   <TransactionTable
+                    intl={intl}
                     data={erc20Data}
                     globalTickTime={globalTickTime}
                     onChange={(pageNum: number, pageSize: number) => {
@@ -465,7 +475,11 @@ class AccountDetail extends React.Component<any, any> {
                 </div>
               </Tab>
               {isContract ? (
-                <Tab title="合约调用">
+                <Tab
+                  title={intl.formatMessage({
+                    id: 'app.pages.addressdetail.tabs.contractcall'
+                  })}
+                >
                   <TabContractCallContent
                     address={account}
                     code={self.props.account.code}
@@ -476,7 +490,11 @@ class AccountDetail extends React.Component<any, any> {
                 </Tab>
               ) : null}
               {isContract ? (
-                <Tab title="合约信息">
+                <Tab
+                  title={intl.formatMessage({
+                    id: 'app.pages.addressdetail.tabs.contractinfo'
+                  })}
+                >
                   <TabContractInfoContent
                     address={account}
                     code={self.props.account.code}
@@ -488,8 +506,7 @@ class AccountDetail extends React.Component<any, any> {
             </Tabs>
           </div>
         </div>
-        <Footer />
-      </Layout>
+      </Content>
     )
   }
 }

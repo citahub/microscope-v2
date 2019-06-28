@@ -1,19 +1,18 @@
 import React from 'react'
 import './list.styl'
-import Layout from '../../components/layout'
-import Header from '../common/header'
-import Footer from '../common/footer'
+import Content from '../../components/content'
 
 import BlockSearchModal from '../common/blockSearchModal'
 
-import { hashHistory } from 'react-router'
+import hashHistory from '../../routes/history'
 import { timePassed } from '../../utils/time'
 import { valueFormat } from '../../utils/hex'
+import queryString from 'query-string'
 
 class BlockList extends React.Component<any, any> {
   componentDidMount() {
     var self = this
-    var params = self.props.location.query
+    var params: any = queryString.parse(self.props.location.search)
     var pageNum = params.pageNum ? parseInt(params.pageNum) : 1
     var pageSize = params.pageSize ? parseInt(params.pageSize) : 10
     var blockFrom = params.blockFrom || ''
@@ -32,11 +31,8 @@ class BlockList extends React.Component<any, any> {
   }
   componentWillReceiveProps(nextProps: any) {
     var self = this
-    if (
-      JSON.stringify(nextProps.location.query) !==
-      JSON.stringify(this.props.location.query)
-    ) {
-      var params = nextProps.location.query
+    if (nextProps.location.search !== this.props.location.search) {
+      var params: any = queryString.parse(nextProps.location.search)
       var pageNum = params.pageNum ? parseInt(params.pageNum) : 1
       var pageSize = params.pageSize ? parseInt(params.pageSize) : 10
       var blockFrom = params.blockFrom || ''
@@ -55,16 +51,20 @@ class BlockList extends React.Component<any, any> {
   }
   render() {
     var self = this
+    var intl = self.props.intl
     var data = self.props.block.list
     var globalTickTime = self.props.app.globalTickTime
-    var params = self.props.location.query
+    var params: any = queryString.parse(self.props.location.search)
     var pageNum = params.pageNum ? parseInt(params.pageNum) : 1
     var pageSize = params.pageSize ? parseInt(params.pageSize) : 10
+    var blockFrom = params.blockFrom || ''
+    var blockTo = params.blockTo || ''
+    var transactionCountMin = params.transactionCountMin || ''
+    var transactionCountMax = params.transactionCountMax || ''
     var hasPrev = pageNum > 1
     var hasNext = data && data.list && data.list.length == pageSize
     return (
-      <Layout className="blockList" bgColor="white">
-        <Header location={self.props.location} app={self.props.app} />
+      <Content className="blockList" bgColor="white">
         <div
           style={{
             width: '100%',
@@ -76,24 +76,22 @@ class BlockList extends React.Component<any, any> {
         >
           <div
             className="container blockListBody"
-            style={{ minHeight: 690, paddingTop: 47 }}
+            style={{ minHeight: 690, padding: '47px 20px' }}
           >
-            <div
-              className="withRow"
-              style={{ minHeight: 36, paddingLeft: 24, paddingRight: 20 }}
-            >
+            <div className="withRow" style={{ minHeight: 36 }}>
               <div
                 className="queryConditoin withRowLeftAuto"
                 style={{ color: '#868b92', fontSize: 14 }}
               >
-                当前搜索参数:
-                <br />
-                blockFrom:<b>{self.props.block.list.blockFrom}</b>
-                blockTo:<b>{self.props.block.list.blockTo}</b>
-                transactionCountMin:
-                <b>{self.props.block.list.transactionCountMin}</b>
-                transactionCountMax:
-                <b>{self.props.block.list.transactionCountMax}</b>
+                {intl.formatMessage(
+                  { id: 'app.pages.blocklist.search.parameters' },
+                  {
+                    blockFrom: blockFrom,
+                    blockTo: blockTo,
+                    transactionCountMin: transactionCountMin,
+                    transactionCountMax: transactionCountMax
+                  }
+                )}
               </div>
               <div
                 className="queryButton operationItem"
@@ -104,57 +102,67 @@ class BlockList extends React.Component<any, any> {
                       style: {
                         width: '60%'
                       },
-                      from: self.props.block.list.blockFrom,
-                      to: self.props.block.list.blockTo,
-                      min: self.props.block.list.transactionCountMin,
-                      max: self.props.block.list.transactionCountMax,
-                      appAction: self.props.appAction
+                      from: blockFrom,
+                      to: blockTo,
+                      min: transactionCountMin,
+                      max: transactionCountMax,
+                      appAction: self.props.appAction,
+                      intl: intl
                     }
                   })
                 }}
               >
-                高级选择器
+                {intl.formatMessage({
+                  id: 'app.pages.blocklist.search.button'
+                })}
               </div>
             </div>
-            <div
-              className="tableWrapper"
-              style={{ padding: '14px 23px 0 23px', minHeight: 690 - 36 }}
-            >
+            <div className="tableWrapper" style={{ marginTop: 14 }}>
               <table
                 className="table table-hover"
                 style={{ tableLayout: 'fixed' }}
               >
-                <thead style={{ backgroundColor: '#fafbff' }}>
+                <thead style={{ backgroundColor: '#fafbff', height: 50 }}>
                   <th
                     className="text-center"
                     style={{ width: (232 / 1154) * 100 + '%' }}
                     scope="col"
                   >
-                    高度
+                    {intl.formatMessage({
+                      id: 'app.pages.blocklist.table.header.height'
+                    })}
                   </th>
                   <th
                     className="text-center"
                     style={{ width: ((591 - 232) / 1154) * 100 + '%' }}
                     scope="col"
                   >
-                    哈希
+                    {intl.formatMessage({
+                      id: 'app.pages.blocklist.table.header.hash'
+                    })}
                   </th>
                   <th
                     className="text-center"
                     style={{ width: ((815 - 591) / 1154) * 100 + '%' }}
                     scope="col"
                   >
-                    出块时间
+                    {intl.formatMessage({
+                      id: 'app.pages.blocklist.table.header.timestamp'
+                    })}
                   </th>
                   <th
                     className="text-center"
                     style={{ width: ((995 - 815) / 1154) * 100 + '%' }}
                     scope="col"
                   >
-                    交易数
+                    {intl.formatMessage({
+                      id: 'app.pages.blocklist.table.header.txcount'
+                    })}
                   </th>
                   <th className="text-center" scope="col">
-                    Quota消耗
+                    {intl.formatMessage({
+                      id: 'app.pages.blocklist.table.header.quotaused'
+                    })}
                   </th>
                 </thead>
                 <tbody>
@@ -179,7 +187,7 @@ class BlockList extends React.Component<any, any> {
                                 hashHistory.push('/block/hash/' + d.hash)
                               }}
                             >
-                              {d.hash}
+                              <span className="hash">{d.hash}</span>
                             </div>
                           </td>
                           <td className="text-center blockTimestampTd">
@@ -201,68 +209,70 @@ class BlockList extends React.Component<any, any> {
                     })}
                 </tbody>
               </table>
-              <div style={{ float: 'right' }}>
-                <ul className="rc-pagination ">
-                  {hasPrev ? (
-                    <li
-                      title="上一页"
-                      className="rc-pagination-disabled rc-pagination-prev"
-                      aria-disabled="true"
-                      onClick={() => {
-                        hashHistory.push(
-                          '/block/list?pageNum=' +
-                            (pageNum - 1) +
-                            '&pageSize=' +
-                            pageSize +
-                            '&blockFrom=' +
-                            self.props.block.list.blockFrom +
-                            '&blockTo=' +
-                            self.props.block.list.blockTo +
-                            '&transactionCountMin=' +
-                            self.props.block.list.transactionCountMin +
-                            '&transactionCountMax=' +
-                            self.props.block.list.transactionCountMax
-                        )
-                      }}
-                    >
-                      <a className="rc-pagination-item-link" />
-                    </li>
-                  ) : null}
-                  {hasNext ? (
-                    <li
-                      title="下一页"
-                      className=" rc-pagination-next"
-                      aria-disabled="false"
-                      onClick={() => {
-                        hashHistory.push(
-                          '/block/list?pageNum=' +
-                            (pageNum + 1) +
-                            '&pageSize=' +
-                            pageSize +
-                            '&blockFrom=' +
-                            self.props.block.list.blockFrom +
-                            '&blockTo=' +
-                            self.props.block.list.blockTo +
-                            '&transactionCountMin=' +
-                            self.props.block.list.transactionCountMin +
-                            '&transactionCountMax=' +
-                            self.props.block.list.transactionCountMax
-                        )
-                      }}
-                    >
-                      <a className="rc-pagination-item-link" />
-                    </li>
-                  ) : (
-                    false
-                  )}
-                </ul>
-              </div>
+            </div>
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'flex-end',
+                marginTop: 10
+              }}
+            >
+              <ul className="rc-pagination ">
+                {hasPrev ? (
+                  <li
+                    className="rc-pagination-disabled rc-pagination-prev"
+                    aria-disabled="false"
+                    onClick={() => {
+                      hashHistory.push(
+                        '/block/list?pageNum=' +
+                          (pageNum - 1) +
+                          '&pageSize=' +
+                          pageSize +
+                          '&blockFrom=' +
+                          self.props.block.list.blockFrom +
+                          '&blockTo=' +
+                          self.props.block.list.blockTo +
+                          '&transactionCountMin=' +
+                          self.props.block.list.transactionCountMin +
+                          '&transactionCountMax=' +
+                          self.props.block.list.transactionCountMax
+                      )
+                    }}
+                  >
+                    <a className="rc-pagination-item-link" />
+                  </li>
+                ) : null}
+                {hasNext ? (
+                  <li
+                    className=" rc-pagination-next"
+                    aria-disabled="false"
+                    onClick={() => {
+                      hashHistory.push(
+                        '/block/list?pageNum=' +
+                          (pageNum + 1) +
+                          '&pageSize=' +
+                          pageSize +
+                          '&blockFrom=' +
+                          self.props.block.list.blockFrom +
+                          '&blockTo=' +
+                          self.props.block.list.blockTo +
+                          '&transactionCountMin=' +
+                          self.props.block.list.transactionCountMin +
+                          '&transactionCountMax=' +
+                          self.props.block.list.transactionCountMax
+                      )
+                    }}
+                  >
+                    <a className="rc-pagination-item-link" />
+                  </li>
+                ) : (
+                  false
+                )}
+              </ul>
             </div>
           </div>
         </div>
-
-        <Footer />
-      </Layout>
+      </Content>
     )
   }
 }

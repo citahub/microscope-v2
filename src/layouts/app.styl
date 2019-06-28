@@ -1,16 +1,19 @@
-html,body,#app,.root
-  width 100%
-  height 100%
-  font-family  PingFangSC-Regular, Arial, Helvetica, sans-serif
-#app
-  position relative
+body
+  overflow-x hidden
+  font-family PingFangSC-Regular, Arial, Helvetica, sans-serif
+
+.root
+  width 100vw
+  height 100vh
 
 *, *:after, *:before
   margin 0
   padding 0
   box-sizing border-box
 
-
+.hash
+  font-family source-code-pro,Menlo,Monaco,Consolas,Courier New,monospace
+  
 @media (min-width: 1200px)
   .container
     max-width 1200px
@@ -55,7 +58,7 @@ html,body,#app,.root
   .tableWrapper
     overflow-x auto
   table
-    table-layout unset!important
+    min-width 1160px
 
 div.enterScreen {
     position: absolute;

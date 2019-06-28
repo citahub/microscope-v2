@@ -1,17 +1,32 @@
 import React from 'react'
 import './index.styl'
-import Layout from '../../components/layout'
-import Header from '../common/header'
-import Footer from '../common/footer'
-import ReactEcharts from 'echarts-for-react'
+import Content from '../../components/content'
+import ReactEchartsCore from 'echarts-for-react/lib/core'
+import echarts from 'echarts/lib/echarts'
+import 'echarts/lib/chart/pie'
+import 'echarts/lib/chart/bar'
+import 'echarts/lib/component/title'
+import 'echarts/lib/component/tooltip'
 
 class Statics extends React.Component<any, any> {
   timer: any
+  constructor(props: any) {
+    super(props)
+    this.state = {
+      showProposals: false
+    }
+  }
   componentWillMount() {
     var self = this
     self.props.blockAction.topBlocks()
     self.props.transactionAction.topTransactions()
-    self.props.staticsAction.staticsProposals()
+    self.props.staticsAction.staticsProposals(true).then((result: boolean) => {
+      if (result) {
+        self.setState({
+          showProposals: true
+        })
+      }
+    })
   }
   componentDidMount() {
     var self = this
@@ -36,6 +51,7 @@ class Statics extends React.Component<any, any> {
   }
   render() {
     var self = this
+    var intl = self.props.intl
     var blocks = self.props.block.topList || []
     var transactions = self.props.transaction.topList || []
 
@@ -57,7 +73,7 @@ class Statics extends React.Component<any, any> {
       return transaction.hash
     })
     var transactionQuotoUsedArray = transactions.map((transaction: any) => {
-      return parseInt(transaction.gasUsed, 16) || 0
+      return parseInt(transaction.gasUsed) || 0
     })
 
     var blockDurationArray = []
@@ -82,8 +98,7 @@ class Statics extends React.Component<any, any> {
     })
 
     return (
-      <Layout className="statics" bgColor="white">
-        <Header location={self.props.location} app={self.props.app} />
+      <Content className="statics" bgColor="white">
         <div
           style={{
             width: '100%',
@@ -99,10 +114,13 @@ class Statics extends React.Component<any, any> {
           >
             <div className="row">
               <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                <ReactEcharts
+                <ReactEchartsCore
+                  echarts={echarts}
                   option={{
                     title: {
-                      text: 'Interval(ms) for Latest 10 Blocks'
+                      text: intl.formatMessage({
+                        id: 'app.pages.static.interval'
+                      })
                     },
                     tooltip: {},
                     color: ['#415dfc'],
@@ -118,15 +136,18 @@ class Statics extends React.Component<any, any> {
                     ]
                   }}
                   style={{ height: '400px', width: '100%' }}
-                  opts={{ renderer: 'svg' }}
+                  opts={{ renderer: 'canvas' }}
                   className="react_for_echarts"
                 />
               </div>
               <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                <ReactEcharts
+                <ReactEchartsCore
+                  echarts={echarts}
                   option={{
                     title: {
-                      text: 'Transaction Count in Latest 10 Blocks'
+                      text: intl.formatMessage({
+                        id: 'app.pages.static.txcount'
+                      })
                     },
                     tooltip: {},
                     color: ['#fca441'],
@@ -142,15 +163,18 @@ class Statics extends React.Component<any, any> {
                     ]
                   }}
                   style={{ height: '400px', width: '100%' }}
-                  opts={{ renderer: 'svg' }}
+                  opts={{ renderer: 'canvas' }}
                   className="react_for_echarts"
                 />
               </div>
               <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                <ReactEcharts
+                <ReactEchartsCore
+                  echarts={echarts}
                   option={{
                     title: {
-                      text: 'Quoto Used in Latest 10 Blocks'
+                      text: intl.formatMessage({
+                        id: 'app.pages.static.quotainblock'
+                      })
                     },
                     tooltip: {},
                     color: ['#4db7f8'],
@@ -166,20 +190,22 @@ class Statics extends React.Component<any, any> {
                     ]
                   }}
                   style={{ height: '400px', width: '100%' }}
-                  opts={{ renderer: 'svg' }}
+                  opts={{ renderer: 'canvas' }}
                   className="react_for_echarts"
                 />
               </div>
               <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                <ReactEcharts
+                <ReactEchartsCore
+                  echarts={echarts}
                   option={{
                     title: {
-                      text: 'Gas Used in Latest 10 Transactions'
+                      text: intl.formatMessage({
+                        id: 'app.pages.static.quotaintx'
+                      })
                     },
                     tooltip: {
                       trigger: 'item',
-                      formatter:
-                        "<div style='max-width: 100px;overflow: hidden;text-overflow:ellipsis;white-space:nowrap;'>{b}:</div> {c} "
+                      formatter: '<div>{b}</div> {c} '
                     },
                     color: ['#ab62f1'],
                     xAxis: {
@@ -197,63 +223,65 @@ class Statics extends React.Component<any, any> {
                     ]
                   }}
                   style={{ height: '400px', width: '100%' }}
-                  opts={{ renderer: 'svg' }}
+                  opts={{ renderer: 'canvas' }}
                   className="react_for_echarts"
                 />
               </div>
-
-              <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                <ReactEcharts
-                  option={{
-                    title: {
-                      text: 'Proposal Distribution'
-                    },
-                    tooltip: {
-                      trigger: 'item',
-                      formatter:
-                        "{a}<br/><div style='max-width: 100px;overflow: hidden;text-overflow:ellipsis;white-space:nowrap;'>{b}:</div> {c} ({d}%)"
-                    },
-                    calculable: true,
-                    series: [
-                      {
-                        name: 'Proposal',
-                        type: 'pie',
-                        color: ['#415dfc', '#ab62f1', '#fca441', '#4db7f8'],
-                        radius: ['50%', '70%'],
-                        itemStyle: {
-                          normal: {
-                            label: {
-                              show: false
+              {self.state.showProposals ? (
+                <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                  <ReactEchartsCore
+                    echarts={echarts}
+                    option={{
+                      title: {
+                        text: intl.formatMessage({
+                          id: 'app.pages.static.distribution'
+                        })
+                      },
+                      tooltip: {
+                        trigger: 'item',
+                        formatter: '{a}<br/><div>{b}</div> {c} ({d}%)'
+                      },
+                      calculable: true,
+                      series: [
+                        {
+                          name: 'Proposal',
+                          type: 'pie',
+                          color: ['#415dfc', '#ab62f1', '#fca441', '#4db7f8'],
+                          radius: ['50%', '70%'],
+                          itemStyle: {
+                            normal: {
+                              label: {
+                                show: false
+                              },
+                              labelLine: {
+                                show: false
+                              }
                             },
-                            labelLine: {
-                              show: false
-                            }
-                          },
-                          emphasis: {
-                            label: {
-                              show: true,
-                              position: 'center',
-                              textStyle: {
-                                fontSize: '10',
-                                fontWeight: 'bold'
+                            emphasis: {
+                              label: {
+                                show: false,
+                                position: 'center',
+                                textStyle: {
+                                  fontSize: '10',
+                                  fontWeight: 'bold'
+                                }
                               }
                             }
-                          }
-                        },
-                        data: proposalsArray
-                      }
-                    ]
-                  }}
-                  style={{ height: '400px', width: '100%' }}
-                  opts={{ renderer: 'svg' }}
-                  className="react_for_echarts"
-                />
-              </div>
+                          },
+                          data: proposalsArray
+                        }
+                      ]
+                    }}
+                    style={{ height: '400px', width: '100%' }}
+                    opts={{ renderer: 'canvas' }}
+                    className="react_for_echarts"
+                  />
+                </div>
+              ) : null}
             </div>
           </div>
         </div>
-        <Footer />
-      </Layout>
+      </Content>
     )
   }
 }

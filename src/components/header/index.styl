@@ -5,9 +5,13 @@
   background #FFFFFF
   box-shadow 0 5px 4px 0 rgba(170,170,170,0.07)
   position sticky
+  position -webkit-sticky
   top 0
   z-index 888
-
+  .headerLogo
+    img
+      width 165px
+      height 41px
 
   .topArrow,.bottomArrow
     width 0px
@@ -17,24 +21,50 @@
   .topArrow
     border-width 6px
     border-style solid
-    border-color  transparent transparent black transparent
+    border-color  transparent transparent #afb1b5 transparent
   .bottomArrow
     border-width 6px
     border-style solid
-    border-color  black transparent transparent transparent
+    border-color  #afb1b5 transparent transparent transparent
 
-  .network .topArrow
-    top -3px
-  .networkName
+  .network .topArrow, .language .topArrow
+    top -3px    
+  .networkName, .languageName
     overflow hidden
     text-overflow ellipsis
     white-space nowrap
     margin-left 5px
     font-size 16px
     line-height 16px
-    height 20px
+    height 24px
     color #47484a
     text-align right
+  
+  .languageOpen
+    width 100px
+    height auto
+    border-radius 5px 5px
+    position absolute
+    background-color #ffffff
+    box-shadow 0 2px 6px 1px rgba(188, 193, 199, 0.71)
+    top 30px
+    right 0
+    .languageItem
+      padding-top 5px
+      padding-bottom 5px
+      text-align center
+      &:hover
+        background-color #5b8ee6
+        color white
+    .languageItemSelected
+      position relative
+      &:before
+        content '✔' 
+        display block
+        position absolute
+        left 10px
+        top 5px
+
   .networkOpen
     width 465px
     min-height 200px
@@ -78,6 +108,7 @@
         margin-top 0
       &:hover
         background-color #5b8ee6
+        color white
     .subMenuItem.active
       color #2647fd
   .menu
@@ -92,20 +123,23 @@
   .menu.active
     color #2647fd
   
-@media (max-width: 1200px)
+@media (max-width: 1000px)
   .header
     overflow hidden
     .drawer
       background-color: transparent;
       position fixed
       z-index: 9999;
-      top: 7.5px;
-      left: 15px;
+      top: 20px;
+      left: 5px;
       width: 30px;
       height: 30px;
     .drawerMask
       width 100vw
       height 100vh
+      position fixed
+      top 0
+      z-index 99
       background-color rgba(0,0,0,0.7)
 
     .drawerContent

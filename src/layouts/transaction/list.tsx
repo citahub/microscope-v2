@@ -1,18 +1,17 @@
 import React from 'react'
 import './list.styl'
-import Layout from '../../components/layout'
-import Header from '../common/header'
-import Footer from '../common/footer'
+import Content from '../../components/content'
 
 import TransactionTable from '../common/transactionTable'
 import TransactionSearchModal from '../common/transactionSearchModal'
 
-import { hashHistory } from 'react-router'
+import hashHistory from '../../routes/history'
+import queryString from 'query-string'
 
 class TransitionList extends React.Component<any, any> {
   componentDidMount() {
     var self = this
-    var params = self.props.location.query
+    var params: any = queryString.parse(self.props.location.search)
     var pageNum = params.pageNum ? parseInt(params.pageNum) : 1
     var pageSize = params.pageSize ? parseInt(params.pageSize) : 10
     var addressFrom = params.addressFrom || ''
@@ -26,11 +25,8 @@ class TransitionList extends React.Component<any, any> {
   }
   componentWillReceiveProps(nextProps: any) {
     var self = this
-    if (
-      JSON.stringify(nextProps.location.query) !==
-      JSON.stringify(this.props.location.query)
-    ) {
-      var params = nextProps.location.query
+    if (nextProps.location.search !== this.props.location.search) {
+      var params: any = queryString.parse(nextProps.location.search)
       var pageNum = params.pageNum ? parseInt(params.pageNum) : 1
       var pageSize = params.pageSize ? parseInt(params.pageSize) : 10
       var addressFrom = params.addressFrom || ''
@@ -45,11 +41,14 @@ class TransitionList extends React.Component<any, any> {
   }
   render() {
     var self = this
+    var intl = self.props.intl
     var data = self.props.transaction.list
     var globalTickTime = self.props.app.globalTickTime
+    var params: any = queryString.parse(self.props.location.search)
+    var addressFrom = params.addressFrom || ''
+    var addressTo = params.addressTo || ''
     return (
-      <Layout className="transactionList" bgColor="white">
-        <Header location={self.props.location} app={self.props.app} />
+      <Content className="transactionList" bgColor="white">
         <div
           style={{
             width: '100%',
@@ -61,20 +60,20 @@ class TransitionList extends React.Component<any, any> {
         >
           <div
             className="container transactionListBody"
-            style={{ minHeight: 690, paddingTop: 47 }}
+            style={{ padding: '47px 20px' }}
           >
-            <div
-              className="withRow"
-              style={{ minHeight: 36, paddingLeft: 24, paddingRight: 20 }}
-            >
+            <div className="withRow" style={{ minHeight: 36 }}>
               <div
                 className="queryCondition withRowLeftAuto"
                 style={{ color: '#868b92', fontSize: 14 }}
               >
-                当前搜索参数:
-                <br />
-                addressFrom: <b>{self.props.transaction.list.addressFrom}</b>
-                addressTo: <b>{self.props.transaction.list.addressTo}</b>
+                {intl.formatMessage(
+                  { id: 'app.pages.transactionlist.search.parameters' },
+                  {
+                    addressFrom: addressFrom,
+                    addressTo: addressTo
+                  }
+                )}
               </div>
               <div
                 className="queryButton operationItem"
@@ -85,18 +84,22 @@ class TransitionList extends React.Component<any, any> {
                       style: {
                         width: '60%'
                       },
-                      from: self.props.transaction.list.addressFrom,
-                      to: self.props.transaction.list.addressTo,
-                      appAction: self.props.appAction
+                      from: addressFrom,
+                      to: addressTo,
+                      appAction: self.props.appAction,
+                      intl: intl
                     }
                   })
                 }}
               >
-                高级选择器
+                {intl.formatMessage({
+                  id: 'app.pages.transactionlist.search.button'
+                })}
               </div>
             </div>
-            <div style={{ padding: '14px 23px 0 23px', minHeight: 690 - 36 }}>
+            <div style={{ marginTop: 14 }}>
               <TransactionTable
+                intl={intl}
                 data={data}
                 globalTickTime={globalTickTime}
                 network={self.props.network}
@@ -107,17 +110,16 @@ class TransitionList extends React.Component<any, any> {
                       '&pageSize=' +
                       pageSize +
                       '&addressFrom=' +
-                      self.props.transaction.list.addressFrom +
+                      addressFrom +
                       '&addressTo=' +
-                      self.props.transaction.list.addressTo
+                      addressTo
                   )
                 }}
               />
             </div>
           </div>
         </div>
-        <Footer />
-      </Layout>
+      </Content>
     )
   }
 }

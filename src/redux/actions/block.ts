@@ -50,6 +50,7 @@ export function getBlock(key: string) {
           type: constants.GET_BLOCK_ITEM,
           data: data
         })
+        return data
       })
       .catch((error: any) => {
         dispatch(hideLoading())
@@ -57,6 +58,7 @@ export function getBlock(key: string) {
           type: constants.OPERATION_FAIL,
           error: error
         })
+        return null
       })
   }
 }
@@ -101,6 +103,19 @@ export function getBlockList(
         dispatch({
           type: constants.OPERATION_FAIL,
           error: error
+        })
+        dispatch({
+          type: constants.GET_BLOCK_LIST,
+          data: {
+            pageNum,
+            pageSize,
+            blockFrom,
+            blockTo,
+            transactionCountMin,
+            transactionCountMax,
+            list: [],
+            total: 0
+          }
         })
       })
   }

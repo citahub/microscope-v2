@@ -1,13 +1,12 @@
 import React from 'react'
 import './rebirth.styl'
-import Layout from '../../components/layout'
-import { hashHistory } from 'react-router'
-import Header from '../common/header'
-import Footer from '../common/footer'
+import Content from '../../components/content'
+import hashHistory from '../../routes/history'
 import ReactJson from 'react-json-view'
 import rebirthTemplate from './rebirth-template'
 
 import { getSelectNetwork } from '../../utils/storage'
+import queryString from 'query-string'
 
 class APIRebirth extends React.Component<any, any> {
   input: string = ''
@@ -17,7 +16,7 @@ class APIRebirth extends React.Component<any, any> {
   }
   componentDidMount() {
     var self = this
-    var params = self.props.location.query
+    var params = queryString.parse(self.props.location.search)
     var method = params.method
     if (!method) {
       method = rebirthTemplate[0].name
@@ -38,11 +37,9 @@ class APIRebirth extends React.Component<any, any> {
   }
   componentWillReceiveProps(nextProps: any) {
     var self = this
-    if (
-      JSON.stringify(nextProps.location.query) !==
-      JSON.stringify(self.props.location.query)
-    ) {
-      var method = nextProps.location.query.method
+    if (nextProps.location.search !== self.props.location.search) {
+      var params = queryString.parse(nextProps.location.search)
+      var method = params.method
       if (!method) {
         method = rebirthTemplate[0].name
         hashHistory.replace('/api/rebirth?method=' + rebirthTemplate[0].name)
@@ -66,17 +63,16 @@ class APIRebirth extends React.Component<any, any> {
   }
   render() {
     var self = this
-    var params = self.props.location.query
+    var intl = self.props.intl
+    var params = queryString.parse(self.props.location.search)
     var method = params.method || rebirthTemplate[0].name
     var selectNetwork = getSelectNetwork()
 
     return (
-      <Layout className="apiRebirth" bgColor="white">
-        <Header location={self.props.location} app={self.props.app} />
+      <Content className="apiRebirth" bgColor="white">
         <div
           className="container"
           style={{
-            minHeight: self.props.app.appHeight - 338,
             marginTop: 30,
             marginBottom: 30,
             position: 'relative',
@@ -121,7 +117,9 @@ class APIRebirth extends React.Component<any, any> {
               </nav>
               <div className="withColumn">
                 <div className="card" style={{ height: '40%' }}>
-                  <div className="card-header">Input</div>
+                  <div className="card-header">
+                    {intl.formatMessage({ id: 'app.pages.api.input' })}
+                  </div>
                   <div className="card-body">
                     <ReactJson
                       src={self.props.network.rebirthData.input || {}}
@@ -150,7 +148,7 @@ class APIRebirth extends React.Component<any, any> {
                         }
                       }}
                     >
-                      发送
+                      {intl.formatMessage({ id: 'app.pages.api.send' })}
                     </button>
                   </div>
                 </div>
@@ -158,7 +156,9 @@ class APIRebirth extends React.Component<any, any> {
                   className="card withColumnLeftAuto"
                   style={{ marginTop: 20 }}
                 >
-                  <div className="card-header">Output</div>
+                  <div className="card-header">
+                    {intl.formatMessage({ id: 'app.pages.api.output' })}
+                  </div>
                   <div className="card-body">
                     <div ref="output" style={{ width: '100%', minHeight: 200 }}>
                       <ReactJson
@@ -174,8 +174,7 @@ class APIRebirth extends React.Component<any, any> {
             </div>
           </div>
         </div>
-        <Footer />
-      </Layout>
+      </Content>
     )
   }
 }

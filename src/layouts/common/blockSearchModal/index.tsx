@@ -1,6 +1,6 @@
 import React from 'react'
 import './index.styl'
-import { hashHistory } from 'react-router'
+import hashHistory from '../../../routes/history'
 
 class BlockSearchModal extends React.Component<any, any> {
   componentDidMount() {
@@ -14,47 +14,92 @@ class BlockSearchModal extends React.Component<any, any> {
     min.value = self.props.min
     max.value = self.props.max
   }
+  maxLengthCheck(object: any) {
+    if (object.target.value.length > object.target.maxLength) {
+      object.target.value = object.target.value.slice(
+        0,
+        object.target.maxLength
+      )
+    }
+  }
   render() {
     var self = this
+    var intl = self.props.intl
     return (
       <div className="blockSearchModal">
-        <h5 style={{ textAlign: 'center' }}>高级选择器</h5>
+        <h5 style={{ textAlign: 'center' }}>
+          {intl.formatMessage({
+            id: 'app.pages.common.blocksearchmodal.title'
+          })}
+        </h5>
         <div style={{ padding: 20 }}>
           <div className="form-group row">
-            <label className="col-sm-2 col-form-label">Block Height</label>
+            <label className="col-sm-2 col-form-label">
+              {intl.formatMessage({
+                id: 'app.pages.common.blocksearchmodal.blockheight'
+              })}
+            </label>
             <div className="col-sm-5">
               <input
-                type="text"
+                type="number"
                 ref="from"
                 className="form-control"
-                placeholder="From"
+                placeholder={intl.formatMessage({
+                  id: 'app.pages.common.blocksearchmodal.blockheight.from'
+                })}
+                min={0}
+                max={Number.MAX_SAFE_INTEGER}
+                onInput={self.maxLengthCheck}
+                maxLength={16}
               />
             </div>
             <div className="col-sm-5">
               <input
-                type="text"
+                type="number"
                 ref="to"
                 className="form-control"
-                placeholder="To"
+                placeholder={intl.formatMessage({
+                  id: 'app.pages.common.blocksearchmodal.blockheight.to'
+                })}
+                min={0}
+                max={Number.MAX_SAFE_INTEGER}
+                onInput={self.maxLengthCheck}
+                maxLength={16}
               />
             </div>
           </div>
           <div className="form-group row">
-            <label className="col-sm-2 col-form-label">Transaction Count</label>
+            <label className="col-sm-2 col-form-label">
+              {intl.formatMessage({
+                id: 'app.pages.common.blocksearchmodal.txscount'
+              })}
+            </label>
             <div className="col-sm-5">
               <input
-                type="text"
+                type="number"
                 ref="min"
                 className="form-control"
-                placeholder="Min"
+                placeholder={intl.formatMessage({
+                  id: 'app.pages.common.blocksearchmodal.txscount.min'
+                })}
+                min={0}
+                max={Number.MAX_SAFE_INTEGER}
+                onInput={self.maxLengthCheck}
+                maxLength={16}
               />
             </div>
             <div className="col-sm-5">
               <input
-                type="text"
+                type="number"
                 ref="max"
                 className="form-control"
-                placeholder="Max"
+                placeholder={intl.formatMessage({
+                  id: 'app.pages.common.blocksearchmodal.txscount.max'
+                })}
+                min={0}
+                max={Number.MAX_SAFE_INTEGER}
+                onInput={self.maxLengthCheck}
+                maxLength={16}
               />
             </div>
           </div>
@@ -80,7 +125,9 @@ class BlockSearchModal extends React.Component<any, any> {
                 )
               }}
             >
-              Submit
+              {intl.formatMessage({
+                id: 'app.pages.common.blocksearchmodal.button'
+              })}
             </button>
           </div>
         </div>

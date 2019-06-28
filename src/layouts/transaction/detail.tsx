@@ -1,10 +1,7 @@
 import React from 'react'
 import './detail.styl'
-import Layout from '../../components/layout'
-import Header from '../common/header'
-import Footer from '../common/footer'
-
-import { hashHistory } from 'react-router'
+import Content from '../../components/content'
+import hashHistory from '../../routes/history'
 import Tabs, { Tab } from '../../components/tab'
 
 import {
@@ -17,21 +14,37 @@ import {
 class TransactionDetail extends React.Component<any, any> {
   componentDidMount() {
     var self = this
-    var params = self.props.params
-    self.props.transactionAction.getTransaction(params.hash)
+    var params = self.props.match.params
+    self.props.transactionAction
+      .getTransaction(params.hash)
+      .then((transaction: any) => {
+        if (!transaction) {
+          hashHistory.replace('/search?q=' + params.hash)
+        }
+      })
     self.props.transactionAction.getTransactionReceipt(params.hash)
   }
   componentWillReceiveProps(nextProps: any) {
     var self = this
     if (
-      JSON.stringify(nextProps.params) !== JSON.stringify(self.props.params)
+      JSON.stringify(nextProps.match.params) !==
+      JSON.stringify(self.props.match.params)
     ) {
-      self.props.transactionAction.getTransaction(nextProps.params.hash)
-      self.props.transactionAction.getTransactionReceipt(nextProps.params.hash)
+      self.props.transactionAction
+        .getTransaction(nextProps.match.params.hash)
+        .then((transaction: any) => {
+          if (!transaction) {
+            hashHistory.replace('/search?q=' + nextProps.match.params.hash)
+          }
+        })
+      self.props.transactionAction.getTransactionReceipt(
+        nextProps.match.params.hash
+      )
     }
   }
   render() {
     var self = this
+    var intl = self.props.intl
     var data = self.props.transaction.item
     var dataReceipt = self.props.transaction.itemReceipt
     var from =
@@ -55,8 +68,7 @@ class TransactionDetail extends React.Component<any, any> {
     var errorMessage = dataReceipt && dataReceipt.errorMessage
 
     return (
-      <Layout className="transactionDetail" bgColor="#fbfbfb">
-        <Header location={self.props.location} app={self.props.app} />
+      <Content className="transactionDetail" bgColor="#fbfbfb">
         <div
           style={{
             width: '100%',
@@ -66,21 +78,32 @@ class TransactionDetail extends React.Component<any, any> {
           }}
         >
           <div className="container">
-            <div className="transactionNav vhCenter" style={{ fontSize: 20 }}>
-              <img
-                src="images/content_transaction.png"
-                style={{
-                  width: 16,
-                  height: 18,
-                  display: 'inline-block',
-                  marginRight: 17
-                }}
-              />
-              Transaction: {data && data.hash}
+            <div
+              className="transactionNav"
+              style={{ fontSize: 20, paddingTop: 60 }}
+            >
+              <div style={{ textAlign: 'center' }}>
+                <img
+                  src="images/content_transaction.png"
+                  style={{
+                    width: 16,
+                    height: 18,
+                    display: 'inline-block'
+                  }}
+                />
+                <span style={{ display: 'inline-block', width: 80 }}>
+                  {intl.formatMessage({ id: 'app.pages.txdetail.title' })}
+                </span>
+                <span style={{ display: 'inline-block' }} className="hash">
+                  {data && data.hash}
+                </span>
+              </div>
             </div>
             <div className="transactionBody">
               <div className="withRow transactionBodyRow">
-                <div className="transactionDetailKey">Status:</div>
+                <div className="transactionDetailKey">
+                  {intl.formatMessage({ id: 'app.pages.txdetail.status' })}:
+                </div>
                 <div className="transactionDetailValue withRowLeftAuto">
                   {!data ? (
                     ''
@@ -95,7 +118,9 @@ class TransactionDetail extends React.Component<any, any> {
               </div>
 
               <div className="withRow transactionBodyRow">
-                <div className="transactionDetailKey">Type:</div>
+                <div className="transactionDetailKey">
+                  {intl.formatMessage({ id: 'app.pages.txdetail.type' })}:
+                </div>
                 <div className="transactionDetailValue withRowLeftAuto">
                   {!data
                     ? ''
@@ -108,7 +133,9 @@ class TransactionDetail extends React.Component<any, any> {
               </div>
 
               <div className="withRow transactionBodyRow">
-                <div className="transactionDetailKey">From:</div>
+                <div className="transactionDetailKey">
+                  {intl.formatMessage({ id: 'app.pages.txdetail.from' })}:
+                </div>
                 <div
                   className="transactionDetailValue withRowLeftAuto operationItem"
                   style={{ fontSize: 16, color: '#5b8ee6' }}
@@ -116,11 +143,13 @@ class TransactionDetail extends React.Component<any, any> {
                     if (from) hashHistory.push('/account/' + from)
                   }}
                 >
-                  {from}
+                  <span className="hash">{from}</span>
                 </div>
               </div>
               <div className="withRow transactionBodyRow">
-                <div className="transactionDetailKey">To/Contract</div>
+                <div className="transactionDetailKey">
+                  {intl.formatMessage({ id: 'app.pages.txdetail.to' })}:
+                </div>
                 <div
                   className="transactionDetailValue withRowLeftAuto operationItem"
                   style={{ fontSize: 16, color: '#5b8ee6' }}
@@ -130,11 +159,16 @@ class TransactionDetail extends React.Component<any, any> {
                     if (account) hashHistory.push('/account/' + account)
                   }}
                 >
-                  {to || (dataReceipt && dataReceipt.contractAddress)}
+                  <span className="hash">
+                    {to || (dataReceipt && dataReceipt.contractAddress)}
+                  </span>
                 </div>
               </div>
               <div className="withRow transactionBodyRow">
-                <div className="transactionDetailKey">Block Height:</div>
+                <div className="transactionDetailKey">
+                  {intl.formatMessage({ id: 'app.pages.txdetail.blockheight' })}
+                  :
+                </div>
                 <div
                   className="transactionDetailValue withRowLeftAuto operationItem"
                   style={{ fontSize: 16, color: '#5b8ee6' }}
@@ -149,7 +183,9 @@ class TransactionDetail extends React.Component<any, any> {
                 </div>
               </div>
               <div className="withRow transactionBodyRow">
-                <div className="transactionDetailKey">Version:</div>
+                <div className="transactionDetailKey">
+                  {intl.formatMessage({ id: 'app.pages.txdetail.version' })}:
+                </div>
                 <div className="transactionDetailValue withRowLeftAuto">
                   {data &&
                     data.unsignedTransaction &&
@@ -158,7 +194,9 @@ class TransactionDetail extends React.Component<any, any> {
                 </div>
               </div>
               <div className="withRow transactionBodyRow">
-                <div className="transactionDetailKey">Nonce:</div>
+                <div className="transactionDetailKey">
+                  {intl.formatMessage({ id: 'app.pages.txdetail.nonce' })}:
+                </div>
                 <div className="transactionDetailValue withRowLeftAuto">
                   {data &&
                     data.unsignedTransaction &&
@@ -167,7 +205,12 @@ class TransactionDetail extends React.Component<any, any> {
                 </div>
               </div>
               <div className="withRow transactionBodyRow">
-                <div className="transactionDetailKey">ValidUnitBlock:</div>
+                <div className="transactionDetailKey">
+                  {intl.formatMessage({
+                    id: 'app.pages.txdetail.validuntilblock'
+                  })}
+                  :
+                </div>
                 <div className="transactionDetailValue withRowLeftAuto">
                   {data &&
                     data.unsignedTransaction &&
@@ -176,7 +219,9 @@ class TransactionDetail extends React.Component<any, any> {
                 </div>
               </div>
               <div className="withRow transactionBodyRow">
-                <div className="transactionDetailKey">Value:</div>
+                <div className="transactionDetailKey">
+                  {intl.formatMessage({ id: 'app.pages.txdetail.value' })}:
+                </div>
                 <div className="transactionDetailValue withRowLeftAuto">
                   {data &&
                     data.unsignedTransaction &&
@@ -194,35 +239,43 @@ class TransactionDetail extends React.Component<any, any> {
                 </div>
               </div>
               <div className="withRow transactionBodyRow">
-                <div className="transactionDetailKey">Quota Used:</div>
+                <div className="transactionDetailKey">
+                  {intl.formatMessage({ id: 'app.pages.txdetail.quotaused' })}:
+                </div>
                 <div className="transactionDetailValue withRowLeftAuto">
                   {dataReceipt && parseInt(dataReceipt.quotaUsed)} Quota
                 </div>
               </div>
               <div className="withRow transactionBodyRow">
-                <div className="transactionDetailKey">Quota Limit:</div>
+                <div className="transactionDetailKey">
+                  {intl.formatMessage({ id: 'app.pages.txdetail.quotalimit' })}:
+                </div>
                 <div className="transactionDetailValue withRowLeftAuto">
                   {data &&
                     data.unsignedTransaction &&
                     data.unsignedTransaction.transaction &&
-                    data.unsignedTransaction.transaction.quota}{' '}
-                  Quota
+                    data.unsignedTransaction.transaction.quota}
+                  &nbsp; Quota
                 </div>
               </div>
               <div className="withRow transactionBodyRow">
-                <div className="transactionDetailKey">Quota Price:</div>
+                <div className="transactionDetailKey">
+                  {intl.formatMessage({ id: 'app.pages.txdetail.quotaprice' })}:
+                </div>
                 <div className="transactionDetailValue withRowLeftAuto">
-                  1{' '}
+                  1&nbsp;
                   {self.props.network.metaData &&
-                    self.props.network.metaData.tokenSymbol}{' '}
-                  = {self.props.network.quotaPrice} Quota
+                    self.props.network.metaData.tokenSymbol}
+                  &nbsp; = {self.props.network.quotaPrice} Quota
                 </div>
               </div>
               <div
                 className="withRow transactionBodyRow"
                 style={{ minHeight: 160, height: 'auto' }}
               >
-                <div className="transactionDetailKey">Data:</div>
+                <div className="transactionDetailKey">
+                  {intl.formatMessage({ id: 'app.pages.txdetail.data' })}:
+                </div>
                 <div className="transactionDetailValue withRowLeftAuto">
                   <Tabs
                     key={data && data.hash}
@@ -239,7 +292,6 @@ class TransactionDetail extends React.Component<any, any> {
                                 'dataUtf8'
                               ) as HTMLTextAreaElement
                               if (error) {
-                                console.log(error)
                                 if (dataUtf8) dataUtf8.value = error
                               } else {
                                 if (dataUtf8) dataUtf8.value = data
@@ -279,8 +331,7 @@ class TransactionDetail extends React.Component<any, any> {
             </div>
           </div>
         </div>
-        <Footer />
-      </Layout>
+      </Content>
     )
   }
 }

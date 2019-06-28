@@ -4,6 +4,11 @@
   .transactionNav
     color white
     height 120px
+    .hash
+      overflow hidden
+      width 100%
+      text-overflow ellipsis
+      white-space nowrap
   .transactionBody
     margin-top 120px
     border-radius 5px
@@ -12,7 +17,7 @@
     background-color #ffffff
     .transactionBodyRow
       height 47px
-      padding-top 27px
+      padding-top 26px
     .transactionDetailKey
       width (265/(265+813)*100)%
       color #6f747a
@@ -32,3 +37,7 @@
       max-height 500px
       padding 15px!important
 
+@media (max-width: 850px)
+  .transactionDetail
+    .transactionBody
+      padding 0 21px 28px 21px

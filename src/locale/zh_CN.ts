@@ -1,5 +1,126 @@
+const zh = require('rc-pagination/es/locale/zh_CN').default
 const zh_CN = {
   'app.title': 'microscope',
-  'app.languages': '英语,en/中文,zh-CN'
+  'app.languages.en': '英文',
+  'app.languages.zh': '中文',
+
+  'app.header.menus.block': '区块',
+  'app.header.menus.transaction': '交易',
+  'app.header.menus.api': 'API',
+  'app.header.menus.api.rpc': 'RPC',
+  'app.header.menus.api.rebirth': 'ReBirth',
+  'app.header.menus.static': '统计',
+  'app.header.search.placeholder': '搜索 区块 / 交易 / 地址',
+  'app.header.network.title': '网络选择',
+  'app.header.network.placeholder': '请输入有效的 rebirth 服务地址',
+  'app.header.network.button': '切换',
+
+  'app.footer.category.introcution':
+    'Microscope 为了解 CITA 提供简单易用的用户界面.',
+  'app.footer.category.tech': '技术',
+  'app.footer.category.contact': '联系我们',
+  'app.footer.category.contact.bbs': 'CITAHub 论坛',
+
+  'app.pages.home.meta.blockheight': '区块高度',
+  'app.pages.home.meta.blockinterval': '出块间隔',
+  'app.pages.home.meta.validators': '共识节点',
+  'app.pages.home.meta.chainname': '名称',
+  'app.pages.home.meta.operator': '运营方',
+  'app.pages.home.meta.economicalmodel': '经济模型',
+  'app.pages.home.meta.tokensymbol': '代币名称',
+  'app.pages.home.meta.chainid': '链ID',
+  'app.pages.home.meta.version': '版本号',
+  'app.pages.home.top10.block': '最近10个区块',
+  'app.pages.home.top10.block.transactioncount': '包含 {key} 笔交易',
+  'app.pages.home.top10.more': '查看更多 >',
+  'app.pages.home.top10.transaction': '最近10笔交易',
+
+  'app.pages.blocklist.search.parameters':
+    '搜索参数: 区块高度{blockFrom}-{blockTo} 交易数{transactionCountMin}-{transactionCountMax}',
+  'app.pages.blocklist.search.button': '高级选择器',
+  'app.pages.blocklist.table.header.height': '区块高度',
+  'app.pages.blocklist.table.header.hash': '哈希',
+  'app.pages.blocklist.table.header.timestamp': '时间戳',
+  'app.pages.blocklist.table.header.txcount': '交易数',
+  'app.pages.blocklist.table.header.quotaused': 'Quota 消费',
+
+  'app.pages.blockdetail.hash': '区块哈希',
+  'app.pages.blockdetail.timestamp': '时间戳',
+  'app.pages.blockdetail.txcount': '交易数',
+  'app.pages.blockdetail.proposer': '提议者',
+  'app.pages.blockdetail.quotaused': 'Quota 消费',
+  'app.pages.blockdetail.quotaprice': 'Quota 价格',
+  'app.pages.blockdetail.totalfee': '交易费',
+  'app.pages.blockdetail.prehash': '父区块哈希',
+  'app.pages.blockdetail.receiptsroot': '交易回执树根',
+  'app.pages.blockdetail.stateroot': '状态树根',
+  'app.pages.blockdetail.txsroot': '交易树根',
+
+  'app.pages.txdetail.title': '交易：',
+  'app.pages.txdetail.status': '状态',
+  'app.pages.txdetail.type': '类型',
+  'app.pages.txdetail.from': '发送方',
+  'app.pages.txdetail.to': '接收方/合约',
+  'app.pages.txdetail.blockheight': '区块高度',
+  'app.pages.txdetail.version': '版本',
+  'app.pages.txdetail.nonce': '随机数',
+  'app.pages.txdetail.validuntilblock': '交易超时区块',
+  'app.pages.txdetail.value': '价值',
+  'app.pages.txdetail.quotaused': 'Quota 消费',
+  'app.pages.txdetail.quotalimit': 'Quota 限制',
+  'app.pages.txdetail.quotaprice': 'Quota 价格',
+  'app.pages.txdetail.data': '数据',
+
+  'app.pages.transactionlist.search.parameters':
+    '搜索参数:  发送地址{addressFrom}, 接收地址{addressTo}',
+  'app.pages.transactionlist.search.button': '高级选择器',
+
+  'app.pages.addressdetail.account': '地址',
+  'app.pages.addressdetail.balance': '余额',
+  'app.pages.addressdetail.tabs.general': '交易({key})',
+  'app.pages.addressdetail.tabs.erc20': 'ERC20 交易({key})',
+  'app.pages.addressdetail.tabs.contractcall': '合约调用',
+  'app.pages.addressdetail.tabs.contractinfo': '合约信息',
+
+  'app.pages.static.interval': '最近10块的出块间隔',
+  'app.pages.static.txcount': '最近10块的交易数',
+  'app.pages.static.quotainblock': '最近10块的 Quota 消费',
+  'app.pages.static.quotaintx': '最近10笔交易的 Quota 消费',
+  'app.pages.static.distribution': '出块分布图',
+
+  'app.pages.api.input': '输入',
+  'app.pages.api.output': '输出',
+  'app.pages.api.send': '发送',
+
+  'app.pages.404.label': '哎呀呀，你要访问的页面没有找到！',
+  'app.pages.404.goback': '回到首页',
+
+  'app.pages.search.label': '您要搜索的资源 {key} 没有找到！',
+  'app.pages.search.goback': '回到首页',
+
+  'app.pages.common.transactiontable.header.type': '类型',
+  'app.pages.common.transactiontable.header.hash': '哈希',
+  'app.pages.common.transactiontable.header.from': '发送方',
+  'app.pages.common.transactiontable.header.to': '接收方/合约',
+  'app.pages.common.transactiontable.header.value': '价值',
+  'app.pages.common.transactiontable.header.blockheight': '区块',
+  'app.pages.common.transactiontable.header.quotaused': 'Quota 消费',
+  'app.pages.common.transactiontable.header.timestamp': '时间戳',
+
+  'app.pages.common.blocksearchmodal.title': '高级选择器',
+  'app.pages.common.blocksearchmodal.blockheight': '区块高度',
+  'app.pages.common.blocksearchmodal.blockheight.from': '起始块高',
+  'app.pages.common.blocksearchmodal.blockheight.to': '截止块高',
+  'app.pages.common.blocksearchmodal.txscount': '交易数范围',
+  'app.pages.common.blocksearchmodal.txscount.min': '最小值',
+  'app.pages.common.blocksearchmodal.txscount.max': '最大值',
+  'app.pages.common.blocksearchmodal.button': '搜索',
+
+  'app.pages.common.txsearchmodal.title': '高级选择器',
+  'app.pages.common.txsearchmodal.address.from': '发送地址',
+  'app.pages.common.txsearchmodal.address.to': '接收地址',
+  'app.pages.common.txsearchmodal.button': '搜索',
+
+  'app.pages.common.pagination': JSON.stringify(zh)
 }
 export default zh_CN

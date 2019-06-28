@@ -1,54 +1,68 @@
 import React from 'react'
 import './detail.styl'
-import Layout from '../../components/layout'
-import Header from '../common/header'
-import Footer from '../common/footer'
-
-import { hashHistory } from 'react-router'
+import Content from '../../components/content'
+import hashHistory from '../../routes/history'
 
 import { format } from '../../utils/time'
+import { valueFormat, toHex, scientificNotationToString } from '../../utils/hex'
 
 class BlockDetail extends React.Component<any, any> {
   componentDidMount() {
     var self = this
-    var params = self.props.params
+    var params = self.props.match.params
     if (params.hash) {
-      self.props.blockAction.getBlock(params.hash)
+      self.props.blockAction.getBlock(params.hash).then((block: any) => {
+        if (!block) {
+          hashHistory.replace('/search?q=' + params.hash)
+        }
+      })
     } else {
       var id = params.id
       if (!parseInt(id)) {
-        hashHistory.replace('/404')
+        hashHistory.replace('/search?q=' + id)
         return
       }
-      self.props.blockAction.getBlock(id)
+      self.props.blockAction.getBlock(id).then((block: any) => {
+        if (!block) {
+          hashHistory.replace('/search?q=' + id)
+        }
+      })
     }
   }
   componentWillReceiveProps(nextProps: any) {
     var self = this
     if (
-      JSON.stringify(nextProps.params) !== JSON.stringify(self.props.params)
+      JSON.stringify(nextProps.match.params) !==
+      JSON.stringify(self.props.match.params)
     ) {
-      self.props.blockAction.getBlock(
-        nextProps.params.hash || parseInt(nextProps.params.id)
-      )
-      if (nextProps.params.hash) {
-        self.props.blockAction.getBlock(nextProps.params.hash)
+      if (nextProps.match.params.hash) {
+        self.props.blockAction
+          .getBlock(nextProps.match.params.hash)
+          .then((block: any) => {
+            if (!block) {
+              hashHistory.replace('/search?q=' + nextProps.match.params.hash)
+            }
+          })
       } else {
-        var id = nextProps.params.id
+        var id = nextProps.match.params.id
         if (!parseInt(id)) {
-          hashHistory.replace('/404')
+          hashHistory.replace('/search?q=' + id)
           return
         }
-        self.props.blockAction.getBlock(id)
+        self.props.blockAction.getBlock(id).then((block: any) => {
+          if (!block) {
+            hashHistory.replace('/search?q=' + id)
+          }
+        })
       }
     }
   }
   render() {
     var self = this
+    var intl = self.props.intl
     var data = self.props.block.item
     return (
-      <Layout className="blockDetail" bgColor="#fbfbfb">
-        <Header location={self.props.location} app={self.props.app} />
+      <Content className="blockDetail" bgColor="#fbfbfb">
         <div
           style={{
             width: '100%',
@@ -72,7 +86,8 @@ class BlockDetail extends React.Component<any, any> {
                     className="preButton vhCenter operationItem"
                     onClick={() => {
                       var id =
-                        self.props.params.id || (data && data.header.number)
+                        self.props.match.params.id ||
+                        (data && data.header.number)
                       if (id && parseInt(id) - 1 >= 0)
                         hashHistory.push('/block/id/' + (parseInt(id) - 1))
                     }}
@@ -83,7 +98,8 @@ class BlockDetail extends React.Component<any, any> {
                     className="nextButton vhCenter operationItem"
                     onClick={() => {
                       var id =
-                        self.props.params.id || (data && data.header.number)
+                        self.props.match.params.id ||
+                        (data && data.header.number)
                       if (id && parseInt(id) + 1 >= 0)
                         hashHistory.push('/block/id/' + (parseInt(id) + 1))
                     }}
@@ -95,16 +111,23 @@ class BlockDetail extends React.Component<any, any> {
             </div>
             <div className="blockBody">
               <div className="withRow blockBodyRow">
-                <div className="blockDetailKey">区块哈希:</div>
+                <div className="blockDetailKey">
+                  {intl.formatMessage({ id: 'app.pages.blockdetail.hash' })}:
+                </div>
                 <div
                   className="blockDetailValue withRowLeftAuto"
                   style={{ fontSize: 16 }}
                 >
-                  {data && data.hash}
+                  <span className="hash">{data && data.hash}</span>
                 </div>
               </div>
               <div className="withRow blockBodyRow">
-                <div className="blockDetailKey">时间戳:</div>
+                <div className="blockDetailKey">
+                  {intl.formatMessage({
+                    id: 'app.pages.blockdetail.timestamp'
+                  })}
+                  :
+                </div>
                 <div
                   className="blockDetailValue withRowLeftAuto"
                   style={{ fontSize: 16 }}
@@ -115,40 +138,71 @@ class BlockDetail extends React.Component<any, any> {
                 </div>
               </div>
               <div className="withRow blockBodyRow">
-                <div className="blockDetailKey">交易:</div>
+                <div className="blockDetailKey">
+                  {intl.formatMessage({ id: 'app.pages.blockdetail.txcount' })}:
+                </div>
                 <div className="blockDetailValue withRowLeftAuto">
                   {data && data.body.transactions.length}
                 </div>
               </div>
               <div className="withRow blockBodyRow">
-                <div className="blockDetailKey">节点:</div>
+                <div className="blockDetailKey">
+                  {intl.formatMessage({ id: 'app.pages.blockdetail.proposer' })}
+                  :
+                </div>
                 <div
                   className="blockDetailValue withRowLeftAuto"
                   style={{ fontSize: 16 }}
                 >
-                  {data && data.header.proposer}
+                  <span className="hash">{data && data.header.proposer}</span>
                 </div>
               </div>
               <div className="withRow blockBodyRow">
-                <div className="blockDetailKey">消耗的 Quota:</div>
+                <div className="blockDetailKey">
+                  {intl.formatMessage({
+                    id: 'app.pages.blockdetail.quotaused'
+                  })}
+                  :
+                </div>
                 <div className="blockDetailValue withRowLeftAuto">
-                  {data && data.header.quotaUsed}
+                  {data && parseInt(data.header.quotaUsed)}
                 </div>
               </div>
               <div className="withRow blockBodyRow">
-                <div className="blockDetailKey">Quota 价格:</div>
+                <div className="blockDetailKey">
+                  {intl.formatMessage({
+                    id: 'app.pages.blockdetail.quotaprice'
+                  })}
+                  :
+                </div>
                 <div className="blockDetailValue withRowLeftAuto">
-                  {data && data.header.quotaUsed}
+                  1&nbsp;
+                  {self.props.network.metaData &&
+                    self.props.network.metaData.tokenSymbol}
+                  &nbsp; = {self.props.network.quotaPrice} Quota
                 </div>
               </div>
               <div className="withRow blockBodyRow">
-                <div className="blockDetailKey">Total handling fee:</div>
+                <div className="blockDetailKey">
+                  {intl.formatMessage({ id: 'app.pages.blockdetail.totalfee' })}
+                  :
+                </div>
                 <div className="blockDetailValue withRowLeftAuto">
-                  {data && data.header.quotaUsed}
+                  {data &&
+                    data.header.quotaUsed &&
+                    self.props.network.quotaPrice &&
+                    valueFormat(
+                      toHex(scientificNotationToString(data.header.quotaUsed)),
+                      self.props.network.metaData &&
+                        self.props.network.metaData.tokenSymbol,
+                      self.props.network.quotaPrice
+                    )}
                 </div>
               </div>
               <div className="withRow blockBodyRow">
-                <div className="blockDetailKey">上一块哈希:</div>
+                <div className="blockDetailKey">
+                  {intl.formatMessage({ id: 'app.pages.blockdetail.prehash' })}:
+                </div>
                 <div
                   className="blockDetailValue withRowLeftAuto operationItem"
                   style={{ fontSize: 16, color: '#5b8ee6' }}
@@ -157,34 +211,50 @@ class BlockDetail extends React.Component<any, any> {
                       hashHistory.push('/block/hash/' + data.header.prevHash)
                   }}
                 >
-                  {data && data.header.prevHash}
+                  <span className="hash">{data && data.header.prevHash}</span>
                 </div>
               </div>
               <div className="withRow blockBodyRow">
-                <div className="blockDetailKey">Receipts Root:</div>
+                <div className="blockDetailKey">
+                  {intl.formatMessage({
+                    id: 'app.pages.blockdetail.receiptsroot'
+                  })}
+                  :
+                </div>
                 <div
                   className="blockDetailValue withRowLeftAuto"
                   style={{ fontSize: 16 }}
                 >
-                  {data && data.header.receiptsRoot}
+                  <span className="hash">
+                    {data && data.header.receiptsRoot}
+                  </span>
                 </div>
               </div>
               <div className="withRow blockBodyRow">
-                <div className="blockDetailKey">State Root:</div>
+                <div className="blockDetailKey">
+                  {intl.formatMessage({
+                    id: 'app.pages.blockdetail.stateroot'
+                  })}
+                  :
+                </div>
                 <div
                   className="blockDetailValue withRowLeftAuto"
                   style={{ fontSize: 16 }}
                 >
-                  {data && data.header.stateRoot}
+                  <span className="hash">{data && data.header.stateRoot}</span>
                 </div>
               </div>
               <div className="withRow blockBodyRow">
-                <div className="blockDetailKey">Transactions Root:</div>
+                <div className="blockDetailKey">
+                  {intl.formatMessage({ id: 'app.pages.blockdetail.txsroot' })}:
+                </div>
                 <div
                   className="blockDetailValue withRowLeftAuto"
                   style={{ fontSize: 16 }}
                 >
-                  {data && data.header.transactionsRoot}
+                  <span className="hash">
+                    {data && data.header.transactionsRoot}
+                  </span>
                 </div>
               </div>
               {data &&
@@ -223,7 +293,7 @@ class BlockDetail extends React.Component<any, any> {
                           >
                             [{i + 1}]
                           </span>
-                          {hash}
+                          <span className="hash">{hash}</span>
                         </div>
                       )
                     })}
@@ -233,8 +303,7 @@ class BlockDetail extends React.Component<any, any> {
             </div>
           </div>
         </div>
-        <Footer />
-      </Layout>
+      </Content>
     )
   }
 }
@@ -247,7 +316,11 @@ import { IRootState } from '../../redux/states'
 import { connect } from 'react-redux'
 
 export default connect(
-  (state: IRootState) => ({ app: state.app, block: state.block }),
+  (state: IRootState) => ({
+    app: state.app,
+    block: state.block,
+    network: state.network
+  }),
   dispatch => ({
     appAction: bindActionCreators(appAction, dispatch),
     blockAction: bindActionCreators(blockAction, dispatch)

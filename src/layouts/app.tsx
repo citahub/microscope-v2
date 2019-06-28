@@ -1,58 +1,37 @@
 import React from 'react'
 import 'bootstrap/dist/css/bootstrap.css'
 import './app.styl'
+import Layout from '../components/layout'
+import Header from '../components/header'
+import Footer from '../components/footer'
 import Loading from '../components/loading'
 import Toast from '../components/toast'
 import Modal from '../components/modal'
 
-import { hashHistory } from 'react-router'
+import hashHistory from '../routes/history'
 
-import { IntlProvider, addLocaleData } from 'react-intl'
-import enLocaleData from 'react-intl/locale-data/en'
-import zhLocaleData from 'react-intl/locale-data/zh'
-
-addLocaleData(enLocaleData)
-addLocaleData(zhLocaleData)
-
-import * as zh_CN from '../locale/zh_CN'
-import * as en_US from '../locale/en_US'
-
-function chooseLocale(language: string) {
-  var obj = en_US
-  if (language.indexOf('zh') > -1) {
-    obj = zh_CN
-  } else if (language.indexOf('en') > -1) {
-    obj = en_US
-  }
-  return obj
-}
-
+import { IntlProvider } from 'react-intl'
+import { chooseLocale } from '../locale/i18n'
 class App extends React.Component<any, any> {
   unlisten: any = null
   tick: any
+  resizeListener: any = null
   componentDidMount() {
     var self = this
-    self.props.appAction.resize(window.innerWidth, window.innerHeight)
     self.props.networkAction.getMetaData()
     self.props.networkAction.getQuotaPrice()
-    window.addEventListener(
-      'resize',
-      function() {
-        self.props.appAction.resize(window.innerWidth, window.innerHeight)
-      },
-      false
-    )
 
-    let lastLocation = '' // hack hash history twice render bug on react-router 3.0
-    this.unlisten = hashHistory.listen(location => {
-      if (lastLocation !== location.pathname) {
-        lastLocation = location.pathname
-      }
+    this.unlisten = hashHistory.listen(() => {
+      window.scroll(0, 0)
     })
 
     this.tick = setInterval(function() {
       self.props.appAction.tickTime()
     }, 3000)
+    this.resizeListener = () => {
+      self.props.appAction.resize(window.innerWidth, window.innerHeight)
+    }
+    window.addEventListener('resize', this.resizeListener)
   }
   componentDidCatch(error: any, info: any) {
     console.error(error, 'componentDidCatch')
@@ -60,13 +39,23 @@ class App extends React.Component<any, any> {
   }
   componentWillUnmount() {
     if (this.tick) window.clearInterval(this.tick)
+    if (this.unlisten) this.unlisten()
+    if (this.resizeListener)
+      window.removeEventListener('resize', this.resizeListener)
   }
   render() {
     var language = this.props.app.appLanguage
     return (
       <IntlProvider locale={language} messages={chooseLocale(language)}>
         <div className="root">
-          {this.props.children}
+          <Layout>
+            <Header
+              location={hashHistory.location}
+              appAction={this.props.appAction}
+            />
+            {this.props.children}
+            <Footer />
+          </Layout>
           <Modal
             onClose={() => this.props.appAction.hideModal()}
             ui={
@@ -88,7 +77,6 @@ class App extends React.Component<any, any> {
     )
   }
 }
-
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 

@@ -15,16 +15,6 @@ export function switchLanguage(language: string) {
   }
 }
 
-export function resize(appWidth: number, appHeight: number) {
-  return {
-    type: constants.RESIZE_APP,
-    data: {
-      appWidth: appWidth,
-      appHeight: appHeight
-    }
-  }
-}
-
 export const toast = createAction(
   constants.TOAST,
   (text: string, timeout: number = 2000) => {
@@ -67,5 +57,15 @@ export function tickTime() {
   return {
     type: constants.GLOBAL_TICKTIME,
     data: new Date().getTime()
+  }
+}
+
+export function resize(appWidth: any, appHeight: any) {
+  return {
+    type: constants.RESIZE_APP,
+    data: {
+      appWidth,
+      appHeight
+    }
   }
 }

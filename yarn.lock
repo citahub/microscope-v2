@@ -141,6 +141,13 @@
   dependencies:
     "@types/node" "*"
 
+"@types/echarts@^4.1.9":
+  version "4.1.9"
+  resolved "https://registry.yarnpkg.com/@types/echarts/-/echarts-4.1.9.tgz#86fdf7ca829879535cf3b1b1490e2f46a0ea0933"
+  integrity sha512-0cHLF2RGFtAzWNph5URXIioSGYhIOeDXI7H11eeIpTOjerTP7HiPrCs+hOOYF5Ym2VmMRsbd3pA0KnnVFiXlCw==
+  dependencies:
+    "@types/zrender" "*"
+
 "@types/events@*":
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/@types/events/-/events-3.0.0.tgz#2862f3f58a9a7f7c3e78d79f130dd4d71c25c2a7"
@@ -257,6 +264,11 @@
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/@types/web3-eth-abi/-/web3-eth-abi-1.0.0.tgz#a3ddedfeea160e589980f771ce77cab5754e2956"
   integrity sha512-q9TQgqZtolSNQWPdv9cYqTGlLnTs0RvGv0arP+vrDwmBRMEV0hrQ3Pu7fG/6NTR/48Ni4TvfbQDsI/LbKvB4NQ==
+
+"@types/zrender@*":
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/@types/zrender/-/zrender-4.0.0.tgz#a6806f12ec4eccaaebd9b0d816f049aca6188fbd"
+  integrity sha512-s89GOIeKFiod2KSqHkfd2rzx+T2DVu7ihZCBEBnhFrzvQPUmzvDSBot9Fi1DfMQm9Odg+rTqoMGC38RvrwJK2w==
 
 "@webassemblyjs/ast@1.8.5":
   version "1.8.5"

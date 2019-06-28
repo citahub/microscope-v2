@@ -1,7 +1,10 @@
 import React from 'react'
 import './index.styl'
 import Content from '../../components/content'
-import ReactEcharts from 'echarts-for-react'
+import ReactEchartsCore from 'echarts-for-react/lib/core'
+import echarts from 'echarts/lib/echarts'
+import 'echarts/lib/chart/pie'
+import 'echarts/lib/chart/bar'
 
 class Statics extends React.Component<any, any> {
   timer: any
@@ -109,7 +112,8 @@ class Statics extends React.Component<any, any> {
           >
             <div className="row">
               <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                <ReactEcharts
+                <ReactEchartsCore
+                  echarts={echarts}
                   option={{
                     title: {
                       text: intl.formatMessage({
@@ -135,7 +139,8 @@ class Statics extends React.Component<any, any> {
                 />
               </div>
               <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                <ReactEcharts
+                <ReactEchartsCore
+                  echarts={echarts}
                   option={{
                     title: {
                       text: intl.formatMessage({
@@ -161,7 +166,8 @@ class Statics extends React.Component<any, any> {
                 />
               </div>
               <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                <ReactEcharts
+                <ReactEchartsCore
+                  echarts={echarts}
                   option={{
                     title: {
                       text: intl.formatMessage({
@@ -187,7 +193,8 @@ class Statics extends React.Component<any, any> {
                 />
               </div>
               <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                <ReactEcharts
+                <ReactEchartsCore
+                  echarts={echarts}
                   option={{
                     title: {
                       text: intl.formatMessage({
@@ -220,7 +227,8 @@ class Statics extends React.Component<any, any> {
               </div>
               {self.state.showProposals ? (
                 <div className="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                  <ReactEcharts
+                  <ReactEchartsCore
+                    echarts={echarts}
                     option={{
                       title: {
                         text: intl.formatMessage({

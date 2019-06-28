@@ -467,7 +467,7 @@ class Home extends React.Component<any, any> {
                                   <div
                                     className="transactionItemTo operationItem"
                                     onClick={() => {
-                                      hashHistory.push('/account/' + d.to)
+                                      hashHistory.push('/account/' + to)
                                     }}
                                   >
                                     <span className="hash">{to}</span>

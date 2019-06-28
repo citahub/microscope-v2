@@ -34,7 +34,7 @@ class APIRpc extends React.Component<any, any> {
   componentWillReceiveProps(nextProps: any) {
     var self = this
     if (nextProps.location.search !== self.props.location.search) {
-      var params = queryString.parse(self.props.location.search)
+      var params = queryString.parse(nextProps.location.search)
       var method = params.method
       if (!method) {
         method = rpcTemplate[0].name

@@ -14,6 +14,14 @@ class BlockSearchModal extends React.Component<any, any> {
     min.value = self.props.min
     max.value = self.props.max
   }
+  maxLengthCheck(object: any) {
+    if (object.target.value.length > object.target.maxLength) {
+      object.target.value = object.target.value.slice(
+        0,
+        object.target.maxLength
+      )
+    }
+  }
   render() {
     var self = this
     var intl = self.props.intl
@@ -33,24 +41,30 @@ class BlockSearchModal extends React.Component<any, any> {
             </label>
             <div className="col-sm-5">
               <input
-                type="text"
+                type="number"
                 ref="from"
                 className="form-control"
                 placeholder={intl.formatMessage({
                   id: 'app.pages.common.blocksearchmodal.blockheight.from'
                 })}
-                maxLength={66}
+                min={0}
+                max={Number.MAX_SAFE_INTEGER}
+                onInput={self.maxLengthCheck}
+                maxLength={16}
               />
             </div>
             <div className="col-sm-5">
               <input
-                type="text"
+                type="number"
                 ref="to"
                 className="form-control"
                 placeholder={intl.formatMessage({
                   id: 'app.pages.common.blocksearchmodal.blockheight.to'
                 })}
-                maxLength={66}
+                min={0}
+                max={Number.MAX_SAFE_INTEGER}
+                onInput={self.maxLengthCheck}
+                maxLength={16}
               />
             </div>
           </div>
@@ -62,25 +76,29 @@ class BlockSearchModal extends React.Component<any, any> {
             </label>
             <div className="col-sm-5">
               <input
-                type="text"
+                type="number"
                 ref="min"
                 className="form-control"
                 placeholder={intl.formatMessage({
                   id: 'app.pages.common.blocksearchmodal.txscount.min'
                 })}
-                pattern="\d*"
+                min={0}
+                max={Number.MAX_SAFE_INTEGER}
+                onInput={self.maxLengthCheck}
                 maxLength={16}
               />
             </div>
             <div className="col-sm-5">
               <input
-                type="text"
+                type="number"
                 ref="max"
                 className="form-control"
                 placeholder={intl.formatMessage({
                   id: 'app.pages.common.blocksearchmodal.txscount.max'
                 })}
-                pattern="\d*"
+                min={0}
+                max={Number.MAX_SAFE_INTEGER}
+                onInput={self.maxLengthCheck}
                 maxLength={16}
               />
             </div>

@@ -80,7 +80,9 @@ class Home extends React.Component<any, any> {
                     <img src="./images/content1_spacing.png" />
                   </div>
                   <div className="generalItem1Label">
-                    {metaData ? metaData.blockInterval / 1000 + 's' : '?'}
+                    {metaData
+                      ? (metaData.blockInterval / 1000).toFixed(2) + 's'
+                      : '?'}
                   </div>
                   <div className="generalItem2Label">
                     {intl.formatMessage({

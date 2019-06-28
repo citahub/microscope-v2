@@ -5,6 +5,8 @@ import ReactEchartsCore from 'echarts-for-react/lib/core'
 import echarts from 'echarts/lib/echarts'
 import 'echarts/lib/chart/pie'
 import 'echarts/lib/chart/bar'
+import 'echarts/lib/component/title'
+import 'echarts/lib/component/tooltip'
 
 class Statics extends React.Component<any, any> {
   timer: any

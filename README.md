@@ -19,11 +19,11 @@ English | [简体中文](./README-CN.md)
 
 * Chain Meta Info、RealTime Block and Transaction Info、Advance Search、Switch Network
 
-* Block List、Block Detail、Rebirth Advance Query
+* Block List、Block Detail、ReBirth Advance Query
 
-* Transaction List、Transaction Detail、Rebirth Advance Query
+* Transaction List、Transaction Detail、ReBirth Advance Query
 
-* Address Account Blance、Transactions/ERC20 Transactions under the Address
+* Address Account Blance、Transactions under the Address
 
 * Contract Online Query and Call
 
@@ -35,13 +35,15 @@ English | [简体中文](./README-CN.md)
 
 * Simplify Development/Debug Environment
 
-* Add RPC API/ Rebirth API List(edit sending-request and check response)
+* Add RPC API/ ReBirth API List(edit sending-request and check response)
 
 * Optimize real-time Block/Transaction Polling; Fixed Page Crash
 
 * Fix/Optimize Advanced Search Function
 
-* Optimize Block/Transaction List Turning-Page Function
+* Optimize Block/Transaction List Pagination
+
+* Add ERC20 Transactions Query
 
 * Internationalization files from relying on online services to switch to local JSON files
 
@@ -125,9 +127,9 @@ English | [简体中文](./README-CN.md)
 
 *  /src/utils/ ----------------- utils
 
-*  /src/utils/dataAPI ---------- all data API，currently mainly dependent on rebirthAPI file
+*  /src/utils/dataAPI ---------- all data API，currently mainly dependent on ReBirthAPI file
 
-*  /src/utils/rebirthAPI ------- package Rebirth interaction and citaSDK direct rpc interaction
+*  /src/utils/rebirthAPI ------- package ReBirth interaction and citaSDK direct rpc interaction
 
 # library
 

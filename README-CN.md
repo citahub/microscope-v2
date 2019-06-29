@@ -10,7 +10,7 @@ English | [简体中文](./README-CN.md)
 
 # 关于 Microscope
 
-  Microscope一个区块链浏览器，用[React](https://reactjs.org/)构建，用于查询CITA链。 它支持搜索区块，交易，帐户信息和调用智能合约方法。 它还可以与[ReBirth](https://github.com/cryptape/re-birth)一起使用，实现指定组合条件的区块交易列表查询，分析CITA的工作状态等高级功能。
+  Microscope是一款区块链浏览器，用[React](https://reactjs.org/)构建，用于查询CITA链上的数据。 它支持搜索区块，交易，帐户信息和调用智能合约方法。 它还可以与[ReBirth](https://github.com/cryptape/re-birth)一起使用，实现指定组合条件的区块交易列表查询，分析CITA的工作状态等高级功能。
 
 
 # 功能特性
@@ -19,11 +19,11 @@ English | [简体中文](./README-CN.md)
 
 * 链网络状态信息、实时出块与实时交易信息、综合搜索、网络切换
 
-* 区块列表、区块详情、rebirth条件组合查询
+* 区块列表、区块详情、ReBirth条件组合查询
 
-* 交易列表、交易详情、rebirth条件组合查询
+* 交易列表、交易详情、ReBirth条件组合查询
 
-* 账号余额、交易、ERC20交易查询
+* 账号余额、交易查询
 
 * 合约在线查看与调用
 

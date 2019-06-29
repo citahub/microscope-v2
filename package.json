@@ -1,7 +1,7 @@
 {
   "name": "Microscope",
   "version": "2.0.0",
-  "description": "",
+  "description": "CITA blockchain explorer",
   "engines": {
     "node": ">= 10.14.2"
   },

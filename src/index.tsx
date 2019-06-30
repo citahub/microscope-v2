@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 import configureStore from './redux/configureStore'
 import createRoutes from './routes/index'
-
 import { setSelectNetwork, defaultNetwork } from './utils/storage'
+import * as serviceWorker from './serviceWorker'
 
 // for faucet
 var search: string = window.location.search
@@ -29,3 +29,8 @@ var app = <Provider store={store}>{createRoutes()}</Provider>
 setTimeout(() => {
   ReactDOM.render(app, document.getElementById('app') as HTMLElement)
 }, 1000)
+
+// If you want your app to work offline and load faster, you can change
+// unregister() to register() below. Note this comes with some pitfalls.
+// Learn more about service workers: https://bit.ly/CRA-PWA
+serviceWorker.unregister()

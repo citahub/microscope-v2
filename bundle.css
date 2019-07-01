@@ -10064,22 +10064,34 @@ a.text-dark:hover, a.text-dark:focus {
   }
 }
 .vhCenter {
+  display: -webkit-box;
   display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+          flex-direction: row;
+  -webkit-box-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+          justify-content: center;
 }
 .withRow {
+  display: -webkit-box;
   display: flex;
-  flex-direction: row;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+          flex-direction: row;
 }
 .withColumn {
+  display: -webkit-box;
   display: flex;
-  flex-direction: column;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+          flex-direction: column;
 }
 .withRowLeftAuto,
 .withColumnLeftAuto {
-  flex: 1;
+  -webkit-box-flex: 1;
+          flex: 1;
 }
 .operationItem {
   cursor: pointer;
@@ -10088,6 +10100,7 @@ a.text-dark:hover, a.text-dark:focus {
   outline: none !important;
 }
 .rc-pagination .rc-pagination-item-active {
+  background: -webkit-gradient(linear, right top, left top, from(#4eadf1), to(#6a96f0));
   background: linear-gradient(270deg, #4eadf1, #6a96f0);
   border-color: transparent !important;
 }
@@ -10112,9 +10125,12 @@ div.enterScreen {
   z-index: 999;
   top: 0;
   left: 0;
+  display: -webkit-box;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  -webkit-box-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+          align-items: center;
   font-size: 2rem;
   letter-spacing: 4px;
   font-family: 'Press Start 2P', cursive;
@@ -10192,8 +10208,11 @@ div.enterScreen span:nth-of-type(10) {
 .layout {
   width: 100%;
   min-height: 100%;
+  display: -webkit-box;
   display: flex;
-  flex-direction: column;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+          flex-direction: column;
 }
 .header {
   width: 100%;
@@ -10291,6 +10310,7 @@ div.enterScreen span:nth-of-type(10) {
   width: 88px;
   height: 100%;
   border-radius: 4px;
+  background-image: -webkit-gradient(linear, right top, left top, from(#4eadf1), to(#6a96f0));
   background-image: linear-gradient(to left, #4eadf1, #6a96f0);
 }
 .header .menuOpen {
@@ -10417,7 +10437,8 @@ div.enterScreen span:nth-of-type(10) {
 }
 @media (max-width: 850px) {
   .footer .intro {
-    justify-content: flex-start;
+    -webkit-box-pack: start;
+            justify-content: flex-start;
   }
 }
 .loading {
@@ -10427,8 +10448,11 @@ div.enterScreen span:nth-of-type(10) {
   height: 100%;
   box-sizing: border-box;
   overflow-y: hidden;
+  display: -webkit-box;
   display: flex;
-  flex-direction: column;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+          flex-direction: column;
   -webkit-user-select: none;
      -moz-user-select: none;
       -ms-user-select: none;
@@ -10436,7 +10460,8 @@ div.enterScreen span:nth-of-type(10) {
   z-index: 1000;
 }
 .loadingContent {
-  flex: 1;
+  -webkit-box-flex: 1;
+          flex: 1;
   overflow-x: hidden;
   overflow-y: auto;
   width: 100%;
@@ -10450,8 +10475,11 @@ div.enterScreen span:nth-of-type(10) {
   height: 100%;
   box-sizing: border-box;
   overflow-y: hidden;
+  display: -webkit-box;
   display: flex;
-  flex-direction: column;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+          flex-direction: column;
   pointer-events: none;
 }
 .appToast>div {
@@ -10478,13 +10506,17 @@ div.enterScreen span:nth-of-type(10) {
   height: 100%;
   box-sizing: border-box;
   overflow-y: hidden;
+  display: -webkit-box;
   display: flex;
-  flex-direction: column;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+          flex-direction: column;
   z-index: 999;
   pointer-events: all;
 }
 .modalContent {
-  flex: 1;
+  -webkit-box-flex: 1;
+          flex: 1;
   overflow-x: hidden;
   overflow-y: auto;
   width: 100%;
@@ -10716,7 +10748,8 @@ div.enterScreen span:nth-of-type(10) {
 }
 .content {
   width: 100%;
-  flex: 1;
+  -webkit-box-flex: 1;
+          flex: 1;
   background-color: transparent;
   box-sizing: border-box;
   position: relative;
@@ -10747,6 +10780,7 @@ div.enterScreen span:nth-of-type(10) {
   display: inline-block;
   text-align: center;
   border-radius: 6px;
+  background-image: -webkit-gradient(linear, right top, left top, from(#4eadf1), to(#6a96f0));
   background-image: linear-gradient(to left, #4eadf1, #6a96f0);
 }
 .blockList .blockListBody .blockNumberTd,
@@ -10813,6 +10847,7 @@ div.enterScreen span:nth-of-type(10) {
   width: 20px;
   height: 20px;
   background-color: #4eadf1;
+  background-image: -webkit-gradient(linear, right top, left top, from(#4eadf1), to(#6a96f0));
   background-image: linear-gradient(to left, #4eadf1, #6a96f0);
   display: inline-block;
   color: #fff;
@@ -10855,6 +10890,7 @@ div.enterScreen span:nth-of-type(10) {
   display: inline-block;
   text-align: center;
   border-radius: 6px;
+  background-image: -webkit-gradient(linear, right top, left top, from(#4eadf1), to(#6a96f0));
   background-image: linear-gradient(to left, #4eadf1, #6a96f0);
 }
 .transactionTable .transactionHashTd,
@@ -11053,6 +11089,25 @@ div.enterScreen span:nth-of-type(10) {
 .rc-pagination-disabled a {
   color: #ccc;
 }
+.rc-pagination-disabled .rc-pagination-item,
+.rc-pagination-disabled .rc-pagination-prev,
+.rc-pagination-disabled .rc-pagination-next {
+  cursor: not-allowed;
+}
+.rc-pagination-disabled .rc-pagination-item:hover,
+.rc-pagination-disabled .rc-pagination-prev:hover,
+.rc-pagination-disabled .rc-pagination-next:hover {
+  border-color: #d9d9d9;
+}
+.rc-pagination-disabled .rc-pagination-item:hover a,
+.rc-pagination-disabled .rc-pagination-prev:hover a,
+.rc-pagination-disabled .rc-pagination-next:hover a {
+  color: #d9d9d9;
+}
+.rc-pagination-disabled .rc-pagination-jump-prev,
+.rc-pagination-disabled .rc-pagination-jump-next {
+  pointer-events: none;
+}
 .rc-pagination-options {
   float: left;
   margin-left: 15px;
@@ -11182,22 +11237,18 @@ div.enterScreen span:nth-of-type(10) {
 }
 @-webkit-keyframes select-ring {
   0% {
-    -webkit-transform: rotate(0deg);
-            transform: rotate(0deg);
+    transform: rotate(0deg);
   }
   100% {
-    -webkit-transform: rotate(360deg);
-            transform: rotate(360deg);
+    transform: rotate(360deg);
   }
 }
 @keyframes select-ring {
   0% {
-    -webkit-transform: rotate(0deg);
-            transform: rotate(0deg);
+    transform: rotate(0deg);
   }
   100% {
-    -webkit-transform: rotate(360deg);
-            transform: rotate(360deg);
+    transform: rotate(360deg);
   }
 }
 .rc-select {
@@ -11256,6 +11307,10 @@ div.enterScreen span:nth-of-type(10) {
   position: absolute;
   top: 50%;
   left: 50%;
+}
+.rc-select:not(.rc-select-no-arrow) .rc-select-selection--multiple .rc-select-selection__clear,
+.rc-select-loading .rc-select-selection--multiple .rc-select-selection__clear {
+  right: 20px;
 }
 .rc-select-selection {
   outline: none;
@@ -11407,8 +11462,7 @@ div.enterScreen span:nth-of-type(10) {
 }
 .rc-select-enabled .rc-select-selection__choice:hover .rc-select-selection__choice__remove {
   opacity: 1;
-  -webkit-transform: scale(1);
-          transform: scale(1);
+  transform: scale(1);
 }
 .rc-select-enabled .rc-select-selection__choice:hover .rc-select-selection__choice__content {
   margin-left: -8px;
@@ -11443,8 +11497,7 @@ div.enterScreen span:nth-of-type(10) {
           animation-duration: 0.3s;
   -webkit-animation-fill-mode: both;
           animation-fill-mode: both;
-  -webkit-transform-origin: 0 0;
-          transform-origin: 0 0;
+  transform-origin: 0 0;
   opacity: 0;
   -webkit-animation-play-state: paused;
           animation-play-state: paused;
@@ -11471,39 +11524,33 @@ div.enterScreen span:nth-of-type(10) {
 }
 @-webkit-keyframes rcSelectChoiceZoomIn {
   0% {
-    -webkit-transform: scale(0.6);
-            transform: scale(0.6);
+    transform: scale(0.6);
     opacity: 0;
   }
   100% {
-    -webkit-transform: scale(1);
-            transform: scale(1);
+    transform: scale(1);
     opacity: 1;
   }
 }
 @keyframes rcSelectChoiceZoomIn {
   0% {
-    -webkit-transform: scale(0.6);
-            transform: scale(0.6);
+    transform: scale(0.6);
     opacity: 0;
   }
   100% {
-    -webkit-transform: scale(1);
-            transform: scale(1);
+    transform: scale(1);
     opacity: 1;
   }
 }
 @-webkit-keyframes rcSelectChoiceZoomOut {
   to {
-    -webkit-transform: scale(0);
-            transform: scale(0);
+    transform: scale(0);
     opacity: 0;
   }
 }
 @keyframes rcSelectChoiceZoomOut {
   to {
-    -webkit-transform: scale(0);
-            transform: scale(0);
+    transform: scale(0);
     opacity: 0;
   }
 }
@@ -11514,13 +11561,10 @@ div.enterScreen span:nth-of-type(10) {
   padding: 0 0 0 8px;
   position: absolute;
   opacity: 0;
-  -webkit-transform: scale(0);
-          transform: scale(0);
+  transform: scale(0);
   top: 0;
   right: 2px;
-  transition: opacity 0.3s, -webkit-transform 0.3s;
   transition: opacity 0.3s, transform 0.3s;
-  transition: opacity 0.3s, transform 0.3s, -webkit-transform 0.3s;
 }
 .rc-select .rc-select-selection__choice__remove-icon {
   font-style: normal;
@@ -11603,8 +11647,7 @@ li.rc-select-dropdown-menu-item-divider {
           animation-duration: 0.3s;
   -webkit-animation-fill-mode: both;
           animation-fill-mode: both;
-  -webkit-transform-origin: 0 0;
-          transform-origin: 0 0;
+  transform-origin: 0 0;
   opacity: 0;
   -webkit-animation-timing-function: cubic-bezier(0.08, 0.82, 0.17, 1);
           animation-timing-function: cubic-bezier(0.08, 0.82, 0.17, 1);
@@ -11616,8 +11659,7 @@ li.rc-select-dropdown-menu-item-divider {
           animation-duration: 0.3s;
   -webkit-animation-fill-mode: both;
           animation-fill-mode: both;
-  -webkit-transform-origin: 0 0;
-          transform-origin: 0 0;
+  transform-origin: 0 0;
   opacity: 1;
   -webkit-animation-timing-function: cubic-bezier(0.6, 0.04, 0.98, 0.34);
           animation-timing-function: cubic-bezier(0.6, 0.04, 0.98, 0.34);
@@ -11653,129 +11695,97 @@ li.rc-select-dropdown-menu-item-divider {
 @-webkit-keyframes rcSelectDropdownSlideUpIn {
   0% {
     opacity: 0;
-    -webkit-transform-origin: 0% 0%;
-            transform-origin: 0% 0%;
-    -webkit-transform: scaleY(0);
-            transform: scaleY(0);
+    transform-origin: 0% 0%;
+    transform: scaleY(0);
   }
   100% {
     opacity: 1;
-    -webkit-transform-origin: 0% 0%;
-            transform-origin: 0% 0%;
-    -webkit-transform: scaleY(1);
-            transform: scaleY(1);
+    transform-origin: 0% 0%;
+    transform: scaleY(1);
   }
 }
 @keyframes rcSelectDropdownSlideUpIn {
   0% {
     opacity: 0;
-    -webkit-transform-origin: 0% 0%;
-            transform-origin: 0% 0%;
-    -webkit-transform: scaleY(0);
-            transform: scaleY(0);
+    transform-origin: 0% 0%;
+    transform: scaleY(0);
   }
   100% {
     opacity: 1;
-    -webkit-transform-origin: 0% 0%;
-            transform-origin: 0% 0%;
-    -webkit-transform: scaleY(1);
-            transform: scaleY(1);
+    transform-origin: 0% 0%;
+    transform: scaleY(1);
   }
 }
 @-webkit-keyframes rcSelectDropdownSlideUpOut {
   0% {
     opacity: 1;
-    -webkit-transform-origin: 0% 0%;
-            transform-origin: 0% 0%;
-    -webkit-transform: scaleY(1);
-            transform: scaleY(1);
+    transform-origin: 0% 0%;
+    transform: scaleY(1);
   }
   100% {
     opacity: 0;
-    -webkit-transform-origin: 0% 0%;
-            transform-origin: 0% 0%;
-    -webkit-transform: scaleY(0);
-            transform: scaleY(0);
+    transform-origin: 0% 0%;
+    transform: scaleY(0);
   }
 }
 @keyframes rcSelectDropdownSlideUpOut {
   0% {
     opacity: 1;
-    -webkit-transform-origin: 0% 0%;
-            transform-origin: 0% 0%;
-    -webkit-transform: scaleY(1);
-            transform: scaleY(1);
+    transform-origin: 0% 0%;
+    transform: scaleY(1);
   }
   100% {
     opacity: 0;
-    -webkit-transform-origin: 0% 0%;
-            transform-origin: 0% 0%;
-    -webkit-transform: scaleY(0);
-            transform: scaleY(0);
+    transform-origin: 0% 0%;
+    transform: scaleY(0);
   }
 }
 @-webkit-keyframes rcSelectDropdownSlideDownIn {
   0% {
     opacity: 0;
-    -webkit-transform-origin: 0% 100%;
-            transform-origin: 0% 100%;
-    -webkit-transform: scaleY(0);
-            transform: scaleY(0);
+    transform-origin: 0% 100%;
+    transform: scaleY(0);
   }
   100% {
     opacity: 1;
-    -webkit-transform-origin: 0% 100%;
-            transform-origin: 0% 100%;
-    -webkit-transform: scaleY(1);
-            transform: scaleY(1);
+    transform-origin: 0% 100%;
+    transform: scaleY(1);
   }
 }
 @keyframes rcSelectDropdownSlideDownIn {
   0% {
     opacity: 0;
-    -webkit-transform-origin: 0% 100%;
-            transform-origin: 0% 100%;
-    -webkit-transform: scaleY(0);
-            transform: scaleY(0);
+    transform-origin: 0% 100%;
+    transform: scaleY(0);
   }
   100% {
     opacity: 1;
-    -webkit-transform-origin: 0% 100%;
-            transform-origin: 0% 100%;
-    -webkit-transform: scaleY(1);
-            transform: scaleY(1);
+    transform-origin: 0% 100%;
+    transform: scaleY(1);
   }
 }
 @-webkit-keyframes rcSelectDropdownSlideDownOut {
   0% {
     opacity: 1;
-    -webkit-transform-origin: 0% 100%;
-            transform-origin: 0% 100%;
-    -webkit-transform: scaleY(1);
-            transform: scaleY(1);
+    transform-origin: 0% 100%;
+    transform: scaleY(1);
   }
   100% {
     opacity: 0;
-    -webkit-transform-origin: 0% 100%;
-            transform-origin: 0% 100%;
-    -webkit-transform: scaleY(0);
-            transform: scaleY(0);
+    transform-origin: 0% 100%;
+    transform: scaleY(0);
   }
 }
 @keyframes rcSelectDropdownSlideDownOut {
   0% {
     opacity: 1;
-    -webkit-transform-origin: 0% 100%;
-            transform-origin: 0% 100%;
-    -webkit-transform: scaleY(1);
-            transform: scaleY(1);
+    transform-origin: 0% 100%;
+    transform: scaleY(1);
   }
   100% {
     opacity: 0;
-    -webkit-transform-origin: 0% 100%;
-            transform-origin: 0% 100%;
-    -webkit-transform: scaleY(0);
-            transform: scaleY(0);
+    transform-origin: 0% 100%;
+    transform: scaleY(0);
   }
 }
 .rc-select-open .rc-select-arrow b {
@@ -11836,8 +11846,11 @@ li.rc-select-dropdown-menu-item-divider {
   }
 }
 .tabHeaderContainer {
+  display: -webkit-box;
   display: flex;
-  flex-direction: row;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+          flex-direction: row;
 }
 .accountDetail .accountNav {
   height: 92px;

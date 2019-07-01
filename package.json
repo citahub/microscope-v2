@@ -34,6 +34,7 @@
     "@types/redux-actions": "^2.3.1",
     "@types/redux-logger": "^3.0.6",
     "@types/web3-eth-abi": "^1.0.0",
+    "@typescript-eslint/parser": "^1.11.0",
     "autoprefixer": "^9.5.1",
     "babel-core": "^6.26.0",
     "babel-loader": "^8.0.6",

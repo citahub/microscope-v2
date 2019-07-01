@@ -10,8 +10,7 @@
     "build": "webpack --config webpack.prod.js",
     "lint": "eslint src/**/*.{js,jsx,ts,tsx} --fix",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
-    "precommit": "lint-staged"
+    "deploy": "gh-pages -d build"
   },
   "lint-staged": {
     "src/**/*.{ts,tsx}": [
@@ -103,5 +102,10 @@
     "typescript-eslint-parser": "^22.0.0",
     "webpack-bundle-analyzer": "^3.3.2",
     "webpack-dev-server": "^3.1.14"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
   }
 }

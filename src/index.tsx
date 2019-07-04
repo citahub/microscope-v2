@@ -14,12 +14,16 @@ if (search) {
     var chain = chainMatchArray[1]
     if (chain.indexOf(defaultNetwork.url) > -1) {
       setSelectNetwork(defaultNetwork)
-      window.location.href =
+      var pathname = window.location.pathname
+      var hash = window.location.hash
+      setTimeout(()=>{
+        window.location.href =
         window.location.protocol +
         '//' +
         window.location.host +
-        window.location.pathname +
-        window.location.hash
+        pathname +
+        hash
+      },4000)
     }
   }
 }

@@ -1,4 +1,12 @@
-export interface TransactionItem {}
+export interface TransactionItem {
+  blockHash: string
+  blockNumber: String
+  content: String
+  from: String
+  hash: String
+  index: String
+  unsignedTransaction: any
+}
 export interface TransactionReceiptItem {}
 export interface TransactionList {
   pageNum: Number | 1

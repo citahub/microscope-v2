@@ -60,6 +60,12 @@ class TransactionDetail extends React.Component<any, any> {
         data.unsignedTransaction &&
         data.unsignedTransaction.transaction &&
         data.unsignedTransaction.transaction.to)
+    var toIsContract =
+      (data && data.to) ||
+      (data &&
+        data.unsignedTransaction &&
+        data.unsignedTransaction.transaction &&
+        data.unsignedTransaction.transaction.toIsContract)
     var subData =
       data &&
       data.unsignedTransaction &&
@@ -131,10 +137,7 @@ class TransactionDetail extends React.Component<any, any> {
                     ? ''
                     : !to
                     ? 'Contract Creation'
-                    : subData &&
-                      subData.replace(/^0x/, '') &&
-                      dataReceipt &&
-                      dataReceipt.contractAddress
+                    : subData && toIsContract && subData.replace(/^0x/, '')
                     ? 'Contract Call'
                     : 'Exchange'}
                 </div>
@@ -294,22 +297,22 @@ class TransactionDetail extends React.Component<any, any> {
                         var dataUtf8: HTMLTextAreaElement = document.getElementById(
                           'dataUtf8'
                         ) as HTMLTextAreaElement
-                        if (subData.replace(/^0x/, '')) {
-                          if (dataReceipt && dataReceipt.contractAddress) {
-                            getContractData(
-                              dataReceipt.contractAddress,
-                              subData,
-                              (error: any, data: any) => {
-                                if (error) {
-                                  if (dataUtf8) dataUtf8.value = error
-                                } else {
-                                  if (dataUtf8) dataUtf8.value = data
-                                }
+                        if (toIsContract && subData.replace(/^0x/, '')) {
+                          // if (dataReceipt && dataReceipt.contractAddress) {
+                          getContractData(
+                            to || (dataReceipt && dataReceipt.contractAddress),
+                            subData,
+                            (error: any, data: any) => {
+                              console.log(error)
+                              if (error) {
+                                if (dataUtf8) dataUtf8.value = error
+                              } else {
+                                if (dataUtf8) dataUtf8.value = data
                               }
-                            )
-                          } else {
-                            dataUtf8.value = hex2Utf8(subData)
-                          }
+                            }
+                          )
+                        } else {
+                          dataUtf8.value = hex2Utf8(subData)
                         }
                       }
                     }}
@@ -324,7 +327,7 @@ class TransactionDetail extends React.Component<any, any> {
                         }}
                       />
                     </Tab>
-                    {subData && subData.replace(/^0x/, '') ? (
+                    {data && to ? (
                       <Tab title="UTF8">
                         <textarea
                           id="dataUtf8"

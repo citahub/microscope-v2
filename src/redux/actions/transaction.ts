@@ -43,11 +43,38 @@ export function getTransaction(key: string) {
       .getTransaction(key)
       .then((data: TransactionItem) => {
         dispatch(hideLoading())
-        dispatch({
-          type: constants.GET_TRANSACTION_ITEM,
-          data: data
-        })
-        return data
+
+        if (
+          data &&
+          data.unsignedTransaction &&
+          data.unsignedTransaction.transaction &&
+          data.unsignedTransaction.transaction.to
+        ) {
+          return dataAPI
+            .getCode(data.unsignedTransaction.transaction.to)
+            .then((code: any) => {
+              data.unsignedTransaction.transaction.toIsContract =
+                code && code !== '0x'
+              dispatch({
+                type: constants.GET_TRANSACTION_ITEM,
+                data: data
+              })
+              return data
+            })
+            .catch(() => {
+              dispatch({
+                type: constants.GET_TRANSACTION_ITEM,
+                data: data
+              })
+              return data
+            })
+        } else {
+          dispatch({
+            type: constants.GET_TRANSACTION_ITEM,
+            data: data
+          })
+          return data
+        }
       })
       .catch((error: any) => {
         dispatch(hideLoading())

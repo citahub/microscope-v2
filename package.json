@@ -3,16 +3,14 @@
   "version": "2.0.0",
   "description": "CITA blockchain explorer",
   "engines": {
-    "node": ">= 10.14.2"
+    "node": "^8.10.0 || ^10.13.0 || >=11.10.1"
   },
   "scripts": {
     "start": "webpack-dev-server --open --config webpack.dev.js",
     "build": "webpack --config webpack.prod.js",
     "lint": "eslint src/**/*.{js,jsx,ts,tsx} --fix",
-    "light-server": "light-server -s build -p 7000",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
-    "precommit": "lint-staged"
+    "deploy": "gh-pages -d build"
   },
   "lint-staged": {
     "src/**/*.{ts,tsx}": [
@@ -29,16 +27,16 @@
     "@types/react": "^16.7.18",
     "@types/react-dom": "^16.0.11",
     "@types/react-intl": "^2.3.14",
-    "@types/react-redux": "^6.0.11",
-    "@types/react-router": "^4.3.1",
+    "@types/react-redux": "^7.1.1",
+    "@types/react-router": "^5.0.2",
     "@types/react-router-redux": "^5.0.18",
     "@types/redux-actions": "^2.3.1",
     "@types/redux-logger": "^3.0.6",
-    "@types/redux-thunk": "^2.1.0",
     "@types/web3-eth-abi": "^1.0.0",
+    "@typescript-eslint/parser": "^1.11.0",
     "autoprefixer": "^9.5.1",
     "babel-core": "^6.26.0",
-    "babel-loader": "7.1.4",
+    "babel-loader": "^8.0.6",
     "babel-plugin-css-modules-transform": "^1.6.1",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-es2015-arrow-functions": "^6.22.0",
@@ -46,12 +44,12 @@
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-plugin-transform-stylus": "0.0.1",
     "babel-polyfill": "^6.26.0",
-    "babel-preset-env": "1.6.1",
+    "babel-preset-env": "^1.7.0",
     "babel-preset-react": "6.24.1",
     "babel-register": "^6.26.0",
     "bootstrap": "^4.1.3",
-    "copy-webpack-plugin": "^4.6.0",
-    "css-loader": "^2.1.1",
+    "copy-webpack-plugin": "^5.0.3",
+    "css-loader": "^3.0.0",
     "echarts": "^4.1.0",
     "echarts-for-react": "^2.0.15-beta.0",
     "es6-promise": "^4.2.4",
@@ -60,20 +58,20 @@
     "history": "^4.9.0",
     "html-loader": "^0.5.5",
     "html-webpack-plugin": "^3.2.0",
-    "husky": "^1.3.1",
+    "husky": "^3.0.0",
     "isomorphic-fetch": "^2.2.1",
     "key-mirror": "^1.0.1",
     "moment": "^2.24.0",
     "poststylus": "^1.0.0",
     "query-string": "^6.8.0",
     "rc-pagination": "^1.17.8",
-    "rc-select": "^8.7.0",
+    "rc-select": "^9.1.5",
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
     "react-intl": "^2.4.0",
     "react-json-view": "^1.19.1",
     "react-redux": "^7.1.0",
-    "react-router-dom": "^4.3.1",
+    "react-router-dom": "^5.0.1",
     "react-router-redux": "^4.0.8",
     "redux": "^4.0.1",
     "redux-actions": "^2.6.5",
@@ -84,9 +82,9 @@
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.2",
     "sw-precache-webpack-plugin": "^0.11.5",
-    "ts-loader": "^5.3.2",
+    "ts-loader": "^6.0.4",
     "typescript": "^3.2.2",
-    "web3-eth-abi": "^1.0.0-beta.54",
+    "web3-eth-abi": "^1.0.0-beta.55",
     "webpack": "^4.0.0",
     "webpack-cli": "^3.1.2",
     "webpack-merge": "^4.1.4"
@@ -94,15 +92,20 @@
   "devDependencies": {
     "@cryptape/sdk-ts-config": "0.0.1",
     "babel-eslint": "^10.0.1",
-    "eslint": "^5.11.1",
+    "eslint": "^6.0.1",
     "eslint-config-airbnb-base": "^13.1.0",
-    "eslint-config-prettier": "^3.3.0",
+    "eslint-config-prettier": "^6.0.0",
     "eslint-plugin-prettier": "^3.0.0",
     "eslint-plugin-typescript": "^0.14.0",
-    "lint-staged": "^8.1.0",
+    "lint-staged": "^9.0.2",
     "prettier": "^1.16.0",
-    "typescript-eslint-parser": "^21.0.2",
+    "typescript-eslint-parser": "^22.0.0",
     "webpack-bundle-analyzer": "^3.3.2",
     "webpack-dev-server": "^3.1.14"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
   }
 }

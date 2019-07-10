@@ -72,7 +72,7 @@ export function hex2Utf8(hex: string): string {
     return result
   } catch (e) {
     console.error(e)
-    return ''
+    return e.message
   }
 }
 import { getAbi } from './dataAPI'

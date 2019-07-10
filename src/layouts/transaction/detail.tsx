@@ -8,6 +8,7 @@ import {
   getContractData,
   valueFormat,
   toHex,
+  hex2Utf8,
   scientificNotationToString
 } from '../../utils/hex'
 
@@ -82,21 +83,25 @@ class TransactionDetail extends React.Component<any, any> {
               className="transactionNav"
               style={{ fontSize: 20, paddingTop: 60 }}
             >
-              <div style={{ textAlign: 'center' }}>
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  flexWrap: 'wrap'
+                }}
+              >
                 <img
                   src="images/content_transaction.png"
                   style={{
                     width: 16,
-                    height: 18,
-                    display: 'inline-block'
+                    height: 18
                   }}
                 />
-                <span style={{ display: 'inline-block', width: 80 }}>
+                <span style={{ marginLeft: 20, width: 80 }}>
                   {intl.formatMessage({ id: 'app.pages.txdetail.title' })}
                 </span>
-                <span style={{ display: 'inline-block' }} className="hash">
-                  {data && data.hash}
-                </span>
+                <span className="hash">{data && data.hash}</span>
               </div>
             </div>
             <div className="transactionBody">
@@ -126,7 +131,10 @@ class TransactionDetail extends React.Component<any, any> {
                     ? ''
                     : !to
                     ? 'Contract Creation'
-                    : subData && subData.replace(/^0x/, '')
+                    : subData &&
+                      subData.replace(/^0x/, '') &&
+                      dataReceipt &&
+                      dataReceipt.contractAddress
                     ? 'Contract Call'
                     : 'Exchange'}
                 </div>
@@ -283,21 +291,25 @@ class TransactionDetail extends React.Component<any, any> {
                     initIndex={0}
                     onTabSwitchCallBack={(tabIndex: number) => {
                       if (tabIndex == 1) {
-                        if (to && subData.replace(/^0x/, '')) {
-                          getContractData(
-                            to,
-                            subData,
-                            (error: any, data: any) => {
-                              var dataUtf8: HTMLTextAreaElement = document.getElementById(
-                                'dataUtf8'
-                              ) as HTMLTextAreaElement
-                              if (error) {
-                                if (dataUtf8) dataUtf8.value = error
-                              } else {
-                                if (dataUtf8) dataUtf8.value = data
+                        var dataUtf8: HTMLTextAreaElement = document.getElementById(
+                          'dataUtf8'
+                        ) as HTMLTextAreaElement
+                        if (subData.replace(/^0x/, '')) {
+                          if (dataReceipt && dataReceipt.contractAddress) {
+                            getContractData(
+                              dataReceipt.contractAddress,
+                              subData,
+                              (error: any, data: any) => {
+                                if (error) {
+                                  if (dataUtf8) dataUtf8.value = error
+                                } else {
+                                  if (dataUtf8) dataUtf8.value = data
+                                }
                               }
-                            }
-                          )
+                            )
+                          } else {
+                            dataUtf8.value = hex2Utf8(subData)
+                          }
                         }
                       }
                     }}
@@ -312,7 +324,7 @@ class TransactionDetail extends React.Component<any, any> {
                         }}
                       />
                     </Tab>
-                    {to && subData.replace(/^0x/, '') && dataReceipt ? (
+                    {subData && subData.replace(/^0x/, '') ? (
                       <Tab title="UTF8">
                         <textarea
                           id="dataUtf8"

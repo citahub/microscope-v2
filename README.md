@@ -52,7 +52,9 @@ English | [简体中文](./README-CN.md)
   
   * Prerequisite
 
-  nodejs 11.10, yarn 1.13.0
+    node ^8.10.0 || ^10.13.0 || >=11.10.1
+
+    yarn >=1.13.0
 
   *  clone the repo
 

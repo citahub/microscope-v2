@@ -10913,6 +10913,9 @@ div.enterScreen span:nth-of-type(10) {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+.transactionTable .transactionValueTd {
+  word-break: break-all;
+}
 .rc-pagination {
   font-size: 12px;
   font-family: 'Arial';
@@ -11804,7 +11807,6 @@ li.rc-select-dropdown-menu-item-divider {
 }
 .transactionDetail .transactionNav .hash {
   overflow: hidden;
-  width: 100%;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -11835,7 +11837,7 @@ li.rc-select-dropdown-menu-item-divider {
   white-space: nowrap;
 }
 .transactionDetail .transactionBody textarea {
-  background-color: #ebebe4;
+  background-color: #eee;
   min-height: 200px;
   max-height: 500px;
   padding: 15px !important;

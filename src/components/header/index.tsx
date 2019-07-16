@@ -596,6 +596,9 @@ class MobileHeader extends React.Component<any, any> {
                 }}
                 onClick={() => {
                   hashHistory.push('/')
+                  self.setState({
+                    open: false
+                  })
                 }}
               >
                 <img src="images/headLogo_Microscope.png" />

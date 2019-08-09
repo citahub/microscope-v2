@@ -185,7 +185,7 @@ class TabContractCallContent extends React.Component<any, any> {
                       }
                     } else {
                       var output = outputs[0] as HTMLInputElement
-                      output.value = result
+                      output.value = JSON.stringify(result)
                     }
                   })
                   .catch((e: any) => {
@@ -205,7 +205,7 @@ class TabContractCallContent extends React.Component<any, any> {
                       }
                     } else {
                       var output = outputs[0] as HTMLInputElement
-                      output.value = result
+                      output.value = JSON.stringify(result)
                     }
                   })
                   .catch((e: any) => {

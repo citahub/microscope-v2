@@ -471,6 +471,7 @@ class AccountDetail extends React.Component<any, any> {
                     data={erc20Data}
                     globalTickTime={globalTickTime}
                     network={self.props.network}
+                    isErc20={true}
                     onChange={(pageNum: number, pageSize: number) => {
                       hashHistory.push(
                         '/account/' +

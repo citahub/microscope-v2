@@ -106,7 +106,7 @@ class TabContractCallContent extends React.Component<any, any> {
         nonce: 999999,
         quota: 1000000,
         chainId: 1,
-        version: 1,
+        version: 2,
         validUntilBlock: current + 88,
         value: '0x0',
         from: accountInfo.address,

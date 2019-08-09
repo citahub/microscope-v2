@@ -178,9 +178,14 @@ class TabContractCallContent extends React.Component<any, any> {
                     var outputs = document.querySelectorAll(
                       '.' + d.name + '-output'
                     )
-                    for (var i: number = 0; i < outputs.length; i++) {
-                      var output = outputs[i] as HTMLInputElement
-                      output.value = result[i]
+                    if (Array.isArray(result)) {
+                      for (var i: number = 0; i < outputs.length; i++) {
+                        var output = outputs[i] as HTMLInputElement
+                        output.value = result[i]
+                      }
+                    } else {
+                      var output = outputs[0] as HTMLInputElement
+                      output.value = result
                     }
                   })
                   .catch((e: any) => {
@@ -193,9 +198,14 @@ class TabContractCallContent extends React.Component<any, any> {
                     var outputs = document.querySelectorAll(
                       '.' + d.name + '-output'
                     )
-                    for (var i: number = 0; i < outputs.length; i++) {
-                      var output = outputs[i] as HTMLInputElement
-                      output.value = result[i]
+                    if (Array.isArray(result)) {
+                      for (var i: number = 0; i < outputs.length; i++) {
+                        var output = outputs[i] as HTMLInputElement
+                        output.value = result[i]
+                      }
+                    } else {
+                      var output = outputs[0] as HTMLInputElement
+                      output.value = result
                     }
                   })
                   .catch((e: any) => {

@@ -460,6 +460,7 @@ class AccountDetail extends React.Component<any, any> {
                     intl={intl}
                     data={erc20Data}
                     globalTickTime={globalTickTime}
+                    network={self.props.network}
                     onChange={(pageNum: number, pageSize: number) => {
                       hashHistory.push(
                         '/account/' +

@@ -28,11 +28,11 @@ const api: API = {
   serverList: [
     {
       name: 'Re-Birth Server',
-      url: 'https://rebirth.cryptape.com'
+      url: 'https://rebirth.citahub.com'
     },
     {
       name: 'CITA Node Server',
-      url: 'https://node.cryptape.com'
+      url: 'https://node.citahub.com'
     }
   ],
   jsonRpc: '/',

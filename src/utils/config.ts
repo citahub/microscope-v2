@@ -20,6 +20,8 @@ interface Config {
   apiTimeout: number
   apiTimeoutMsg: string
   apiErrorMsg: string
+  icpRecordName?: string
+  icpRecordUrl?: string
 }
 
 const api: API = {
@@ -47,7 +49,9 @@ const config: Config = {
   api: api,
   apiTimeout: 15000,
   apiTimeoutMsg: 'api timeout，try it later',
-  apiErrorMsg: 'network error！'
+  apiErrorMsg: 'network error！',
+  icpRecordName: '',
+  icpRecordUrl: ''
 }
 
 export { api }

@@ -596,6 +596,9 @@ class MobileHeader extends React.Component<any, any> {
                 }}
                 onClick={() => {
                   hashHistory.push('/')
+                  self.setState({
+                    open: false
+                  })
                 }}
               >
                 <img src="images/headLogo_Microscope.png" />
@@ -675,7 +678,7 @@ class MobileHeader extends React.Component<any, any> {
           </div>
         ) : null}
         <div className="withRow container" style={{ height: 41 }}>
-          <div className="withRowLeftAuto">
+          <div className="withRowLeftAuto" style={{ marginLeft: 20 }}>
             <SearchBar intl={self.props.intl} />
           </div>
           <div style={{ width: 120 }}>

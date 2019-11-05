@@ -106,7 +106,7 @@ class TabContractCallContent extends React.Component<any, any> {
         nonce: 999999,
         quota: 1000000,
         chainId: 1,
-        version: 1,
+        version: 2,
         validUntilBlock: current + 88,
         value: '0x0',
         from: accountInfo.address,
@@ -178,9 +178,14 @@ class TabContractCallContent extends React.Component<any, any> {
                     var outputs = document.querySelectorAll(
                       '.' + d.name + '-output'
                     )
-                    for (var i: number = 0; i < outputs.length; i++) {
-                      var output = outputs[i] as HTMLInputElement
-                      output.value = result[i]
+                    if (Array.isArray(result)) {
+                      for (let i: number = 0; i < outputs.length; i++) {
+                        let output = outputs[i] as HTMLInputElement
+                        output.value = result[i]
+                      }
+                    } else {
+                      var output = outputs[0] as HTMLInputElement
+                      output.value = JSON.stringify(result)
                     }
                   })
                   .catch((e: any) => {
@@ -193,9 +198,14 @@ class TabContractCallContent extends React.Component<any, any> {
                     var outputs = document.querySelectorAll(
                       '.' + d.name + '-output'
                     )
-                    for (var i: number = 0; i < outputs.length; i++) {
-                      var output = outputs[i] as HTMLInputElement
-                      output.value = result[i]
+                    if (Array.isArray(result)) {
+                      for (var i: number = 0; i < outputs.length; i++) {
+                        var output = outputs[i] as HTMLInputElement
+                        output.value = result[i]
+                      }
+                    } else {
+                      var output = outputs[0] as HTMLInputElement
+                      output.value = JSON.stringify(result)
                     }
                   })
                   .catch((e: any) => {
@@ -460,6 +470,8 @@ class AccountDetail extends React.Component<any, any> {
                     intl={intl}
                     data={erc20Data}
                     globalTickTime={globalTickTime}
+                    network={self.props.network}
+                    isErc20={true}
                     onChange={(pageNum: number, pageSize: number) => {
                       hashHistory.push(
                         '/account/' +

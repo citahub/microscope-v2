@@ -179,8 +179,8 @@ class TabContractCallContent extends React.Component<any, any> {
                       '.' + d.name + '-output'
                     )
                     if (Array.isArray(result)) {
-                      for (var i: number = 0; i < outputs.length; i++) {
-                        var output = outputs[i] as HTMLInputElement
+                      for (let i: number = 0; i < outputs.length; i++) {
+                        let output = outputs[i] as HTMLInputElement
                         output.value = result[i]
                       }
                     } else {

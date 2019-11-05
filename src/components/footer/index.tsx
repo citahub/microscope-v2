@@ -1,5 +1,8 @@
 import React from 'react'
 import './index.styl'
+import { injectIntl } from 'react-intl'
+import config from '../../utils/config'
+
 class Footer extends React.Component<any, any> {
   render() {
     var intl = this.props.intl
@@ -69,10 +72,17 @@ class Footer extends React.Component<any, any> {
               </div>
             </div>
           </div>
+          <div className="row vhCenter">
+            {config.icpRecordName && (
+              <a href={config.icpRecordUrl} target="_blank">
+                {config.icpRecordName}
+              </a>
+            )}
+          </div>
         </div>
       </div>
     )
   }
 }
-import { injectIntl } from 'react-intl'
+
 export default injectIntl(Footer)

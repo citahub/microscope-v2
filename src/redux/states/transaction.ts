@@ -1,10 +1,10 @@
 export interface TransactionItem {
   blockHash: string
-  blockNumber: String
-  content: String
-  from: String
-  hash: String
-  index: String
+  blockNumber: string
+  content: string
+  from: string
+  hash: string
+  index: string
   unsignedTransaction: any
 }
 export interface TransactionReceiptItem {}

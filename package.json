@@ -71,7 +71,7 @@
     "react-intl": "^2.4.0",
     "react-json-view": "^1.19.1",
     "react-redux": "^7.1.0",
-    "react-router-dom": "^5.0.1",
+    "react-router-dom": "^5.1.2",
     "react-router-redux": "^4.0.8",
     "redux": "^4.0.1",
     "redux-actions": "^2.6.5",

@@ -1,0 +1,10 @@
+language: node_js
+sudo: true
+node_js:
+  - '10.16'
+before_install: skip
+  - yarn audit
+install:
+  - yarn
+script:
+  - yarn run build

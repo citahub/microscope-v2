@@ -79,7 +79,7 @@
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.2.0",
     "style-loader": "^0.23.1",
-    "stylus": "^0.54.5",
+    "stylus": "^0.54.7",
     "stylus-loader": "^3.0.2",
     "sw-precache-webpack-plugin": "^0.11.5",
     "ts-loader": "^6.0.4",

@@ -67,7 +67,7 @@
     "rc-pagination": "^1.17.8",
     "rc-select": "^9.1.5",
     "react": "^16.8.4",
-    "react-dom": "^16.8.4",
+    "react-dom": "^16.12.0",
     "react-intl": "^2.4.0",
     "react-json-view": "^1.19.1",
     "react-redux": "^7.1.0",

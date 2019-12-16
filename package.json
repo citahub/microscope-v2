@@ -23,7 +23,7 @@
   "dependencies": {
     "@cryptape/cita-sdk": "^0.24.0",
     "@types/echarts": "^4.1.9",
-    "@types/history": "^4.7.2",
+    "@types/history": "^4.7.3",
     "@types/react": "^16.7.18",
     "@types/react-dom": "^16.0.11",
     "@types/react-intl": "^2.3.14",

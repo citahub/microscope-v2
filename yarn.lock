@@ -141,10 +141,10 @@
   dependencies:
     "@types/node" "*"
 
-"@types/echarts@^4.1.9":
-  version "4.1.9"
-  resolved "https://registry.yarnpkg.com/@types/echarts/-/echarts-4.1.9.tgz#86fdf7ca829879535cf3b1b1490e2f46a0ea0933"
-  integrity sha512-0cHLF2RGFtAzWNph5URXIioSGYhIOeDXI7H11eeIpTOjerTP7HiPrCs+hOOYF5Ym2VmMRsbd3pA0KnnVFiXlCw==
+"@types/echarts@^4.4.2":
+  version "4.4.2"
+  resolved "https://registry.yarnpkg.com/@types/echarts/-/echarts-4.4.2.tgz#88be60b9b87bc65414f22d4150834538d62ac602"
+  integrity sha512-sK3lJn0EwFUFz2xbMiSWvwZDnft4mp5zcZtvHzrMkMU2JG7lTeYjd7iAbuK2p7s7k8xVeevClllKtrHkCtjqHw==
   dependencies:
     "@types/zrender" "*"
 

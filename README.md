@@ -49,7 +49,7 @@ English | [简体中文](./README-CN.md)
 
 
 # Run
-  
+
   * Prerequisite
 
     node ^8.10.0 || ^10.13.0 || >=11.10.1
@@ -67,6 +67,40 @@ English | [简体中文](./README-CN.md)
   ```
   yarn install
   ```
+
+  * modify config in "src/utils/config.ts"
+
+    ```
+    const api: API = {
+      serverList: [
+        {
+          name: 'Re-Birth Server',
+          url: 'https://rebirth.citahub.com'
+        },
+        {
+          name: 'CITA Node Server',
+          url: 'https://testnet.citahub.com'
+        }
+      ],
+      jsonRpc: '/',
+      url: '/api/info/url',
+      status: '/api/status',
+      statistics: '/api/statistics',
+      blockList: '/api/blocks',
+      blockListV2: '/api/v2/blocks',
+      transactionList: '/api/transactions',
+      ercTransactionList: '/api/erc20/transfers'
+    }
+
+    const config: Config = {
+      api: api,
+      apiTimeout: 15000,
+      apiTimeoutMsg: 'api timeout，try it later',
+      apiErrorMsg: 'network error！',
+      icpRecordName: '',
+      icpRecordUrl: ''
+    }
+    ```
 
   *  Develop Environment
 
@@ -122,7 +156,7 @@ English | [简体中文](./README-CN.md)
 *  /src/layouts/search/ -------- Search Failed Page
 
 *  /src/layouts/common --------- Transaction Table、Transaction Search Modal、Block Search Modal
- 
+
 *  /src/components/ ------------ Basic Components，header/content/footer/loading/tab/toast/modal
 
 *  /src/components/redux ------- redux reduce/action/state

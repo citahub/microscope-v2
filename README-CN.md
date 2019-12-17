@@ -66,6 +66,40 @@ English | [简体中文](./README-CN.md)
   yarn install
   ```
 
+  * 修改配置, 在"src/utils/config.ts"
+
+  ```
+  const api: API = {
+    serverList: [
+      {
+        name: 'Re-Birth Server',
+        url: 'https://rebirth.citahub.com'
+      },
+      {
+        name: 'CITA Node Server',
+        url: 'https://testnet.citahub.com'
+      }
+    ],
+    jsonRpc: '/',
+    url: '/api/info/url',
+    status: '/api/status',
+    statistics: '/api/statistics',
+    blockList: '/api/blocks',
+    blockListV2: '/api/v2/blocks',
+    transactionList: '/api/transactions',
+    ercTransactionList: '/api/erc20/transfers'
+  }
+
+  const config: Config = {
+    api: api,
+    apiTimeout: 15000,
+    apiTimeoutMsg: 'api timeout，try it later',
+    apiErrorMsg: 'network error！',
+    icpRecordName: '',
+    icpRecordUrl: ''
+  }
+  ```
+
   *  调试环境
 
   ```

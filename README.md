@@ -79,7 +79,7 @@ English | [简体中文](./README-CN.md)
         },
         {
           name: 'CITA Node Server',
-          url: 'https://node.citahub.com'
+          url: 'https://testnet.citahub.com'
         }
       ],
       jsonRpc: '/',

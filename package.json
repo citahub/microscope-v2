@@ -86,7 +86,7 @@
     "typescript": "^3.2.2",
     "web3-eth-abi": "^1.0.0-beta.55",
     "webpack": "^4.41.2",
-    "webpack-cli": "^3.1.2",
+    "webpack-cli": "^3.3.10",
     "webpack-merge": "^4.1.4"
   },
   "devDependencies": {

@@ -32,7 +32,7 @@ const api: API = {
     },
     {
       name: 'CITA Node Server',
-      url: 'https://node.citahub.com'
+      url: 'https://testnet.citahub.com'
     }
   ],
   jsonRpc: '/',

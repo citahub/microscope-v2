@@ -58,7 +58,7 @@
     "history": "^4.9.0",
     "html-loader": "^0.5.5",
     "html-webpack-plugin": "^3.2.0",
-    "husky": "^3.0.0",
+    "husky": "^3.1.0",
     "isomorphic-fetch": "^2.2.1",
     "key-mirror": "^1.0.1",
     "moment": "^2.24.0",

@@ -2942,10 +2942,10 @@ ecc-jsbn@~0.1.1:
     jsbn "~0.1.0"
     safer-buffer "^2.1.0"
 
-echarts-for-react@^2.0.15-beta.0:
-  version "2.0.15-beta.0"
-  resolved "https://registry.yarnpkg.com/echarts-for-react/-/echarts-for-react-2.0.15-beta.0.tgz#dbf30b66bfcc8b1cb9f889eb3ec59a8b1363c3d6"
-  integrity sha512-brgogznteCirkvOvl/ZOozkpvBt612LBtDiSGE/pANTIO2+YyGpNfFXAIjEIDAY6yTvgdj+Ei7JISAfflXEn5Q==
+echarts-for-react@^2.0.15-beta.1:
+  version "2.0.15-beta.1"
+  resolved "https://registry.yarnpkg.com/echarts-for-react/-/echarts-for-react-2.0.15-beta.1.tgz#1afa21ee0f08f9023eff0b5ab3351f2fe0f708b6"
+  integrity sha512-wR8XaI3j/4JvTidZrrJVfP/RqSggLRlzKOwcruytyLSA6AyE51T7mK+EucfwZ0NkX8H6tPFCHCvgJH1LyXjiIg==
   dependencies:
     fast-deep-equal "^2.0.1"
     size-sensor "^0.2.0"

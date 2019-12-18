@@ -7204,10 +7204,10 @@ rc-pagination@^1.17.8:
     prop-types "^15.5.7"
     react-lifecycles-compat "^3.0.4"
 
-rc-select@^9.1.5:
-  version "9.1.5"
-  resolved "https://registry.yarnpkg.com/rc-select/-/rc-select-9.1.5.tgz#6811dd5f984e876cd6baa4767aaf6c152a4a1004"
-  integrity sha512-P2QDl5xSdrYuvODnwZIKxhBv2AzfsuFNfaoXjRsPTlQvOjLMCGYgyRzZ4xdUy1IAc1yER6LV+g7e4N9Qc+3DDQ==
+rc-select@^9.2.1:
+  version "9.2.1"
+  resolved "https://registry.yarnpkg.com/rc-select/-/rc-select-9.2.1.tgz#0fbf47a933c36e1e6ef76c88fab32f58029e6a01"
+  integrity sha512-nW/Zr2OCgxN26OX8ff3xcO1wK0e1l5ixnEfyN15Rbdk7TNI/rIPJIjPCQAoihRpk9A2C/GH8pahjlvKV1Vj++g==
   dependencies:
     babel-runtime "^6.23.0"
     classnames "2.x"

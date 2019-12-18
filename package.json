@@ -65,7 +65,7 @@
     "poststylus": "^1.0.0",
     "query-string": "^6.8.0",
     "rc-pagination": "^1.17.8",
-    "rc-select": "^9.1.5",
+    "rc-select": "^9.2.1",
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
     "react-intl": "^2.4.0",

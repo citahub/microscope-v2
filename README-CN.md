@@ -122,8 +122,8 @@ English | [简体中文](./README-CN.md)
   * 验证是否成功通过访问 https://YOUR_GITHUB_USERNAME.github.io/microscope-v2/ i.e. if your github name is cryptape then replace YOUR_GITHUB_USERNAME with cryptape.
 
 # 使用docker 部署一个microscope
-  * docker build -t microscope . 构建docker镜像
-  * docker run --name microscope -d -p 80:80 microscope  后台启动镜像，绑定80端口
+  1. docker build -t microscope .  构建docker镜像
+  2. docker run --name microscope -d -p 80:80 microscope   后台启动镜像，绑定80端口
 
 # 目录结构
 

@@ -124,8 +124,8 @@ English | [简体中文](./README-CN.md)
   * Verify that it works by visiting https://YOUR_GITHUB_USERNAME.github.io/microscope-v2/ i.e. if your github name is cryptape then replace YOUR_GITHUB_USERNAME with cryptape.
 
 # Having a microscope on docker
-  * docker build -t microscope .    build docker image
-  * docker run --name microscope -d -p 80:80 microscope  run microscope on port 80
+  1. docker build -t microscope .    build docker image
+  2. docker run --name microscope -d -p 80:80 microscope  run microscope on port 80
 
 # Directory Structure
 

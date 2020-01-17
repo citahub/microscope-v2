@@ -14,5 +14,3 @@ FROM nginx
 EXPOSE 80
 
 COPY --from=node /app/build /usr/share/nginx/html
-
-

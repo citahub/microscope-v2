@@ -1,3 +1,5 @@
+import citaSDK from './sdk'
+
 const web3Utils = require('web3-utils')
 const BN = web3Utils.BN
 export function valueFormat(
@@ -87,6 +89,7 @@ export function getContractData(
 ) {
   getAbi(contractAddress)
     .then((abis: any) => {
+      new citaSDK.base.Contract(abis)
       const fnHash = data.slice(0, 10)
       abis.forEach((_abi: any) => {
         if (_abi.signature === fnHash) {

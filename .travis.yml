@@ -8,3 +8,6 @@ install:
   - yarn
 script:
   - yarn run build
+  - docker build -t microscope .
+  - docker run --name microscope -d -p 8080:80 microscope
+  - curl 127.0.0.1:8080

@@ -1,6 +1,6 @@
 import { ServerNode } from './config'
 import { getSelectNetwork } from './storage'
-import CITASDK from '@cryptape/cita-sdk'
+import CITASDK from '@citahub/cita-sdk'
 
 var serverNode: ServerNode = getSelectNetwork()
 const citaSDK = CITASDK(serverNode.url)

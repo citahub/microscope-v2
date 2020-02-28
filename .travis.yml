@@ -2,8 +2,8 @@ language: node_js
 sudo: true
 node_js:
   - '10.16'
-before_install:
-  - yarn audit
+#before_install:
+#  - yarn audit
 install:
   - yarn
 script:

@@ -104,7 +104,7 @@ class TransactionDetail extends React.Component<any, any> {
                     height: 18
                   }}
                 />
-                <span style={{ marginLeft: 20, width: 80 }}>
+                <span style={{ marginLeft: 20 }}>
                   {intl.formatMessage({ id: 'app.pages.txdetail.title' })}
                 </span>
                 <span className="hash">{data && data.hash}</span>

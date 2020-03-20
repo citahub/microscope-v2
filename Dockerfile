@@ -3,9 +3,8 @@ FROM node:10 as node
 WORKDIR /app
 
 COPY package*.json ./
-COPY yarn.lock ..
 
-RUN yarn
+RUN npm install
 COPY . .
 
 RUN npm run build

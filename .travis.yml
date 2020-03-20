@@ -3,11 +3,11 @@ sudo: true
 node_js:
   - '10.16'
 #before_install:
-#  - yarn audit
+#  - npm audit
 install:
-  - yarn
+  - npm install
 script:
-  - yarn run build
+  - npm run build
   - docker build -t microscope .
   - docker run --name microscope -d -p 8080:80 microscope
   - curl 127.0.0.1:8080

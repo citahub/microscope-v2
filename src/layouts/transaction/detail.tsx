@@ -6,10 +6,9 @@ import Tabs, { Tab } from '../../components/tab'
 
 import {
   getContractData,
-  valueFormat,
   toHex,
   hex2Utf8,
-  scientificNotationToString
+  scientificNotationToString, toCTT
 } from '../../utils/hex'
 
 class TransactionDetail extends React.Component<any, any> {
@@ -237,15 +236,12 @@ class TransactionDetail extends React.Component<any, any> {
                   {data &&
                     data.unsignedTransaction &&
                     data.unsignedTransaction.transaction &&
-                    valueFormat(
+                    toCTT(
                       toHex(
                         scientificNotationToString(
                           data.unsignedTransaction.transaction.value
                         )
-                      ),
-                      self.props.network.metaData &&
-                        self.props.network.metaData.tokenSymbol,
-                      self.props.network.quotaPrice
+                      )
                     )}
                 </div>
               </div>

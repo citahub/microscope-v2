@@ -10,13 +10,7 @@ export function valueFormat(
   if (!value) return ''
   if (!symbol || !quotaPrice) return value + ' quota'
   var v = new BN(web3Utils.hexToNumberString(value))
-  if (v.isZero()) return '0 ' + symbol
-  var qp = new BN(quotaPrice)
-  if (!qp.isZero() && v.div(qp).gt(new BN(1))) {
-    return v.div(qp).toString(10) + ' ' + symbol
-  } else {
-    return +v.toString(10) + ' quota'
-  }
+  return +v.toString(10) + ' quota'
 }
 
 export const scientificNotationToString = function(param: string | number) {

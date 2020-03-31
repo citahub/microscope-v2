@@ -8,7 +8,8 @@ import {
   getContractData,
   toHex,
   hex2Utf8,
-  scientificNotationToString, toCTT
+  scientificNotationToString,
+  toValue
 } from '../../utils/hex'
 
 class TransactionDetail extends React.Component<any, any> {
@@ -236,12 +237,14 @@ class TransactionDetail extends React.Component<any, any> {
                   {data &&
                     data.unsignedTransaction &&
                     data.unsignedTransaction.transaction &&
-                    toCTT(
+                    toValue(
                       toHex(
                         scientificNotationToString(
                           data.unsignedTransaction.transaction.value
                         )
-                      )
+                      ),
+                      self.props.network.metaData &&
+                        self.props.network.metaData.tokenSymbol,
                     )}
                 </div>
               </div>

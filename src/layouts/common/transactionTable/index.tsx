@@ -6,7 +6,7 @@ import Select from 'rc-select'
 import 'rc-select/assets/index.css'
 
 import { timePassed } from '../../../utils/time'
-import { valueFormat } from '../../../utils/hex'
+import { toValue } from '../../../utils/hex'
 import hashHistory from '../../../routes/history'
 
 class TransactionTable extends React.Component<any, any> {
@@ -146,11 +146,10 @@ class TransactionTable extends React.Component<any, any> {
                       <td className="text-center transactionValueTd">
                         {self.props.isErc20
                           ? d.value
-                          : valueFormat(
+                          : toValue(
                               d.value,
                               self.props.network.metaData &&
-                                self.props.network.metaData.tokenSymbol,
-                              self.props.network.quotaPrice
+                                self.props.network.metaData.tokenSymbol
                             )}
                       </td>
                       <td>

@@ -3,10 +3,10 @@ import citaSDK from './sdk'
 const web3Utils = require('web3-utils')
 const BN = web3Utils.BN
 
-const weiToCTT = 1000000000000000000
+const weiToValue = 1000000000000000000
 
-export function toCTT(w: string) {
-  return new BN(web3Utils.hexToNumberString(w)) / weiToCTT + 'CTT'
+export function toValue(w: string, symbol: string) {
+  return new BN(web3Utils.hexToNumberString(w)) / weiToValue + ' ' + symbol
 }
 
 export function valueFormat(

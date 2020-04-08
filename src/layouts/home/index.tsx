@@ -6,7 +6,7 @@ import hashHistory from '../../routes/history'
 
 import { timePassed } from '../../utils/time'
 
-import { valueFormat } from '../../utils/hex'
+import { toValue, valueFormat } from '../../utils/hex'
 
 class Home extends React.Component<any, any> {
   timer: any
@@ -480,11 +480,10 @@ class Home extends React.Component<any, any> {
                               style={{ marginTop: 4 }}
                             >
                               value:&nbsp;
-                              {valueFormat(
+                              {toValue(
                                 value,
                                 self.props.network.metaData &&
-                                  self.props.network.metaData.tokenSymbol,
-                                self.props.network.quotaPrice
+                                  self.props.network.metaData.tokenSymbol
                               )}
                             </div>
                           </div>

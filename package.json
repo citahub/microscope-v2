@@ -19,7 +19,7 @@
     ]
   },
   "keywords": [],
-  "author": "wuyuyue@cryptape.com",
+  "author": "Rivtower",
   "dependencies": {
     "@citahub/cita-sdk": "^1.0.1",
     "@types/echarts": "^4.1.9",

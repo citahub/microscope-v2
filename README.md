@@ -1,4 +1,4 @@
-[![MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://github.com/cryptape/microscope-v2)
+[![MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://github.com/citahub/microscope-v2)
 [![CITAHub](https://img.shields.io/badge/made%20for-CITAHub-blue.svg)](https://www.citahub.com/)
 
 English | [简体中文](./README-CN.md)
@@ -10,7 +10,7 @@ English | [简体中文](./README-CN.md)
 
 # About Microscope
 
-  Microscope is a blockchain explorer built with [React](https://reactjs.org/) for inspecting CITA. It supports searching block, transaction, account and invoking call method of smart contract. It also can work with [ReBirth](https://github.com/cryptape/re-birth) to display a list of blocks and transactions on specified conditions, or even analyzes CITA‘s working status.
+  Microscope is a blockchain explorer built with [React](https://reactjs.org/) for inspecting CITA. It supports searching block, transaction, account and invoking call method of smart contract. It also can work with [ReBirth](https://github.com/citahub/re-birth) to display a list of blocks and transactions on specified conditions, or even analyzes CITA‘s working status.
 
 
 # Features
@@ -59,7 +59,7 @@ English | [简体中文](./README-CN.md)
   *  clone the repo
 
   ```
-  git clone https://github.com/cryptape/microscope-v2/
+  git clone https://github.com/citahub/microscope-v2/
   ```
 
   *  Install Dependencies
@@ -117,11 +117,11 @@ English | [简体中文](./README-CN.md)
 
 # Have one microscope quickly
 
-  * Fork the microscope-v2, On https://github.com/cryptape/microscope-v2, click Fork.
+  * Fork the microscope-v2, On https://github.com/citahub/microscope-v2, click Fork.
 
   * Once forking completes, click Settings and enable Github pages.
 
-  * Verify that it works by visiting https://YOUR_GITHUB_USERNAME.github.io/microscope-v2/ i.e. if your github name is cryptape then replace YOUR_GITHUB_USERNAME with cryptape.
+  * Verify that it works by visiting https://YOUR_GITHUB_USERNAME.github.io/microscope-v2/ i.e. if your github name is citahub then replace YOUR_GITHUB_USERNAME with citahub.
 
 # Having a microscope on docker
   1. docker build -t microscope .    build docker image

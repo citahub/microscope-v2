@@ -1,4 +1,4 @@
-[![MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://github.com/cryptape/microscope-v2)
+[![MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://github.com/citahub/microscope-v2)
 [![CITAHub](https://img.shields.io/badge/made%20for-CITAHub-blue.svg)](https://www.citahub.com/)
 
 English | [简体中文](./README-CN.md)
@@ -10,7 +10,7 @@ English | [简体中文](./README-CN.md)
 
 # 关于 Microscope
 
-  Microscope是一款区块链浏览器，用[React](https://reactjs.org/)构建，用于查询CITA链上的数据。 它支持搜索区块，交易，帐户信息和调用智能合约方法。 它还可以与[ReBirth](https://github.com/cryptape/re-birth)一起使用，实现指定组合条件的区块交易列表查询，分析CITA的工作状态等高级功能。
+  Microscope是一款区块链浏览器，用[React](https://reactjs.org/)构建，用于查询CITA链上的数据。 它支持搜索区块，交易，帐户信息和调用智能合约方法。 它还可以与[ReBirth](https://github.com/citahub/re-birth)一起使用，实现指定组合条件的区块交易列表查询，分析CITA的工作状态等高级功能。
 
 
 # 功能特性
@@ -57,7 +57,7 @@ English | [简体中文](./README-CN.md)
   *  下载仓库
 
   ```
-  git clone https://github.com/cryptape/microscope-v2/
+  git clone https://github.com/citahub/microscope-v2/
   ```
 
   *  安装依赖
@@ -115,11 +115,11 @@ English | [简体中文](./README-CN.md)
 
 # 快速拥有一个micrscope
 
-  * Fork the microscope-v2, On https://github.com/cryptape/microscope-v2, 点击 Fork.
+  * Fork the microscope-v2, On https://github.com/citahub/microscope-v2, 点击 Fork.
 
   * Forking 完成后, 点击 Settings 并且 enable Github pages.
 
-  * 验证是否成功通过访问 https://YOUR_GITHUB_USERNAME.github.io/microscope-v2/ i.e. if your github name is cryptape then replace YOUR_GITHUB_USERNAME with cryptape.
+  * 验证是否成功通过访问 https://YOUR_GITHUB_USERNAME.github.io/microscope-v2/ i.e. if your github name is citahub then replace YOUR_GITHUB_USERNAME with citahub.
 
 # 使用docker 部署一个microscope
   1. docker build -t microscope .  构建docker镜像

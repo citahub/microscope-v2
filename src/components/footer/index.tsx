@@ -25,7 +25,7 @@ class Footer extends React.Component<any, any> {
               </div>
               <div className="row" style={{ margin: 0, marginTop: 32 }}>
                 <a
-                  href="https://github.com/cryptape/cita"
+                  href="https://github.com/citahub/cita"
                   rel="noreferrer noopener"
                   target="_blank"
                 >
@@ -42,7 +42,7 @@ class Footer extends React.Component<any, any> {
                 {intl.formatMessage({ id: 'app.footer.category.contact' })}
               </div>
               <div style={{ marginTop: 28 }}>
-                <a href="https://github.com/cryptape/microscope">
+                <a href="https://github.com/citahub/microscope-v2">
                   <img
                     src="images/footer_git.png"
                     style={{ marginRight: 15, width: 16, height: 16 }}
@@ -51,12 +51,12 @@ class Footer extends React.Component<any, any> {
                 </a>
               </div>
               <div style={{ marginTop: 13 }}>
-                <a href="mailto:citahub-team@cryptape.com">
+                <a href="mailto:contact@rivtower.com">
                   <img
                     src="images/footer_mailbox.png"
                     style={{ marginRight: 15 }}
                   />
-                  E-mail: citahub-team@cryptape.com
+                  E-mail: contact@rivtower.com
                 </a>
               </div>
               <div style={{ marginTop: 13 }}>

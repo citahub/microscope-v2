@@ -80,8 +80,6 @@ export function hex2Utf8(hex: string): string {
 import { getAbi } from './dataAPI'
 import { AbiCoder } from 'web3-eth-abi'
 
-const abiCoder = new AbiCoder()
-
 export function getContractData(
   contractAddress: string,
   data: any,
@@ -95,7 +93,7 @@ export function getContractData(
         if (_abi.signature === fnHash) {
           const parameters: any = {}
           try {
-            const p = abiCoder.decodeParameters(
+            const p = new AbiCoder().decodeParameters(
               _abi.inputs,
               '0x' + data.slice(10)
             )

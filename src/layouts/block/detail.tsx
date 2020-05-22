@@ -176,10 +176,12 @@ class BlockDetail extends React.Component<any, any> {
                   :
                 </div>
                 <div className="blockDetailValue withRowLeftAuto">
-                  1&nbsp;
+                  {/* 1&nbsp;
                   {self.props.network.metaData &&
                     self.props.network.metaData.tokenSymbol}
-                  &nbsp; = {self.props.network.quotaPrice} Quota
+                  &nbsp; = {self.props.network.quotaPrice} Quota */}
+                  {/* 这里的更改详见 https://talk.citahub.com/t/topic/1173/14 */}
+                  1&nbsp; Quota &nbsp; = {self.props.network.quotaPrice} Wei
                 </div>
               </div>
               <div className="withRow blockBodyRow">

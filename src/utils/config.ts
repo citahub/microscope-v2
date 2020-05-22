@@ -27,6 +27,10 @@ interface Config {
 const api: API = {
   serverList: [
     {
+      name: 'Taidi Server',
+      url: 'https://taidi.ethgeek.cn:8888/'
+    },
+    {
       name: 'Re-Birth Server',
       url: 'https://rebirth.citahub.com'
     },

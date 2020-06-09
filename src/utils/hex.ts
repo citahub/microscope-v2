@@ -26,6 +26,24 @@ export function valueFormat(
   }
 }
 
+// 账户余额格式转化
+export function valueTokenFormat(
+  value: string,
+  symbol: string | null,
+  quotaPrice: number | null
+): string {
+  if (!value) return ''
+  if (!symbol || !quotaPrice) return value + ' quota'
+  var v = new BN(web3Utils.hexToNumberString(value))
+  if (v.isZero()) return '0 ' + symbol
+  var wtv = new BN(weiToValue.toString(10))
+  if (v.div(wtv).gt(new BN(1))) {
+    return v.div(wtv).toString(10) + ' ' + symbol
+  } else {
+    return +v.toString(10) + ' quota'
+  }
+}
+
 export const scientificNotationToString = function(param: string | number) {
   let strParam: string = param + ''
   let flag = /e/.test(strParam)

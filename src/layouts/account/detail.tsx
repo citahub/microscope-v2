@@ -6,7 +6,7 @@ import TransactionTable from '../common/transactionTable'
 
 import hashHistory from '../../routes/history'
 import queryString from 'query-string'
-import { valueFormat } from '../../utils/hex'
+import { valueTokenFormat } from '../../utils/hex'
 import citaSDK from '../../utils/sdk'
 
 class TabContractInfoContent extends React.Component<any, any> {
@@ -405,7 +405,7 @@ class AccountDetail extends React.Component<any, any> {
                         whiteSpace: 'nowrap'
                       }}
                     >
-                      {valueFormat(
+                      {valueTokenFormat(
                         balance,
                         self.props.network.metaData &&
                           self.props.network.metaData.tokenSymbol,

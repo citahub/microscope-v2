@@ -56,7 +56,7 @@ English | [简体中文](./README-CN.md)
 
     yarn >=1.13.0
 
-    上述配置可能会出现问题，若 yarn install 或 yarn start 在编译阶段出现问题，可以按照以下配置重试：
+    There may be problems with the above configuration. If yarn install or yarn start have problems during the compilation phase, you can try again according to the following configuration:
 
     node ^10.13.0
 

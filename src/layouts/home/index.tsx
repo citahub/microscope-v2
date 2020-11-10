@@ -177,8 +177,8 @@ class Home extends React.Component<any, any> {
                     <div className="generalInfoItemName">
                       {metaData
                         ? metaData.economicalModel === 0
-                          ? 'Quota Modal'
-                          : 'Charge Modal'
+                          ? 'Quota Model'
+                          : 'Charge Model'
                         : '?'}
                     </div>
                     <div className="generalInfoItemLabel">

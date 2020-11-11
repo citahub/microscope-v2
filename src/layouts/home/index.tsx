@@ -293,10 +293,10 @@ class Home extends React.Component<any, any> {
                 </div>
                 <div>
                   {topBlocks &&
-                    topBlocks.map(function(block: any, i: number) {
+                    topBlocks.map(function(block: any) {
                       var blockNumber = parseInt(block.header.number)
                       return (
-                        <div key={i} className="blockItem withRow">
+                        <div key={block.hash} className="blockItem withRow">
                           <div className="blockItemNumberWrapper">
                             <div
                               className="blockItemNumber vhCenter operationItem"
@@ -401,7 +401,7 @@ class Home extends React.Component<any, any> {
                 </div>
                 <div>
                   {topTransactions &&
-                    topTransactions.map(function(d: any, i: number) {
+                    topTransactions.map(function(d: any) {
                       // console.log(d) // sdk and rebirth have tiny different decrypt on the format of content...can not get timestamp currently
                       var from =
                         d.from ||
@@ -419,7 +419,7 @@ class Home extends React.Component<any, any> {
                           d.unsignedTransaction.transaction &&
                           d.unsignedTransaction.transaction.value)
                       return (
-                        <div key={i} className="transactionItem withRow">
+                        <div key={d.hash} className="transactionItem withRow">
                           <div className="transactionItemIcon">
                             <img src="images/content2_contract.png" />
                           </div>

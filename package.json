@@ -61,7 +61,7 @@
     "husky": "^3.0.0",
     "isomorphic-fetch": "^2.2.1",
     "key-mirror": "^1.0.1",
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "poststylus": "^1.0.0",
     "query-string": "^6.8.0",
     "rc-pagination": "^1.17.8",
